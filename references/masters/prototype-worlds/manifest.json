@@ -1,0 +1,448 @@
+{
+  "schemaVersion": "0.1.0",
+  "universeId": "phase-1-world-studies",
+  "worldBrief": "docs/prototype-briefs.md",
+  "visualBible": null,
+  "masterFrame": null,
+  "updatedAt": "2026-07-31T03:59:22.472Z",
+  "assets": [
+    {
+      "id": "afterlight-portal-01",
+      "role": "portal",
+      "status": "candidate",
+      "source": {
+        "kind": "generated",
+        "provider": "OpenAI built-in image generation",
+        "modelOrCollection": "built-in image generation",
+        "sourceUrl": null,
+        "creator": "House Adel / Codex-directed prototype",
+        "createdAt": "2026-07-30",
+        "promptRecord": "references/prompts/prototype-worlds/afterlight.md",
+        "inputAssets": [],
+        "seedOrJobId": "exec-b5d46723-5302-4abe-bf31-806c302860c9"
+      },
+      "rights": {
+        "license": "OpenAI service terms — verify for production account and date",
+        "licenseUrl": "https://openai.com/policies/terms-of-use/",
+        "commercialUse": "unknown",
+        "attribution": "unknown",
+        "territoryOrTermLimits": null,
+        "clientTransferAllowed": "unknown",
+        "sensitiveContentReviewed": true,
+        "verifiedBy": null,
+        "verifiedAt": null,
+        "notes": "Prototype-only until the rights review is completed."
+      },
+      "master": {
+        "path": "references/masters/prototype-worlds/afterlight-master.png",
+        "mediaType": "image/png",
+        "width": 1672,
+        "height": 941,
+        "durationSeconds": null,
+        "bytes": 1567044,
+        "sha256": "5ee62b33e092bbb92cf4933edafb22315941348c3898f2bc4e5bb0c652609f04"
+      },
+      "transforms": [
+        {
+          "tool": "sharp",
+          "version": "0.35.3",
+          "operation": "auto-orient-resize-and-encode",
+          "settingsRecord": "references/transforms/prototype-worlds-responsive-v1.json",
+          "createdAt": "2026-07-30"
+        }
+      ],
+      "variants": [
+        {
+          "id": "mobile-avif-480",
+          "path": "public/assets/worlds/afterlight-portal-01-480.avif",
+          "mediaType": "image/avif",
+          "width": 480,
+          "height": 270,
+          "durationSeconds": null,
+          "bytes": 4711,
+          "sha256": "4c15b7858335e9cd5b7695147670b7977f81393ef84a06a68ab5becad272ba6c",
+          "purpose": "mobile",
+          "qualityTier": "low",
+          "mediaQuery": "(max-width: 599px)",
+          "poster": null
+        },
+        {
+          "id": "mobile-webp-480",
+          "path": "public/assets/worlds/afterlight-portal-01-480.webp",
+          "mediaType": "image/webp",
+          "width": 480,
+          "height": 270,
+          "durationSeconds": null,
+          "bytes": 5544,
+          "sha256": "f5e6270ae7d1e78276a08c68df95947d3659e0c7e64787c4a6d02fc7738571e8",
+          "purpose": "mobile",
+          "qualityTier": "low",
+          "mediaQuery": "(max-width: 599px)",
+          "poster": null
+        },
+        {
+          "id": "tablet-avif-960",
+          "path": "public/assets/worlds/afterlight-portal-01-960.avif",
+          "mediaType": "image/avif",
+          "width": 960,
+          "height": 540,
+          "durationSeconds": null,
+          "bytes": 12581,
+          "sha256": "361e47bea25b93bdf8d6024f88151bbbecf3c0d69d72fe7af8d358ef7140eef3",
+          "purpose": "tablet",
+          "qualityTier": "medium",
+          "mediaQuery": "(min-width: 600px) and (max-width: 1199px)",
+          "poster": null
+        },
+        {
+          "id": "tablet-webp-960",
+          "path": "public/assets/worlds/afterlight-portal-01-960.webp",
+          "mediaType": "image/webp",
+          "width": 960,
+          "height": 540,
+          "durationSeconds": null,
+          "bytes": 15862,
+          "sha256": "2318dc976ae758c17fd54e8717f0cbf25ff0a8a787f0f6e2daa1efffb5541433",
+          "purpose": "tablet",
+          "qualityTier": "medium",
+          "mediaQuery": "(min-width: 600px) and (max-width: 1199px)",
+          "poster": null
+        },
+        {
+          "id": "desktop-avif-1440",
+          "path": "public/assets/worlds/afterlight-portal-01-1440.avif",
+          "mediaType": "image/avif",
+          "width": 1440,
+          "height": 810,
+          "durationSeconds": null,
+          "bytes": 23882,
+          "sha256": "b2117cbef1446e7cb2096a67bf972d0174a56305b720da4b77c303d3e386d6b5",
+          "purpose": "desktop",
+          "qualityTier": "high",
+          "mediaQuery": "(min-width: 1200px)",
+          "poster": null
+        },
+        {
+          "id": "desktop-webp-1440",
+          "path": "public/assets/worlds/afterlight-portal-01-1440.webp",
+          "mediaType": "image/webp",
+          "width": 1440,
+          "height": 810,
+          "durationSeconds": null,
+          "bytes": 30494,
+          "sha256": "a752cde881a10e7b1634ea344cd9a0969dcec02db3b6ea12446bdb0730140cbe",
+          "purpose": "desktop",
+          "qualityTier": "high",
+          "mediaQuery": "(min-width: 1200px)",
+          "poster": null
+        }
+      ],
+      "fallback": {
+        "staticAssetId": "afterlight-portal-01",
+        "alt": "A silver tuning-like sculpture suspended in a dark mineral chamber before a field of cobalt light.",
+        "decorative": false,
+        "failureBehavior": "Use the Afterlight cobalt and ink color field with the project title."
+      },
+      "approval": {
+        "creative": "pending",
+        "rights": "pending",
+        "technical": "pending",
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Phase 1 prototype evidence; not a selected House Adel direction."
+      }
+    },
+    {
+      "id": "listening-garden-portal-01",
+      "role": "portal",
+      "status": "candidate",
+      "source": {
+        "kind": "generated",
+        "provider": "OpenAI built-in image generation",
+        "modelOrCollection": "built-in image generation",
+        "sourceUrl": null,
+        "creator": "House Adel / Codex-directed prototype",
+        "createdAt": "2026-07-30",
+        "promptRecord": "references/prompts/prototype-worlds/listening-garden.md",
+        "inputAssets": [],
+        "seedOrJobId": "exec-48490dae-be69-444c-94be-a0b0297e6c25"
+      },
+      "rights": {
+        "license": "OpenAI service terms — verify for production account and date",
+        "licenseUrl": "https://openai.com/policies/terms-of-use/",
+        "commercialUse": "unknown",
+        "attribution": "unknown",
+        "territoryOrTermLimits": null,
+        "clientTransferAllowed": "unknown",
+        "sensitiveContentReviewed": true,
+        "verifiedBy": null,
+        "verifiedAt": null,
+        "notes": "Prototype-only until the rights review is completed."
+      },
+      "master": {
+        "path": "references/masters/prototype-worlds/listening-garden-master.png",
+        "mediaType": "image/png",
+        "width": 1672,
+        "height": 941,
+        "durationSeconds": null,
+        "bytes": 2529893,
+        "sha256": "e156c45bb0a8cbdb2f3f1ca8d4157f32b9e584b3423e53b0164335a00744862d"
+      },
+      "transforms": [
+        {
+          "tool": "sharp",
+          "version": "0.35.3",
+          "operation": "auto-orient-resize-and-encode",
+          "settingsRecord": "references/transforms/prototype-worlds-responsive-v1.json",
+          "createdAt": "2026-07-30"
+        }
+      ],
+      "variants": [
+        {
+          "id": "mobile-avif-480",
+          "path": "public/assets/worlds/listening-garden-portal-01-480.avif",
+          "mediaType": "image/avif",
+          "width": 480,
+          "height": 270,
+          "durationSeconds": null,
+          "bytes": 13633,
+          "sha256": "cc2f8594d36d3d9f6e7af821af709ae258b7a95b06f2b9fa6bb5ad24c690157e",
+          "purpose": "mobile",
+          "qualityTier": "low",
+          "mediaQuery": "(max-width: 599px)",
+          "poster": null
+        },
+        {
+          "id": "mobile-webp-480",
+          "path": "public/assets/worlds/listening-garden-portal-01-480.webp",
+          "mediaType": "image/webp",
+          "width": 480,
+          "height": 270,
+          "durationSeconds": null,
+          "bytes": 19444,
+          "sha256": "f09b01314e019801db98350575ee1420460a21e2561513e24bff488f5263082f",
+          "purpose": "mobile",
+          "qualityTier": "low",
+          "mediaQuery": "(max-width: 599px)",
+          "poster": null
+        },
+        {
+          "id": "tablet-avif-960",
+          "path": "public/assets/worlds/listening-garden-portal-01-960.avif",
+          "mediaType": "image/avif",
+          "width": 960,
+          "height": 540,
+          "durationSeconds": null,
+          "bytes": 47432,
+          "sha256": "df52a3b5e8056f04c1bf932f3f8427350b08fe8aaa8289b4abe504983e30ebd9",
+          "purpose": "tablet",
+          "qualityTier": "medium",
+          "mediaQuery": "(min-width: 600px) and (max-width: 1199px)",
+          "poster": null
+        },
+        {
+          "id": "tablet-webp-960",
+          "path": "public/assets/worlds/listening-garden-portal-01-960.webp",
+          "mediaType": "image/webp",
+          "width": 960,
+          "height": 540,
+          "durationSeconds": null,
+          "bytes": 68994,
+          "sha256": "0e2a1fdccd18d8e719d3828e21796604606ec7f437e5939cfc77e095786aa633",
+          "purpose": "tablet",
+          "qualityTier": "medium",
+          "mediaQuery": "(min-width: 600px) and (max-width: 1199px)",
+          "poster": null
+        },
+        {
+          "id": "desktop-avif-1440",
+          "path": "public/assets/worlds/listening-garden-portal-01-1440.avif",
+          "mediaType": "image/avif",
+          "width": 1440,
+          "height": 810,
+          "durationSeconds": null,
+          "bytes": 91769,
+          "sha256": "2724129f94865b124032b12c7a0e10eb9e84bd308599a160127c4962f87518f1",
+          "purpose": "desktop",
+          "qualityTier": "high",
+          "mediaQuery": "(min-width: 1200px)",
+          "poster": null
+        },
+        {
+          "id": "desktop-webp-1440",
+          "path": "public/assets/worlds/listening-garden-portal-01-1440.webp",
+          "mediaType": "image/webp",
+          "width": 1440,
+          "height": 810,
+          "durationSeconds": null,
+          "bytes": 134970,
+          "sha256": "6ce72e8cc10b96c9e11c50a3accea649654f401030e041f2ab645db715203634",
+          "purpose": "desktop",
+          "qualityTier": "high",
+          "mediaQuery": "(min-width: 1200px)",
+          "poster": null
+        }
+      ],
+      "fallback": {
+        "staticAssetId": "listening-garden-portal-01",
+        "alt": "Translucent ivory petals and small copper listening horns arranged through a misty stone garden.",
+        "decorative": false,
+        "failureBehavior": "Use the garden bone, moss, and copper color field with the project title."
+      },
+      "approval": {
+        "creative": "pending",
+        "rights": "pending",
+        "technical": "pending",
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Phase 1 prototype evidence; not a selected House Adel direction."
+      }
+    },
+    {
+      "id": "room-no-8-portal-01",
+      "role": "portal",
+      "status": "candidate",
+      "source": {
+        "kind": "generated",
+        "provider": "OpenAI built-in image generation",
+        "modelOrCollection": "built-in image generation",
+        "sourceUrl": null,
+        "creator": "House Adel / Codex-directed prototype",
+        "createdAt": "2026-07-30",
+        "promptRecord": "references/prompts/prototype-worlds/room-no-8.md",
+        "inputAssets": [],
+        "seedOrJobId": "exec-76901037-bd74-4f0e-850d-499831713833"
+      },
+      "rights": {
+        "license": "OpenAI service terms — verify for production account and date",
+        "licenseUrl": "https://openai.com/policies/terms-of-use/",
+        "commercialUse": "unknown",
+        "attribution": "unknown",
+        "territoryOrTermLimits": null,
+        "clientTransferAllowed": "unknown",
+        "sensitiveContentReviewed": true,
+        "verifiedBy": null,
+        "verifiedAt": null,
+        "notes": "Prototype-only until the rights review is completed."
+      },
+      "master": {
+        "path": "references/masters/prototype-worlds/room-no-8-master.png",
+        "mediaType": "image/png",
+        "width": 1672,
+        "height": 941,
+        "durationSeconds": null,
+        "bytes": 2537046,
+        "sha256": "8d72bfa0082b7b2f72370d991e47a5a48649437927e00727337cb81637e6a1b4"
+      },
+      "transforms": [
+        {
+          "tool": "sharp",
+          "version": "0.35.3",
+          "operation": "auto-orient-resize-and-encode",
+          "settingsRecord": "references/transforms/prototype-worlds-responsive-v1.json",
+          "createdAt": "2026-07-30"
+        }
+      ],
+      "variants": [
+        {
+          "id": "mobile-avif-480",
+          "path": "public/assets/worlds/room-no-8-portal-01-480.avif",
+          "mediaType": "image/avif",
+          "width": 480,
+          "height": 270,
+          "durationSeconds": null,
+          "bytes": 11715,
+          "sha256": "2b85ca377d16f00cbc4818c857f13e0cf7d4638c11e765ee915dce0b83ebcb75",
+          "purpose": "mobile",
+          "qualityTier": "low",
+          "mediaQuery": "(max-width: 599px)",
+          "poster": null
+        },
+        {
+          "id": "mobile-webp-480",
+          "path": "public/assets/worlds/room-no-8-portal-01-480.webp",
+          "mediaType": "image/webp",
+          "width": 480,
+          "height": 270,
+          "durationSeconds": null,
+          "bytes": 18172,
+          "sha256": "085a4d0356709a0bd422cb466b52f587aba1dd5872ef689167abc5371e0886a7",
+          "purpose": "mobile",
+          "qualityTier": "low",
+          "mediaQuery": "(max-width: 599px)",
+          "poster": null
+        },
+        {
+          "id": "tablet-avif-960",
+          "path": "public/assets/worlds/room-no-8-portal-01-960.avif",
+          "mediaType": "image/avif",
+          "width": 960,
+          "height": 540,
+          "durationSeconds": null,
+          "bytes": 44440,
+          "sha256": "4db0abf7a633aada9a817449b0e79dbde835075183d4ea8b249b3f61d8d10245",
+          "purpose": "tablet",
+          "qualityTier": "medium",
+          "mediaQuery": "(min-width: 600px) and (max-width: 1199px)",
+          "poster": null
+        },
+        {
+          "id": "tablet-webp-960",
+          "path": "public/assets/worlds/room-no-8-portal-01-960.webp",
+          "mediaType": "image/webp",
+          "width": 960,
+          "height": 540,
+          "durationSeconds": null,
+          "bytes": 72136,
+          "sha256": "5bb0b14d50b0821100ca6fe87d042f089bcf2b0b6c9356a3e804d2dc0a9c35d3",
+          "purpose": "tablet",
+          "qualityTier": "medium",
+          "mediaQuery": "(min-width: 600px) and (max-width: 1199px)",
+          "poster": null
+        },
+        {
+          "id": "desktop-avif-1440",
+          "path": "public/assets/worlds/room-no-8-portal-01-1440.avif",
+          "mediaType": "image/avif",
+          "width": 1440,
+          "height": 810,
+          "durationSeconds": null,
+          "bytes": 92183,
+          "sha256": "5bd8bf25f3140525f4b461982884afb5015c46f74a1ca484ebb0e8a399ee08f1",
+          "purpose": "desktop",
+          "qualityTier": "high",
+          "mediaQuery": "(min-width: 1200px)",
+          "poster": null
+        },
+        {
+          "id": "desktop-webp-1440",
+          "path": "public/assets/worlds/room-no-8-portal-01-1440.webp",
+          "mediaType": "image/webp",
+          "width": 1440,
+          "height": 810,
+          "durationSeconds": null,
+          "bytes": 141358,
+          "sha256": "75a84674c2582a8f9619c522703f87ba93ac50e93844a8100c44b821bf72bbe8",
+          "purpose": "desktop",
+          "qualityTier": "high",
+          "mediaQuery": "(min-width: 1200px)",
+          "poster": null
+        }
+      ],
+      "fallback": {
+        "staticAssetId": "room-no-8-portal-01",
+        "alt": "A candlelit stone dining room opens through moving red fabric onto a dark garden at blue hour.",
+        "decorative": false,
+        "failureBehavior": "Use the Room No. 8 oxblood and midnight color field with the project title."
+      },
+      "approval": {
+        "creative": "pending",
+        "rights": "pending",
+        "technical": "pending",
+        "approvedBy": null,
+        "approvedAt": null,
+        "notes": "Phase 1 prototype evidence; not a selected House Adel direction."
+      }
+    }
+  ]
+}

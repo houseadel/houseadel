@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel Assets"
+  short_description: "Provenance-first web asset production"
+  default_prompt: "Use $house-adel-assets to plan, generate, optimize, and document a House Adel asset set."

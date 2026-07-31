@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel Art Direction"
+  short_description: "Guardrails for authored visual direction"
+  default_prompt: "Use $house-adel-art-direction to evaluate a proposed visual direction against the House Adel brief."

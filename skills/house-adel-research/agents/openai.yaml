@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel Research"
+  short_description: "Cited reference research and verification"
+  default_prompt: "Use $house-adel-research to evaluate and document an interactive portfolio reference."

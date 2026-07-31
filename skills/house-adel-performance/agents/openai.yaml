@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel Performance"
+  short_description: "Measured budgets for visual experiences"
+  default_prompt: "Use $house-adel-performance to set budgets and profile a House Adel experience."

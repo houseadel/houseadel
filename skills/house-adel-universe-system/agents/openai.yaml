@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel Universe System"
+  short_description: "Contracts for coherent expandable worlds"
+  default_prompt: "Use $house-adel-universe-system to define or review a House Adel universe and its route contract."

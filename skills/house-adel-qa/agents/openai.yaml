@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel QA"
+  short_description: "Browser, resilience, and regression testing"
+  default_prompt: "Use $house-adel-qa to plan and run QA for a House Adel experience."

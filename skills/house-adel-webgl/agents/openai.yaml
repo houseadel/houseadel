@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel WebGL"
+  short_description: "Resilient WebGL architecture and quality"
+  default_prompt: "Use $house-adel-webgl to implement or audit a House Adel WebGL experience."

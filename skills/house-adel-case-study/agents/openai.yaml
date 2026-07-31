@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel Case Study"
+  short_description: "Complete case-study narrative and credits"
+  default_prompt: "Use $house-adel-case-study to structure or review a House Adel case study."

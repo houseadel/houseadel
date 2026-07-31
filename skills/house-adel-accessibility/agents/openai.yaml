@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel Accessibility"
+  short_description: "Inclusive contracts for immersive experiences"
+  default_prompt: "Use $house-adel-accessibility to audit or design an accessible House Adel experience."

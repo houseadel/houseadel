@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel Motion"
+  short_description: "Accessible motion grammar and timelines"
+  default_prompt: "Use $house-adel-motion to design or review a House Adel transition timeline."

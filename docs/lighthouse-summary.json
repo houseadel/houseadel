@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "0.1.0",
+  "mode": "Lighthouse mobile simulation against a local Vite production preview; lab evidence, not field data",
+  "reports": [
+    {
+      "id": "home",
+      "route": "/",
+      "finalUrl": "http://127.0.0.1:4177/",
+      "fetchTime": "2026-07-31T05:14:38.641Z",
+      "lighthouseVersion": "13.4.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 0.98,
+        "accessibility": 1,
+        "best-practices": 0.96,
+        "seo": 0.92
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 1970.1658499999999,
+        "largestContentfulPaintMs": 1970.16585,
+        "totalBlockingTimeMs": 0,
+        "cumulativeLayoutShift": 0.01608730623418769,
+        "speedIndexMs": 1970.1658499999999
+      }
+    },
+    {
+      "id": "fracture",
+      "route": "/prototypes/fracture",
+      "finalUrl": "http://127.0.0.1:4177/prototypes/fracture",
+      "fetchTime": "2026-07-31T05:14:54.142Z",
+      "lighthouseVersion": "13.4.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 0.95,
+        "accessibility": 1,
+        "best-practices": 0.96,
+        "seo": 0.92
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 2130.4735,
+        "largestContentfulPaintMs": 2507.88575,
+        "totalBlockingTimeMs": 0,
+        "cumulativeLayoutShift": 0,
+        "speedIndexMs": 2130.4735
+      }
+    },
+    {
+      "id": "hybrid",
+      "route": "/prototypes/hybrid",
+      "finalUrl": "http://127.0.0.1:4177/prototypes/hybrid",
+      "fetchTime": "2026-07-31T05:15:07.546Z",
+      "lighthouseVersion": "13.4.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 0.64,
+        "accessibility": 1,
+        "best-practices": 0.96,
+        "seo": 0.91
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 2772.6316500000003,
+        "largestContentfulPaintMs": 3737.1316500000003,
+        "totalBlockingTimeMs": 884.1447250000002,
+        "cumulativeLayoutShift": 0.002002282322911237,
+        "speedIndexMs": 2772.6316500000003
+      }
+    },
+    {
+      "id": "cinematic",
+      "route": "/prototypes/cinematic",
+      "finalUrl": "http://127.0.0.1:4177/prototypes/cinematic",
+      "fetchTime": "2026-07-31T05:15:22.507Z",
+      "lighthouseVersion": "13.4.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "scores": {
+        "performance": 0.58,
+        "accessibility": 1,
+        "best-practices": 0.96,
+        "seo": 0.91
+      },
+      "metrics": {
+        "firstContentfulPaintMs": 2721.5032,
+        "largestContentfulPaintMs": 3729.0032,
+        "totalBlockingTimeMs": 1757.0828000000006,
+        "cumulativeLayoutShift": 0.0005684808175780461,
+        "speedIndexMs": 2929.7217310982633
+      }
+    }
+  ]
+}
