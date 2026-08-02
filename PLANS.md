@@ -39,6 +39,14 @@ Met on 2026-08-02. Production implementation may begin after the governance chec
 
 Every route is readable and usable at all four target viewports with JavaScript enhancement absent or motion disabled. Navigation, application schema, server validation boundary, and mock result states have automated coverage.
 
+### Completion record
+
+- Implemented the complete required route tree, production shell, truthful static content, and responsive layouts.
+- Added typed Edition and Story systems, a working Edition demonstration, atelier table, Stories stage, drawn House line, Living Brief, and honest confirmation state.
+- Added independent client/server validation and mock/email/Sheets provider boundaries.
+- Removed the archived direction and all generated media from the production path while preserving recovery on `phase-1-research`.
+- Passed lint, typecheck, unit, build, provenance, API behavior, and the Chromium static route/interaction gate.
+
 ## Phase 2 - Design system
 
 ### Work

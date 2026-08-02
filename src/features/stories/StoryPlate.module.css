@@ -1,0 +1,110 @@
+.figure {
+  margin: 0;
+}
+
+.field {
+  position: relative;
+  min-height: 24rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 7px, color-mix(in srgb, var(--color-ink) 2.5%, transparent) 7px 8px),
+    var(--color-paper);
+}
+
+.field svg {
+  position: absolute;
+  inset: 5%;
+  width: 90%;
+  height: 90%;
+}
+
+.line,
+.garnetLine,
+.metalLine {
+  fill: none;
+  stroke-width: 1.4;
+}
+
+.line {
+  stroke: var(--color-ink);
+}
+
+.garnetLine {
+  stroke: var(--color-garnet);
+}
+
+.metalLine {
+  stroke: var(--color-metal);
+}
+
+.paper {
+  fill: var(--color-ivory);
+}
+
+.paperRaised {
+  fill: var(--color-ivory-raised);
+}
+
+.garnet {
+  fill: var(--color-garnet);
+}
+
+.garnetSoft {
+  fill: color-mix(in srgb, var(--color-garnet) 30%, var(--color-paper));
+}
+
+.category,
+.year {
+  position: absolute;
+  margin: 0;
+  font-size: 0.67rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.category {
+  top: 1rem;
+  left: 1rem;
+}
+
+.year {
+  right: 1rem;
+  bottom: 1rem;
+}
+
+.figure figcaption {
+  margin-top: 0.55rem;
+  color: var(--color-ink-soft);
+  font-size: 0.7rem;
+}
+
+@media (max-width: 42rem) {
+  .field {
+    min-height: 18rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .field {
+    border-color: CanvasText;
+    background: Canvas;
+  }
+
+  .line,
+  .garnetLine,
+  .metalLine {
+    stroke: CanvasText;
+  }
+
+  .paper,
+  .paperRaised,
+  .garnetSoft {
+    fill: Canvas;
+  }
+
+  .garnet {
+    fill: CanvasText;
+  }
+}

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { stat } from "node:fs/promises";
-import path from "node:path";
 import {
   formatBytes,
   parseArgs,

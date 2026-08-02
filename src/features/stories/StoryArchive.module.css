@@ -1,0 +1,162 @@
+.archive {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(22rem, 0.85fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  align-items: start;
+}
+
+.heading {
+  margin: 0 0 var(--space-5);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.list {
+  margin: 0;
+  border-top: 1px solid var(--line-strong);
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  border-bottom: 1px solid var(--line);
+}
+
+.list article {
+  padding-block: var(--space-4);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  min-height: 3.5rem;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.indexNumber,
+.meta,
+.open {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.indexNumber,
+.meta {
+  color: var(--color-ink-soft);
+}
+
+.rowTitle {
+  font: 400 clamp(1.65rem, 3.1vw, 3.2rem)/0.98 var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.meta {
+  grid-column: 2;
+}
+
+.open {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  color: var(--color-garnet);
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.row:hover .rowTitle,
+.row:focus-visible .rowTitle {
+  color: var(--color-garnet);
+}
+
+.row:focus-visible {
+  outline: 0.15rem solid var(--color-garnet);
+  outline-offset: 0.2rem;
+}
+
+.dek {
+  max-width: 58ch;
+  margin: var(--space-3) 0 0 3.25rem;
+  color: var(--color-ink-soft);
+}
+
+.studyLabel {
+  margin: var(--space-2) 0 0 3.25rem;
+  color: var(--color-garnet);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.stage {
+  position: sticky;
+  top: 7rem;
+}
+
+.stage > p {
+  margin: var(--space-2) 0 0;
+  color: var(--color-garnet);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+.stage .stageTitle {
+  margin-top: var(--space-4);
+  color: var(--color-ink);
+  font: 400 clamp(1.8rem, 3vw, 3rem)/1 var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.mobilePlate {
+  display: none;
+}
+
+@media (max-width: 64rem) {
+  .archive {
+    grid-template-columns: 1fr;
+  }
+
+  .stage {
+    display: none;
+  }
+
+  .mobilePlate {
+    display: block;
+    margin: var(--space-4) 0 0 3.25rem;
+  }
+}
+
+@media (max-width: 40rem) {
+  .row {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+
+  .meta {
+    grid-column: 2;
+  }
+
+  .open {
+    grid-column: 2;
+    grid-row: auto;
+    min-height: 2.75rem;
+    padding-top: 0.85rem;
+  }
+
+  .mobilePlate,
+  .dek,
+  .studyLabel {
+    margin-left: 2.75rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .row:hover .rowTitle,
+  .row:focus-visible .rowTitle,
+  .open,
+  .studyLabel {
+    color: LinkText;
+  }
+}

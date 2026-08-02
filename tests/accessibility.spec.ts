@@ -1,10 +1,23 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const routes = ["/", "/prototypes/fracture", "/prototypes/hybrid", "/prototypes/cinematic"];
+const routes = [
+  "/",
+  "/editions",
+  "/editions/threshold",
+  "/private-commissions",
+  "/stories",
+  "/stories/threshold-an-invitation-as-entrance",
+  "/the-house",
+  "/apply",
+  "/application-received",
+  "/privacy",
+  "/terms",
+] as const;
 
 for (const route of routes) {
   test(`axe scan: ${route}`, async ({ page }) => {
+    await page.addInitScript(() => localStorage.setItem("house-adel:graphics", "fallback"));
     await page.goto(route);
     await page.locator("[data-route-heading]").waitFor();
     const results = await new AxeBuilder({ page })
@@ -14,55 +27,48 @@ for (const route of routes) {
   });
 }
 
-test("keyboard focus reaches all fracture destinations in DOM order", async ({ page }) => {
-  await page.goto("/prototypes/fracture");
-  const links = page.getByRole("navigation", { name: "Fictional world studies" }).getByRole("link");
-  for (let index = 0; index < 3; index += 1) {
-    await links.nth(index).focus();
-    await expect(links.nth(index)).toBeFocused();
-  }
+test("skip navigation reaches the main landmark", async ({ page }) => {
+  await page.goto("/");
+  await page.keyboard.press("Tab");
+  const skipLink = page.getByRole("link", { name: "Skip to main content" });
+  await expect(skipLink).toBeFocused();
+  await skipLink.press("Enter");
+  await expect(page.locator("#main-content")).toBeFocused();
 });
 
-test("graphics preference exposes a complete no-WebGL path", async ({ page }) => {
-  await page.addInitScript(() => localStorage.setItem("house-adel:graphics", "fallback"));
-  await page.goto("/prototypes/hybrid");
-  await expect(page.getByText("No-WebGL review mode is active.")).toBeVisible();
+test("Stories exposes its visual stage through focus as well as hover", async ({ page }) => {
+  await page.goto("/stories");
+  const firstStory = page.getByRole("link", { name: /Threshold: an invitation as entrance/ });
+  await firstStory.focus();
+  await expect(firstStory).toBeFocused();
   await expect(
-    page.getByRole("navigation", { name: "Fictional world studies" }).getByRole("link"),
-  ).toHaveCount(3);
+    page.getByRole("complementary", { name: /Visual plate for Threshold: an invitation as entrance/ }),
+  ).toBeVisible();
 });
 
-test("cinematic graphics preference exposes a complete static path", async ({ page }) => {
-  await page.addInitScript(() => localStorage.setItem("house-adel:graphics", "fallback"));
-  await page.goto("/prototypes/cinematic");
-  await expect(page.locator(".cinematic-static")).toBeVisible();
-  await expect(page.getByRole("link", { name: /Enter this study/ })).toBeVisible();
-  await expect(page.locator("canvas")).toHaveCount(0);
-});
-
-test("mobile review controls meet the 44 by 44 touch-target rule", async ({
-  page,
-}, testInfo) => {
+test("mobile controls meet the 44 by 44 touch-target rule", async ({ page }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith("mobile"), "Mobile-only target-size assertion");
 
-  const expectTouchTargets = async (selector: string) => {
-    const targets = page.locator(selector);
-    for (let index = 0; index < (await targets.count()); index += 1) {
-      const box = await targets.nth(index).boundingBox();
-      expect(box, `${selector} target ${index} should be visible`).not.toBeNull();
-      expect(box!.width, `${selector} target ${index} width`).toBeGreaterThanOrEqual(44);
-      expect(box!.height, `${selector} target ${index} height`).toBeGreaterThanOrEqual(44);
-    }
+  const expectTouchTarget = async (locator: ReturnType<typeof page.locator>, label: string) => {
+    const box = await locator.boundingBox();
+    expect(box, `${label} should be visible`).not.toBeNull();
+    expect(box!.width, `${label} width`).toBeGreaterThanOrEqual(44);
+    expect(box!.height, `${label} height`).toBeGreaterThanOrEqual(44);
   };
 
   await page.goto("/");
-  await expectTouchTargets(".filter-row button");
-  await expectTouchTargets(".mode-toolbar button");
+  const menu = page.getByRole("button", { name: /Menu/ });
+  await expectTouchTarget(menu, "menu button");
+  await menu.click();
+  await expectTouchTarget(
+    page.getByRole("navigation", { name: "Mobile navigation" }).getByRole("link", { name: "Apply" }),
+    "mobile Apply link",
+  );
 
-  await page.goto("/prototypes/cinematic");
-  await expectTouchTargets(".cinematic-index button");
-  await expectTouchTargets(".cinematic-copy a");
-
-  await page.goto("/prototypes/hybrid");
-  await expectTouchTargets(".context-loss-button");
+  await page.goto("/editions/threshold");
+  await expectTouchTarget(page.getByRole("button", { name: "Mobile" }), "preview size button");
+  await expectTouchTarget(
+    page.getByRole("navigation", { name: "Invitation sections" }).getByRole("button", { name: "RSVP" }),
+    "preview RSVP button",
+  );
 });

@@ -4,72 +4,58 @@ Last updated: 2026-08-02
 
 ## Current milestone
 
-**Phase 0 — Audit: completed with baseline failures recorded.**
+**Phase 1 — Architecture: complete. Phase 2/3 visual and motion integration is next.**
 
-The superseded site was inspected and run before production changes. Its framework, routes, components, styling, dependencies, assets, hosting assumptions, and duplicated/obsolete direction code were inventoried. Production implementation has **not** started; the current `master` remains the Phase 1 direction-lab baseline while the documented removal gate is completed.
+The production information architecture is live in the local Vite build. Every required route has semantic content, persistent navigation, a responsive static composition, deep-link handling, Back/Forward behavior, and a truthful not-found state. The Edition catalogue, live invitation demonstration, Private Commissions atelier table, Stories system, drawn-line House page, and Living Brief application are all usable before complex motion.
 
-The Moving House work is preserved on branch `phase-1-research` at commit `7ec9c97`. `master` is at `a4a19c5`. This is the recovery boundary for the prohibited generated assets and superseded interaction direction.
+The Moving House implementation remains recoverable from branch `phase-1-research` at commit `7ec9c97`. Its generated masters, public derivatives, review captures, and obsolete visual baselines have been removed from `master`. The current production build contains no raster image or generative asset.
 
-## Audit artifacts and files changed
+## Completed in this milestone
 
-- `phase-1-research` / `7ec9c97` — archival branch and commit containing the Moving House implementation and its generated source/derivative assets.
-- `output/playwright/audit-current/` — 44 local audit screenshots: 11 routes or route states at `1440 × 900`, `1024 × 768`, `430 × 932`, and `390 × 844`.
-- `docs/ASSET_PROVENANCE.md` — production eligibility, Phase 0 asset inventory, and safe generated-asset removal plan.
-- `AGENTS.md` and `PLANS.md` — production operating contract and phased acceptance plan.
-- `docs/CREATIVE_DIRECTION.md` — permanent Ceremonial Spatial Editorialism system.
-- `docs/INFORMATION_ARCHITECTURE.md` — production route and content contract.
-- `docs/MOTION_SPEC.md` — purposeful motion grammar, fallbacks, and verification rules.
-- `docs/DECISIONS.md` — governing direction, archive, stack/router/hosting, enhancement, and dependency decisions.
-- `docs/STATUS.md` — this milestone record.
-- `skills/house-adel-design-guardian/` — repository-local visual, motion, accessibility, and provenance guardrails with a deterministic asset audit.
-
-The screenshot set covers the then-current homepage, Phase 1 review route, three prototype routes, three study routes, two Moving House work routes, and not-found state. It is internal audit evidence and must not be deployed or shown as public reference imagery.
+- Created all required routes: `/`, `/editions`, `/editions/:slug`, `/private-commissions`, `/stories`, `/stories/:slug`, `/the-house`, `/apply`, `/application-received`, `/privacy`, `/terms`, and a 404 state.
+- Rebuilt the shell with a skip link, persistent mark and navigation, mobile menu, semantic footer, route announcements, titles, focus restoration, and direct-route support.
+- Added typed Edition and Story data with three Edition studies and four Story studies. Every study is labelled `House Adel Study — Self-initiated.` and no client, wedding, result, award, location, testimonial, or team member is fabricated.
+- Built the interactive Edition preview, desktop/mobile switch, sample personalisation, EN/FR navigation, and local-only RSVP demonstration.
+- Built the Private Commissions atelier table, process, disciplines, availability, and minimum investment structure.
+- Built the Stories focus/hover stage and reusable eleven-part story detail architecture.
+- Built The House drawn-line structure and factual founder language for Marshall Phan.
+- Built the five-part application, fixed progress rail, live brief, non-sensitive autosave, validation, editable review state, and honest confirmation route.
+- Added server-side validation, a 64 KB request limit, honeypot rejection, in-memory rate-limit interface, optional Turnstile boundary, and mock/email/Google Sheets provider adapters.
+- Added the fail-closed Met, Rijksmuseum, and Smithsonian acquisition pipeline plus `data/assets.json`; no media has been downloaded.
+- Established tokens, typography, responsive grids, editorial components, CSS Modules, ESLint, standalone type checking, and bundle reporting.
 
 ## Verification performed
 
-| Command | Exit | Result |
-| --- | ---: | --- |
-| `npm.cmd test` | 0 | 1 file / 2 tests passed |
-| `npm.cmd run audit:structure` | 0 | 14 required entries found |
-| `npm.cmd run build` | 0 | `tsc --noEmit` passed; Vite processed 61 modules in 2.95 s; WebGL chunk warning: 881.22 kB minified / 234.03 kB gzip |
-| `npm.cmd run test:e2e` | 1 | 217 total: 125 passed, 58 skipped, 34 failed in 3.2 minutes |
-| `npm.cmd run test:a11y` | 1 | 70 total: 55 passed, 4 skipped, 11 failed in 1.5 minutes |
+| Check | Result |
+| --- | --- |
+| `npm run lint` | Passed with zero warnings |
+| `npm run typecheck` | Passed |
+| `npm test` | 1 file, 6 tests passed |
+| `npm run build` | Passed; 162 modules; no source maps; bundle report written outside `dist` |
+| Chromium production route/interaction gate | Required static routes, Back/Forward, 404, Edition demo, fallback, and resize checks passed |
+| Application API checks | Mock `202`; disabled provider `503`; honeypot `400`; invalid JSON `400`; unsupported method `405` |
+| `npm run audit:provenance` | Passed; zero production image files and zero unrecorded files |
+| Browser review | Root at 1440 × 900 and 390 × 844; all distinct page types at 1440 × 900 |
 
-No `lint` or standalone `typecheck` script exists. Type checking currently runs only as the first part of `npm.cmd run build`.
+## Files changed
 
-The browser-suite failures are not concealed:
+- `src/App.tsx`, `src/lib/router.tsx`, `src/components/layout/`, `src/pages/`, `src/features/`, `src/data/`, and `src/styles/` — production route, content, component, form, and visual architecture.
+- `server/applications/` and `vite.config.ts` — local/preview application endpoint and provider boundary.
+- `data/assets.json`, `scripts/fetch-open-access-assets.ts`, and `docs/ASSET_PROVENANCE.md` — rights-gated asset workflow.
+- `package.json`, `package-lock.json`, `eslint.config.js`, and `tsconfig.json` — approved dependencies, lint/typecheck, scripts, and server scope.
+- `tests/` — production unit and browser expectations replacing the obsolete research interface.
+- `public/assets/worlds/`, `references/captures/phase-1/`, `references/masters/prototype-worlds/`, `src/assets/review-captures/`, and obsolete Phase 1 visual baselines — generated media removed from `master`, recoverable on the archive branch.
 
-- all 31 Firefox cases failed during browser startup;
-- route-heading focus failed on direct loads in Edge and mobile Chromium;
-- WebKit route-heading focus was intermittent;
-- arrival visual readiness was intermittent.
+## Unresolved before public launch
 
-These are baseline failures. A green production test suite has not yet been achieved.
-
-## Phase 0 findings
-
-- Stack: React 19, TypeScript, Vite 8, npm, GSAP/ScrollTrigger, Three.js, and React Three Fiber.
-- Routing: a custom History API router with lazy prototype routes; no production information architecture exists yet.
-- Styling: one approximately 2,895-line global stylesheet in the Phase 1 baseline; the archived Moving House addition adds another large page stylesheet and a 441-line component. Both are poor production component boundaries.
-- Assets: generated Phase 1 masters and public derivatives remain on `master`; generated Moving House assets are isolated on the archival branch. Neither set is eligible for production.
-- Hosting: no deployment configuration or provider is selected. Vite produces a static SPA and therefore requires a host rewrite for direct routes. Real application submission additionally requires a server-side or serverless endpoint.
-- Tests: unit, structural audit, typecheck, and build pass; the existing cross-browser and accessibility suites do not pass.
-
-## Unresolved issues
-
-- Remove every generated master, derivative, capture, baseline, and import from the production branch after the provenance decision is committed and before public-route integration.
-- Replace the Phase 1 route switch, research interface, generated studies, global CSS concentration, and superseded test expectations with the production architecture.
-- Diagnose or provision the Firefox runtime rather than marking its 31 startup failures as application passes.
-- Fix deterministic route-heading focus across Edge, mobile Chromium, and WebKit.
-- Make visual readiness deterministic and replace obsolete Phase 1 visual baselines.
-- Add and pass an ESLint command; retain build-based type checking or add a standalone alias.
-- Select a production host and serverless runtime before real submissions can be enabled.
-- Obtain email and/or Google Sheets credentials only when a provider is selected. Mock mode must report itself honestly and must not imply external delivery.
-- Build `data/assets.json`, the open-access acquisition script, and the unrecorded-image report before adding production imagery.
-- Establish production performance measurements after the semantic grey-box is integrated; the current WebGL warning is a baseline, not an accepted budget.
+- Integrate and visually approve the procedural homepage scene and purpose-led GSAP interactions; static fallbacks already exist.
+- Complete all four-viewport screenshots, special-state visual baselines, full cross-browser, accessibility, slow-network, performance, and Lighthouse gates after motion integration.
+- Confirm that `studio@houseadel.com` is an active receiving address.
+- Select the production host and reproduce the `/api/applications` contract in its server/serverless runtime.
+- Configure and test an external email or Google Sheets provider. Mock mode is intentionally non-persistent.
+- Add a Turnstile client widget before enabling its server secret.
+- Replace or supplement code-native material studies only with project-owned or human-approved public-domain/CC0 assets if the creative review calls for imagery.
 
 ## Next milestone
 
-**Phase 1 — Architecture.**
-
-Create the complete semantic route structure, persistent navigation, static content hierarchy, responsive grey-box layouts, application schema/provider boundaries, honest mock submission path, not-found state, and no-WebGL/reduced-motion content fallbacks. Remove prohibited generated assets from the production path. Do not begin complex motion until this milestone is reviewable in the browser and its navigation, focus, direct loads, Back/Forward behavior, mobile menu, and static form flow pass.
+**Phase 2/3 — refine the production design system and evaluate the five isolated motion prototypes.** Integrate only the motions that materially establish hierarchy, change spatial context, reveal material, introduce a project, explain process, demonstrate function, or provide feedback.

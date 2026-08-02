@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-02",
+  "policy": {
+    "eligibleRights": [
+      "Public Domain Mark 1.0",
+      "CC0 1.0"
+    ],
+    "approvalRequired": true,
+    "productionUseRequiresApproval": true
+  },
+  "assets": []
+}

@@ -17,3 +17,8 @@ Object.defineProperty(window, "matchMedia", {
     dispatchEvent: () => false,
   }),
 });
+
+Object.defineProperty(window, "scrollTo", {
+  configurable: true,
+  value: () => undefined,
+});

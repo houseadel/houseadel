@@ -1,0 +1,265 @@
+.figure {
+  margin: 0;
+}
+
+.table {
+  position: relative;
+  min-height: clamp(38rem, 64vw, 61rem);
+  overflow: hidden;
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(90deg, transparent 49.93%, rgba(33, 28, 27, 0.08) 50%, transparent 50.07%),
+    linear-gradient(0deg, transparent 49.93%, rgba(33, 28, 27, 0.06) 50%, transparent 50.07%),
+    var(--color-paper);
+  box-shadow: inset 0 0 8rem rgba(62, 47, 40, 0.08);
+}
+
+.fragment {
+  position: absolute;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 32%, transparent);
+  background: var(--color-ivory-raised);
+  box-shadow: var(--shadow-paper);
+}
+
+.fragment > span,
+.fragment > small {
+  font-size: 0.6rem;
+  font-weight: 670;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.photoFragment {
+  top: 8%;
+  left: 7%;
+  width: min(29rem, 37%);
+  padding: 0.65rem;
+  transform: rotate(-2.5deg);
+}
+
+.photoFragment svg {
+  width: 100%;
+}
+
+.photoFragment > span {
+  display: block;
+  padding: 0.65rem 0.15rem 0.1rem;
+}
+
+.mapFragment {
+  top: 11%;
+  right: 7%;
+  width: 35%;
+  padding: 1rem;
+  transform: rotate(1.4deg);
+  background: color-mix(in srgb, var(--color-ivory-raised) 72%, var(--color-stone-soft));
+}
+
+.mapFragment svg path,
+.mapFragment svg circle {
+  fill: none;
+  stroke: var(--color-ink-soft);
+  stroke-width: 1.1;
+  vector-effect: non-scaling-stroke;
+}
+
+.mapFragment svg .route {
+  stroke: var(--color-garnet);
+  stroke-width: 2;
+}
+
+.mapFragment > span {
+  display: block;
+  margin-top: 0.6rem;
+}
+
+.dateFragment {
+  top: 44%;
+  left: 13%;
+  display: grid;
+  width: 28%;
+  gap: 0.75rem;
+  padding: clamp(1rem, 2vw, 2rem);
+  transform: rotate(1.2deg);
+}
+
+.dateFragment strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.4vw, 4rem);
+  font-weight: 380;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.lineFragment {
+  top: 42%;
+  right: 12%;
+  width: 34%;
+  padding: clamp(1.4rem, 3vw, 3rem);
+  transform: rotate(-4deg);
+  background: color-mix(in srgb, var(--color-ivory-raised) 76%, transparent);
+}
+
+.lineFragment > span {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 3.2rem);
+  font-style: italic;
+  font-weight: 340;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  text-transform: none;
+}
+
+.paperFragment {
+  bottom: 9%;
+  left: 5%;
+  display: grid;
+  width: 18%;
+  transform: rotate(3deg);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.paperFragment span {
+  min-height: 3.4rem;
+  padding: 0.7rem;
+  border: 1px solid var(--line);
+  background: var(--color-ivory-raised);
+}
+
+.paperFragment span:nth-child(1) {
+  background: rgba(248, 244, 236, 0.65);
+}
+
+.paperFragment span:nth-child(2) {
+  margin-top: -1px;
+  background: var(--color-paper);
+}
+
+.paperFragment span:nth-child(3) {
+  margin-top: -1px;
+  background: var(--color-garnet);
+  color: var(--color-ivory-raised);
+}
+
+.planFragment {
+  right: 23%;
+  bottom: 7%;
+  width: 31%;
+  padding: 1rem;
+  transform: rotate(-1.5deg);
+}
+
+.planFragment svg path {
+  fill: none;
+  stroke: var(--color-ink-soft);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.planFragment > span {
+  display: block;
+  margin-top: 0.5rem;
+}
+
+.typeFragment {
+  right: 5%;
+  bottom: 12%;
+  display: grid;
+  width: 13%;
+  padding: 1rem;
+  transform: rotate(2deg);
+  background: var(--color-garnet-deep);
+  color: var(--color-ivory-raised);
+}
+
+.typeFragment > span {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2vw, 2.5rem);
+  font-weight: 350;
+  letter-spacing: -0.02em;
+  line-height: 0.86;
+}
+
+.measurement {
+  position: absolute;
+  top: 3.5%;
+  right: 5%;
+  left: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-ink-soft);
+  font-size: 0.58rem;
+  font-weight: 680;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.measurement span:first-child,
+.measurement span:last-child {
+  padding-top: 0.35rem;
+}
+
+.figure figcaption {
+  max-width: 40rem;
+  margin-top: var(--space-3);
+  color: var(--color-ink-soft);
+  font-size: var(--step--1);
+}
+
+@media (max-width: 47.99rem) {
+  .table {
+    min-height: 47rem;
+  }
+
+  .photoFragment {
+    top: 7%;
+    left: 5%;
+    width: 60%;
+  }
+
+  .mapFragment {
+    top: 23%;
+    right: 4%;
+    width: 58%;
+  }
+
+  .dateFragment {
+    top: 43%;
+    left: 5%;
+    width: 55%;
+  }
+
+  .lineFragment {
+    top: 57%;
+    right: 4%;
+    width: 67%;
+  }
+
+  .paperFragment {
+    bottom: 4%;
+    left: 4%;
+    width: 29%;
+  }
+
+  .planFragment {
+    right: 18%;
+    bottom: 4%;
+    width: 45%;
+  }
+
+  .typeFragment {
+    right: 3%;
+    bottom: 5%;
+    width: 20%;
+  }
+}
+
+@media (forced-colors: active) {
+  .fragment,
+  .table {
+    border: 1px solid CanvasText;
+  }
+}

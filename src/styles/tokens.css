@@ -1,0 +1,70 @@
+:root {
+  color-scheme: light;
+  --font-display: "Newsreader Variable", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: "Manrope Variable", "Helvetica Neue", Arial, sans-serif;
+
+  --color-ivory: #f2eee5;
+  --color-ivory-raised: #f8f4ec;
+  --color-paper: #e7dfd1;
+  --color-stone: #b9afa0;
+  --color-stone-soft: #d4ccbf;
+  --color-ink: #211c1b;
+  --color-ink-soft: #524a46;
+  --color-garnet: #6f2431;
+  --color-garnet-deep: #4c1721;
+  --color-metal: #9c8768;
+  --color-error: #8b2635;
+  --color-success: #315d48;
+
+  --line: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  --line-strong: color-mix(in srgb, var(--color-ink) 52%, transparent);
+  --surface-vellum: color-mix(in srgb, var(--color-ivory-raised) 84%, transparent);
+  --shadow-paper: 0 1.25rem 3rem rgba(49, 37, 31, 0.09);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6.5rem;
+  --space-10: 9rem;
+
+  --page-gutter: clamp(1.1rem, 3.4vw, 3.75rem);
+  --page-max: 100rem;
+  --reading-max: 43rem;
+  --header-height: 4.75rem;
+  --radius-small: 0.2rem;
+
+  --step--1: clamp(0.72rem, 0.68rem + 0.15vw, 0.82rem);
+  --step-0: clamp(0.94rem, 0.88rem + 0.2vw, 1.06rem);
+  --step-1: clamp(1.08rem, 0.98rem + 0.42vw, 1.4rem);
+  --step-2: clamp(1.38rem, 1.13rem + 0.9vw, 2rem);
+  --step-3: clamp(1.8rem, 1.25rem + 2.1vw, 3.35rem);
+  --step-4: clamp(2.65rem, 1.5rem + 4.1vw, 5.9rem);
+  --step-5: clamp(3.8rem, 1.6rem + 7.3vw, 9.25rem);
+
+  --ease-house: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ceremony: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-fast: 180ms;
+  --duration-medium: 420ms;
+  --duration-slow: 760ms;
+}
+
+@media (max-width: 47.99rem) {
+  :root {
+    --header-height: 4.25rem;
+    --space-8: 3.5rem;
+    --space-9: 5rem;
+    --space-10: 6.5rem;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --line: color-mix(in srgb, var(--color-ink) 50%, transparent);
+    --line-strong: var(--color-ink);
+  }
+}

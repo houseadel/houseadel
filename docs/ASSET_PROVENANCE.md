@@ -56,3 +56,41 @@ This sequence makes the removal deliberate and recoverable through the archival 
 - notes about restrictions, confidentiality, or replacement.
 
 The acquisition script must reject unclear rights, preserve originals separately, optimise deterministic derivatives, and never overwrite an existing file silently.
+
+## Production manifest and acquisition workflow
+
+`data/assets.json` is now the production authority. It intentionally begins with no approved image records. Code-native inline SVG, CSS geometry, and procedural WebGL primitives do not require image records; every stored raster or standalone SVG in a production asset directory does.
+
+The acquisition command uses only official collection APIs and fails closed when a record does not provide a clear Public Domain Mark or CC0 signal:
+
+```powershell
+node --experimental-strip-types scripts/fetch-open-access-assets.ts --source met --id 12068 --dry-run
+node --experimental-strip-types scripts/fetch-open-access-assets.ts --source rijksmuseum --id SK-C-5 --dry-run
+node --experimental-strip-types scripts/fetch-open-access-assets.ts --source smithsonian --query "architectural drawing" --limit 2 --dry-run
+```
+
+Remove `--dry-run` only after reviewing the returned object records and pass repeatable `--page` routes plus a precise `--use` description. Smithsonian requests require `SMITHSONIAN_API_KEY`; it is read server-side by the script and must never be committed. The Metropolitan Museum of Art and current Rijksmuseum Data Services endpoints do not require credentials.
+
+For each eligible record, the script:
+
+1. validates the institution-provided rights field before requesting media;
+2. accepts image URLs only from the relevant institution or its documented image service;
+3. preserves the institution-supplied original under `assets/originals/open-access/`;
+4. creates non-cropped AVIF and WebP derivatives at up to 960, 1600, and 2400 pixels wide under `public/assets/open-access/`;
+5. records dimensions, byte sizes, SHA-256 hashes, transformations, source links, rights evidence, intended pages, credit, and restrictions;
+6. uses exclusive file creation and aborts on any existing output path rather than replacing it;
+7. leaves human approval as `pending`.
+
+Query mode searches a larger candidate pool and skips records that fail the rights gate, but it still stops if it cannot find the requested number of eligible records. Explicit-ID mode stops immediately when the requested record is ambiguous or restricted.
+
+## Human approval gate
+
+An acquisition record is not production approval. Before changing `approval.status`, a human must check that:
+
+- the canonical collection page still carries the recorded Public Domain or CC0 designation;
+- the image does not introduce privacy, publicity, trademark, cultural-sensitivity, or other non-copyright restrictions;
+- the object is being used as archival/editorial material, never as fabricated wedding photography or client evidence;
+- the crop, colour treatment, page list, alt text, caption, and public credit line are accurate;
+- the record's `approvedBy` and `approvedAt` fields identify the actual review.
+
+The Rijksmuseum adapter uses the current Search and OAI-PMH Data Services APIs and requires an explicit `dc:rights` or `edm:rights` Public Domain/CC0 resource. The Met adapter requires `isPublicDomain=true` and an open primary image. The Smithsonian adapter requires the selected media item itself to report `usageAccess=CC0`; CC0 metadata without CC0 media is rejected.

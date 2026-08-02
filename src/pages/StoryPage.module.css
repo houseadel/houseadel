@@ -1,0 +1,288 @@
+.page {
+  padding-bottom: var(--space-9);
+}
+
+.notFound {
+  min-height: 70vh;
+  padding-bottom: var(--space-9);
+}
+
+.breadcrumbs {
+  display: flex;
+  gap: var(--space-2);
+  padding-top: var(--space-5);
+  color: var(--color-ink-soft);
+  font-size: 0.72rem;
+}
+
+.breadcrumbs a,
+.textLink {
+  color: inherit;
+  text-underline-offset: 0.25rem;
+}
+
+.studyLabel {
+  margin: var(--space-5) 0 0;
+  color: var(--color-garnet);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+
+.storyBody {
+  padding-bottom: var(--space-9);
+}
+
+.leadPlate {
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-block: var(--space-8) var(--space-9);
+}
+
+.caseStudy {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.32fr) minmax(0, 0.68fr);
+  gap: clamp(2rem, 10vw, 10rem);
+  align-items: start;
+  border-top: 1px solid var(--line-strong);
+  padding-top: var(--space-8);
+}
+
+.contents {
+  position: sticky;
+  top: 7rem;
+}
+
+.contents nav > p,
+.interaction > p {
+  margin: 0 0 var(--space-3);
+  color: var(--color-garnet);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contents ol {
+  margin: 0;
+  border-top: 1px solid var(--line);
+  padding: 0;
+  list-style: none;
+}
+
+.contents li {
+  border-bottom: 1px solid var(--line);
+}
+
+.contents a {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  min-height: 2.75rem;
+  gap: var(--space-2);
+  align-items: center;
+  color: inherit;
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.contents a span {
+  color: var(--color-ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.contents a:hover,
+.contents a:focus-visible {
+  color: var(--color-garnet);
+}
+
+.contents a:focus-visible,
+.textLink:focus-visible,
+.applyLink:focus-visible,
+.breadcrumbs a:focus-visible {
+  outline: 0.15rem solid var(--color-garnet);
+  outline-offset: 0.2rem;
+}
+
+.interaction {
+  margin-top: var(--space-6);
+  border-left: 0.15rem solid var(--color-garnet);
+  padding-left: var(--space-3);
+}
+
+.interaction strong,
+.interaction span {
+  display: block;
+}
+
+.interaction strong {
+  font: 400 1.35rem/1.1 var(--font-display);
+}
+
+.interaction span {
+  margin-top: var(--space-2);
+  color: var(--color-ink-soft);
+  font-size: 0.72rem;
+}
+
+.sections section {
+  scroll-margin-top: 7rem;
+  padding: 0 0 var(--space-9);
+}
+
+.sections section + section {
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-8);
+}
+
+.sectionNumber {
+  margin: 0;
+  color: var(--color-garnet);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+}
+
+.sections h2 {
+  max-width: 13ch;
+  margin: var(--space-3) 0 var(--space-5);
+  font: 400 clamp(2.35rem, 5vw, 5.2rem)/0.92 var(--font-display);
+  letter-spacing: -0.05em;
+}
+
+.sections section > p:not(.sectionNumber) {
+  max-width: 61ch;
+  margin: var(--space-4) 0 0;
+  color: var(--color-ink-soft);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.65;
+}
+
+.interactionPlate {
+  margin: var(--space-7) 0 0;
+}
+
+.interactionPlate > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 15rem;
+  gap: 1px;
+  border: 1px solid var(--line-strong);
+  background: var(--line-strong);
+}
+
+.interactionPlate span {
+  position: relative;
+  background: var(--color-paper);
+}
+
+.interactionPlate span::before {
+  position: absolute;
+  inset: 18%;
+  border: 1px solid var(--color-garnet);
+  content: "";
+}
+
+.interactionPlate span:nth-child(2)::before {
+  inset: 30% 18%;
+  border-color: var(--color-metal);
+}
+
+.interactionPlate span:nth-child(3)::before {
+  inset: 40% 18%;
+  background: var(--color-garnet);
+}
+
+.interactionPlate figcaption {
+  margin-top: var(--space-2);
+  color: var(--color-ink-soft);
+  font-size: 0.72rem;
+}
+
+.storyFooter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: var(--space-5);
+  align-items: center;
+  border-top: 1px solid var(--line-strong);
+  padding-block: var(--space-8);
+}
+
+.storyFooter p {
+  margin: 0;
+  color: var(--color-garnet);
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+
+.textLink,
+.applyLink {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+}
+
+.applyLink {
+  border: 1px solid var(--color-garnet);
+  padding-inline: 1.15rem;
+  background: var(--color-garnet);
+  color: var(--color-ivory-raised);
+  text-decoration: none;
+}
+
+@media (max-width: 58rem) {
+  .caseStudy {
+    grid-template-columns: 1fr;
+  }
+
+  .contents {
+    position: static;
+  }
+
+  .contents ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .contents li:nth-child(odd) {
+    border-right: 1px solid var(--line);
+  }
+
+  .contents a {
+    padding-inline: var(--space-2);
+  }
+}
+
+@media (max-width: 42rem) {
+  .contents ol,
+  .storyFooter {
+    grid-template-columns: 1fr;
+  }
+
+  .contents li:nth-child(odd) {
+    border-right: 0;
+  }
+
+  .interactionPlate > div {
+    min-height: 11rem;
+  }
+
+  .storyFooter {
+    align-items: start;
+  }
+
+  .storyFooter .textLink,
+  .storyFooter .applyLink {
+    justify-self: start;
+  }
+}
+
+@media (forced-colors: active) {
+  .interactionPlate > div,
+  .interactionPlate span::before {
+    border-color: CanvasText;
+  }
+
+  .interactionPlate span,
+  .interactionPlate span:nth-child(3)::before {
+    background: Canvas;
+  }
+}

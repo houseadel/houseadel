@@ -2,7 +2,9 @@ import {
   type AnchorHTMLAttributes,
   type MouseEvent,
   type ReactNode,
+  forwardRef,
   useEffect,
+  useRef,
   useSyncExternalStore,
 } from "react";
 
@@ -32,11 +34,7 @@ export function useLocation() {
 export function navigate(to: string, options: { replace?: boolean } = {}) {
   const current = getSnapshot();
   if (to === current) return;
-  if (options.replace) {
-    window.history.replaceState({}, "", to);
-  } else {
-    window.history.pushState({}, "", to);
-  }
+  window.history[options.replace ? "replaceState" : "pushState"]({}, "", to);
   window.dispatchEvent(new Event(NAVIGATION_EVENT));
 }
 
@@ -45,7 +43,14 @@ type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children: ReactNode;
 };
 
-export function Link({ to, children, onClick, target, ...props }: LinkProps) {
+function isExternal(to: string) {
+  return /^(?:https?:|mailto:|tel:)/i.test(to);
+}
+
+export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
+  { to, children, onClick, target, ...props },
+  ref,
+) {
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     onClick?.(event);
     if (
@@ -56,60 +61,65 @@ export function Link({ to, children, onClick, target, ...props }: LinkProps) {
       event.shiftKey ||
       event.altKey ||
       target === "_blank" ||
-      to.startsWith("http") ||
-      to.startsWith("mailto:")
+      isExternal(to) ||
+      to.startsWith("#")
     ) {
       return;
     }
+
+    const destination = new URL(to, window.location.origin);
+    if (destination.origin !== window.location.origin) return;
     event.preventDefault();
-    navigate(to);
+    navigate(`${destination.pathname}${destination.search}${destination.hash}`);
   };
 
   return (
-    <a href={to} target={target} onClick={handleClick} {...props}>
+    <a ref={ref} href={to} target={target} onClick={handleClick} {...props}>
       {children}
     </a>
   );
+});
+
+function scrollForLocation(location: string) {
+  const url = new URL(location, window.location.origin);
+  if (url.hash) {
+    const target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+    if (target) {
+      target.scrollIntoView({ block: "start" });
+      return;
+    }
+  }
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 }
 
-export function useRouteEffects(location: string) {
+export function useRouteEffects(location: string, title: string) {
+  const isInitialDocument = useRef(true);
+
   useEffect(() => {
-    const path = location.split(/[?#]/)[0];
-    const title =
-      path === "/"
-        ? "House Adel — Phase 1 Direction Lab"
-        : path.includes("fracture")
-          ? "Prototype A — SVG / DOM Fracture"
-          : path.includes("hybrid")
-            ? "Prototype B — Hybrid WebGL Glass"
-            : path.includes("cinematic")
-              ? "Prototype C — Cinematic Compositing"
-              : path.includes("studies")
-                ? "House Adel — Fictional Project Study"
-                : "House Adel — Direction Lab";
     document.title = title;
+    const shouldFocusHeading = !isInitialDocument.current;
+    isInitialDocument.current = false;
+    let frame = 0;
+    let attempts = 0;
+    let cancelled = false;
 
-    let observer: MutationObserver | null = null;
-    let timeout = 0;
-    const focusHeading = () => {
+    const settleRoute = () => {
+      if (cancelled) return;
       const heading = document.querySelector<HTMLElement>("[data-route-heading]");
-      if (!heading) return false;
-      heading.focus();
-      observer?.disconnect();
-      window.clearTimeout(timeout);
-      return true;
-    };
-    const frame = window.requestAnimationFrame(() => {
-      if (focusHeading()) return;
-      observer = new MutationObserver(() => focusHeading());
-      observer.observe(document.body, { childList: true, subtree: true });
-      timeout = window.setTimeout(() => observer?.disconnect(), 3_000);
-    });
+      if (!heading && attempts < 12) {
+        attempts += 1;
+        frame = window.requestAnimationFrame(settleRoute);
+        return;
+      }
 
-    return () => {
-      window.cancelAnimationFrame(frame);
-      window.clearTimeout(timeout);
-      observer?.disconnect();
+      scrollForLocation(location);
+      if (shouldFocusHeading) heading?.focus({ preventScroll: true });
     };
-  }, [location]);
+
+    frame = window.requestAnimationFrame(settleRoute);
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+    };
+  }, [location, title]);
 }

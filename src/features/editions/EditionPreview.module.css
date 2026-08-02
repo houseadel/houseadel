@@ -1,0 +1,385 @@
+.demo {
+  border-block: 1px solid var(--line);
+  padding-block: var(--space-8);
+}
+
+.demoHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-6);
+  align-items: end;
+}
+
+.demoHeader h2 {
+  max-width: 13ch;
+  margin: var(--space-3) 0 0;
+  font: 400 clamp(2.3rem, 6vw, 5.5rem)/0.92 var(--font-display);
+  letter-spacing: -0.05em;
+}
+
+.demoHeader p:not(.eyebrow) {
+  max-width: 54ch;
+  margin: var(--space-5) 0 0;
+  color: var(--color-ink-soft);
+}
+
+.eyebrow,
+.sectionNumber {
+  margin: 0;
+  color: var(--color-garnet);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.viewControls,
+.languageControls,
+.invitationNav {
+  display: flex;
+}
+
+.viewControls {
+  gap: 1px;
+  border: 1px solid var(--line-strong);
+  background: var(--line-strong);
+}
+
+.viewControls button,
+.languageControls button,
+.invitationNav button,
+.invitationBody button {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.viewControls button {
+  padding-inline: 1rem;
+  background: var(--color-ivory-raised);
+}
+
+.viewControls button[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: var(--color-ivory-raised);
+}
+
+.personalisation {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  max-width: 46rem;
+  margin-top: var(--space-6);
+}
+
+.personalisation label {
+  display: grid;
+  gap: var(--space-2);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.personalisation input {
+  min-height: 2.75rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 0;
+  background: var(--color-ivory-raised);
+  color: var(--color-ink);
+  font: 400 1rem/1.3 var(--font-sans);
+  padding-inline: 0.85rem;
+}
+
+.deviceStage {
+  display: grid;
+  min-height: 50rem;
+  margin-top: var(--space-6);
+  padding: clamp(0.75rem, 3vw, 2.5rem);
+  place-items: center;
+  background: var(--color-stone-soft);
+}
+
+.invitation {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  width: 100%;
+  min-height: 45rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--preview-ink) 20%, transparent);
+  background:
+    linear-gradient(90deg, transparent 49.9%, color-mix(in srgb, var(--preview-ink) 6%, transparent) 50%, transparent 50.1%),
+    var(--preview-field);
+  color: var(--preview-ink);
+  box-shadow: 0 1.5rem 4rem color-mix(in srgb, var(--color-ink) 15%, transparent);
+}
+
+.desktop .invitation {
+  max-width: 70rem;
+}
+
+.mobile .invitation {
+  max-width: 24rem;
+}
+
+.invitationHeader,
+.invitationFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  align-items: center;
+  min-height: 4rem;
+  padding: 0.65rem clamp(0.9rem, 3vw, 2rem);
+  border-bottom: 1px solid color-mix(in srgb, var(--preview-ink) 16%, transparent);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.invitationHeader p,
+.invitationFooter p {
+  margin: 0;
+}
+
+.languageControls button {
+  color: color-mix(in srgb, var(--preview-ink) 62%, transparent);
+  font-size: 0.67rem;
+}
+
+.languageControls button[aria-pressed="true"] {
+  color: var(--preview-signature);
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.invitationNav {
+  gap: clamp(0.15rem, 2vw, 1.5rem);
+  justify-content: center;
+  padding: 0.35rem 0.6rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--preview-ink) 16%, transparent);
+}
+
+.invitationNav button {
+  padding-inline: 0.65rem;
+  color: color-mix(in srgb, var(--preview-ink) 65%, transparent);
+  font-size: 0.69rem;
+}
+
+.invitationNav button[aria-current="page"] {
+  color: var(--preview-signature);
+  text-decoration: underline;
+  text-underline-offset: 0.35rem;
+}
+
+.invitationBody {
+  display: grid;
+  min-height: 32rem;
+  padding: clamp(2rem, 8vw, 6rem) clamp(1.25rem, 8vw, 7rem);
+  place-items: center;
+  text-align: center;
+}
+
+.invitationBody > section,
+.invitationBody > form {
+  width: min(100%, 42rem);
+}
+
+.invitationBody h3 {
+  margin: var(--space-4) 0;
+  font: 400 clamp(2.5rem, 6vw, 5.8rem)/0.9 var(--font-display);
+  letter-spacing: -0.05em;
+}
+
+.welcome h3 {
+  display: grid;
+}
+
+.welcome > p {
+  margin: 0.35rem 0;
+}
+
+.welcome .guestName {
+  margin-bottom: var(--space-5);
+  color: var(--preview-signature);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.invitationBody button {
+  margin-top: var(--space-5);
+  border-bottom: 1px solid currentColor;
+  padding-inline: 0.2rem;
+  color: var(--preview-signature);
+}
+
+.invitationNote {
+  max-width: 34ch;
+  margin: 0 auto var(--space-6);
+}
+
+.schedule {
+  margin: var(--space-6) 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--preview-ink) 20%, transparent);
+}
+
+.schedule div {
+  display: grid;
+  grid-template-columns: minmax(4.5rem, 0.25fr) 1fr;
+  gap: var(--space-4);
+  padding: 0.8rem 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--preview-ink) 20%, transparent);
+  text-align: left;
+}
+
+.schedule dt {
+  color: var(--preview-signature);
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule dd {
+  margin: 0;
+}
+
+.rsvp fieldset {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-6) 0 0;
+  border: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.rsvp legend {
+  margin-bottom: var(--space-3);
+  font-weight: 600;
+}
+
+.rsvp label {
+  display: flex;
+  min-height: 2.75rem;
+  gap: var(--space-3);
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--preview-ink) 24%, transparent);
+  padding: 0.55rem 0.75rem;
+}
+
+.rsvp input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--preview-signature);
+}
+
+.confirmation {
+  min-height: 2.8rem;
+  margin: var(--space-4) 0 0;
+  color: var(--preview-signature);
+  font-size: 0.8rem;
+}
+
+.invitationFooter {
+  border-top: 1px solid color-mix(in srgb, var(--preview-ink) 16%, transparent);
+  border-bottom: 0;
+}
+
+.mobile .invitationHeader,
+.mobile .invitationFooter {
+  align-items: flex-start;
+}
+
+.mobile .invitationBody {
+  padding-inline: 1.25rem;
+}
+
+.mobile .invitationBody h3 {
+  font-size: clamp(2.6rem, 11vw, 4rem);
+}
+
+.mobile .invitationFooter p:first-child {
+  max-width: 14ch;
+}
+
+.demo button:focus-visible,
+.demo input:focus-visible {
+  outline: 0.16rem solid var(--color-garnet);
+  outline-offset: 0.15rem;
+}
+
+@media (max-width: 48rem) {
+  .demoHeader {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .viewControls {
+    width: 100%;
+  }
+
+  .viewControls button {
+    flex: 1;
+  }
+
+  .personalisation {
+    grid-template-columns: 1fr;
+  }
+
+  .deviceStage {
+    min-height: auto;
+    padding: 0.5rem;
+  }
+
+  .desktop .invitation {
+    min-width: 40rem;
+    transform: scale(0.65);
+    transform-origin: center;
+  }
+
+  .desktop {
+    min-height: 35rem;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 30rem) {
+  .desktop .invitation {
+    transform: scale(0.54);
+  }
+
+  .desktop {
+    min-height: 30rem;
+  }
+
+  .invitationFooter {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .desktop .invitation {
+    transform: none;
+  }
+
+  .desktop {
+    min-height: auto;
+    overflow-x: auto;
+  }
+}
+
+@media (forced-colors: active) {
+  .invitation,
+  .viewControls,
+  .rsvp label {
+    border-color: CanvasText;
+  }
+
+  .invitation {
+    background: Canvas;
+    color: CanvasText;
+  }
+}
