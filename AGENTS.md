@@ -1,103 +1,76 @@
-# House Adel — Agent Operating Contract
+# House Adel Production Contract
 
-## Project
+## Product
 
-House Adel is Marshall Phan's independent creative web studio. It creates compact, highly art-directed digital experiences: invitations, occasion and event sites, campaign microsites, artist releases, cultural and editorial presentations, brand launches, and intimate hospitality launches.
+House Adel creates authored wedding invitation Editions and original Private Commissions. The permanent creative direction is **Ceremonial Spatial Editorialism**: formal architectural composition softened by intimate, human material.
 
-The studio is not a generic agency, SaaS studio, ecommerce shop, template seller, Active Theory imitation, effects reel, or collection of unrelated fashionable themes.
+An Edition begins with a world created by House Adel. A Private Commission begins with the client's world.
 
-## Current phase
+## Commands
 
-This repository is in **Phase 1: evidence, strategic options, prototypes, and creative-direction review**.
+Use npm and the existing Vite, React, and TypeScript stack.
 
-Do not build or present a final production portfolio until the creative director explicitly approves:
+- `npm install` - install locked dependencies.
+- `npm run dev` - run the local site.
+- `npm run build` - run TypeScript validation and create a production build.
+- `npm test` - run Vitest.
+- `npm run test:e2e` - run Playwright route and interaction tests.
+- `npm run test:a11y` - run the Playwright accessibility suite.
+- `npm run audit:structure` - verify repository structure.
+- `npm run audit:assets` - report public asset sizes.
+- `npm run audit:lighthouse` - run the configured Lighthouse audit.
+- `npx tsc --noEmit` - run type checking until a dedicated `typecheck` script exists.
 
-1. the positioning direction;
-2. the governing concept;
-3. the experience architecture;
-4. the nexus interaction model;
-5. the initial asset-world direction.
+Before completion, add and use explicit `lint`, `typecheck`, and bundle-analysis scripts. Record any proposed dependency in `docs/DECISIONS.md` before installation.
 
-The current multiverse and shattered-fragment nexus are hypotheses to test, not approved answers.
+## Component conventions
 
-## Non-negotiable creative rules
+- Keep routes, editorial sections, interactions, and data/configuration in small reviewable modules. Do not create a monolithic homepage or animation file.
+- Use semantic HTML for navigation, headings, text, links, images, controls, and forms. Canvas is progressive enhancement only.
+- Keep project content and theme data in typed configuration. CMS content must not execute arbitrary interaction code.
+- Use CSS custom properties for tokens and locally scoped styles for components. Avoid a general-purpose UI library.
+- Preserve direct routes, deep links, browser Back/Forward, focus, interruption, and animation cleanup.
+- Use the existing stack when it is sound. Do not rewrite working code or add overlapping libraries without a recorded reason.
+- Build complete static structure and responsive grey-box states before complex motion.
 
-- Preserve one authored House Adel system while allowing project worlds to change radically.
-- Treat the multiverse as the relationship between realities, never as five skins or a theme picker.
-- Avoid Marvel, gaming-menu, portal-template, generic AI, particle-field, glowing-button, custom-cursor, and Awwwards-clone clichés.
-- Do not make visual direction from CSS effects alone. Start each proposed world with a brief, visual bible, master frame, provenance record, web exports, mobile alternative, and static fallback.
-- Separate House Adel's identity from the aesthetic of client work.
-- Typography, pacing, imagery, interaction, sound, and storytelling must serve an idea.
-- Preserve the name **House Adel**. Legacy material using “House of Adel” is not naming authority.
+## Design non-negotiables
 
-## Evidence and research rules
+- Lead with typography, architectural grids, negative space, deliberate asymmetry, restrained colour, and physical material cues.
+- Use warm ivory, ink, soft stone, a scarce garnet or oxblood, and a restrained metallic accent. Avoid constant dark mode and generic luxury black-and-white styling.
+- Use one legally available editorial serif and one neutral grotesk; an italic may come from the serif family.
+- Materials may include paper, vellum, glass, ink, handwriting fragments, archival material, lines, frames, folds, and apertures.
+- Do not use generative-AI images, video, people, wedding photography, or 3D assets.
+- Do not fabricate clients, weddings, testimonials, awards, press, results, locations, or team members.
+- Label every self-initiated project exactly: `House Adel Study — Self-initiated.`
+- Do not copy reference assets, copy, code, layouts, shaders, marks, or distinctive compositions. References are behavioural only and never appear publicly.
+- Avoid marketplace cards, cyber aesthetics, generic particles, rotating chrome, cursor replacements, mouse trails, preset animation patterns, and decorative WebGL.
 
-- Prefer primary sources: official sites, case studies, repositories, documentation, talks, and interviews.
-- Cite direct URLs beside the claims they support.
-- Label every unsupported technical observation as `Inference`.
-- Record access date for sources whose content may change.
-- Distinguish realistic peers, future-scale references, and narrow technical references.
-- Analyze what survives after the first 30 seconds, not only hero spectacle.
-- Never claim a framework, renderer, CMS, shader, or asset method without evidence.
-- Keep the reference matrix and dossiers consistent; update both when facts change.
+## Motion rules
 
-## Architecture rules
-
-- Use a single principal WebGL architecture after the architecture decision is recorded.
-- Prefer semantic DOM for essential content and destinations.
-- Use GSAP for coordinated timelines and CSS for simple state transitions unless evidence justifies a change.
-- Use native scrolling by default. Add smooth-scroll machinery only to an experience that needs it.
-- Preserve browser history, deep links, Back/Forward behavior, interruption handling, cleanup, and direct route access.
-- Treat the review interface and prototypes as disposable evidence, not the final portfolio architecture.
+- Motion must establish hierarchy, change spatial context, reveal material, introduce a project, explain a process, demonstrate product function, or provide meaningful feedback.
+- The motion grammar is assembly, disassembly, uncovering, framing, folding, depth change, light movement, and typographic masking.
+- Use GSAP contexts and clean up every timeline and ScrollTrigger. Use CSS for simple local state changes.
+- Use native scrolling. Do not pin for excessive distances or make content depend on animation completion.
+- Use viewport-specific setups. Pause inactive and hidden-document rendering, cap canvas DPR, and avoid mobile post-processing and real-time shadows.
+- Do not animate every element, make every text block fade upward, autoplay audio, or use animation to disguise weak layout.
 
 ## Accessibility and resilience
 
-Every essential destination must remain reachable with semantic links and keyboard navigation.
+- Provide skip navigation, logical headings, visible focus, keyboard operation, useful labels and errors, and touch targets of at least 44 by 44 CSS pixels.
+- Give hover interactions equivalent focus and mobile behaviour. Give every image intentional alternative text or mark it decorative.
+- Respect reduced motion: remove camera travel and pinned scrub sequences, retain content, and use static states or short crossfades.
+- Core content and navigation must survive no WebGL, slow connections, failed assets, forced colours, and reduced transparency.
+- Never replace the browser cursor, block native scrolling, or hide essential information in canvas.
+- Validate application data on both client and server. Do not expose credentials or imply a successful submission when no provider accepted it.
 
-Every experience must define:
+## Assets and licensing
 
-- desktop, tablet, and mobile behavior;
-- reduced-motion behavior;
-- no-WebGL behavior;
-- slow-network behavior;
-- failed-asset behavior;
-- visible focus, logical focus order, sufficient contrast, and touch targets of at least 44 × 44 CSS pixels;
-- alternatives for information otherwise conveyed by hover, sound, motion, WebGL, cursor, or color.
+- Only use project-owned assets, verified CC0/public-domain museum material, or manually approved licensed assets.
+- Never scrape competitors, Google Images, or Pinterest.
+- Record institution/creator, object ID, title, date, source URL, rights, retrieval date, transformations, and pages used in `data/assets.json` and `docs/ASSET_PROVENANCE.md`.
+- Keep originals separate from derivatives, preserve credits, reject unclear rights, and never overwrite an asset silently.
+- Do not commit secrets, private applicant data, or unverifiable media.
 
-## Performance
+## Definition of done
 
-- Establish budgets from measurements, then enforce them in tests.
-- Test on integrated graphics and ordinary mobile-class constraints, not only a fast desktop.
-- Cap device pixel ratio by quality tier.
-- Lazy-load universe-specific code and assets.
-- Dispose WebGL resources and detect route-transition leaks.
-- Do not ship a visual layer without its loading placeholder and fallback.
-
-## Asset and rights rules
-
-- Record source, creator/tool, prompt or transformation notes, license, commercial-use status, generation date, and human approval for every production candidate.
-- Keep raw masters separate from optimized exports.
-- Never commit secrets, unlicensed paid assets, or unverifiable third-party media.
-- Prefer deterministic build scripts for image, video, model, and manifest processing.
-
-## Repository map
-
-- `docs/` — decisions, audits, architecture, workflows, and execution records
-- `research/` — cited landscape, market, pattern, and conclusion documents
-- `references/` — preserved source material and captured evidence
-- `prototypes/` — isolated nexus and transition experiments
-- `src/` — local Phase 1 review interface
-- `tests/` — unit, browser, accessibility, visual, and performance checks
-- `scripts/` — repeatable asset and research utilities
-- `skills/` — version-controlled House Adel Codex skills
-
-The pre-Phase-1 static concept is preserved in `references/legacy-v0/`. It is evidence of prior exploration, not an approved direction.
-
-## Change discipline
-
-- Preserve unrelated user work.
-- Document material decisions in `docs/decision-log.md`.
-- Keep research facts separate from recommendations.
-- Keep prototypes technically isolated and explicitly label their strengths, weaknesses, and status.
-- Run relevant validation before handing work back.
-- Do not conceal unresolved risks behind visual polish.
+The version is done only when all required routes and navigation work; the homepage has a coherent optional spatial scene and static fallback; Editions, live Edition demo, Private Commissions, Stories, The House, and Apply interactions meet their specifications; mock submission is honestly functional; reduced-motion and no-WebGL modes preserve all content; no unlicensed, generative, or fabricated material ships; provenance is complete; and lint, typecheck, unit, Playwright, accessibility, visual, production-build, bundle, and performance checks pass. `docs/STATUS.md` must disclose any remaining launch work.

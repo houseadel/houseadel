@@ -1,0 +1,4 @@
+interface:
+  display_name: "House Adel Design Guardian"
+  short_description: "Guard House Adel design, motion, access, and assets"
+  default_prompt: "Use $house-adel-design-guardian to review this House Adel change before it ships."

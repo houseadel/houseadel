@@ -3,6 +3,7 @@ dist/
 coverage/
 test-results/
 playwright-report/
+output/
 .playwright-cli/
 .lighthouseci/
 .cache/
