@@ -41,9 +41,7 @@ body {
   min-width: 20rem;
   min-height: 100vh;
   overflow-x: clip;
-  background:
-    radial-gradient(circle at 78% 0%, rgba(156, 135, 104, 0.09), transparent 28rem),
-    var(--color-ivory);
+  background: var(--color-ivory);
   color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: var(--step-0);
@@ -297,6 +295,41 @@ ol {
   text-transform: uppercase;
 }
 
+.route-loading::after {
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-left: 0.65rem;
+  border: 1px solid var(--line-strong);
+  border-top-color: var(--color-garnet);
+  border-radius: 50%;
+  animation: house-loader 0.9s linear infinite;
+  content: "";
+}
+
+.route-transition {
+  animation: page-swap 560ms var(--ease-ceremony) both;
+  transform-origin: 50% 0;
+}
+
+@keyframes house-loader {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes page-swap {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 5% 0);
+    transform: translateY(0.65rem);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0);
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 63.99rem) {
   .page-grid {
     grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -344,6 +377,11 @@ ol {
 @media (forced-colors: active) {
   * {
     forced-color-adjust: auto;
+  }
+
+  .route-transition,
+  .route-loading::after {
+    animation: none;
   }
 }
 

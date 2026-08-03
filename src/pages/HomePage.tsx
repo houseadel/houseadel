@@ -1,4 +1,6 @@
 import { SpatialOpening } from "../features/home/SpatialOpening";
+import { ArchivalImage } from "../components/editorial/ArchivalImage";
+import { archivalAssets } from "../data/archivalAssets";
 import { editions, formatEditionPrice } from "../data/editions";
 import { stories } from "../data/stories";
 import { Link } from "../lib/router";
@@ -50,11 +52,12 @@ export function HomePage() {
 
       <section className={`${styles.edition} editorial-section page-frame`} aria-labelledby="current-edition">
         <div className={styles.sectionIndex}>01 / Current Edition</div>
-        <div className={styles.editionPlate} aria-hidden="true">
-          <span>HA</span>
-          <div />
-          <i>{currentEdition.title}</i>
-        </div>
+        <figure className={styles.editionPlate}>
+          <ArchivalImage asset={archivalAssets.interior} alt={archivalAssets.interior.alt} />
+          <div className={styles.editionImageVeil} aria-hidden="true" />
+          <span>{currentEdition.number}</span>
+          <figcaption>{archivalAssets.interior.title} · The Metropolitan Museum of Art</figcaption>
+        </figure>
         <div className={styles.editionCopy}>
           <p className="study-label">{currentEdition.studyLabel}</p>
           <h2 id="current-edition">{currentEdition.title}</h2>
@@ -81,6 +84,10 @@ export function HomePage() {
 
       <section className={`${styles.private} editorial-section`} aria-labelledby="private-title">
         <div className={`${styles.privateInner} page-frame page-grid`}>
+          <div className={styles.privateImage}>
+            <ArchivalImage asset={archivalAssets.drawingRoom} alt={archivalAssets.drawingRoom.alt} />
+            <p>{archivalAssets.drawingRoom.title} · Public Domain</p>
+          </div>
           <div className={styles.privateLead}>
             <p className="eyebrow">Private Commissions</p>
             <h2 id="private-title">Created once. Never repeated.</h2>

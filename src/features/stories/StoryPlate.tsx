@@ -1,4 +1,6 @@
 import type { Story, StoryPlateKind } from "../../data/stories";
+import { ArchivalImage } from "../../components/editorial/ArchivalImage";
+import { archivalAssets } from "../../data/archivalAssets";
 import styles from "./StoryPlate.module.css";
 
 function PlateDrawing({ kind }: { kind: StoryPlateKind }) {
@@ -50,9 +52,15 @@ function PlateDrawing({ kind }: { kind: StoryPlateKind }) {
 }
 
 export function StoryPlate({ story }: { story: Story }) {
+  const archivalAsset = story.slug.includes("correspondence")
+    ? archivalAssets.drawingRoom
+    : archivalAssets.interior;
+
   return (
     <figure className={styles.figure}>
       <div className={styles.field}>
+        <ArchivalImage asset={archivalAsset} alt={archivalAsset.alt} />
+        <div className={styles.imageVeil} aria-hidden="true" />
         <svg viewBox="0 0 648 454" role="img" aria-label={story.plate.alt}>
           <PlateDrawing kind={story.plate.kind} />
         </svg>
@@ -63,7 +71,10 @@ export function StoryPlate({ story }: { story: Story }) {
           {story.year}
         </p>
       </div>
-      <figcaption>Original House Adel plate for {story.title}.</figcaption>
+      <figcaption>
+        Original House Adel plate for {story.title}. Archival reference: {archivalAsset.title}; The
+        Metropolitan Museum of Art, Public Domain.
+      </figcaption>
     </figure>
   );
 }

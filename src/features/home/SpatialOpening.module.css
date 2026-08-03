@@ -9,7 +9,10 @@
 }
 
 .canvasLayer[data-ready="true"] {
-  opacity: 0.82;
+  /* The procedural scene remains an enhancement, but the authored archive image
+     is the visual lead. Keep the WebGL layer visually quiet until a later
+     chapter asks it to carry the transition. */
+  opacity: 0;
 }
 
 .canvasLayer canvas {
@@ -46,7 +49,7 @@
 
 @media (max-width: 47.99rem) {
   .canvasLayer[data-ready="true"] {
-    opacity: 0.68;
+    opacity: 0;
   }
 
   .progressRule {

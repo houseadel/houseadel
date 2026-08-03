@@ -11,27 +11,48 @@
 .inner {
   position: relative;
   z-index: 2;
-  display: grid;
+  display: flex;
   height: 100%;
-  grid-template-columns: minmax(9rem, 1fr) auto;
   align-items: center;
-  gap: var(--space-5);
+  justify-content: center;
 }
 
 .mark {
+  display: inline-flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
   width: max-content;
+  align-items: center;
+  gap: 0.45rem;
+  transform: translate(-50%, -50%);
   font-family: var(--font-display);
-  font-size: 1.22rem;
+  font-size: 1.12rem;
   font-weight: 520;
   letter-spacing: -0.025em;
   line-height: 1;
   text-decoration: none;
 }
 
+.markSymbol {
+  width: 1.65rem;
+  height: 1.65rem;
+  object-fit: contain;
+}
+
 .desktopNavigation {
   display: flex;
+  width: 100%;
   align-items: center;
-  gap: clamp(1rem, 2.35vw, 2.7rem);
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.navigationGroup {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 1.8vw, 2rem);
 }
 
 .navigationLink {
@@ -40,7 +61,7 @@
   align-items: center;
   position: relative;
   font-size: 0.7rem;
-  font-weight: 690;
+  font-weight: 640;
   letter-spacing: 0.08em;
   text-decoration: none;
   text-transform: uppercase;
@@ -63,6 +84,11 @@
 .navigationLink[aria-current="page"]::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+.navigationGroup:last-child .navigationLink:last-child {
+  padding-inline: 0.95rem;
+  border: 1px solid var(--color-ink);
 }
 
 .menuButton,
@@ -91,6 +117,15 @@
     text-transform: uppercase;
   }
 
+  .mark {
+    position: static;
+    transform: none;
+  }
+
+  .inner {
+    justify-content: space-between;
+  }
+
   .menuGlyph {
     font-family: var(--font-display);
     font-size: 1.3rem;
@@ -108,9 +143,7 @@
     height: calc(100svh - var(--header-height));
     visibility: hidden;
     transform: translateY(-1rem);
-    background:
-      linear-gradient(110deg, transparent 45%, rgba(111, 36, 49, 0.06) 45.1%, transparent 45.4%),
-      var(--color-ivory-raised);
+    background: var(--color-ivory-raised);
     opacity: 0;
     transition:
       opacity var(--duration-medium) var(--ease-house),

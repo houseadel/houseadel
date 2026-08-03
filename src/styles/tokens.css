@@ -3,23 +3,23 @@
   --font-display: "Newsreader Variable", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
   --font-sans: "Manrope Variable", "Helvetica Neue", Arial, sans-serif;
 
-  --color-ivory: #f2eee5;
-  --color-ivory-raised: #f8f4ec;
-  --color-paper: #e7dfd1;
-  --color-stone: #b9afa0;
-  --color-stone-soft: #d4ccbf;
-  --color-ink: #211c1b;
-  --color-ink-soft: #524a46;
-  --color-garnet: #6f2431;
-  --color-garnet-deep: #4c1721;
-  --color-metal: #9c8768;
+  --color-ivory: #fbfaf6;
+  --color-ivory-raised: #fffefa;
+  --color-paper: #f1eee7;
+  --color-stone: #c9c3b8;
+  --color-stone-soft: #ded9d0;
+  --color-ink: #24211f;
+  --color-ink-soft: #605b55;
+  --color-garnet: #71333d;
+  --color-garnet-deep: #5b2a32;
+  --color-metal: #a9977b;
   --color-error: #8b2635;
   --color-success: #315d48;
 
-  --line: color-mix(in srgb, var(--color-ink) 22%, transparent);
-  --line-strong: color-mix(in srgb, var(--color-ink) 52%, transparent);
+  --line: color-mix(in srgb, var(--color-ink) 16%, transparent);
+  --line-strong: color-mix(in srgb, var(--color-ink) 38%, transparent);
   --surface-vellum: color-mix(in srgb, var(--color-ivory-raised) 84%, transparent);
-  --shadow-paper: 0 1.25rem 3rem rgba(49, 37, 31, 0.09);
+  --shadow-paper: 0 1.25rem 3rem rgba(49, 37, 31, 0.06);
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;

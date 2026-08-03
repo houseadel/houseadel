@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react";
+import { ArchivalImage } from "../../components/editorial/ArchivalImage";
+import { archivalAssets } from "../../data/archivalAssets";
 import { deferMotion } from "../../lib/deferredMotion";
 import styles from "./AtelierTable.module.css";
 
@@ -118,19 +120,7 @@ export function AtelierTable() {
     <figure ref={figureRef} className={styles.figure} aria-labelledby="atelier-table-caption">
       <div className={styles.table} aria-hidden="true">
         <div className={`${styles.fragment} ${styles.photoFragment}`} data-atelier-fragment>
-          <svg viewBox="0 0 360 260" role="presentation">
-            <defs>
-              <linearGradient id="atelier-light" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#ded5c6" />
-                <stop offset="0.48" stopColor="#8e8173" />
-                <stop offset="1" stopColor="#392b2c" />
-              </linearGradient>
-            </defs>
-            <rect width="360" height="260" fill="url(#atelier-light)" />
-            <path d="M-10 224 145 70l78 190Z" fill="#f3eee4" fillOpacity=".55" />
-            <path d="M190-15 366 32v116L242 91Z" fill="#6f2431" fillOpacity=".42" />
-            <rect x="22" y="20" width="316" height="220" fill="none" stroke="#eee6da" strokeOpacity=".58" />
-          </svg>
+          <ArchivalImage asset={archivalAssets.drawingRoom} alt="" sizes="(max-width: 48rem) 60vw, 37vw" />
           <span>Light study / oblique interior</span>
         </div>
 

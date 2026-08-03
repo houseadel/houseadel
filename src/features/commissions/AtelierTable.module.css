@@ -37,8 +37,14 @@
   transform: rotate(-2.5deg);
 }
 
-.photoFragment svg {
+.photoFragment :global(.picture) {
   width: 100%;
+  aspect-ratio: 1.38;
+  filter: sepia(0.12) saturate(0.74) contrast(0.92);
+}
+
+.photoFragment :global(img) {
+  object-position: 48% 52%;
 }
 
 .photoFragment > span {

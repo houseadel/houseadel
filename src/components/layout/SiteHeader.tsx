@@ -51,25 +51,29 @@ export function SiteHeader({ pathname }: SiteHeaderProps) {
   const isCurrent = (href: string) =>
     pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 
+  const link = (item: (typeof primaryNavigation)[number]) => (
+    <Link
+      className={styles.navigationLink}
+      to={item.href}
+      key={item.href}
+      aria-current={isCurrent(item.href) ? "page" : undefined}
+    >
+      {item.label}
+    </Link>
+  );
+
   return (
     <header className={styles.header}>
       <div className={`${styles.inner} page-frame`}>
-        <Link className={styles.mark} to="/" aria-label="House Adel, home">
-          House Adel
-        </Link>
-
         <nav className={styles.desktopNavigation} aria-label="Primary navigation">
-          {primaryNavigation.map((item) => (
-            <Link
-              className={styles.navigationLink}
-              to={item.href}
-              key={item.href}
-              aria-current={isCurrent(item.href) ? "page" : undefined}
-            >
-              {item.label}
-            </Link>
-          ))}
+          <span className={styles.navigationGroup}>{primaryNavigation.slice(0, 3).map(link)}</span>
+          <span className={styles.navigationGroup}>{primaryNavigation.slice(3).map(link)}</span>
         </nav>
+
+        <Link className={styles.mark} to="/" aria-label="House Adel, home">
+          <img className={styles.markSymbol} src="/adel-mark.svg" alt="" aria-hidden="true" />
+          <span>House Adel</span>
+        </Link>
 
         <button
           ref={menuButton}
@@ -81,7 +85,7 @@ export function SiteHeader({ pathname }: SiteHeaderProps) {
         >
           <span>{menuOpen ? "Close" : "Menu"}</span>
           <span className={styles.menuGlyph} aria-hidden="true">
-            {menuOpen ? "×" : "＋"}
+            {menuOpen ? "×" : "+"}
           </span>
         </button>
       </div>

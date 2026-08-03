@@ -7,13 +7,27 @@
   min-height: 24rem;
   overflow: hidden;
   border: 1px solid var(--line);
-  background:
-    repeating-linear-gradient(0deg, transparent 0 7px, color-mix(in srgb, var(--color-ink) 2.5%, transparent) 7px 8px),
-    var(--color-paper);
+  background: var(--color-paper);
+}
+
+.field :global(.picture) {
+  position: absolute;
+  inset: 0;
+  opacity: 0.48;
+  mix-blend-mode: multiply;
+  filter: sepia(0.1) saturate(0.68) contrast(0.92);
+}
+
+.imageVeil {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(255, 254, 250, 0.2), rgba(113, 51, 61, 0.12));
 }
 
 .field svg {
   position: absolute;
+  z-index: 2;
   inset: 5%;
   width: 90%;
   height: 90%;

@@ -25,7 +25,7 @@ type PlaneConfiguration = {
 
 const planeConfigurations: readonly PlaneConfiguration[] = [
   {
-    color: "#e7dfd1",
+    color: "#f1eee7",
     initialPosition: [-3.25, 1.35, -0.15],
     initialRotation: [-0.16, 0.5, -0.22],
     settledPosition: [-2.3, 0.8, -0.9],
@@ -33,7 +33,7 @@ const planeConfigurations: readonly PlaneConfiguration[] = [
     size: [2.6, 3.65],
   },
   {
-    color: "#f8f4ec",
+    color: "#fffefa",
     initialPosition: [3.3, 1.75, -1.3],
     initialRotation: [0.18, -0.42, 0.28],
     settledPosition: [2.5, 1.1, -1.45],
@@ -41,7 +41,7 @@ const planeConfigurations: readonly PlaneConfiguration[] = [
     size: [2.1, 2.85],
   },
   {
-    color: "#d4ccbf",
+    color: "#ded9d0",
     initialPosition: [2.7, -2.25, 0.2],
     initialRotation: [-0.7, -0.2, -0.08],
     settledPosition: [1.75, -1.75, -1.1],
@@ -49,7 +49,7 @@ const planeConfigurations: readonly PlaneConfiguration[] = [
     size: [4.2, 1.65],
   },
   {
-    color: "#f2eee5",
+    color: "#fbfaf6",
     initialPosition: [-0.2, 2.85, -2.1],
     initialRotation: [0.35, 0.12, 0.16],
     settledPosition: [-0.75, 2.05, -1.8],
@@ -57,7 +57,7 @@ const planeConfigurations: readonly PlaneConfiguration[] = [
     size: [3.35, 1.1],
   },
   {
-    color: "#9c8768",
+    color: "#c9c3b8",
     initialPosition: [-2.1, -2.5, -1.85],
     initialRotation: [0.12, 0.66, -0.18],
     settledPosition: [-2.35, -1.65, -1.65],
@@ -239,16 +239,16 @@ function PaperAssembly({
 
         <group ref={apertureReference}>
           <mesh geometry={frameHorizontalGeometry} position={[0, 2.15, 0]}>
-            <meshStandardMaterial color="#6f2431" metalness={0.06} roughness={0.8} />
+            <meshStandardMaterial color="#71333d" metalness={0.02} roughness={0.88} />
           </mesh>
           <mesh geometry={frameHorizontalGeometry} position={[0, -2.15, 0]}>
-            <meshStandardMaterial color="#6f2431" metalness={0.06} roughness={0.8} />
+            <meshStandardMaterial color="#71333d" metalness={0.02} roughness={0.88} />
           </mesh>
           <mesh geometry={frameVerticalGeometry} position={[-1.21, 0, 0]}>
-            <meshStandardMaterial color="#6f2431" metalness={0.06} roughness={0.8} />
+            <meshStandardMaterial color="#71333d" metalness={0.02} roughness={0.88} />
           </mesh>
           <mesh geometry={frameVerticalGeometry} position={[1.21, 0, 0]}>
-            <meshStandardMaterial color="#6f2431" metalness={0.06} roughness={0.8} />
+            <meshStandardMaterial color="#71333d" metalness={0.02} roughness={0.88} />
           </mesh>
         </group>
       </group>

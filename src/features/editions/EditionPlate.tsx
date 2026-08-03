@@ -1,4 +1,6 @@
 import { useEffect, useId, useRef, type CSSProperties } from "react";
+import { ArchivalImage } from "../../components/editorial/ArchivalImage";
+import { archivalAssets } from "../../data/archivalAssets";
 import type { Edition, EditionPlateKind, EditionRevealMask } from "../../data/editions";
 import { deferMotion } from "../../lib/deferredMotion";
 import styles from "./EditionPlate.module.css";
@@ -113,6 +115,7 @@ export function EditionPlate({ edition, assetIndex = 0, caption = true }: Editio
   const drawingRef = useRef<SVGGElement>(null);
   const maskId = `edition-mask-${useId().replaceAll(":", "")}`;
   const asset = edition.theme.imageSet[assetIndex] ?? edition.theme.imageSet[0];
+  const archivalAsset = edition.slug === "correspondence" ? archivalAssets.drawingRoom : archivalAssets.interior;
   const revealPath = revealPaths[edition.theme.revealMask];
   const plateStyle: EditionPlateStyle = {
     "--plate-field": edition.theme.palette.field,
@@ -199,6 +202,8 @@ export function EditionPlate({ edition, assetIndex = 0, caption = true }: Editio
       data-reveal-mask={edition.theme.revealMask}
     >
       <div className={styles.field}>
+        <ArchivalImage asset={archivalAsset} alt={archivalAsset.alt} />
+        <div className={styles.imageVeil} aria-hidden="true" />
         <svg
           className={styles.drawing}
           viewBox="0 0 700 460"
@@ -232,7 +237,8 @@ export function EditionPlate({ edition, assetIndex = 0, caption = true }: Editio
       </div>
       {caption ? (
         <figcaption className={styles.caption}>
-          {edition.title} — original House Adel Edition plate.
+          {edition.title} — original House Adel Edition plate. Archival reference: {archivalAsset.title};
+          The Metropolitan Museum of Art, Public Domain.
         </figcaption>
       ) : null}
     </figure>

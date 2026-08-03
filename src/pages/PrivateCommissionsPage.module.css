@@ -52,12 +52,12 @@
 
 .study {
   overflow: hidden;
-  background: var(--color-garnet-deep);
-  color: var(--color-ivory-raised);
+  background: var(--color-paper);
+  color: var(--color-ink);
 }
 
 .study :global(.study-label) {
-  color: var(--color-ivory-raised);
+  color: var(--color-garnet);
 }
 
 .studyInner {
@@ -69,10 +69,23 @@
   grid-column: 1 / span 6;
   min-height: clamp(31rem, 50vw, 47rem);
   overflow: hidden;
-  border: 1px solid rgba(248, 244, 236, 0.45);
-  background:
-    linear-gradient(90deg, transparent 49.9%, rgba(248, 244, 236, 0.1) 50%, transparent 50.1%),
-    #371c22;
+  border: 1px solid var(--line-strong);
+  background: var(--color-ivory);
+}
+
+.studyPlate :global(.picture) {
+  position: absolute;
+  inset: 0;
+  opacity: 0.48;
+  mix-blend-mode: multiply;
+  filter: sepia(0.1) saturate(0.68) contrast(0.9);
+}
+
+.studyImageVeil {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(140deg, rgba(255, 254, 250, 0.42), rgba(113, 51, 61, 0.12));
 }
 
 .studyPlate svg {
@@ -85,21 +98,21 @@
 .studyPlate svg path,
 .studyPlate svg circle {
   fill: none;
-  stroke: var(--color-metal);
+  stroke: var(--color-garnet);
   stroke-width: 1.2;
   vector-effect: non-scaling-stroke;
 }
 
 .studyAperture {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 12%;
   right: 12%;
   width: 44%;
   aspect-ratio: 0.72;
-  border: 1px solid rgba(248, 244, 236, 0.7);
-  background: linear-gradient(140deg, rgba(248, 244, 236, 0.15), transparent 60%);
-  box-shadow: 1.2rem 1.2rem 0 rgba(12, 8, 9, 0.15);
+  border: 1px solid var(--color-garnet);
+  background: linear-gradient(140deg, rgba(255, 254, 250, 0.28), transparent 60%);
+  box-shadow: 1.2rem 1.2rem 0 rgba(36, 33, 31, 0.08);
 }
 
 .studyFold {
@@ -109,13 +122,14 @@
   width: 39%;
   aspect-ratio: 1;
   transform: rotate(8deg);
-  border: 1px solid rgba(248, 244, 236, 0.4);
-  background: rgba(248, 244, 236, 0.05);
+  z-index: 2;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 254, 250, 0.26);
 }
 
 .studyLine {
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   bottom: 12%;
   left: 10%;
   max-width: 12ch;
@@ -132,7 +146,7 @@
 }
 
 .studyCopy .studyNumber {
-  color: var(--color-stone-soft);
+  color: var(--color-ink-soft);
   font-size: var(--step--1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -148,12 +162,12 @@
 }
 
 .studyCopy > p:not(.studyNumber):not(:first-child) {
-  color: var(--color-stone-soft);
+  color: var(--color-ink-soft);
 }
 
 .studyCopy dl {
   margin-top: var(--space-3);
-  border-top: 1px solid rgba(248, 244, 236, 0.28);
+  border-top: 1px solid var(--line);
 }
 
 .studyCopy dl div {
@@ -161,7 +175,7 @@
   grid-template-columns: 7rem 1fr;
   gap: var(--space-3);
   padding-block: var(--space-3);
-  border-bottom: 1px solid rgba(248, 244, 236, 0.28);
+  border-bottom: 1px solid var(--line);
 }
 
 .studyCopy dt {
@@ -172,7 +186,7 @@
 }
 
 .studyCopy dd {
-  color: var(--color-stone-soft);
+  color: var(--color-ink-soft);
 }
 
 .processList {

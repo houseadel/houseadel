@@ -67,6 +67,14 @@ Production source maps are disabled by default and can be enabled explicitly wit
 
 No generative-AI image, video, person, wedding photography, or 3D asset may enter the production branch or build. The previously generated studies are recorded in `docs/ASSET_PROVENANCE.md` and preserved only for historical recovery on the archival branch. The production build currently contains no raster image or stored visual-media asset.
 
+### Use approved public-domain archival interiors for the first visual pass
+
+The visual refresh uses two Met Open Access records (objects 389774 and 390163) as restrained architectural material. They are preserved as originals, transformed into AVIF/WebP derivatives, credited in `data/assets.json`, and used only as editorial references on the homepage, Editions, Private Commissions, and Stories. They are not presented as wedding photography or client work. This satisfies the no-generative/no-scraping rule while giving the composition a real material anchor.
+
+### Apply UI UX Pro Max guidance without copying reference sites
+
+The downloaded UI UX Pro Max skill was used to select an exaggerated-minimal editorial system, spacious 4/8/24/32/48/64/96 spacing, restrained 150–300ms interaction timing, visible loading feedback, keyboard-equivalent interactions, and image lazy-loading. Its persisted House Adel master is `design-system/house-adel/MASTER.md`. Font, mark, layout, and motion remain original House Adel work; no Brunello Cucinelli assets or proprietary font files are copied.
+
 ### Self-host the selected open-licence typography
 
 Newsreader is the single editorial serif, with its own italic, and Manrope is the supporting neutral grotesk. The final Latin variable WOFF2 files are stored under `public/fonts/`; the SIL Open Font License 1.1 notices are distributed under `public/licenses/`. The former `@fontsource-variable` packages were removed because the site now references the reviewed local binaries directly, reducing dependency and subset ambiguity without changing the browser type system.

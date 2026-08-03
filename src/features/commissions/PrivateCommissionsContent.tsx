@@ -1,4 +1,6 @@
 import { AtelierTable } from "./AtelierTable";
+import { ArchivalImage } from "../../components/editorial/ArchivalImage";
+import { archivalAssets } from "../../data/archivalAssets";
 import {
   PRIVATE_COMMISSION_MINIMUM_USD,
   privateCommissionDisciplines,
@@ -58,6 +60,8 @@ export function PrivateCommissionsContent() {
       <section className={`${styles.study} editorial-section`} aria-labelledby="study-heading">
         <div className={`${styles.studyInner} page-frame page-grid`}>
           <div className={styles.studyPlate} aria-hidden="true">
+            <ArchivalImage asset={archivalAssets.interior} alt="" sizes="(max-width: 48rem) 100vw, 50vw" />
+            <span className={styles.studyImageVeil} />
             <span className={styles.studyAperture} />
             <span className={styles.studyFold} />
             <span className={styles.studyLine}>A route held between two points</span>

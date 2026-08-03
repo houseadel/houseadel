@@ -36,7 +36,7 @@
 }
 
 .opening h1 {
-  max-width: 10ch;
+  max-width: 9.5ch;
   margin-top: var(--space-4);
   font-family: var(--font-display);
   font-size: clamp(3.15rem, 7.7vw, 8.6rem);
@@ -119,49 +119,50 @@
 }
 
 .editionPlate {
-  display: grid;
+  display: block;
   position: relative;
   min-height: 35rem;
   grid-column: 4 / span 5;
-  place-items: center;
   overflow: hidden;
-  border: 1px solid var(--line-strong);
-  background:
-    linear-gradient(155deg, transparent 0 49%, rgba(111, 36, 49, 0.24) 49.1% 49.3%, transparent 49.4%),
-    linear-gradient(90deg, var(--color-paper), var(--color-ivory-raised));
+  border: 1px solid var(--line);
+  background: var(--color-paper);
   box-shadow: var(--shadow-paper);
 }
 
-.editionPlate::before {
+.editionPlate :global(.picture) {
   position: absolute;
-  inset: 9%;
-  border: 1px solid var(--line);
-  content: "";
+  inset: 0;
 }
 
 .editionPlate span {
   position: absolute;
-  top: 6%;
-  left: 7%;
+  z-index: 2;
+  top: 1.2rem;
+  left: 1.2rem;
+  color: var(--color-ivory-raised);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.14em;
 }
 
-.editionPlate div {
-  width: 42%;
-  aspect-ratio: 0.68;
-  border: 1px solid var(--color-ink);
-  box-shadow: inset 0 0 0 0.7rem var(--color-ivory);
+.editionImageVeil {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(165deg, rgba(36, 33, 31, 0.18), transparent 50%, rgba(113, 51, 61, 0.26));
+  mix-blend-mode: multiply;
 }
 
-.editionPlate i {
+.editionPlate figcaption {
   position: absolute;
+  z-index: 2;
   right: 8%;
-  bottom: 7%;
-  font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 350;
+  bottom: 1rem;
+  left: 1.2rem;
+  color: var(--color-ivory-raised);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .editionCopy {
@@ -204,8 +205,8 @@
 }
 
 .private {
-  background: var(--color-garnet-deep);
-  color: var(--color-ivory-raised);
+  background: var(--color-paper);
+  color: var(--color-ink);
 }
 
 .privateInner {
@@ -213,7 +214,7 @@
 }
 
 .privateLead {
-  grid-column: 1 / span 7;
+  grid-column: 5 / span 4;
 }
 
 .privateLead h2 {
@@ -231,19 +232,37 @@
   align-self: end;
 }
 
+.privateImage {
+  grid-column: 1 / span 3;
+}
+
+.privateImage :global(.picture) {
+  height: 19rem;
+  border-radius: 0.1rem;
+  filter: sepia(0.1) saturate(0.7) contrast(0.93);
+}
+
+.privateImage p {
+  margin-top: 0.65rem;
+  color: var(--color-ink-soft);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .privateCopy p + p {
   margin-top: var(--space-4);
 }
 
 .privateCopy a {
   margin-top: var(--space-6);
-  border-color: var(--color-ivory-raised);
+  border-color: var(--color-ink);
 }
 
 .privateCopy a:hover,
 .privateCopy a:focus-visible {
-  background: var(--color-ivory-raised);
-  color: var(--color-garnet-deep);
+  background: var(--color-ink);
+  color: var(--color-ivory-raised);
 }
 
 .stories h2 {
@@ -355,7 +374,7 @@
 .apply {
   position: relative;
   overflow: hidden;
-  background: var(--color-paper);
+  background: var(--color-ivory-raised);
 }
 
 .apply::after {
@@ -365,7 +384,7 @@
   width: 24rem;
   height: 34rem;
   transform: rotate(9deg);
-  border: 1px solid var(--color-garnet);
+  border: 1px solid color-mix(in srgb, var(--color-garnet) 45%, transparent);
   content: "";
 }
 
@@ -423,11 +442,15 @@
   }
 
   .privateLead {
-    grid-column: 1 / span 5;
+    grid-column: 4 / span 5;
   }
 
   .privateCopy {
     grid-column: 6 / -1;
+  }
+
+  .privateImage {
+    grid-column: 1 / span 3;
   }
 
   .practice {
@@ -506,9 +529,14 @@
     min-height: 29rem;
   }
 
+  .privateImage,
   .privateLead,
   .privateCopy {
     grid-column: 1 / -1;
+  }
+
+  .privateImage :global(.picture) {
+    height: 15rem;
   }
 
   .privateCopy {

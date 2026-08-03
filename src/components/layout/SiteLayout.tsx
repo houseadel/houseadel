@@ -21,9 +21,11 @@ export function SiteLayout({ children, pathname }: SiteLayoutProps) {
         Skip to main content
       </a>
       <SiteHeader pathname={pathname} />
-      <main id="main-content" tabIndex={-1}>
-        {children}
-      </main>
+      <div className="route-transition" key={pathname}>
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
+      </div>
       <SiteFooter />
     </>
   );

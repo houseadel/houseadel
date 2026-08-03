@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-02",
+  "updatedAt": "2026-08-03T07:02:11.341Z",
   "policy": {
     "eligibleRights": [
       "Public Domain Mark 1.0",
@@ -9,5 +9,261 @@
     "approvalRequired": true,
     "productionUseRequiresApproval": true
   },
-  "assets": []
+  "assets": [
+    {
+      "id": "met-389774",
+      "assetType": "open-access-image",
+      "intendedUse": "Public-domain architectural and material references for editorial image plates; never presented as client photography.",
+      "source": {
+        "institution": "The Metropolitan Museum of Art",
+        "provider": "met",
+        "objectId": "389774",
+        "title": "Drawing for an Interior",
+        "artist": "Anonymous, Italian, 18th century",
+        "date": "1750–1800",
+        "canonicalUrl": "https://www.metmuseum.org/art/collection/search/389774",
+        "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP803208.jpg"
+      },
+      "rights": {
+        "status": "public-domain",
+        "statement": "Public Domain; The Met Collection API reports isPublicDomain=true.",
+        "url": "https://www.metmuseum.org/policies/image-resources",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-03T07:01:43.954Z",
+        "evidence": "Met Collection API object 389774: isPublicDomain=true and primaryImage supplied."
+      },
+      "retrievalDate": "2026-08-03T07:01:43.954Z",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/met-389774.jpg",
+          "mimeType": "image/jpeg",
+          "width": 2715,
+          "height": 3916,
+          "bytes": 2335936,
+          "sha256": "759c8e793420d7d6eb9f378ced25c4707c449369d4c21d0d75f4a2287cfb2555"
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/open-access/met-389774-960w.avif",
+            "format": "avif",
+            "width": 960,
+            "height": 1385,
+            "bytes": 92528,
+            "sha256": "f8eb0770856b7fb99dea99c71d2aff5913447f1d827c8ad5e47f8f2067b66ce2",
+            "transformation": "Auto-oriented; resized to fit within 960px width without enlargement; encoded as AVIF."
+          },
+          {
+            "path": "public/assets/open-access/met-389774-960w.webp",
+            "format": "webp",
+            "width": 960,
+            "height": 1385,
+            "bytes": 168898,
+            "sha256": "09fb4283772e26bc46fb71a9dee4858595d722a0d7a86ef4c3ee24343ac9e6f3",
+            "transformation": "Auto-oriented; resized to fit within 960px width without enlargement; encoded as WEBP."
+          },
+          {
+            "path": "public/assets/open-access/met-389774-1600w.avif",
+            "format": "avif",
+            "width": 1600,
+            "height": 2308,
+            "bytes": 253764,
+            "sha256": "e69d2a3f922c33aa99af3fd563dd79b77ba72251dfd0955716d48d7f48fb981b",
+            "transformation": "Auto-oriented; resized to fit within 1600px width without enlargement; encoded as AVIF."
+          },
+          {
+            "path": "public/assets/open-access/met-389774-1600w.webp",
+            "format": "webp",
+            "width": 1600,
+            "height": 2308,
+            "bytes": 452748,
+            "sha256": "b021608fd099b953dede25bee53082159f920d1c3c1cbc95fa56a7f08a07e5d8",
+            "transformation": "Auto-oriented; resized to fit within 1600px width without enlargement; encoded as WEBP."
+          },
+          {
+            "path": "public/assets/open-access/met-389774-2400w.avif",
+            "format": "avif",
+            "width": 2400,
+            "height": 3462,
+            "bytes": 517767,
+            "sha256": "9100ee7a8ef1aa03ca972084c4e83d9b30c71c3173fa9456db4357ab2e40183c",
+            "transformation": "Auto-oriented; resized to fit within 2400px width without enlargement; encoded as AVIF."
+          },
+          {
+            "path": "public/assets/open-access/met-389774-2400w.webp",
+            "format": "webp",
+            "width": 2400,
+            "height": 3462,
+            "bytes": 860226,
+            "sha256": "bce6cad3a9c38d47efc4f42647d22a5d54ae9a1a7fe538e3924ec524833e3d15",
+            "transformation": "Auto-oriented; resized to fit within 2400px width without enlargement; encoded as WEBP."
+          }
+        ]
+      },
+      "transformations": [
+        "Original institution-supplied file preserved byte-for-byte outside the public directory.",
+        "Derivative exports auto-orient metadata and resize without cropping or enlargement.",
+        "WebP quality 82 and AVIF quality 55; no generative fill, retouching, or content alteration."
+      ],
+      "pages": [
+        "/",
+        "/editions",
+        "/stories"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel creative direction review",
+        "approvedAt": "2026-08-03"
+      },
+      "creditLine": "The Elisha Whittelsey Collection, The Elisha Whittelsey Fund, 1953",
+      "notes": "Met Open Access records; production placement approved for House Adel editorial study."
+    },
+    {
+      "id": "met-390163",
+      "assetType": "open-access-image",
+      "intendedUse": "Public-domain architectural and material references for editorial image plates; never presented as client photography.",
+      "source": {
+        "institution": "The Metropolitan Museum of Art",
+        "provider": "met",
+        "objectId": "390163",
+        "title": "Interior of a Drawing Room",
+        "artist": "Anonymous, Italian, 19th century",
+        "date": "1838",
+        "canonicalUrl": "https://www.metmuseum.org/art/collection/search/390163",
+        "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP803905.jpg"
+      },
+      "rights": {
+        "status": "public-domain",
+        "statement": "Public Domain; The Met Collection API reports isPublicDomain=true.",
+        "url": "https://www.metmuseum.org/policies/image-resources",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-03T07:02:11.340Z",
+        "evidence": "Met Collection API object 390163: isPublicDomain=true and primaryImage supplied."
+      },
+      "retrievalDate": "2026-08-03T07:02:11.340Z",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/met-390163.jpg",
+          "mimeType": "image/jpeg",
+          "width": 2835,
+          "height": 3161,
+          "bytes": 1568995,
+          "sha256": "ac151cb802b75f487b7b1535be9699a7687d384639f7164fad2cb3b9444aeeb2"
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/open-access/met-390163-960w.avif",
+            "format": "avif",
+            "width": 960,
+            "height": 1070,
+            "bytes": 79705,
+            "sha256": "8d3678ea8ef6dab58bdd7d3e59aa36295116b4e2c0327046d66ce38aeaea9b4a",
+            "transformation": "Auto-oriented; resized to fit within 960px width without enlargement; encoded as AVIF."
+          },
+          {
+            "path": "public/assets/open-access/met-390163-960w.webp",
+            "format": "webp",
+            "width": 960,
+            "height": 1070,
+            "bytes": 127206,
+            "sha256": "de8109260d9661edc82f23ecff58ec48c1170b1cf535e2967f3e75d4abbcba5e",
+            "transformation": "Auto-oriented; resized to fit within 960px width without enlargement; encoded as WEBP."
+          },
+          {
+            "path": "public/assets/open-access/met-390163-1600w.avif",
+            "format": "avif",
+            "width": 1600,
+            "height": 1784,
+            "bytes": 177087,
+            "sha256": "a2b3cb6e5868fa638fa0a55da52d2f68e00640ffb1f9a6db2f5d8a7c236f4056",
+            "transformation": "Auto-oriented; resized to fit within 1600px width without enlargement; encoded as AVIF."
+          },
+          {
+            "path": "public/assets/open-access/met-390163-1600w.webp",
+            "format": "webp",
+            "width": 1600,
+            "height": 1784,
+            "bytes": 265178,
+            "sha256": "d2532b4c7f6862447ba17440a6bd2576d7ca9adbd953ecee3305489d62d6b36a",
+            "transformation": "Auto-oriented; resized to fit within 1600px width without enlargement; encoded as WEBP."
+          },
+          {
+            "path": "public/assets/open-access/met-390163-2400w.avif",
+            "format": "avif",
+            "width": 2400,
+            "height": 2676,
+            "bytes": 318056,
+            "sha256": "0898676f68c22084bbb37b347955ae4b4c5023e0b0828dd2e96141510c906df5",
+            "transformation": "Auto-oriented; resized to fit within 2400px width without enlargement; encoded as AVIF."
+          },
+          {
+            "path": "public/assets/open-access/met-390163-2400w.webp",
+            "format": "webp",
+            "width": 2400,
+            "height": 2676,
+            "bytes": 469596,
+            "sha256": "486d3ea172d56dee1af2a40ce05dc6bae831e20acb70d5d949c94710fa3a4574",
+            "transformation": "Auto-oriented; resized to fit within 2400px width without enlargement; encoded as WEBP."
+          }
+        ]
+      },
+      "transformations": [
+        "Original institution-supplied file preserved byte-for-byte outside the public directory.",
+        "Derivative exports auto-orient metadata and resize without cropping or enlargement.",
+        "WebP quality 82 and AVIF quality 55; no generative fill, retouching, or content alteration."
+      ],
+      "pages": [
+        "/",
+        "/editions",
+        "/stories"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel creative direction review",
+        "approvedAt": "2026-08-03"
+      },
+      "creditLine": "The Elisha Whittelsey Collection, The Elisha Whittelsey Fund, 1954",
+      "notes": "Met Open Access records; production placement approved for House Adel editorial study."
+    },
+    {
+      "id": "house-adel-mark",
+      "assetType": "project-owned-vector",
+      "intendedUse": "House Adel navigation mark supplied by the project owner.",
+      "source": {
+        "institution": "House Adel",
+        "provider": "project-owner",
+        "objectId": "adel mark.svg",
+        "title": "House Adel mark",
+        "canonicalUrl": "adel mark.svg"
+      },
+      "rights": {
+        "status": "project-owned",
+        "statement": "Supplied directly by the House Adel project owner for use in this repository.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-03"
+      },
+      "retrievalDate": "2026-08-03",
+      "files": {
+        "original": {
+          "path": "adel mark.svg",
+          "mimeType": "image/svg+xml"
+        },
+        "derivatives": [
+          {
+            "path": "public/adel-mark.svg",
+            "format": "svg",
+            "transformation": "Byte-for-byte copy for public navigation use."
+          }
+        ]
+      },
+      "transformations": ["Byte-for-byte copy; no redrawing or modification."],
+      "pages": ["/"],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel project owner",
+        "approvedAt": "2026-08-03"
+      },
+      "creditLine": "House Adel mark, supplied by the project owner.",
+      "notes": "Use the supplied file; do not substitute a hand-drawn or reference-derived mark."
+    }
+  ]
 }
