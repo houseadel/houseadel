@@ -30,7 +30,7 @@ Every Edition and Story is labelled `House Adel Study — Self-initiated.` No cl
 | Production captures | `output/playwright/final-production/manifest.json` is `complete`; 80 screenshots generated at 2026-08-03T03:47:37.926Z, including all routes at 1440×900, 1024×768, 430×932, and 390×844 plus interaction, fallback, master-frame, and spatial-sequence states |
 | Runtime budgets | All 7 measured route/viewport entries passed. Home desktop: 490 KiB, LCP 184 ms, frame p95 16.8 ms. Home mobile: 490 KiB, LCP 172 ms, frame p95 16.8 ms. Full evidence is in `docs/performance-results.json` |
 | Lighthouse | Home 97 / LCP 2,111 ms; Editions 97 / 2,130 ms; Private Commissions 98 / 2,005 ms; Apply 96 / 2,299 ms. Every measured route has accessibility 100, best practices 100, and CLS 0 |
-| Build and assets | Final lint, typecheck, unit, production-build, structure, provenance, public-asset, dependency, and bundle gates passed before the current archival-image visual pass; rerun the gates after this pass. |
+| Build and assets | Post-refresh lint, typecheck, unit (6/6), production build, provenance, and public-asset audits pass. The targeted Chromium production suite passes 22 with 2 intentional skips; the Chromium accessibility suite passes 13 with 1 intentional skip. |
 
 Local runtime and Lighthouse results are lab evidence, not field Core Web Vitals. The runtime report records headless Chromium GL readback messages separately from application console output because the harness itself can trigger them.
 
@@ -40,6 +40,7 @@ Local runtime and Lighthouse results are lab evidence, not field Core Web Vitals
 - Optional, non-preloaded fonts protect the critical path but can leave a first-time slow visitor on the compatible fallback face for that page view. Screenshot and visual-regression harnesses warm the local fonts for deterministic comparison.
 - Playwright's Windows WebKit harness cannot reliably exercise a small set of keyboard-specific cases; those cases are skipped there rather than reported as false failures. Equivalent keyboard flows pass in Chromium, Firefox, and Edge, and the remaining WebKit coverage passes. Physical Safari/VoiceOver validation remains required.
 - Local mock submissions are in-memory and the development rate limiter is process-local. Neither is a public multi-instance delivery system.
+- The full cross-browser `npm run test:e2e` matrix was started after the visual refresh but exceeded the local 180-second runner limit while Firefox/WebKit visual coverage was still executing; the focused Chromium route, interaction, and accessibility suites completed successfully.
 
 ## Requirements before public launch
 
