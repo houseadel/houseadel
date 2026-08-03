@@ -20,6 +20,17 @@
   padding-block: var(--space-8) var(--space-10);
 }
 
+.formLoading {
+  display: grid;
+  min-height: 70svh;
+  margin: 0;
+  place-items: start;
+  color: var(--color-ink-soft);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 @media (max-width: 47.99rem) {
   .introNotes {
     display: grid;
@@ -35,4 +46,3 @@
     padding-block-start: var(--space-6);
   }
 }
-

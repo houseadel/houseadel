@@ -90,8 +90,9 @@
 
 .content h3 {
   margin: var(--space-3) 0 0;
-  font: 400 clamp(3.2rem, 8vw, 7.5rem)/0.83 var(--font-display);
+  font: 400 clamp(3.2rem, 6.8vw, 7.5rem)/0.83 var(--font-display);
   letter-spacing: -0.06em;
+  overflow-wrap: anywhere;
 }
 
 .studyLabel {

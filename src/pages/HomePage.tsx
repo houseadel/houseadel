@@ -1,4 +1,4 @@
-import { SpatialFallback } from "../features/home/SpatialFallback";
+import { SpatialOpening } from "../features/home/SpatialOpening";
 import { editions, formatEditionPrice } from "../data/editions";
 import { stories } from "../data/stories";
 import { Link } from "../lib/router";
@@ -18,9 +18,8 @@ const selectedStories = stories.slice(0, 2);
 export function HomePage() {
   return (
     <div className={styles.page}>
-      <section className={styles.opening} aria-labelledby="home-title">
-        <SpatialFallback />
-        <div className={`${styles.openingContent} page-frame`}>
+      <SpatialOpening className={styles.opening} stageClassName={styles.openingStage}>
+        <div className={`${styles.openingContent} page-frame`} data-spatial-content>
           <p className="eyebrow">House Adel · Digital invitation house</p>
           <h1 id="home-title" data-route-heading tabIndex={-1}>
             Digital invitations and private worlds for singular celebrations.
@@ -38,7 +37,7 @@ export function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
+      </SpatialOpening>
 
       <section className={`${styles.statement} editorial-section page-frame`} aria-labelledby="statement-title">
         <p className="eyebrow">Two ways to begin</p>

@@ -12,9 +12,9 @@ const outputDirectory = path.join(repoRoot, "test-results", "lighthouse");
 const summaryPath = path.join(repoRoot, "docs", "lighthouse-summary.json");
 const routes = [
   { id: "home", path: "/" },
-  { id: "fracture", path: "/prototypes/fracture" },
-  { id: "hybrid", path: "/prototypes/hybrid" },
-  { id: "cinematic", path: "/prototypes/cinematic" },
+  { id: "editions", path: "/editions" },
+  { id: "private-commissions", path: "/private-commissions" },
+  { id: "apply", path: "/apply" },
 ];
 
 function runProcess(executable, args, options = {}) {

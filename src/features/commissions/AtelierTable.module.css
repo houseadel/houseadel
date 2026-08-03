@@ -66,6 +66,7 @@
 .mapFragment svg .route {
   stroke: var(--color-garnet);
   stroke-width: 2;
+  stroke-linecap: square;
 }
 
 .mapFragment > span {
@@ -202,6 +203,25 @@
   padding-top: 0.35rem;
 }
 
+.composedRegister {
+  position: absolute;
+  z-index: 3;
+  right: 5%;
+  bottom: 3.4%;
+  left: 5%;
+  display: flex;
+  min-height: 1.6rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-garnet);
+  color: var(--color-garnet);
+  font-size: 0.56rem;
+  font-weight: 690;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform-origin: left center;
+}
+
 .figure figcaption {
   max-width: 40rem;
   margin-top: var(--space-3);
@@ -255,11 +275,20 @@
     bottom: 5%;
     width: 20%;
   }
+
+  .composedRegister {
+    bottom: 1.5%;
+  }
 }
 
 @media (forced-colors: active) {
   .fragment,
   .table {
     border: 1px solid CanvasText;
+  }
+
+  .composedRegister {
+    border-color: CanvasText;
+    color: CanvasText;
   }
 }

@@ -3,25 +3,25 @@
 @font-face {
   font-family: "Manrope Variable";
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   font-weight: 200 800;
-  src: url("@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2") format("woff2");
+  src: url("/fonts/manrope-latin-variable.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Newsreader Variable";
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
   font-weight: 200 800;
-  src: url("@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2") format("woff2");
+  src: url("/fonts/newsreader-latin-variable.woff2") format("woff2");
 }
 
 @font-face {
   font-family: "Newsreader Variable";
   font-style: italic;
-  font-display: swap;
+  font-display: optional;
   font-weight: 200 800;
-  src: url("@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2") format("woff2");
+  src: url("/fonts/newsreader-latin-variable-italic.woff2") format("woff2");
 }
 
 *,
@@ -55,6 +55,10 @@ body {
 
 body[data-menu-open="true"] {
   overflow: hidden;
+}
+
+#main-content {
+  min-height: calc(100svh - var(--header-height));
 }
 
 button,
@@ -159,6 +163,22 @@ ol {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   column-gap: clamp(0.75rem, 1.4vw, 1.5rem);
+}
+
+.intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-7);
+}
+
+.route-section-loading {
+  min-height: 45svh;
+  padding-block: var(--space-8);
+  color: var(--color-ink-soft);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .page-intro {

@@ -14,35 +14,35 @@ const outputPath = path.join(repoRoot, "docs", "performance-results.json");
 const cases = [
   { id: "home-desktop", route: "/", viewport: { width: 1440, height: 900 } },
   {
-    id: "fracture-desktop",
-    route: "/prototypes/fracture",
+    id: "editions-desktop",
+    route: "/editions",
     viewport: { width: 1440, height: 900 },
   },
   {
-    id: "hybrid-desktop",
-    route: "/prototypes/hybrid",
+    id: "edition-desktop",
+    route: "/editions/threshold",
     viewport: { width: 1440, height: 900 },
   },
   {
-    id: "cinematic-desktop",
-    route: "/prototypes/cinematic",
+    id: "private-desktop",
+    route: "/private-commissions",
     viewport: { width: 1440, height: 900 },
   },
   {
-    id: "fracture-mobile",
-    route: "/prototypes/fracture",
+    id: "home-mobile",
+    route: "/",
     viewport: { width: 390, height: 844 },
     mobile: true,
   },
   {
-    id: "hybrid-mobile",
-    route: "/prototypes/hybrid",
+    id: "editions-mobile",
+    route: "/editions",
     viewport: { width: 390, height: 844 },
     mobile: true,
   },
   {
-    id: "cinematic-mobile",
-    route: "/prototypes/cinematic",
+    id: "apply-mobile",
+    route: "/apply",
     viewport: { width: 390, height: 844 },
     mobile: true,
   },
@@ -154,14 +154,33 @@ async function measureCase(browser, testCase) {
 
   const page = await context.newPage();
   const consoleWarnings = [];
+  const browserDiagnostics = [];
   page.on("console", (message) => {
     if (message.type() === "warning" || message.type() === "error") {
-      consoleWarnings.push(message.text());
+      const value = message.text();
+      if (/^\[\.WebGL-.+\]GL Driver Message .+GPU stall due to ReadPixels/.test(value)) {
+        browserDiagnostics.push(value);
+      } else {
+        consoleWarnings.push(value);
+      }
     }
   });
   await page.goto(`${baseURL}${testCase.route}`, { waitUntil: "load" });
   await page.locator("[data-route-heading]").waitFor({ state: "visible" });
   await page.waitForLoadState("networkidle");
+  if (testCase.route === "/") {
+    await page.evaluate(() => window.dispatchEvent(new Event("house-adel:request-graphics")));
+    await page
+      .waitForFunction(
+        () =>
+          document
+            .querySelector("[data-spatial-opening]")
+            ?.getAttribute("data-graphics") === "ready",
+        undefined,
+        { timeout: 8_000 },
+      )
+      .catch(() => undefined);
+  }
   await page.waitForTimeout(750);
 
   const browserMetrics = await page.evaluate(async () => {
@@ -216,9 +235,10 @@ async function measureCase(browser, testCase) {
       canvases,
       frameIntervals,
       devicePixelRatio: window.devicePixelRatio,
-      fallbackActive: Boolean(
-        document.querySelector(".hybrid-fallback, .cinematic-static"),
-      ),
+      fallbackActive:
+        document
+          .querySelector("[data-spatial-opening]")
+          ?.getAttribute("data-graphics") === "fallback",
     };
   });
 
@@ -243,14 +263,7 @@ async function measureCase(browser, testCase) {
     }
   }
 
-  const textureResources = [...uniqueResources.keys()]
-    .map((resource) => new URL(resource).pathname)
-    .filter((pathname) => /\/assets\/worlds\/.+-(?:480|960|1440)\.webp$/i.test(pathname));
-  const textureGpuBytesEstimate = textureResources.reduce((total, pathname) => {
-    const width = Number(pathname.match(/-(480|960|1440)\.webp$/i)?.[1] ?? 0);
-    const height = Math.round((width * 941) / 1672);
-    return total + Math.round(width * height * 4 * (4 / 3));
-  }, 0);
+  const textureGpuBytesEstimate = 0;
   const canvasGpuBytesEstimate = browserMetrics.canvases.reduce(
     (total, canvas) => total + canvas.bufferWidth * canvas.bufferHeight * 12,
     0,
@@ -289,6 +302,7 @@ async function measureCase(browser, testCase) {
     canvases: browserMetrics.canvases,
     fallbackActive: browserMetrics.fallbackActive,
     consoleWarnings: [...new Set(consoleWarnings)],
+    browserDiagnostics: [...new Set(browserDiagnostics)],
   };
   await context.close();
   return result;
@@ -320,14 +334,16 @@ try {
       totalMemoryBytes: os.totalmem(),
       browser: `Chromium ${browser.version()}`,
       note:
-        "GPU allocation is estimated from loaded textures and canvas buffers; browser/driver overhead is not observable here.",
+        "GPU allocation is estimated from canvas buffers; procedural geometry and browser/driver overhead are not observable here.",
     },
     interpretation: {
       lcpCls: "Local lab observations, not 75th-percentile field Core Web Vitals.",
       inp:
-        "No field INP is reported because the Phase 1 lab has no real-user interaction population.",
+        "No field INP is reported because the production preview has no real-user interaction population.",
       frameTime:
         "requestAnimationFrame cadence in headless Chromium; physical integrated-GPU and mobile traces remain required before production.",
+      browserDiagnostics:
+        "Chromium GL readback diagnostics are recorded separately from application console warnings because the headless measurement harness can trigger them.",
     },
     results,
   };

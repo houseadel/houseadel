@@ -94,16 +94,22 @@
 .stage {
   position: sticky;
   top: 7rem;
+  perspective: 70rem;
 }
 
-.stage > p {
+.stagePlane {
+  transform-origin: 50% 16%;
+  will-change: transform, opacity;
+}
+
+.stagePlane > p {
   margin: var(--space-2) 0 0;
   color: var(--color-garnet);
   font-size: 0.72rem;
   font-weight: 650;
 }
 
-.stage .stageTitle {
+.stagePlane .stageTitle {
   margin-top: var(--space-4);
   color: var(--color-ink);
   font: 400 clamp(1.8rem, 3vw, 3rem)/1 var(--font-display);
@@ -158,5 +164,12 @@
   .open,
   .studyLabel {
     color: LinkText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stagePlane {
+    transform: none !important;
+    opacity: 1 !important;
   }
 }

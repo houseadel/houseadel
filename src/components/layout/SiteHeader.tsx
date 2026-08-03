@@ -11,6 +11,7 @@ export function SiteHeader({ pathname }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const firstMenuLink = useRef<HTMLAnchorElement>(null);
+  const mobilePanel = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -21,9 +22,23 @@ export function SiteHeader({ pathname }: SiteHeaderProps) {
     if (menuOpen) firstMenuLink.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape" || !menuOpen) return;
-      setMenuOpen(false);
-      menuButton.current?.focus();
+      if (!menuOpen) return;
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButton.current?.focus();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const links = [...(mobilePanel.current?.querySelectorAll<HTMLElement>("a[href]") ?? [])];
+      const lastLink = links.at(-1);
+      if (!event.shiftKey && document.activeElement === lastLink) {
+        event.preventDefault();
+        menuButton.current?.focus();
+      } else if (event.shiftKey && document.activeElement === menuButton.current) {
+        event.preventDefault();
+        lastLink?.focus();
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -72,10 +87,14 @@ export function SiteHeader({ pathname }: SiteHeaderProps) {
       </div>
 
       <div
+        ref={mobilePanel}
         className={styles.mobilePanel}
         id="mobile-navigation"
         data-open={menuOpen}
         aria-hidden={!menuOpen}
+        role="dialog"
+        aria-modal={menuOpen ? "true" : undefined}
+        aria-label="House Adel navigation"
       >
         <nav className={`${styles.mobileNavigation} page-frame`} aria-label="Mobile navigation">
           {primaryNavigation.map((item, index) => (

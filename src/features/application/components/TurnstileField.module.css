@@ -1,0 +1,44 @@
+.field {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.8fr) minmax(18rem, 1.2fr);
+  gap: var(--space-4) var(--space-6);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.field h3 {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.field p {
+  margin-top: var(--space-2);
+  color: var(--color-ink-soft);
+  font-size: var(--step--1);
+}
+
+.widget {
+  min-height: 4.1rem;
+}
+
+.status {
+  grid-column: 2;
+}
+
+@media (max-width: 47.99rem) {
+  .field {
+    grid-template-columns: 1fr;
+  }
+
+  .status {
+    grid-column: 1;
+  }
+}
+
+@media (forced-colors: active) {
+  .widget {
+    border: 1px solid CanvasText;
+  }
+}

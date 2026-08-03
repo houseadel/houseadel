@@ -1,6 +1,12 @@
+import { lazy, Suspense } from "react";
 import { PageIntro } from "../components/layout/PageIntro";
-import { ApplicationForm } from "../features/application/components/ApplicationForm";
 import styles from "./ApplyPage.module.css";
+
+const ApplicationForm = lazy(() =>
+  import("../features/application/components/ApplicationForm").then((module) => ({
+    default: module.ApplicationForm,
+  })),
+);
 
 export function ApplyPage() {
   return (
@@ -17,9 +23,16 @@ export function ApplyPage() {
         </div>
       </PageIntro>
       <section className={`${styles.application} page-frame`} aria-label="Project application">
-        <ApplicationForm />
+        <Suspense
+          fallback={
+            <p className={styles.formLoading} role="status">
+              Preparing the application
+            </p>
+          }
+        >
+          <ApplicationForm />
+        </Suspense>
       </section>
     </>
   );
 }
-

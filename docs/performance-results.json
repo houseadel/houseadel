@@ -1,19 +1,20 @@
 {
   "schemaVersion": "0.1.0",
-  "measuredAt": "2026-07-31T05:11:18.105Z",
+  "measuredAt": "2026-08-03T03:16:59.743Z",
   "mode": "Vite production preview; cold isolated browser context per route",
   "environment": {
-    "platform": "win32 10.0.26100",
+    "platform": "win32 10.0.26200",
     "cpu": "13th Gen Intel(R) Core(TM) i5-13420H",
     "logicalCpus": 12,
     "totalMemoryBytes": 16890716160,
     "browser": "Chromium 151.0.7922.34",
-    "note": "GPU allocation is estimated from loaded textures and canvas buffers; browser/driver overhead is not observable here."
+    "note": "GPU allocation is estimated from canvas buffers; procedural geometry and browser/driver overhead are not observable here."
   },
   "interpretation": {
     "lcpCls": "Local lab observations, not 75th-percentile field Core Web Vitals.",
-    "inp": "No field INP is reported because the Phase 1 lab has no real-user interaction population.",
-    "frameTime": "requestAnimationFrame cadence in headless Chromium; physical integrated-GPU and mobile traces remain required before production."
+    "inp": "No field INP is reported because the production preview has no real-user interaction population.",
+    "frameTime": "requestAnimationFrame cadence in headless Chromium; physical integrated-GPU and mobile traces remain required before production.",
+    "browserDiagnostics": "Chromium GL readback diagnostics are recorded separately from application console warnings because the headless measurement harness can trigger them."
   },
   "results": [
     {
@@ -26,27 +27,85 @@
       "mobileEmulation": false,
       "devicePixelRatio": 1,
       "navigationMs": {
-        "responseStart": 5.299999997019768,
-        "domContentLoaded": 47.8999999910593,
-        "load": 48.099999994039536
+        "responseStart": 5.899999998509884,
+        "domContentLoaded": 45.19999999552965,
+        "load": 45.19999999552965
       },
       "paintMs": {
-        "firstPaint": 44,
-        "firstContentfulPaint": 236,
-        "largestContentfulPaint": 236
+        "firstPaint": 40,
+        "firstContentfulPaint": 184,
+        "largestContentfulPaint": 184
       },
-      "cumulativeLayoutShift": 0.01081065544892404,
+      "cumulativeLayoutShift": 0,
       "resourceBytes": {
-        "javascript": 74079,
-        "css": 8915,
+        "javascript": 349118,
+        "css": 5493,
+        "image": 0,
+        "font": 147440,
+        "video": 0,
+        "model": 0,
+        "other": 0
+      },
+      "totalEncodedResourceBytes": 502051,
+      "gzipCodeBytes": 354354,
+      "domImageDecodeBytes": 0,
+      "textureGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 14238720,
+      "combinedGpuBytesEstimate": 14238720,
+      "frameIntervalMs": {
+        "median": 16.699999999999818,
+        "p95": 16.799999999999727,
+        "maximum": 16.800000000000182
+      },
+      "longTasks": {
+        "count": 2,
+        "maximumMs": 112
+      },
+      "canvases": [
+        {
+          "cssWidth": 1440,
+          "cssHeight": 824,
+          "bufferWidth": 1440,
+          "bufferHeight": 824
+        }
+      ],
+      "fallbackActive": false,
+      "consoleWarnings": [],
+      "browserDiagnostics": [
+        "[.WebGL-0x7c2c01a06400]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+      ]
+    },
+    {
+      "id": "editions-desktop",
+      "route": "/editions",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "mobileEmulation": false,
+      "devicePixelRatio": 1,
+      "navigationMs": {
+        "responseStart": 3.600000001490116,
+        "domContentLoaded": 42.600000001490116,
+        "load": 51.20000000298023
+      },
+      "paintMs": {
+        "firstPaint": 32,
+        "firstContentfulPaint": 96,
+        "largestContentfulPaint": 408
+      },
+      "cumulativeLayoutShift": 0,
+      "resourceBytes": {
+        "javascript": 77975,
+        "css": 7394,
         "image": 0,
         "font": 82920,
         "video": 0,
         "model": 0,
         "other": 0
       },
-      "totalEncodedResourceBytes": 165914,
-      "gzipCodeBytes": 82722,
+      "totalEncodedResourceBytes": 168289,
+      "gzipCodeBytes": 84970,
       "domImageDecodeBytes": 0,
       "textureGpuBytesEstimate": 0,
       "canvasGpuBytesEstimate": 0,
@@ -54,7 +113,7 @@
       "frameIntervalMs": {
         "median": 16.699999999999818,
         "p95": 16.700000000000273,
-        "maximum": 16.799999999999955
+        "maximum": 16.800000000000182
       },
       "longTasks": {
         "count": 0,
@@ -62,11 +121,12 @@
       },
       "canvases": [],
       "fallbackActive": false,
-      "consoleWarnings": []
+      "consoleWarnings": [],
+      "browserDiagnostics": []
     },
     {
-      "id": "fracture-desktop",
-      "route": "/prototypes/fracture",
+      "id": "edition-desktop",
+      "route": "/editions/threshold",
       "viewport": {
         "width": 1440,
         "height": 900
@@ -74,28 +134,28 @@
       "mobileEmulation": false,
       "devicePixelRatio": 1,
       "navigationMs": {
-        "responseStart": 2.7999999970197678,
-        "domContentLoaded": 38.5,
-        "load": 39.19999998807907
+        "responseStart": 2.600000001490116,
+        "domContentLoaded": 38.20000000298023,
+        "load": 48.70000000298023
       },
       "paintMs": {
-        "firstPaint": 52,
-        "firstContentfulPaint": 72,
-        "largestContentfulPaint": 428
+        "firstPaint": 48,
+        "firstContentfulPaint": 96,
+        "largestContentfulPaint": 396
       },
-      "cumulativeLayoutShift": 0.0000793652423942367,
+      "cumulativeLayoutShift": 0,
       "resourceBytes": {
-        "javascript": 103490,
-        "css": 8915,
-        "image": 104453,
+        "javascript": 79976,
+        "css": 8811,
+        "image": 0,
         "font": 82920,
         "video": 0,
         "model": 0,
         "other": 0
       },
-      "totalEncodedResourceBytes": 299778,
-      "gzipCodeBytes": 111979,
-      "domImageDecodeBytes": 2464320,
+      "totalEncodedResourceBytes": 171707,
+      "gzipCodeBytes": 88388,
+      "domImageDecodeBytes": 0,
       "textureGpuBytesEstimate": 0,
       "canvasGpuBytesEstimate": 0,
       "combinedGpuBytesEstimate": 0,
@@ -110,163 +170,155 @@
       },
       "canvases": [],
       "fallbackActive": false,
-      "consoleWarnings": []
+      "consoleWarnings": [],
+      "browserDiagnostics": []
     },
     {
-      "id": "hybrid-desktop",
-      "route": "/prototypes/hybrid",
+      "id": "private-desktop",
+      "route": "/private-commissions",
       "viewport": {
         "width": 1440,
         "height": 900
       },
       "mobileEmulation": false,
       "devicePixelRatio": 1,
+      "navigationMs": {
+        "responseStart": 3.3000000044703484,
+        "domContentLoaded": 36.80000000447035,
+        "load": 37.5
+      },
+      "paintMs": {
+        "firstPaint": 48,
+        "firstContentfulPaint": 116,
+        "largestContentfulPaint": 116
+      },
+      "cumulativeLayoutShift": 0,
+      "resourceBytes": {
+        "javascript": 78754,
+        "css": 8041,
+        "image": 0,
+        "font": 147440,
+        "video": 0,
+        "model": 0,
+        "other": 0
+      },
+      "totalEncodedResourceBytes": 234235,
+      "gzipCodeBytes": 86396,
+      "domImageDecodeBytes": 0,
+      "textureGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 0,
+      "combinedGpuBytesEstimate": 0,
+      "frameIntervalMs": {
+        "median": 16.699999999999818,
+        "p95": 16.700000000000273,
+        "maximum": 16.800000000000182
+      },
+      "longTasks": {
+        "count": 0,
+        "maximumMs": 0
+      },
+      "canvases": [],
+      "fallbackActive": false,
+      "consoleWarnings": [],
+      "browserDiagnostics": []
+    },
+    {
+      "id": "home-mobile",
+      "route": "/",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "mobileEmulation": true,
+      "devicePixelRatio": 2,
+      "navigationMs": {
+        "responseStart": 2.6999999955296516,
+        "domContentLoaded": 36,
+        "load": 36.100000001490116
+      },
+      "paintMs": {
+        "firstPaint": 24,
+        "firstContentfulPaint": 172,
+        "largestContentfulPaint": 172
+      },
+      "cumulativeLayoutShift": 0,
+      "resourceBytes": {
+        "javascript": 349118,
+        "css": 5493,
+        "image": 0,
+        "font": 147440,
+        "video": 0,
+        "model": 0,
+        "other": 0
+      },
+      "totalEncodedResourceBytes": 502051,
+      "gzipCodeBytes": 354354,
+      "domImageDecodeBytes": 0,
+      "textureGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 4795392,
+      "combinedGpuBytesEstimate": 4795392,
+      "frameIntervalMs": {
+        "median": 16.699999999999818,
+        "p95": 16.799999999999727,
+        "maximum": 16.800000000000182
+      },
+      "longTasks": {
+        "count": 1,
+        "maximumMs": 74
+      },
+      "canvases": [
+        {
+          "cssWidth": 390,
+          "cssHeight": 776,
+          "bufferWidth": 448,
+          "bufferHeight": 892
+        }
+      ],
+      "fallbackActive": false,
+      "consoleWarnings": [],
+      "browserDiagnostics": [
+        "[.WebGL-0x4b8404638c00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+      ]
+    },
+    {
+      "id": "editions-mobile",
+      "route": "/editions",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "mobileEmulation": true,
+      "devicePixelRatio": 2,
       "navigationMs": {
         "responseStart": 2.9000000059604645,
-        "domContentLoaded": 36.20000000298023,
-        "load": 36.900000005960464
+        "domContentLoaded": 39.100000001490116,
+        "load": 48.30000000447035
       },
       "paintMs": {
-        "firstPaint": 52,
-        "firstContentfulPaint": 72,
-        "largestContentfulPaint": 384
-      },
-      "cumulativeLayoutShift": 0.0001905989114476166,
-      "resourceBytes": {
-        "javascript": 338397,
-        "css": 8915,
-        "image": 306822,
-        "font": 82920,
-        "video": 0,
-        "model": 0,
-        "other": 0
-      },
-      "totalEncodedResourceBytes": 737054,
-      "gzipCodeBytes": 347040,
-      "domImageDecodeBytes": 0,
-      "textureGpuBytesEstimate": 18662400,
-      "canvasGpuBytesEstimate": 13789440,
-      "combinedGpuBytesEstimate": 32451840,
-      "frameIntervalMs": {
-        "median": 33.30000000000018,
-        "p95": 50,
-        "maximum": 50.09999999999991
-      },
-      "longTasks": {
-        "count": 1,
-        "maximumMs": 290
-      },
-      "canvases": [
-        {
-          "cssWidth": 1440,
-          "cssHeight": 798.40625,
-          "bufferWidth": 1440,
-          "bufferHeight": 798
-        }
-      ],
-      "fallbackActive": false,
-      "consoleWarnings": [
-        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.",
-        "[.WebGL-0x3584001af200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
-        "[.WebGL-0x3584001af200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
-      ]
-    },
-    {
-      "id": "cinematic-desktop",
-      "route": "/prototypes/cinematic",
-      "viewport": {
-        "width": 1440,
-        "height": 900
-      },
-      "mobileEmulation": false,
-      "devicePixelRatio": 1,
-      "navigationMs": {
-        "responseStart": 4.699999988079071,
-        "domContentLoaded": 50,
-        "load": 50.8999999910593
-      },
-      "paintMs": {
-        "firstPaint": 64,
-        "firstContentfulPaint": 96,
-        "largestContentfulPaint": 976
-      },
-      "cumulativeLayoutShift": 0.000766827049307699,
-      "resourceBytes": {
-        "javascript": 336611,
-        "css": 8915,
-        "image": 330704,
-        "font": 82920,
-        "video": 0,
-        "model": 0,
-        "other": 0
-      },
-      "totalEncodedResourceBytes": 759150,
-      "gzipCodeBytes": 345254,
-      "domImageDecodeBytes": 4665600,
-      "textureGpuBytesEstimate": 18662400,
-      "canvasGpuBytesEstimate": 13789440,
-      "combinedGpuBytesEstimate": 32451840,
-      "frameIntervalMs": {
-        "median": 16.699999999999818,
-        "p95": 16.800000000000182,
-        "maximum": 33.40000000000009
-      },
-      "longTasks": {
-        "count": 1,
-        "maximumMs": 119
-      },
-      "canvases": [
-        {
-          "cssWidth": 1440,
-          "cssHeight": 798.40625,
-          "bufferWidth": 1440,
-          "bufferHeight": 798
-        }
-      ],
-      "fallbackActive": false,
-      "consoleWarnings": [
-        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
-      ]
-    },
-    {
-      "id": "fracture-mobile",
-      "route": "/prototypes/fracture",
-      "viewport": {
-        "width": 390,
-        "height": 844
-      },
-      "mobileEmulation": true,
-      "devicePixelRatio": 2,
-      "navigationMs": {
-        "responseStart": 3.2000000029802322,
-        "domContentLoaded": 39.400000005960464,
-        "load": 40.1000000089407
-      },
-      "paintMs": {
-        "firstPaint": 48,
-        "firstContentfulPaint": 72,
-        "largestContentfulPaint": 388
+        "firstPaint": 24,
+        "firstContentfulPaint": 104,
+        "largestContentfulPaint": 396
       },
       "cumulativeLayoutShift": 0,
       "resourceBytes": {
-        "javascript": 103490,
-        "css": 8915,
-        "image": 104453,
+        "javascript": 77975,
+        "css": 7394,
+        "image": 0,
         "font": 82920,
         "video": 0,
         "model": 0,
         "other": 0
       },
-      "totalEncodedResourceBytes": 299778,
-      "gzipCodeBytes": 111979,
-      "domImageDecodeBytes": 829764,
+      "totalEncodedResourceBytes": 168289,
+      "gzipCodeBytes": 84970,
+      "domImageDecodeBytes": 0,
       "textureGpuBytesEstimate": 0,
       "canvasGpuBytesEstimate": 0,
       "combinedGpuBytesEstimate": 0,
       "frameIntervalMs": {
         "median": 16.699999999999818,
-        "p95": 16.799999999999727,
-        "maximum": 16.799999999999955
+        "p95": 16.799999999999955,
+        "maximum": 16.800000000000182
       },
       "longTasks": {
         "count": 0,
@@ -274,68 +326,12 @@
       },
       "canvases": [],
       "fallbackActive": false,
-      "consoleWarnings": []
+      "consoleWarnings": [],
+      "browserDiagnostics": []
     },
     {
-      "id": "hybrid-mobile",
-      "route": "/prototypes/hybrid",
-      "viewport": {
-        "width": 390,
-        "height": 844
-      },
-      "mobileEmulation": true,
-      "devicePixelRatio": 2,
-      "navigationMs": {
-        "responseStart": 3.5999999940395355,
-        "domContentLoaded": 38.099999994039536,
-        "load": 38.70000000298023
-      },
-      "paintMs": {
-        "firstPaint": 48,
-        "firstContentfulPaint": 68,
-        "largestContentfulPaint": 376
-      },
-      "cumulativeLayoutShift": 0,
-      "resourceBytes": {
-        "javascript": 338397,
-        "css": 8915,
-        "image": 156992,
-        "font": 82920,
-        "video": 0,
-        "model": 0,
-        "other": 0
-      },
-      "totalEncodedResourceBytes": 587224,
-      "gzipCodeBytes": 347040,
-      "domImageDecodeBytes": 0,
-      "textureGpuBytesEstimate": 8294400,
-      "canvasGpuBytesEstimate": 3486600,
-      "combinedGpuBytesEstimate": 11781000,
-      "frameIntervalMs": {
-        "median": 16.699999999999818,
-        "p95": 16.700000000000273,
-        "maximum": 16.800000000000182
-      },
-      "longTasks": {
-        "count": 1,
-        "maximumMs": 129
-      },
-      "canvases": [
-        {
-          "cssWidth": 390,
-          "cssHeight": 745.40625,
-          "bufferWidth": 390,
-          "bufferHeight": 745
-        }
-      ],
-      "fallbackActive": false,
-      "consoleWarnings": [
-        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
-      ]
-    },
-    {
-      "id": "cinematic-mobile",
-      "route": "/prototypes/cinematic",
+      "id": "apply-mobile",
+      "route": "/apply",
       "viewport": {
         "width": 390,
         "height": 844
@@ -344,51 +340,43 @@
       "devicePixelRatio": 2,
       "navigationMs": {
         "responseStart": 2.7999999970197678,
-        "domContentLoaded": 38.3999999910593,
-        "load": 39
+        "domContentLoaded": 36.899999998509884,
+        "load": 37
       },
       "paintMs": {
-        "firstPaint": 44,
-        "firstContentfulPaint": 72,
-        "largestContentfulPaint": 400
+        "firstPaint": 28,
+        "firstContentfulPaint": 116,
+        "largestContentfulPaint": 116
       },
       "cumulativeLayoutShift": 0,
       "resourceBytes": {
-        "javascript": 336611,
-        "css": 8915,
-        "image": 169573,
-        "font": 82920,
+        "javascript": 110994,
+        "css": 8476,
+        "image": 0,
+        "font": 147440,
         "video": 0,
         "model": 0,
         "other": 0
       },
-      "totalEncodedResourceBytes": 598019,
-      "gzipCodeBytes": 345254,
-      "domImageDecodeBytes": 340764,
-      "textureGpuBytesEstimate": 8294400,
-      "canvasGpuBytesEstimate": 3486600,
-      "combinedGpuBytesEstimate": 11781000,
+      "totalEncodedResourceBytes": 266910,
+      "gzipCodeBytes": 119071,
+      "domImageDecodeBytes": 0,
+      "textureGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 0,
+      "combinedGpuBytesEstimate": 0,
       "frameIntervalMs": {
         "median": 16.699999999999818,
-        "p95": 16.700000000000273,
-        "maximum": 16.700000000000273
+        "p95": 16.799999999999727,
+        "maximum": 16.800000000000182
       },
       "longTasks": {
         "count": 0,
         "maximumMs": 0
       },
-      "canvases": [
-        {
-          "cssWidth": 390,
-          "cssHeight": 745.40625,
-          "bufferWidth": 390,
-          "bufferHeight": 745
-        }
-      ],
+      "canvases": [],
       "fallbackActive": false,
-      "consoleWarnings": [
-        "THREE.Clock: This module has been deprecated. Please use THREE.Timer instead."
-      ]
+      "consoleWarnings": [],
+      "browserDiagnostics": []
     }
   ]
 }

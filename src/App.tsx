@@ -3,18 +3,15 @@ import { SiteLayout } from "./components/layout/SiteLayout";
 import { getEdition } from "./data/editions";
 import { getStory } from "./data/stories";
 import { useLocation, useRouteEffects } from "./lib/router";
+import { ApplyPage } from "./pages/ApplyPage";
 import { HomePage } from "./pages/HomePage";
+import { PrivateCommissionsPage } from "./pages/PrivateCommissionsPage";
 
 const EditionsPage = lazy(() =>
   import("./pages/EditionsPage").then((module) => ({ default: module.EditionsPage })),
 );
 const EditionPage = lazy(() =>
   import("./pages/EditionPage").then((module) => ({ default: module.EditionPage })),
-);
-const PrivateCommissionsPage = lazy(() =>
-  import("./pages/PrivateCommissionsPage").then((module) => ({
-    default: module.PrivateCommissionsPage,
-  })),
 );
 const StoriesPage = lazy(() =>
   import("./pages/StoriesPage").then((module) => ({ default: module.StoriesPage })),
@@ -24,9 +21,6 @@ const StoryPage = lazy(() =>
 );
 const TheHousePage = lazy(() =>
   import("./pages/TheHousePage").then((module) => ({ default: module.TheHousePage })),
-);
-const ApplyPage = lazy(() =>
-  import("./pages/ApplyPage").then((module) => ({ default: module.ApplyPage })),
 );
 const ApplicationReceivedPage = lazy(() =>
   import("./pages/ApplicationReceivedPage").then((module) => ({

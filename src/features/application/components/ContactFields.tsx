@@ -4,6 +4,7 @@ import { CONTACT_METHOD_LABELS, CONTACT_METHOD_VALUES } from "../applicationOpti
 import { FIELD_LIMITS, type ApplicationValues } from "../applicationSchema";
 import { ApplicationSection } from "./ApplicationSection";
 import { FieldShell } from "./FieldShell";
+import { TurnstileField } from "./TurnstileField";
 import styles from "./ApplicationForm.module.css";
 
 export function ContactFields() {
@@ -196,6 +197,8 @@ export function ContactFields() {
           </p>
         ) : null}
       </div>
+
+      <TurnstileField />
 
       <div className={styles.honeypot} aria-hidden="true">
         <label htmlFor="website">Leave this field empty</label>

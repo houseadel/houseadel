@@ -1,5 +1,6 @@
-import type { CSSProperties } from "react";
-import type { Edition, EditionPlateKind } from "../../data/editions";
+import { useEffect, useId, useRef, type CSSProperties } from "react";
+import type { Edition, EditionPlateKind, EditionRevealMask } from "../../data/editions";
+import { deferMotion } from "../../lib/deferredMotion";
 import styles from "./EditionPlate.module.css";
 
 type EditionPlateProps = {
@@ -14,6 +15,21 @@ type EditionPlateStyle = CSSProperties & {
   "--plate-ink": string;
   "--plate-signature": string;
   "--plate-metal": string;
+};
+
+const revealPaths: Record<EditionRevealMask, { d: string; width: number }> = {
+  "threshold-arch": {
+    d: "M164 48C276 48 350 112 350 216V468 216C350 112 424 48 536 48",
+    width: 520,
+  },
+  "correspondence-fold": {
+    d: "M-34 46 248 176 126 436 248 176l226 104 250-174",
+    width: 440,
+  },
+  "afterlight-window": {
+    d: "M76 396V64h548v332H76L350 230 624 64",
+    width: 390,
+  },
 };
 
 function PlateDrawing({ kind }: { kind: EditionPlateKind }) {
@@ -92,7 +108,12 @@ function PlateDrawing({ kind }: { kind: EditionPlateKind }) {
 }
 
 export function EditionPlate({ edition, assetIndex = 0, caption = true }: EditionPlateProps) {
+  const figureRef = useRef<HTMLElement>(null);
+  const revealPathRef = useRef<SVGPathElement>(null);
+  const drawingRef = useRef<SVGGElement>(null);
+  const maskId = `edition-mask-${useId().replaceAll(":", "")}`;
   const asset = edition.theme.imageSet[assetIndex] ?? edition.theme.imageSet[0];
+  const revealPath = revealPaths[edition.theme.revealMask];
   const plateStyle: EditionPlateStyle = {
     "--plate-field": edition.theme.palette.field,
     "--plate-paper": edition.theme.palette.paper,
@@ -101,8 +122,82 @@ export function EditionPlate({ edition, assetIndex = 0, caption = true }: Editio
     "--plate-metal": edition.theme.palette.metal,
   };
 
+  useEffect(() => {
+    const figureElement = figureRef.current;
+    const revealPathElement = revealPathRef.current;
+    const drawingElement = drawingRef.current;
+
+    if (!figureElement || !revealPathElement || !drawingElement) {
+      return;
+    }
+
+    return deferMotion((gsap) => {
+      const media = gsap.matchMedia();
+      const context = gsap.context(() => {
+        media.add(
+          {
+            desktop: "(min-width: 48rem) and (prefers-reduced-motion: no-preference)",
+            mobile: "(max-width: 47.99rem) and (prefers-reduced-motion: no-preference)",
+            reduced: "(prefers-reduced-motion: reduce)",
+            forced: "(forced-colors: active)",
+          },
+          ({ conditions }) => {
+            const { desktop, mobile, reduced, forced } = conditions ?? {};
+
+            if (reduced || forced || (!desktop && !mobile)) {
+              gsap.set(revealPathElement, { clearProps: "strokeDasharray,strokeDashoffset" });
+              gsap.set(drawingElement, { clearProps: "opacity,transform" });
+              return;
+            }
+
+            const pathLength = revealPathElement.getTotalLength();
+            gsap.set(revealPathElement, {
+              strokeDasharray: pathLength,
+              strokeDashoffset: pathLength,
+            });
+
+            const timeline = gsap.timeline({
+              defaults: { ease: "none" },
+              scrollTrigger: {
+                trigger: figureElement,
+                start: mobile ? "top 92%" : "top 84%",
+                end: mobile ? "top 58%" : "top 34%",
+                scrub: mobile ? 0.18 : 0.45,
+                invalidateOnRefresh: true,
+              },
+            });
+
+            timeline
+              .fromTo(
+                revealPathElement,
+                { strokeDashoffset: pathLength },
+                { strokeDashoffset: 0, duration: 1 },
+                0,
+              )
+              .fromTo(
+                drawingElement,
+                { opacity: mobile ? 0.58 : 0.38, yPercent: mobile ? 2 : 4 },
+                { opacity: 1, yPercent: 0, duration: 0.82 },
+                0.12,
+              );
+          },
+        );
+      }, figureElement);
+
+      return () => {
+        media.revert();
+        context.revert();
+      };
+    });
+  }, []);
+
   return (
-    <figure className={styles.figure} style={plateStyle} data-reveal-mask={edition.theme.revealMask}>
+    <figure
+      ref={figureRef}
+      className={styles.figure}
+      style={plateStyle}
+      data-reveal-mask={edition.theme.revealMask}
+    >
       <div className={styles.field}>
         <svg
           className={styles.drawing}
@@ -111,7 +206,22 @@ export function EditionPlate({ edition, assetIndex = 0, caption = true }: Editio
           aria-label={asset.alt}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <PlateDrawing kind={asset.kind} />
+          <defs>
+            <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width="700" height="460">
+              <rect width="700" height="460" fill="black" />
+              <path
+                ref={revealPathRef}
+                className={styles.revealPath}
+                d={revealPath.d}
+                stroke="white"
+                strokeWidth={revealPath.width}
+                fill="none"
+              />
+            </mask>
+          </defs>
+          <g ref={drawingRef} mask={`url(#${maskId})`}>
+            <PlateDrawing kind={asset.kind} />
+          </g>
         </svg>
         <p className={styles.number} aria-hidden="true">
           {edition.theme.metadata.editionNumber}

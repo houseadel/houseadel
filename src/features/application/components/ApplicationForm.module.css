@@ -416,6 +416,8 @@
 }
 
 .briefCard {
+  --brief-progress: 0;
+
   min-height: 31rem;
   padding: var(--space-5);
   overflow: hidden;
@@ -426,7 +428,41 @@
   box-shadow: var(--shadow-paper);
 }
 
-.briefCard::after {
+.briefAssembly {
+  display: grid;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 0.18rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.briefAssembly::after {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(var(--brief-progress));
+  transform-origin: left;
+  background: var(--color-garnet);
+  content: "";
+  will-change: transform;
+}
+
+.briefAssembly span {
+  position: relative;
+  z-index: 1;
+  border-right: 1px solid var(--color-ivory-raised);
+}
+
+.briefAssembly span:last-child {
+  border-right: 0;
+}
+
+.briefCorner {
+  display: block;
   position: absolute;
   right: var(--space-5);
   bottom: var(--space-5);
@@ -434,7 +470,8 @@
   height: 2.2rem;
   border-right: 1px solid var(--color-garnet);
   border-bottom: 1px solid var(--color-garnet);
-  content: "";
+  transform-origin: 100% 100%;
+  will-change: transform, opacity;
 }
 
 .briefHeader {
@@ -708,3 +745,9 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .briefCorner {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

@@ -1,0 +1,62 @@
+.canvasLayer {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-slow) var(--ease-house);
+}
+
+.canvasLayer[data-ready="true"] {
+  opacity: 0.82;
+}
+
+.canvasLayer canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.progressRule {
+  position: absolute;
+  z-index: 3;
+  right: var(--page-gutter);
+  bottom: 1.2rem;
+  width: clamp(3.5rem, 7vw, 7rem);
+  height: 1px;
+  transform: scaleX(calc(0.18 + (var(--spatial-progress, 0) * 0.82)));
+  transform-origin: left;
+  background: var(--color-garnet);
+  opacity: 0.72;
+}
+
+.progressRule::before,
+.progressRule::after {
+  position: absolute;
+  top: -0.22rem;
+  width: 1px;
+  height: 0.45rem;
+  background: inherit;
+  content: "";
+}
+
+.progressRule::after {
+  right: 0;
+}
+
+@media (max-width: 47.99rem) {
+  .canvasLayer[data-ready="true"] {
+    opacity: 0.68;
+  }
+
+  .progressRule {
+    bottom: 0.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .canvasLayer,
+  .progressRule {
+    display: none;
+  }
+}

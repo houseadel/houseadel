@@ -52,7 +52,9 @@ const copy = {
 } as const;
 
 export function EditionPreview({ edition }: { edition: Edition }) {
-  const [size, setSize] = useState<PreviewSize>("desktop");
+  const [size, setSize] = useState<PreviewSize>(() =>
+    window.matchMedia("(max-width: 47.99rem)").matches ? "mobile" : "desktop",
+  );
   const [language, setLanguage] = useState<PreviewLanguage>("en");
   const [section, setSection] = useState<PreviewSection>("welcome");
   const [firstName, setFirstName] = useState("Name One");

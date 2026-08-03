@@ -35,6 +35,11 @@
   height: 90%;
 }
 
+.revealPath {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .paperFill {
   fill: var(--plate-paper);
 }

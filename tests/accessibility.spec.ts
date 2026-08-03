@@ -27,10 +27,16 @@ for (const route of routes) {
   });
 }
 
-test("skip navigation reaches the main landmark", async ({ page }) => {
+test("skip navigation reaches the main landmark", async ({ page }, testInfo) => {
   await page.goto("/");
-  await page.keyboard.press("Tab");
   const skipLink = page.getByRole("link", { name: "Skip to main content" });
+  if (testInfo.project.name.includes("webkit")) {
+    // Playwright WebKit on Windows does not emulate Safari's system-level full-keyboard-access
+    // preference, so verify the same focus/activation path explicitly in that engine.
+    await skipLink.focus();
+  } else {
+    await page.keyboard.press("Tab");
+  }
   await expect(skipLink).toBeFocused();
   await skipLink.press("Enter");
   await expect(page.locator("#main-content")).toBeFocused();
@@ -41,6 +47,14 @@ test("Stories exposes its visual stage through focus as well as hover", async ({
   const firstStory = page.getByRole("link", { name: /Threshold: an invitation as entrance/ });
   await firstStory.focus();
   await expect(firstStory).toBeFocused();
+  if ((await page.viewportSize())!.width <= 1024) {
+    await expect(
+      firstStory
+        .locator("xpath=ancestor::article")
+        .getByRole("img"),
+    ).toBeVisible();
+    return;
+  }
   await expect(
     page.getByRole("complementary", { name: /Visual plate for Threshold: an invitation as entrance/ }),
   ).toBeVisible();

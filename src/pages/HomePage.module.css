@@ -4,16 +4,25 @@
 
 .opening {
   position: relative;
-  min-height: calc(100svh - var(--header-height));
-  overflow: hidden;
+  min-height: 142svh;
+  overflow: clip;
   border-bottom: 1px solid var(--line);
+}
+
+.openingStage {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100svh - var(--header-height));
+  min-height: 36rem;
+  overflow: hidden;
+  background: var(--color-ivory);
 }
 
 .openingContent {
   display: flex;
   position: relative;
   z-index: 2;
-  min-height: calc(100svh - var(--header-height));
+  min-height: 100%;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-end;
@@ -443,8 +452,16 @@
 }
 
 @media (max-width: 47.99rem) {
+  .opening {
+    min-height: 126svh;
+  }
+
+  .openingStage {
+    min-height: 32rem;
+  }
+
   .openingContent {
-    min-height: calc(100svh - var(--header-height));
+    min-height: 100%;
     justify-content: flex-end;
     padding-bottom: var(--space-6);
   }
@@ -523,5 +540,16 @@
 
   .apply::after {
     right: -13rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .opening {
+    min-height: calc(100svh - var(--header-height));
+  }
+
+  .openingStage {
+    position: relative;
+    top: 0;
   }
 }

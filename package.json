@@ -17,9 +17,11 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "test:e2e:update": "playwright test --update-snapshots",
+    "test:e2e:update": "playwright test --update-snapshots=all",
+    "capture:production": "npm run build && node scripts/capture-production-screenshots.mjs",
     "test:a11y": "playwright test tests/accessibility.spec.ts",
     "measure:runtime": "node scripts/measure-runtime.mjs",
+    "audit:performance": "npm run measure:runtime && node scripts/check-performance-budgets.mjs",
     "audit:structure": "node scripts/check-structure.mjs",
     "audit:dependencies": "npm audit --omit=optional",
     "audit:assets": "node scripts/report-asset-sizes.mjs public",
@@ -29,14 +31,12 @@
     "assets:fetch": "node --experimental-strip-types scripts/fetch-open-access-assets.ts"
   },
   "dependencies": {
-    "@fontsource-variable/manrope": "^5.3.0",
-    "@fontsource-variable/newsreader": "^5.3.0",
     "@react-three/fiber": "^9.6.1",
     "gsap": "^3.15.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-hook-form": "7.84.0",
-    "three": "^0.185.1",
+    "three": "0.182.0",
     "zod": "4.4.3"
   },
   "devDependencies": {
@@ -48,7 +48,7 @@
     "@types/node": "26.1.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@types/three": "0.185.1",
+    "@types/three": "0.182.0",
     "@vitejs/plugin-react": "^6.0.5",
     "eslint": "9.39.5",
     "eslint-plugin-react-hooks": "7.1.1",
