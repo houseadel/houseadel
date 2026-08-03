@@ -1,61 +1,59 @@
 # Production status
 
-Last updated: 2026-08-02
+Last updated: 2026-08-03
 
 ## Current milestone
 
-**Phase 1 — Architecture: complete. Phase 2/3 visual and motion integration is next.**
+**Phase 7 is complete for local production.**
 
-The production information architecture is live in the local Vite build. Every required route has semantic content, persistent navigation, a responsive static composition, deep-link handling, Back/Forward behavior, and a truthful not-found state. The Edition catalogue, live invitation demonstration, Private Commissions atelier table, Stories system, drawn-line House page, and Living Brief application are all usable before complex motion.
+The production Vite build contains every required route and interaction: the static-first procedural homepage, Edition SVG masks and live demonstration, Private Commissions atelier table, Stories archive and reusable details, The House path, and the Living Brief application. Core content remains semantic and usable with reduced motion or no WebGL. No raster or generative media ships.
 
-The Moving House implementation remains recoverable from branch `phase-1-research` at commit `7ec9c97`. Its generated masters, public derivatives, review captures, and obsolete visual baselines have been removed from `master`. The current production build contains no raster image or generative asset.
+The superseded Moving House direction remains recoverable on branch `phase-1-research` at commit `7ec9c97`; it is absent from the production route and asset graph.
 
-## Completed in this milestone
+## Production architecture
 
-- Created all required routes: `/`, `/editions`, `/editions/:slug`, `/private-commissions`, `/stories`, `/stories/:slug`, `/the-house`, `/apply`, `/application-received`, `/privacy`, `/terms`, and a 404 state.
-- Rebuilt the shell with a skip link, persistent mark and navigation, mobile menu, semantic footer, route announcements, titles, focus restoration, and direct-route support.
-- Added typed Edition and Story data with three Edition studies and four Story studies. Every study is labelled `House Adel Study — Self-initiated.` and no client, wedding, result, award, location, testimonial, or team member is fabricated.
-- Built the interactive Edition preview, desktop/mobile switch, sample personalisation, EN/FR navigation, and local-only RSVP demonstration.
-- Built the Private Commissions atelier table, process, disciplines, availability, and minimum investment structure.
-- Built the Stories focus/hover stage and reusable eleven-part story detail architecture.
-- Built The House drawn-line structure and factual founder language for Marshall Phan.
-- Built the five-part application, fixed progress rail, live brief, non-sensitive autosave, validation, editable review state, and honest confirmation route.
-- Added server-side validation, a 64 KB request limit, honeypot rejection, in-memory rate-limit interface, optional Turnstile boundary, and mock/email/Google Sheets provider adapters.
-- Added the fail-closed Met, Rijksmuseum, and Smithsonian acquisition pipeline plus `data/assets.json`; no media has been downloaded.
-- Established tokens, typography, responsive grids, editorial components, CSS Modules, ESLint, standalone type checking, and bundle reporting.
+- Home, Apply, and the Private Commissions introduction are synchronous business-critical shells. The Apply form and Private Commissions editorial body load as separate content chunks.
+- Other direct routes are split and warmed only for the requested path. Homepage WebGL and its GSAP timeline are route-local and requested on visitor intent, with a quiet 12-second fallback; other route motion uses deferred GSAP imports.
+- The homepage renders its complete CSS/SVG master frame before the optional procedural canvas. Reduced motion, forced colours, Save-Data, failed WebGL, and explicit no-WebGL preferences retain the static experience.
+- Newsreader and Manrope are local OFL files with `font-display: optional` and no document preload. Visual tests and production captures explicitly warm the fonts before comparison.
+- The application has independent client/server Zod validation, sanitisation, a 64 KiB JSON limit, honeypot, optional Turnstile, and mock/email/Google Sheets provider boundaries. Mock mode is explicitly local and non-persistent.
 
-## Verification performed
+Every Edition and Story is labelled `House Adel Study — Self-initiated.` No client, wedding, result, award, press item, location, testimonial, or team member is fabricated.
 
-| Check | Result |
+## Final verification
+
+| Check | Final local result |
 | --- | --- |
-| `npm run lint` | Passed with zero warnings |
-| `npm run typecheck` | Passed |
-| `npm test` | 1 file, 6 tests passed |
-| `npm run build` | Passed; 162 modules; no source maps; bundle report written outside `dist` |
-| Chromium production route/interaction gate | Required static routes, Back/Forward, 404, Edition demo, fallback, and resize checks passed |
-| Application API checks | Mock `202`; disabled provider `503`; honeypot `400`; invalid JSON `400`; unsupported method `405` |
-| `npm run audit:provenance` | Passed; zero production image files and zero unrecorded files |
-| Browser review | Root at 1440 × 900 and 390 × 844; all distinct page types at 1440 × 900 |
+| Production cross-engine Playwright | 133 passed, 35 skipped, 0 failed |
+| Accessibility Playwright/Axe | 93 passed, 5 skipped, 0 failed |
+| Visual regression | 26 passed, 52 configured skips, 0 failed |
+| Production captures | `output/playwright/final-production/manifest.json` is `complete`; 80 screenshots generated at 2026-08-03T03:47:37.926Z, including all routes at 1440×900, 1024×768, 430×932, and 390×844 plus interaction, fallback, master-frame, and spatial-sequence states |
+| Runtime budgets | All 7 measured route/viewport entries passed. Home desktop: 490 KiB, LCP 184 ms, frame p95 16.8 ms. Home mobile: 490 KiB, LCP 172 ms, frame p95 16.8 ms. Full evidence is in `docs/performance-results.json` |
+| Lighthouse | Home 97 / LCP 2,111 ms; Editions 97 / 2,130 ms; Private Commissions 98 / 2,005 ms; Apply 96 / 2,299 ms. Every measured route has accessibility 100, best practices 100, and CLS 0 |
+| Build and assets | Final lint, typecheck, unit, production-build, structure, provenance, public-asset, dependency, and bundle gates passed. The provenance audit found 0 production images; public media is limited to 3 local fonts totalling 144 KiB |
 
-## Files changed
+Local runtime and Lighthouse results are lab evidence, not field Core Web Vitals. The runtime report records headless Chromium GL readback messages separately from application console output because the harness itself can trigger them.
 
-- `src/App.tsx`, `src/lib/router.tsx`, `src/components/layout/`, `src/pages/`, `src/features/`, `src/data/`, and `src/styles/` — production route, content, component, form, and visual architecture.
-- `server/applications/` and `vite.config.ts` — local/preview application endpoint and provider boundary.
-- `data/assets.json`, `scripts/fetch-open-access-assets.ts`, and `docs/ASSET_PROVENANCE.md` — rights-gated asset workflow.
-- `package.json`, `package-lock.json`, `eslint.config.js`, and `tsconfig.json` — approved dependencies, lint/typecheck, scripts, and server scope.
-- `tests/` — production unit and browser expectations replacing the obsolete research interface.
-- `public/assets/worlds/`, `references/captures/phase-1/`, `references/masters/prototype-worlds/`, `src/assets/review-captures/`, and obsolete Phase 1 visual baselines — generated media removed from `master`, recoverable on the archive branch.
+## Known production compromises and test qualifications
 
-## Unresolved before public launch
+- The isolated Three.js/React Three Fiber WebGL chunk is approximately 231 KiB gzip. It is requested only on the homepage after intent and is never required for content or navigation.
+- Optional, non-preloaded fonts protect the critical path but can leave a first-time slow visitor on the compatible fallback face for that page view. Screenshot and visual-regression harnesses warm the local fonts for deterministic comparison.
+- Playwright's Windows WebKit harness cannot reliably exercise a small set of keyboard-specific cases; those cases are skipped there rather than reported as false failures. Equivalent keyboard flows pass in Chromium, Firefox, and Edge, and the remaining WebKit coverage passes. Physical Safari/VoiceOver validation remains required.
+- Local mock submissions are in-memory and the development rate limiter is process-local. Neither is a public multi-instance delivery system.
 
-- Integrate and visually approve the procedural homepage scene and purpose-led GSAP interactions; static fallbacks already exist.
-- Complete all four-viewport screenshots, special-state visual baselines, full cross-browser, accessibility, slow-network, performance, and Lighthouse gates after motion integration.
-- Confirm that `studio@houseadel.com` is an active receiving address.
-- Select the production host and reproduce the `/api/applications` contract in its server/serverless runtime.
-- Configure and test an external email or Google Sheets provider. Mock mode is intentionally non-persistent.
-- Add a Turnstile client widget before enabling its server secret.
-- Replace or supplement code-native material studies only with project-owned or human-approved public-domain/CC0 assets if the creative review calls for imagery.
+## Requirements before public launch
 
-## Next milestone
+- Select a host that rewrites document routes to `index.html` and deploys the same server-owned `POST /api/applications` contract.
+- Credential and verify either the email webhook or Google Sheets provider. If Turnstile is enabled, configure both keys; use a shared rate-limit store for multi-instance deployment.
+- Verify that `studio@houseadel.com` is active and monitored, and complete human review of pricing, availability, founder language, Privacy, Terms, and all public business claims.
+- Test on physical iPhone Safari, Android Chrome, an ordinary integrated-graphics Windows laptop, and representative assistive technology. Collect field LCP, INP, and CLS after deployment.
+- Confirm the deliberately image-free, code-native art direction for launch. Any later photography, scans, archival objects, or client material require human approval and complete provenance.
 
-**Phase 2/3 — refine the production design system and evaluate the five isolated motion prototypes.** Integrate only the motions that materially establish hierarchy, change spatial context, reveal material, introduce a project, explain process, demonstrate function, or provide feedback.
+## Environment required for non-mock deployment
+
+- Provider: `HOUSE_ADEL_APPLICATION_PROVIDER`.
+- Email mode: `HOUSE_ADEL_EMAIL_WEBHOOK_URL`; optional `HOUSE_ADEL_EMAIL_WEBHOOK_TOKEN`.
+- Google Sheets mode: `HOUSE_ADEL_GOOGLE_SHEETS_ID`, `HOUSE_ADEL_GOOGLE_SHEETS_RANGE`, and `HOUSE_ADEL_GOOGLE_SERVICE_ACCOUNT_JSON`.
+- Optional Turnstile: paired `VITE_TURNSTILE_SITE_KEY` and `HOUSE_ADEL_TURNSTILE_SECRET_KEY`.
+- Optional deployment settings: `HOUSE_ADEL_TRUST_PROXY`, `HOUSE_ADEL_BUILD_SOURCEMAPS`.
+- Asset acquisition only: `SMITHSONIAN_API_KEY`.

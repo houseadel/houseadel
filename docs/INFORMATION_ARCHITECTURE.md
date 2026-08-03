@@ -29,6 +29,23 @@ Every page provides a skip link, semantic landmarks, visible focus, direct URLs,
 | `/terms` | State service and site terms. | Site use, intellectual property, enquiry status, Edition/Commission distinction, third-party services, and contact. Human legal review remains visible as a launch requirement. |
 | `*` | Recover from an unknown URL. | Branded 404 with concise orientation and links to Editions, The House, and Apply. |
 
+### Version-one concrete detail routes
+
+The configured route table currently resolves these exact Edition paths:
+
+- `/editions/threshold`
+- `/editions/correspondence`
+- `/editions/afterlight`
+
+It resolves these exact Story paths:
+
+- `/stories/threshold-an-invitation-as-entrance`
+- `/stories/correspondence-the-guest-as-reader`
+- `/stories/atlas-table-from-fragments-to-order`
+- `/stories/afterlight-time-as-material`
+
+All seven are explicitly self-initiated studies. An unknown Edition slug, unknown Story slug, or any other unknown path renders the same useful not-found document instead of a blank route.
+
 ## Core content models
 
 ### Edition
@@ -61,7 +78,9 @@ The application is one editorial page with five grouped sections:
 
 The form permits uncertainty and does not require a long narrative. Non-sensitive progress may autosave locally. Submission requires client and server validation, sanitisation, size limits, honeypot, a rate-limit boundary, and an optional environment-controlled Turnstile boundary. Version one accepts links, not uploads.
 
-Providers implement one contract: local/mock, email, or Google Sheets. Missing credentials return an explicit unavailable state; they never produce a false confirmation. Service-account credentials remain server-side.
+Providers implement one contract: local/mock, email webhook, Google Sheets, or explicitly disabled. Missing credentials return an unavailable/error state; they never produce a false confirmation. Service-account and webhook credentials remain server-side. Mock mode accepts in memory for local verification and does not persist applicant data.
+
+The optional Turnstile widget is client-visible only when `VITE_TURNSTILE_SITE_KEY` is configured; its token is verified server-side only when the paired `HOUSE_ADEL_TURNSTILE_SECRET_KEY` is configured. Provider selection uses `HOUSE_ADEL_APPLICATION_PROVIDER`. Email delivery uses `HOUSE_ADEL_EMAIL_WEBHOOK_URL` and optional `HOUSE_ADEL_EMAIL_WEBHOOK_TOKEN`; Sheets delivery uses `HOUSE_ADEL_GOOGLE_SHEETS_ID`, `HOUSE_ADEL_GOOGLE_SHEETS_RANGE`, and `HOUSE_ADEL_GOOGLE_SERVICE_ACCOUNT_JSON`. `HOUSE_ADEL_TRUST_PROXY` controls forwarded-address trust. None of these server values may enter the browser bundle.
 
 ## Primary journeys
 

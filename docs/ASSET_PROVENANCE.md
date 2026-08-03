@@ -1,96 +1,63 @@
 # Asset provenance
 
-Last updated: 2026-08-02
+Last updated: 2026-08-03
 
-## Production rule
+## Production statement
 
-House Adel version one must contain no generative-AI images, video, people, wedding photography, or 3D assets. An asset is eligible for production only when its source, creator or institution, rights status, retrieval date, transformations, and page usage are recorded. Public-domain material must still be credited in the relevant project detail.
+House Adel version one ships no generative-AI image, generative-AI video, AI-created person, wedding photography, raster artwork, stock footage, or generated 3D asset. The public visual system is made from semantic typography, CSS fields and paper-like planes, project-owned inline SVG drawings and masks, and a project-owned procedural WebGL scene built from simple geometry. The WebGL scene has no image texture, video, model, or external media dependency.
 
-Allowed sources are:
+`data/assets.json` is the authority for stored production imagery. Its `assets` collection is intentionally empty. The production `public/` directory contains only the local font binaries and their licence notices listed below; browser screenshots under `output/` are QA evidence and are not copied into the deployed build.
 
-- project-owned type, code, SVG, photography, scans, and textures;
-- verified CC0 or public-domain records from the Metropolitan Museum of Art, Rijksmuseum, or Smithsonian Open Access;
-- manually approved licensed material with evidence of the licence and permitted web use.
+## Files distributed with the site
 
-Google Images, Pinterest, competitor sites, unverifiable downloads, and generative systems are not asset sources.
-
-## Phase 0 inventory
-
-| Asset family | Repository location | Source and rights | Production status | Required action |
+| File | Creator/source | Rights | Use | Transformations |
 | --- | --- | --- | --- | --- |
-| Newsreader variable font | `@fontsource-variable/newsreader` | Fontsource package metadata identifies Google Inc. and `OFL-1.1`; licence file ships with the package | Eligible; final typographic approval pending | Retain only the weights/subsets actually used and carry the OFL notice with distributed licences |
-| Manrope variable font | `@fontsource-variable/manrope` | Fontsource package metadata identifies Google Inc. and `OFL-1.1`; licence file ships with the package | Eligible; final typographic approval pending | Retain only the weights/subsets actually used and carry the OFL notice with distributed licences |
-| Phase 1 world masters | `references/masters/prototype-worlds/` | OpenAI-generated studies recorded in the adjacent manifest and prompts | Prohibited | Remove from the production branch after this record is committed; preserve only on the archival branch |
-| Phase 1 world derivatives | `public/assets/worlds/` | AVIF/WebP derivatives of the generated Phase 1 masters | Prohibited and currently public-path reachable | Remove before any production route is integrated |
-| Phase 1 review captures | `src/assets/review-captures/`, `references/captures/phase-1/`, and visual baselines that reproduce the studies | Browser captures of the generated Phase 1 direction lab | Internal evidence only | Remove from production source/baselines; never publish as portfolio imagery |
-| Moving House sequence and source material | Preserved by branch `phase-1-research` at commit `7ec9c97` | Generated masters, derived frames, prompts, recordings, and implementation from the superseded direction | Prohibited | Do not merge into production; the branch is the recovery record |
-| Legacy static concept | `references/legacy-v0/` | Pre-Phase-1 project material; complete production rights are not recorded | Internal evidence only | Keep outside public imports and treat as ineligible until ownership and rights are documented |
-| Phase 0 browser captures | `output/playwright/audit-current/` | Locally captured screenshots of the superseded site | Internal audit evidence only | Keep outside the deployed bundle and never use as public reference imagery |
+| `public/fonts/manrope-latin-variable.woff2` | The Manrope Project Authors | SIL Open Font License 1.1 | Neutral grotesk for navigation, metadata, forms, and text | Latin variable WOFF2 subset retained locally for self-hosting |
+| `public/fonts/newsreader-latin-variable.woff2` | The Newsreader Project Authors | SIL Open Font License 1.1 | Editorial serif for display type and ceremonial hierarchy | Latin upright variable WOFF2 subset retained locally for self-hosting |
+| `public/fonts/newsreader-latin-variable-italic.woff2` | The Newsreader Project Authors | SIL Open Font License 1.1 | Restrained italic from the same serif family | Latin italic variable WOFF2 subset retained locally for self-hosting |
+| `public/licenses/manrope-OFL-1.1.txt` | The Manrope Project Authors | SIL Open Font License 1.1 | Distributed licence notice for Manrope | None |
+| `public/licenses/newsreader-OFL-1.1.txt` | The Newsreader Project Authors | SIL Open Font License 1.1 | Distributed licence notice for Newsreader | None |
 
-No production photography, artwork, archival material, invitation imagery, or client material is approved as of this audit. No project claim may be inferred from the Phase 1 studies.
+The CSS `@font-face` declarations point to these local files. No font request is made to a third-party origin, and the prior Fontsource runtime packages are no longer required for distribution.
 
-## Safe removal plan
+## Code-native visual material
 
-1. Preserve the superseded Moving House implementation on `phase-1-research` at `7ec9c97` before changing `master`.
-2. Commit this inventory and the prohibition decision on `master`.
-3. Resolve the exact generated source, derivative, capture, test-baseline, and import paths with a read-only check.
-4. Remove those paths from `master` and replace all imports with project-owned, procedural, or verified open-access material. Do not remove the archival branch.
-5. Run the provenance audit, repository search for generated-asset references, route tests, and production build.
-6. Verify the generated material is absent from `dist/` and all public routes. Internal Phase 0 screenshots remain excluded from deployment.
+These elements are source code rather than acquired media and therefore do not receive `data/assets.json` image records:
 
-This sequence makes the removal deliberate and recoverable through the archival commit; it does not grant permission to reuse the archived material.
+- the homepage ivory fallback, planes, frames, aperture, register lines, and procedural Three.js geometry;
+- Edition plates and their SVG reveal masks;
+- Story plates and configured project-interaction diagrams;
+- the Private Commissions atelier-table map, plan, paper, type, date, and measurement abstractions;
+- The House continuous SVG path;
+- interface icons, rules, form indicators, focus treatments, and CSS grain/lighting treatments.
 
-## Production record schema
+All of these forms were created for this repository. They do not depict a real wedding, venue, location, client archive, or person. Every Edition and Story using them is labelled `House Adel Study — Self-initiated.`
 
-`data/assets.json` will be the production authority. Every record must include:
+## Archived material excluded from production
 
-- stable asset ID and file paths for original and derivatives;
-- asset type and intended use;
-- creator or institution, object ID when applicable, title, artist, and date;
-- canonical source URL and rights or licence statement;
-- retrieval or creation date;
-- transformations and derivative dimensions/formats;
-- pages using the asset;
-- human approval state and approval date;
-- credit line, including for public-domain objects;
-- notes about restrictions, confidentiality, or replacement.
+The superseded Moving House implementation, Phase 1 generated masters, derived world imagery, sequence frames, and review captures are preserved only on branch `phase-1-research` at commit `7ec9c97`. They are prohibited production material and are absent from the public source paths and `dist/`. Audit screenshots of the superseded interface also remain outside the deployable bundle.
 
-The acquisition script must reject unclear rights, preserve originals separately, optimise deterministic derivatives, and never overwrite an existing file silently.
+## Acquisition policy
 
-## Production manifest and acquisition workflow
+Future stored imagery is eligible only when it is:
 
-`data/assets.json` is now the production authority. It intentionally begins with no approved image records. Code-native inline SVG, CSS geometry, and procedural WebGL primitives do not require image records; every stored raster or standalone SVG in a production asset directory does.
+- project-owned with documented ownership;
+- verified CC0 or public-domain material from the Metropolitan Museum of Art, Rijksmuseum, or Smithsonian Open Access; or
+- manually approved licensed material with evidence of permitted web use.
 
-The acquisition command uses only official collection APIs and fails closed when a record does not provide a clear Public Domain Mark or CC0 signal:
+Google Images, Pinterest, competitor sites, unverifiable downloads, and generative systems are not asset sources. Public-domain material may be contextual editorial material but may never be presented as wedding photography, client work, or evidence of a commission.
+
+`scripts/fetch-open-access-assets.ts` accepts explicit object IDs or a curated query, verifies rights before downloading, preserves the institution-supplied original, creates deterministic AVIF/WebP derivatives, records hashes and transformations, and refuses to overwrite an existing path. Smithsonian requests require the server-side `SMITHSONIAN_API_KEY`; the script never exposes credentials to the browser.
+
+An acquired record remains unusable until a human verifies its rights, context, crop, colour treatment, alt text, public credit, page list, and any privacy, publicity, trademark, or cultural-sensitivity restrictions, then records `approvedBy` and `approvedAt` in `data/assets.json`.
+
+## Verification
+
+The provenance audit checks production image files against `data/assets.json`. A production build should contain only the three font files, two OFL notices, JavaScript, CSS, and HTML until a human-approved asset record is added. Run:
 
 ```powershell
-node --experimental-strip-types scripts/fetch-open-access-assets.ts --source met --id 12068 --dry-run
-node --experimental-strip-types scripts/fetch-open-access-assets.ts --source rijksmuseum --id SK-C-5 --dry-run
-node --experimental-strip-types scripts/fetch-open-access-assets.ts --source smithsonian --query "architectural drawing" --limit 2 --dry-run
+npm run audit:provenance
+npm run audit:assets
 ```
 
-Remove `--dry-run` only after reviewing the returned object records and pass repeatable `--page` routes plus a precise `--use` description. Smithsonian requests require `SMITHSONIAN_API_KEY`; it is read server-side by the script and must never be committed. The Metropolitan Museum of Art and current Rijksmuseum Data Services endpoints do not require credentials.
-
-For each eligible record, the script:
-
-1. validates the institution-provided rights field before requesting media;
-2. accepts image URLs only from the relevant institution or its documented image service;
-3. preserves the institution-supplied original under `assets/originals/open-access/`;
-4. creates non-cropped AVIF and WebP derivatives at up to 960, 1600, and 2400 pixels wide under `public/assets/open-access/`;
-5. records dimensions, byte sizes, SHA-256 hashes, transformations, source links, rights evidence, intended pages, credit, and restrictions;
-6. uses exclusive file creation and aborts on any existing output path rather than replacing it;
-7. leaves human approval as `pending`.
-
-Query mode searches a larger candidate pool and skips records that fail the rights gate, but it still stops if it cannot find the requested number of eligible records. Explicit-ID mode stops immediately when the requested record is ambiguous or restricted.
-
-## Human approval gate
-
-An acquisition record is not production approval. Before changing `approval.status`, a human must check that:
-
-- the canonical collection page still carries the recorded Public Domain or CC0 designation;
-- the image does not introduce privacy, publicity, trademark, cultural-sensitivity, or other non-copyright restrictions;
-- the object is being used as archival/editorial material, never as fabricated wedding photography or client evidence;
-- the crop, colour treatment, page list, alt text, caption, and public credit line are accurate;
-- the record's `approvedBy` and `approvedAt` fields identify the actual review.
-
-The Rijksmuseum adapter uses the current Search and OAI-PMH Data Services APIs and requires an explicit `dc:rights` or `edm:rights` Public Domain/CC0 resource. The Met adapter requires `isPublicDomain=true` and an open primary image. The Smithsonian adapter requires the selected media item itself to report `usageAccess=CC0`; CC0 metadata without CC0 media is rejected.
+Verified 2026-08-03: the provenance audit found 0 production image files and no unrecorded image; the public asset-size audit found only the three WOFF2 font files, totalling 144 KiB.

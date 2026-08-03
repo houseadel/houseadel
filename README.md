@@ -1,64 +1,61 @@
-# House Adel — Phase 1 Direction Lab
+# House Adel
 
-This repository is the evidence and prototyping environment for House Adel, an independent studio for focused, art-directed digital experiences.
+Production website for House Adel, an independent digital house creating authored wedding invitation Editions and original Private Commissions.
 
-Phase 1 does **not** produce the final portfolio. It produces:
+The permanent creative direction is **Ceremonial Spatial Editorialism**: formal architectural composition softened by intimate, human material. An Edition begins with a world created by House Adel. A Private Commission begins with the client’s world.
 
-- cited portfolio and market research;
-- positioning and experience-architecture options;
-- an objective multiverse evaluation;
-- three distinct nexus prototypes;
-- mobile, reduced-motion, and no-WebGL behavior;
-- a local visual review interface;
-- capability, asset, performance, and accessibility systems;
-- a clear set of decisions for the creative director.
-
-The previous static concept is preserved in `references/legacy-v0/`.
-
-## Status
-
-Phase 1 is ready for creative-direction review. See [docs/execution-plan.md](docs/execution-plan.md), [research/conclusions.md](research/conclusions.md), [docs/performance-baseline.md](docs/performance-baseline.md), and [docs/verification-results.md](docs/verification-results.md). No production direction has been approved.
+The superseded research interface and Moving House direction are preserved on the `phase-1-research` branch. They are not part of the production site.
 
 ## Development
 
-Node.js 22 or newer is required; the audited machine currently uses Node.js 24.
+Node.js 22 or newer and npm are required.
 
 ```powershell
 npm.cmd install
 npm.cmd run dev
 ```
 
-Open <http://127.0.0.1:5173/>. The final handoff preview uses port `4173`:
+Open <http://127.0.0.1:5173/>. To inspect the production output:
 
 ```powershell
 npm.cmd run build
-npm.cmd run preview
+npm.cmd run preview -- --port 4173
 ```
+
+## Routes
+
+- `/` — Home
+- `/editions` and `/editions/:slug` — House Editions and live invitation demonstrations
+- `/private-commissions` — Private Commissions
+- `/stories` and `/stories/:slug` — Stories archive and study detail
+- `/the-house` — The House
+- `/apply` — Living Brief application
+- `/application-received` — provider-confirmed receipt state
+- `/privacy` and `/terms` — legal information
 
 ## Verification
 
 ```powershell
+npm.cmd run lint
+npm.cmd run typecheck
 npm.cmd test
 npm.cmd run test:e2e
-npm.cmd run audit:structure
-npm.cmd run audit:dependencies
-npm.cmd run audit:assets
-npm.cmd run measure:runtime
+npm.cmd run test:a11y
+npm.cmd run build
+npm.cmd run analyze:bundle
+npm.cmd run audit:provenance
+npm.cmd run audit:performance
 npm.cmd run audit:lighthouse
 ```
 
-Playwright browser binaries must be installed once with `npx.cmd playwright install`. Asset command help is available from every script under `scripts/`.
+Playwright browser binaries must be installed once with `npx.cmd playwright install`.
 
-Playwright builds and serves a fresh production preview before browser runs. Visual baselines intentionally use the deterministic no-WebGL states for B and C; separate live-canvas captures and renderer lifecycle tests preserve WebGL evidence.
+## Applications
 
-The prototype routes are:
+Local development defaults to an honest, non-persistent mock provider. Copy `.env.example` to a local environment file only when configuring email, Google Sheets, or Turnstile. Never expose server credentials through `VITE_` variables. A receipt page is shown only after the server explicitly accepts a valid application.
 
-- `/prototypes/fracture`
-- `/prototypes/hybrid`
-- `/prototypes/cinematic`
+## Assets
 
-Use the visible review controls to compare system/full/reduced motion and WebGL/no-WebGL modes.
+No generative media is permitted. Production imagery must be project-owned, manually approved licensed material, or verified public-domain/CC0 material recorded in `data/assets.json`. Run `npm.cmd run assets:fetch -- --help` for the fail-closed Met, Rijksmuseum, and Smithsonian acquisition workflow.
 
-## Phase gate
-
-No final production site should be built until the creative director approves the strategic direction, governing concept, experience architecture, nexus model, and initial asset world.
+Current milestone and unresolved launch work are recorded in `docs/STATUS.md`.

@@ -1,6 +1,6 @@
 # Production decisions
 
-Last updated: 2026-08-02
+Last updated: 2026-08-03
 
 ## Accepted
 
@@ -39,19 +39,53 @@ The production host must rewrite unknown document requests to `index.html` while
 
 Semantic HTML is authoritative for content and navigation. WebGL is a lazy-loaded homepage enhancement and must not load on unrelated routes. Native scrolling remains the default. GSAP and ScrollTrigger coordinate only motions that establish hierarchy, change spatial context, reveal material, introduce work, explain process, demonstrate function, or provide feedback. Reduced-motion and no-WebGL states must retain the complete experience.
 
+### Use one framed aperture as the recurring spatial device
+
+The framed aperture is the strongest continuity device for Ceremonial Spatial Editorialism. It can act as entrance, mask, editorial frame, threshold, and registration mark without creating separate visual worlds. The homepage assembles paper-like planes around one aperture and changes the visitor's spatial context through it; Edition and Story systems reuse framing and masking in flatter editorial forms.
+
+The version-one master visual is code-drawn. It uses the static CSS/SVG composition as the immediate first frame and project-owned procedural geometry as the optional enhanced state. No raster master, texture, video, model, generated media, or external visual service is required.
+
+### Load motion and WebGL after the static page
+
+Home, Apply, and the Private Commissions introduction remain in the initial application chunk so their business-critical headings render synchronously. The Apply form and Private Commissions editorial body are lazy content beneath those shells. Other routes remain split; `routePreload.ts` warms only the chunk matching a direct document request.
+
+The homepage canvas and its GSAP/ScrollTrigger timeline are separately lazy and route-local. After the complete ivory fallback renders, pointer/touch/wheel/keyboard intent requests the canvas, while wheel/touch/scroll/keyboard intent requests the timeline; a 12-second grace timer covers a quiet visitor. Reduced motion, forced colours, Save-Data, an explicit local no-WebGL preference, and the browser capability check bypass the canvas. Other route motions use the deferred motion boundary, then scope work with `gsap.context()`/`gsap.matchMedia()` and revert on unmount.
+
+The React Three Fiber canvas uses procedural geometry, `frameloop="demand"`, capped DPR, intersection/visibility pausing, no texture payload, no real-time shadow, and no post-processing. This architecture accepts an approximately 231 KiB gzip Three.js/R3F chunk in exchange for a meaningful, resilient spatial opening. It remains isolated to the homepage and is never required for content or navigation.
+
 ### Keep application delivery server-owned and provider-neutral
 
 The Vite development and preview servers expose `POST /api/applications` through a small Connect middleware. The endpoint enforces a 64 KB body limit, JSON-only input, an explicit honeypot rejection, independent Zod parsing and normalisation, five-attempt sliding-window rate limiting, and optional server-side Turnstile verification. Production infrastructure may run this middleware or reproduce the same handler contract in its serverless runtime.
 
 Delivery is selected only by the server-side `HOUSE_ADEL_APPLICATION_PROVIDER` value. `mock` accepts the application in memory for local testing and deliberately does not persist private data. `email` sends a server-to-server JSON webhook. `google-sheets` signs a Google service-account assertion on the server and appends one row through the Sheets API. A missing or disabled production provider returns an error and never produces a receipt. The in-memory limiter is sufficient for one local process; a public multi-instance deployment needs a shared rate-limit store.
 
-Turnstile remains opt-in. The server verifies tokens only when `HOUSE_ADEL_TURNSTILE_SECRET_KEY` is present. The secret must be enabled only after the public widget is configured with `VITE_TURNSTILE_SITE_KEY`; the two values are documented together in `.env.example`.
+Turnstile remains opt-in. The client widget is implemented and loads Cloudflare's script only when `VITE_TURNSTILE_SITE_KEY` is present. The server verifies its token only when `HOUSE_ADEL_TURNSTILE_SECRET_KEY` is present. Both values must be enabled and tested together; the secret remains server-only. The paired variables are documented in `.env.example`.
 
 Production source maps are disabled by default and can be enabled explicitly with `HOUSE_ADEL_BUILD_SOURCEMAPS=true`. Bundle analysis is written to ignored `output/bundle-report.html`, not to the deployable `dist` directory.
 
 ### Prohibit generative production assets
 
-No generative-AI image, video, person, wedding photography, or 3D asset may enter the production branch or build. The previously generated studies are recorded in `docs/ASSET_PROVENANCE.md`, preserved only for historical recovery on the archival branch, and scheduled for removal from `master` before production route integration.
+No generative-AI image, video, person, wedding photography, or 3D asset may enter the production branch or build. The previously generated studies are recorded in `docs/ASSET_PROVENANCE.md` and preserved only for historical recovery on the archival branch. The production build currently contains no raster image or stored visual-media asset.
+
+### Self-host the selected open-licence typography
+
+Newsreader is the single editorial serif, with its own italic, and Manrope is the supporting neutral grotesk. The final Latin variable WOFF2 files are stored under `public/fonts/`; the SIL Open Font License 1.1 notices are distributed under `public/licenses/`. The former `@fontsource-variable` packages were removed because the site now references the reviewed local binaries directly, reducing dependency and subset ambiguity without changing the browser type system.
+
+The three faces use `font-display: optional` and are not preloaded from the document. This avoids making 144 KiB of typography a prerequisite for first paint; on a cold, constrained visit the compatible system fallback may remain for that page view. Playwright visual comparisons and production captures explicitly warm the local fonts before taking screenshots so baselines remain deterministic.
+
+### Enforce measured release budgets
+
+`docs/PERFORMANCE_BUDGETS.md` fixes the local gates: LCP at or below 2,500 ms in the mobile-simulated runtime gate, CLS at or below 0.10, sampled frame-interval p95 at or below 25 ms desktop/34 ms mobile, route resources at or below 950 KiB, no sampled task over 200 ms, and no material horizontal overflow. INP remains a field target because local navigation cannot produce a real-user distribution.
+
+The final stored runtime report (`docs/performance-results.json`, measured 2026-08-03 at 03:16 UTC) passes all seven route/viewport budgets. Home desktop is 490 KiB with LCP 184 ms and frame p95 16.8 ms; Home mobile is 490 KiB with LCP 172 ms and frame p95 16.8 ms. No measured route reports image bytes or CLS.
+
+The final Lighthouse snapshot is lab evidence, not a field claim. Home scores 97 with LCP 2,111 ms; Editions 97 with 2,130 ms; Private Commissions 98 with 2,005 ms; Apply 96 with 2,299 ms. All measured routes score 100 for accessibility and best practices and report CLS 0. Field INP and physical integrated-GPU/mobile traces remain launch requirements.
+
+### Accept the local production QA gate
+
+The final cross-engine production suite passes 133 tests with 35 intentional skips and 0 failures. The accessibility suite passes 93 with 5 skips and 0 failures; visual regression passes 26 with 52 configured skips and 0 failures. The production capture manifest is complete with 80 screenshots, including the four target viewports, interaction/fallback states, and desktop/mobile master/spatial states.
+
+Windows Playwright WebKit cannot reliably drive a small set of keyboard-specific harness cases, so those are skipped rather than converted into false failures. Equivalent keyboard flows pass in Chromium, Firefox, and Edge, and remaining WebKit coverage passes. This qualification does not replace physical Safari and VoiceOver testing.
 
 ## Dependency decisions
 
@@ -82,6 +116,7 @@ The first lint installation attempt exposed a real peer-dependency conflict: `ty
 - Production host and serverless runtime.
 - Production selection and credentialing of either the email webhook or Google Sheets provider.
 - Turnstile activation and a shared production rate-limit store if the application runs on multiple instances.
-- Final open-access objects, photography, and material assets.
-- Final performance budgets after the static production architecture is measured.
-- Whether the existing Newsreader/Manrope pairing is the final production pairing after browser comparison.
+- Whether human-approved project-owned or open-access photography, scans, or archival material should supplement the deliberately image-free version-one system.
+- Field Core Web Vitals and physical integrated-GPU/mobile validation after a production host is selected.
+- Final legal review of the Privacy and Terms copy.
+- Verification that `studio@houseadel.com` is active and monitored before public launch.

@@ -12,14 +12,21 @@ Use npm and the existing Vite, React, and TypeScript stack.
 
 - `npm install` - install locked dependencies.
 - `npm run dev` - run the local site.
-- `npm run build` - run TypeScript validation and create a production build.
+- `npm run lint` - run ESLint with zero warnings permitted.
+- `npm run typecheck` - run strict TypeScript validation.
+- `npm run build` - run type checking and create a production build.
 - `npm test` - run Vitest.
 - `npm run test:e2e` - run Playwright route and interaction tests.
 - `npm run test:a11y` - run the Playwright accessibility suite.
+- `npm run test:e2e:update` - intentionally update reviewed Playwright visual baselines.
+- `npm run capture:production` - build and capture the required route/state screenshot manifest.
 - `npm run audit:structure` - verify repository structure.
 - `npm run audit:assets` - report public asset sizes.
+- `npm run audit:provenance` - report production images without approved provenance records.
+- `npm run audit:dependencies` - audit production dependencies.
+- `npm run audit:performance` - measure cold production routes and enforce documented budgets.
 - `npm run audit:lighthouse` - run the configured Lighthouse audit.
-- `npx tsc --noEmit` - run type checking until a dedicated `typecheck` script exists.
+- `npm run analyze:bundle` - build and write the bundle visualisation outside `dist`.
 
 Before completion, add and use explicit `lint`, `typecheck`, and bundle-analysis scripts. Record any proposed dependency in `docs/DECISIONS.md` before installation.
 

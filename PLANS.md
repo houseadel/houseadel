@@ -25,7 +25,7 @@ The permanent direction is **Ceremonial Spatial Editorialism**. Work advances on
 
 Met on 2026-08-02. Production implementation may begin after the governance checkpoint is committed and the prohibited production assets are removed from `master`.
 
-## Phase 1 - Architecture
+## Phase 1 - Architecture (completed)
 
 ### Work
 
@@ -37,7 +37,7 @@ Met on 2026-08-02. Production implementation may begin after the governance chec
 
 ### Gate
 
-Every route is readable and usable at all four target viewports with JavaScript enhancement absent or motion disabled. Navigation, application schema, server validation boundary, and mock result states have automated coverage.
+Every route is readable and usable at all four target viewports with WebGL unavailable or motion disabled. Navigation, application schema, server validation boundary, and mock result states have automated coverage.
 
 ### Completion record
 
@@ -47,7 +47,7 @@ Every route is readable and usable at all four target viewports with JavaScript 
 - Removed the archived direction and all generated media from the production path while preserving recovery on `phase-1-research`.
 - Passed lint, typecheck, unit, build, provenance, API behavior, and the Chromium static route/interaction gate.
 
-## Phase 2 - Design system
+## Phase 2 - Design system (completed)
 
 ### Work
 
@@ -59,7 +59,14 @@ Every route is readable and usable at all four target viewports with JavaScript 
 
 All routes share one coherent system, meet contrast and touch-target requirements, have no horizontal overflow, and pass visual review at the four target viewports.
 
-## Phase 3 - Motion prototypes
+### Completion record
+
+- Established warm ivory, ink, stone, scarce garnet, and muted metallic tokens; one Newsreader display family and one Manrope sans family; spacing, frame, focus, form, and responsive-grid tokens.
+- Self-hosted the reviewed Latin variable font files with their OFL notices and removed the superseded Fontsource runtime packages.
+- Applied the aperture, paper-plane, register-line, and editorial-plate system across every route without introducing a component-library visual language.
+- Added automated contrast, focus, touch-target, and horizontal-overflow checks plus four-viewport screenshot coverage.
+
+## Phase 3 - Motion prototypes (completed)
 
 ### Work
 
@@ -75,7 +82,14 @@ Build and evaluate isolated prototypes for:
 
 Each prototype has a narrative purpose, viewport-specific behaviour, reduced-motion equivalent, cleanup verification, and measured performance. Reject any prototype that merely decorates the page.
 
-## Phase 4 - Integration
+### Completion record
+
+- Accepted a short static-first homepage assembly and aperture passage driven by one reversible ScrollTrigger timeline.
+- Accepted project-owned SVG reveal masks for Edition plates, the focus/hover Story stage, one continuous House path, and the six-state Living Brief assembly.
+- Added the atelier-table fragment-to-register sequence as the Private Commission process demonstration.
+- Rejected texture, image-sequence, decorative particle, sound, and unrelated WebGL work because the code-native system carries the current narrative without unapproved media.
+
+## Phase 4 - Integration (completed)
 
 ### Work
 
@@ -88,7 +102,14 @@ Each prototype has a narrative purpose, viewport-specific behaviour, reduced-mot
 
 All core content survives no WebGL and reduced motion. No unrelated route loads homepage WebGL. Animations remain reversible/interruption-safe, and navigation is always immediately available.
 
-## Phase 5 - Application backend
+### Completion record
+
+- Integrated route motion through deferred GSAP imports, scoped contexts, viewport media queries, and explicit cleanup.
+- Lazy-loaded the route-local homepage canvas after the complete static composition; capped DPR, used demand rendering, and paused by stage/document visibility.
+- Preserved reduced-motion, forced-colour, Save-Data, failed-WebGL, explicit no-WebGL, and slow-load fallbacks.
+- Added browser coverage for reverse scrub, route cleanup, rapid scroll/resize, slow WebGL, and proof that editorial routes do not request the WebGL chunk.
+
+## Phase 5 - Application backend (completed)
 
 ### Work
 
@@ -101,7 +122,14 @@ All core content survives no WebGL and reduced motion. No unrelated route loads 
 
 Mock mode passes validation/submission tests without deceptive success. Missing provider credentials produce an explicit unavailable/error result. Sensitive data is not persisted client-side.
 
-## Phase 6 - Asset system
+### Completion record
+
+- Implemented the five-section React Hook Form/Zod application, non-sensitive autosave, progress rail, live brief, editable review, and guarded receipt route.
+- Added independent server parsing, normalisation, sanitisation, a 64 KiB JSON limit, honeypot, rate limiter interface, and clear method/provider errors.
+- Added in-memory mock, server-to-server email webhook, and server-owned Google Sheets adapters.
+- Added the optional client widget and server verification boundaries for paired Turnstile environment keys.
+
+## Phase 6 - Asset system (completed for the image-free version one)
 
 ### Work
 
@@ -114,7 +142,14 @@ Mock mode passes validation/submission tests without deceptive success. Missing 
 
 The provenance checker reports no unrecorded production image. No generative, unclear-rights, scraped, or fabricated asset or claim is present in the public build.
 
-## Phase 7 - Final quality pass
+### Completion record
+
+- Implemented the fail-closed Met, Rijksmuseum, and Smithsonian acquisition script, derivative pipeline, provenance manifest, and design-guardian audit.
+- Chose no acquired image for version one. `data/assets.json` remains empty and the public visual system is CSS, SVG, typography, and procedural geometry.
+- Stored only the local OFL-licensed Manrope/Newsreader WOFF2 files and their licence notices under `public/`.
+- Kept prohibited Phase 1 generated media on the archival branch and out of the production build.
+
+## Phase 7 - Final quality pass (completed for local production)
 
 ### Work
 
@@ -127,3 +162,16 @@ The provenance checker reports no unrecorded production image. No generative, un
 ### Gate
 
 All required commands pass; the acceptance targets are evaluated without concealment; screenshots and provenance are saved; all stopping conditions in `AGENTS.md` are met; and the final checkpoint contains no secrets or prohibited assets.
+
+### Completion record
+
+- Passed the final lint, typecheck, unit, production-build, structure, provenance, asset, dependency, bundle, runtime-budget, and Lighthouse gates.
+- Passed the production cross-engine suite with 133 passed, 35 skipped, and 0 failed; accessibility with 93 passed, 5 skipped, and 0 failed; visual regression with 26 passed, 52 configured skips, and 0 failed.
+- Generated the final complete 80-screenshot production manifest at 2026-08-03T03:47:37.926Z, covering every route at all four required viewports plus navigation, Edition preview, application validation/review, reduced motion, no WebGL, and desktop/mobile master/spatial states.
+- Passed all seven runtime budgets. Final Lighthouse performance is 97 Home, 97 Editions, 98 Private Commissions, and 96 Apply; every measured route has LCP below 2.5 seconds, accessibility 100, best practices 100, and CLS 0.
+- Confirmed the final build has no production image, video, model, generative media, secret, or unrelated-route WebGL request.
+- Qualified the Windows Playwright WebKit keyboard-harness skips and preserved physical Safari/VoiceOver, physical mobile/integrated-GPU testing, field Core Web Vitals, hosting/API deployment, real provider credentials, shared rate limiting, and human legal/business review as public-launch requirements rather than unfinished local implementation.
+
+### Gate result
+
+Met on 2026-08-03 for local production. Public launch requirements are tracked in `docs/STATUS.md`.
