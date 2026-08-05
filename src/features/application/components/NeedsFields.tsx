@@ -1,10 +1,14 @@
 import { useController, useFormContext } from "react-hook-form";
-import { NEED_OPTIONS, type NeedValue } from "../applicationOptions";
+import { useLanguage } from "../../../context/LanguageContext";
+import { NEED_LABELS_ID, NEED_OPTIONS, type NeedValue } from "../applicationOptions";
+import { translateApplicationError } from "../applicationTranslations";
 import type { ApplicationValues } from "../applicationSchema";
 import { ApplicationSection } from "./ApplicationSection";
 import styles from "./ApplicationForm.module.css";
 
 export function NeedsFields() {
+  const { language } = useLanguage();
+  const id = language === "id";
   const { control } = useFormContext<ApplicationValues>();
   const {
     field,
@@ -30,13 +34,13 @@ export function NeedsFields() {
     <ApplicationSection
       id="what-you-need"
       number="02"
-      title="What you need"
-      introduction="Choose only what is useful now. The scope can be refined in conversation."
+      title={id ? "Yang Anda butuhkan" : "What you need"}
+      introduction={id ? "Pilih yang berguna saat ini. Lingkup dapat disempurnakan dalam percakapan." : "Choose only what is useful now. The scope can be refined in conversation."}
     >
       <fieldset className={styles.optionFieldset} aria-describedby={`${descriptionId}${error ? ` ${errorId}` : ""}`}>
-        <legend className={styles.fieldsetLegend}>Project functions</legend>
+        <legend className={styles.fieldsetLegend}>{id ? "Fungsi proyek" : "Project functions"}</legend>
         <p className={styles.description} id={descriptionId}>
-          Select all that apply. “Not sure yet” remains a complete answer.
+          {id ? "Pilih semua yang sesuai. “Belum yakin” tetap merupakan jawaban lengkap." : "Select all that apply. “Not sure yet” remains a complete answer."}
         </p>
         <div className={styles.optionGrid}>
           {NEED_OPTIONS.map((option) => (
@@ -50,17 +54,16 @@ export function NeedsFields() {
                 onChange={(event) => toggle(option.value, event.currentTarget.checked)}
               />
               <span aria-hidden="true" className={styles.checkMark} />
-              <span>{option.label}</span>
+              <span>{id ? NEED_LABELS_ID[option.value] : option.label}</span>
             </label>
           ))}
         </div>
         {error?.message ? (
           <p className={styles.error} id={errorId} role="alert">
-            {error.message}
+            {translateApplicationError(error.message, language)}
           </p>
         ) : null}
       </fieldset>
     </ApplicationSection>
   );
 }
-

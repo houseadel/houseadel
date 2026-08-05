@@ -1,60 +1,49 @@
 # Production status
 
-Last updated: 2026-08-03
+Last updated: 2026-08-04
 
-## Current milestone
+## Current review milestone
 
-**Phase 7 is complete for local production.**
+The requested three-page House Adel architecture is implemented and ready for visual review:
 
-The production Vite build contains every required route and interaction: the static-first procedural homepage, Edition SVG masks and live demonstration, Private Commissions atelier table, Stories archive and reusable details, The House path, and the Living Brief application. Core content remains semantic and usable with reduced motion or no WebGL. The visual pass now uses two approved public-domain Met archival interiors as art-directed material; no generative media ships.
+- Home introduces the world, proposition, process, optional spatial opening, and operable capability instrument.
+- Work is a truthful empty archive with a reserved Request / Response / Glimpse case-study structure. No client work is invented.
+- Commissions explains accepted work, boundaries, the relationship, practical facts, and a detailed staged enquiry.
 
-The superseded Moving House direction remains recoverable on branch `phase-1-research` at commit `7ec9c97`; it is absent from the production route and asset graph.
+The global frame includes the House Adel favicon/mark, English/Indonesian preference, opt-in synthesized sound, keyboard-safe full-screen navigation, page-change choreography, production loader, mobile states, reduced motion, and static/no-WebGL fallbacks. `/labs/loader` remains available as the isolated regression lab.
 
-## Production architecture
+No reference assets, fonts, code, copy, layouts, shaders, marks, or distinctive compositions were used. No new dependency was installed. The implementation uses the existing self-hosted Newsreader and Manrope families, approved public-domain Met material, GSAP, and progressive Three/R3F architecture.
 
-- Home, Apply, and the Private Commissions introduction are synchronous business-critical shells. The Apply form and Private Commissions editorial body load as separate content chunks.
-- Other direct routes are split and warmed only for the requested path. Homepage WebGL and its GSAP timeline are route-local and requested on visitor intent, with a quiet 12-second fallback; other route motion uses deferred GSAP imports.
-- The homepage renders its complete CSS/SVG master frame and an approved archival image before the optional procedural canvas. Reduced motion, forced colours, Save-Data, failed WebGL, and explicit no-WebGL preferences retain the static experience.
-- Newsreader and Manrope are local OFL files with `font-display: optional` and no document preload. Visual tests and production captures explicitly warm the fonts before comparison.
-- The application has independent client/server Zod validation, sanitisation, a 64 KiB JSON limit, honeypot, optional Turnstile, and mock/email/Google Sheets provider boundaries. Mock mode is explicitly local and non-persistent.
+## Verification
 
-Every Edition and Story is labelled `House Adel Study — Self-initiated.` No client, wedding, result, award, press item, location, testimonial, or team member is fabricated.
-
-## Final verification
-
-| Check | Final local result |
+| Check | Result |
 | --- | --- |
-| Production cross-engine Playwright | 133 passed, 35 skipped, 0 failed |
-| Accessibility Playwright/Axe | 93 passed, 5 skipped, 0 failed |
-| Visual regression | 26 passed, 52 configured skips, 0 failed |
-| Production captures | `output/playwright/final-production/manifest.json` is `complete`; 80 screenshots generated at 2026-08-03T03:47:37.926Z, including all routes at 1440×900, 1024×768, 430×932, and 390×844 plus interaction, fallback, master-frame, and spatial-sequence states |
-| Runtime budgets | All 7 measured route/viewport entries passed. Home desktop: 490 KiB, LCP 184 ms, frame p95 16.8 ms. Home mobile: 490 KiB, LCP 172 ms, frame p95 16.8 ms. Full evidence is in `docs/performance-results.json` |
-| Lighthouse | Home 97 / LCP 2,111 ms; Editions 97 / 2,130 ms; Private Commissions 98 / 2,005 ms; Apply 96 / 2,299 ms. Every measured route has accessibility 100, best practices 100, and CLS 0 |
-| Build and assets | Post-refresh lint, typecheck, unit (6/6), production build, provenance, and public-asset audits pass. The targeted Chromium production suite passes 22 with 2 intentional skips; the Chromium accessibility suite passes 13 with 1 intentional skip. |
+| ESLint | Passed with zero warnings. |
+| Strict TypeScript | Passed. |
+| Vitest | 6 passed. |
+| Production + loader Playwright | 48 passed; 18 project-inapplicable skips across Chromium, mobile Chromium, and reduced motion. |
+| Accessibility / Axe | 19 passed; 1 desktop-only touch-target skip across Chromium and mobile Chromium. |
+| Visual regression | 12 passed; 24 project-inapplicable skips. Local fonts are warmed before comparison for deterministic baselines. |
+| Production build | Passed. Main app 17.92 KiB gzip; application form 40.05 KiB gzip; motion 44.40 KiB gzip; optional lazy WebGL 231.29 KiB gzip. |
+| Production captures | Complete manifest with 39 screenshots in `output/playwright/final-production`, covering primary routes at four viewports plus Indonesian, menu, application validation/review, reduced-motion, no-WebGL, master-frame, and spatial states. |
+| Structure / assets / provenance | Passed. All 13 production image files have provenance records. |
+| Runtime budgets | All 6 current route/viewport cases passed. Home 931 KiB, Work 532 KiB, Commissions 574 KiB; LCP 152–200 ms and frame p95 16.7–16.8 ms in the local harness. |
+| Bundle analysis | Generated at `output/bundle-report.html`. |
 
-Local runtime and Lighthouse results are lab evidence, not field Core Web Vitals. The runtime report records headless Chromium GL readback messages separately from application console output because the harness itself can trigger them.
-
-## Known production compromises and test qualifications
-
-- The isolated Three.js/React Three Fiber WebGL chunk is approximately 231 KiB gzip. It is requested only on the homepage after intent and is never required for content or navigation.
-- Optional, non-preloaded fonts protect the critical path but can leave a first-time slow visitor on the compatible fallback face for that page view. Screenshot and visual-regression harnesses warm the local fonts for deterministic comparison.
-- Playwright's Windows WebKit harness cannot reliably exercise a small set of keyboard-specific cases; those cases are skipped there rather than reported as false failures. Equivalent keyboard flows pass in Chromium, Firefox, and Edge, and the remaining WebKit coverage passes. Physical Safari/VoiceOver validation remains required.
-- Local mock submissions are in-memory and the development rate limiter is process-local. Neither is a public multi-instance delivery system.
-- The full cross-browser `npm run test:e2e` matrix was started after the visual refresh but exceeded the local 180-second runner limit while Firefox/WebKit visual coverage was still executing; the focused Chromium route, interaction, and accessibility suites completed successfully.
+Local runtime numbers are lab evidence, not field Core Web Vitals. The approximately 231 KiB gzip WebGL chunk is lazy, Home-only, and never required for content or navigation.
 
 ## Requirements before public launch
 
-- Select a host that rewrites document routes to `index.html` and deploys the same server-owned `POST /api/applications` contract.
-- Credential and verify either the email webhook or Google Sheets provider. If Turnstile is enabled, configure both keys; use a shared rate-limit store for multi-instance deployment.
-- Verify that `studio@houseadel.com` is active and monitored, and complete human review of pricing, availability, founder language, Privacy, Terms, and all public business claims.
-- Test on physical iPhone Safari, Android Chrome, an ordinary integrated-graphics Windows laptop, and representative assistive technology. Collect field LCP, INP, and CLS after deployment.
-- Confirm the Met archival crops and final image credits with the human creative owner before launch. Any later photography, scans, archival objects, or client material require human approval and complete provenance.
+- Configure and verify a real server-owned application provider. Local mock acceptance is intentionally non-persistent and is not public delivery.
+- Verify that `studio@houseadel.com` is active and monitored; human-review minimum investment, availability, Privacy, Terms, and all business claims.
+- Test audio, touch, keyboard, VoiceOver, and visual viewport behaviour on physical iPhone Safari, Android Chrome, and representative assistive technology.
+- Confirm final art direction and archival crops with the creative owner. Any future client fragments or photography require explicit permission and complete provenance.
+- Add real Work entries only after completed commissions are approved for publication.
 
-## Environment required for non-mock deployment
+## Environment for non-mock deployment
 
 - Provider: `HOUSE_ADEL_APPLICATION_PROVIDER`.
 - Email mode: `HOUSE_ADEL_EMAIL_WEBHOOK_URL`; optional `HOUSE_ADEL_EMAIL_WEBHOOK_TOKEN`.
 - Google Sheets mode: `HOUSE_ADEL_GOOGLE_SHEETS_ID`, `HOUSE_ADEL_GOOGLE_SHEETS_RANGE`, and `HOUSE_ADEL_GOOGLE_SERVICE_ACCOUNT_JSON`.
 - Optional Turnstile: paired `VITE_TURNSTILE_SITE_KEY` and `HOUSE_ADEL_TURNSTILE_SECRET_KEY`.
 - Optional deployment settings: `HOUSE_ADEL_TRUST_PROXY`, `HOUSE_ADEL_BUILD_SOURCEMAPS`.
-- Asset acquisition only: `SMITHSONIAN_API_KEY`.

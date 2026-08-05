@@ -2,26 +2,18 @@ import { expect, test, type Page } from "@playwright/test";
 
 const canonicalPages = [
   ["/", "home"],
-  ["/editions", "editions"],
-  ["/editions/threshold", "edition-threshold"],
-  ["/private-commissions", "private-commissions"],
-  ["/stories", "stories"],
-  ["/stories/threshold-an-invitation-as-entrance", "story-threshold"],
-  ["/the-house", "the-house"],
-  ["/apply", "apply"],
-  ["/application-received", "application-received-direct"],
-  ["/privacy", "privacy"],
-  ["/terms", "terms"],
-  ["/not-a-route", "not-found"],
+  ["/work", "work"],
+  ["/commissions", "commissions"],
 ] as const;
 
 async function prepareVisualPage(page: Page, route: string) {
-  await page.addInitScript(() => localStorage.setItem("house-adel:graphics", "fallback"));
+  await page.addInitScript(() => {
+    localStorage.setItem("house-adel:graphics", "fallback");
+    localStorage.setItem("house-adel:language", "en");
+    sessionStorage.setItem("house-adel:loader-seen", "true");
+  });
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto(route, { waitUntil: "networkidle" });
-  await page.locator("[data-route-heading]").waitFor();
-  // Warm the local type system, then reload so `font-display: optional` resolves to the
-  // intended faces from the first layout pass instead of changing a long-page capture.
+  await page.goto("/", { waitUntil: "domcontentloaded" });
   await page.evaluate(async () => {
     await Promise.all([
       document.fonts.load('400 16px "Newsreader Variable"'),
@@ -29,15 +21,24 @@ async function prepareVisualPage(page: Page, route: string) {
       document.fonts.load('400 16px "Manrope Variable"'),
     ]);
   });
-  await page.reload({ waitUntil: "networkidle" });
+  await page.goto(route, { waitUntil: "networkidle" });
   await page.locator("[data-route-heading]").waitFor();
-  // Let deferred route modules and their reduced-motion setup reach a deterministic state.
-  await page.waitForTimeout(2_200);
+  if (route === "/commissions") {
+    await page.getByRole("button", { name: "Review application" }).waitFor();
+  }
+  await page.locator("[data-loader-overlay]").waitFor({ state: "detached", timeout: 5_000 }).catch(() => undefined);
   await page.evaluate(async () => {
-    await document.fonts.ready;
-    await new Promise((resolveFrame) =>
-      requestAnimationFrame(() => requestAnimationFrame(resolveFrame)),
-    );
+    await Promise.all([
+      document.fonts.load('400 16px "Newsreader Variable"'),
+      document.fonts.load('400 italic 16px "Newsreader Variable"'),
+      document.fonts.load('400 16px "Manrope Variable"'),
+    ]);
+    await new Promise((resolveFrame) => requestAnimationFrame(() => requestAnimationFrame(resolveFrame)));
+  });
+  await page.waitForFunction(async () => {
+    const first = document.documentElement.scrollHeight;
+    await new Promise((resolve) => setTimeout(resolve, 250));
+    return document.documentElement.scrollHeight === first;
   });
 }
 
@@ -46,6 +47,12 @@ for (const [route, name] of canonicalPages) {
     test.skip(testInfo.project.name !== "chromium", "Canonical desktop visual uses Chromium");
     await page.setViewportSize({ width: 1440, height: 900 });
     await prepareVisualPage(page, route);
+    if (route === "/commissions") {
+      await expect(page.locator("body")).toHaveScreenshot(`${name}-1440x900.png`, {
+        animations: "disabled",
+      });
+      return;
+    }
     await expect(page).toHaveScreenshot(`${name}-1440x900.png`, {
       animations: "disabled",
       fullPage: true,
@@ -63,15 +70,12 @@ for (const [route, name] of canonicalPages) {
   });
 }
 
-test("mobile navigation visual", async ({ page }, testInfo) => {
+test("navigation visual", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "mobile-chromium", "Canonical mobile visual uses Chromium");
   await page.setViewportSize({ width: 390, height: 844 });
   await prepareVisualPage(page, "/");
-  await page.locator('button[aria-controls="mobile-navigation"]').click();
-  await page
-    .getByRole("navigation", { name: "Mobile navigation" })
-    .getByRole("link", { name: "Editions" })
-    .waitFor();
+  await page.getByRole("button", { name: "Menu" }).click();
+  await page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: /Work/ }).waitFor();
   await expect(page).toHaveScreenshot("navigation-open-390x844.png", { animations: "disabled" });
 });
 

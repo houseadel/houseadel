@@ -1,9 +1,14 @@
 import { useEffect, useRef } from "react";
+import { useLanguage } from "../../../context/LanguageContext";
 import {
   ENGAGEMENT_LABELS,
+  ENGAGEMENT_LABELS_ID,
   EVENT_COUNT_LABELS,
+  EVENT_COUNT_LABELS_ID,
   GUEST_COUNT_LABELS,
+  GUEST_COUNT_LABELS_ID,
   NEED_LABELS,
+  NEED_LABELS_ID,
 } from "../applicationOptions";
 import type { ApplicationValues } from "../applicationSchema";
 import { deferMotion } from "../../../lib/deferredMotion";
@@ -31,11 +36,15 @@ function getAssemblyStates(values: ApplicationValues) {
 }
 
 export function BriefCard({ values }: BriefCardProps) {
+  const { language } = useLanguage();
+  const id = language === "id";
   const assemblyStates = getAssemblyStates(values);
   const assemblyCount = assemblyStates.filter(Boolean).length;
   const cardRef = useRef<HTMLElement>(null);
   const previousCount = useRef(assemblyCount);
-  const selectedNeeds = values.needs.map((value) => NEED_LABELS[value]).join(" · ");
+  const selectedNeeds = values.needs
+    .map((value) => (id ? NEED_LABELS_ID : NEED_LABELS)[value])
+    .join(" · ");
 
   useEffect(() => {
     const card = cardRef.current;
@@ -97,44 +106,44 @@ export function BriefCard({ values }: BriefCardProps) {
         ))}
       </div>
       <header className={styles.briefHeader}>
-        <p>Project brief · live draft</p>
+        <p>{id ? "Brief proyek · draf aktif" : "Project brief · live draft"}</p>
         <span aria-hidden="true">HA</span>
       </header>
-      <h2 id="living-brief-title">{answer(values.celebrationNames, "An occasion in formation")}</h2>
+      <h2 id="living-brief-title">{answer(values.celebrationNames, id ? "Perayaan yang sedang terbentuk" : "An occasion in formation")}</h2>
       <p className={styles.briefPremise}>
-        {answer(values.openingFeeling, "The intended feeling will appear here as the brief takes shape.")}
+        {answer(values.openingFeeling, id ? "Perasaan yang dituju akan muncul di sini saat brief terbentuk." : "The intended feeling will appear here as the brief takes shape.")}
       </p>
       <dl className={styles.briefDetails}>
         <div>
-          <dt>Path</dt>
-          <dd>{ENGAGEMENT_LABELS[values.engagementType]}</dd>
+          <dt>{id ? "Jalur" : "Path"}</dt>
+          <dd>{(id ? ENGAGEMENT_LABELS_ID : ENGAGEMENT_LABELS)[values.engagementType]}</dd>
         </div>
         <div>
-          <dt>Place</dt>
-          <dd>{answer(values.location, "To be confirmed")}</dd>
+          <dt>{id ? "Tempat" : "Place"}</dt>
+          <dd>{answer(values.location, id ? "Belum dikonfirmasi" : "To be confirmed")}</dd>
         </div>
         <div>
-          <dt>Date</dt>
-          <dd>{answer(values.celebrationDate, "To be confirmed")}</dd>
+          <dt>{id ? "Tanggal" : "Date"}</dt>
+          <dd>{answer(values.celebrationDate, id ? "Belum dikonfirmasi" : "To be confirmed")}</dd>
         </div>
         <div>
-          <dt>Guests</dt>
-          <dd>{GUEST_COUNT_LABELS[values.approximateGuestCount]}</dd>
+          <dt>{id ? "Tamu" : "Guests"}</dt>
+          <dd>{(id ? GUEST_COUNT_LABELS_ID : GUEST_COUNT_LABELS)[values.approximateGuestCount]}</dd>
         </div>
         <div>
-          <dt>Events</dt>
-          <dd>{EVENT_COUNT_LABELS[values.numberOfEvents]}</dd>
+          <dt>{id ? "Acara" : "Events"}</dt>
+          <dd>{(id ? EVENT_COUNT_LABELS_ID : EVENT_COUNT_LABELS)[values.numberOfEvents]}</dd>
         </div>
         <div>
-          <dt>Languages</dt>
-          <dd>{answer(values.languages, "To be confirmed")}</dd>
+          <dt>{id ? "Bahasa" : "Languages"}</dt>
+          <dd>{answer(values.languages, id ? "Belum dikonfirmasi" : "To be confirmed")}</dd>
         </div>
       </dl>
       <div className={styles.briefNeeds}>
-        <p>Functions</p>
-        <p>{selectedNeeds || "No functions selected yet"}</p>
+        <p>{id ? "Fungsi" : "Functions"}</p>
+        <p>{selectedNeeds || (id ? "Belum ada fungsi dipilih" : "No functions selected yet")}</p>
       </div>
-      <p className={styles.briefFooter}>This card is a working outline, not a submitted application.</p>
+      <p className={styles.briefFooter}>{id ? "Kartu ini adalah garis besar kerja, bukan pengajuan yang sudah dikirim." : "This card is a working outline, not a submitted application."}</p>
       <span className={styles.briefCorner} data-brief-corner aria-hidden="true" />
     </aside>
   );

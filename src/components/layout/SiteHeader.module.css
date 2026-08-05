@@ -1,202 +1,293 @@
 .header {
   position: sticky;
-  z-index: 100;
+  z-index: 300;
   top: 0;
   height: var(--header-height);
   border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--color-ivory) 94%, transparent);
-  backdrop-filter: blur(0.75rem);
+  background: color-mix(in srgb, var(--color-ivory) 97%, transparent);
 }
 
 .inner {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   display: flex;
   height: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .mark {
   display: inline-flex;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 2;
-  width: max-content;
+  min-height: 2.75rem;
   align-items: center;
-  gap: 0.45rem;
-  transform: translate(-50%, -50%);
+  gap: 0.55rem;
   font-family: var(--font-display);
-  font-size: 1.12rem;
+  font-size: 1.08rem;
   font-weight: 520;
-  letter-spacing: -0.025em;
-  line-height: 1;
+  letter-spacing: -0.03em;
   text-decoration: none;
 }
 
 .markSymbol {
-  width: 1.65rem;
-  height: 1.65rem;
-  object-fit: contain;
+  width: 1.55rem;
+  height: 1.55rem;
 }
 
-.desktopNavigation {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-5);
-}
-
-.navigationGroup {
+.controls {
   display: flex;
   align-items: center;
-  gap: clamp(0.9rem, 1.8vw, 2rem);
+  gap: 0.3rem;
 }
 
-.navigationLink {
+.utilityButton,
+.menuButton {
   display: inline-flex;
   min-height: 2.75rem;
   align-items: center;
-  position: relative;
-  font-size: 0.7rem;
-  font-weight: 640;
-  letter-spacing: 0.08em;
-  text-decoration: none;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.75rem;
+  border: 0;
+  background: transparent;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
 }
 
-.navigationLink::after {
+.utilityButton {
+  color: var(--color-ink-soft);
+}
+
+.utilityButton:hover,
+.utilityButton:focus-visible,
+.menuButton:hover,
+.menuButton:focus-visible {
+  color: var(--color-garnet);
+}
+
+.utilityButton:active,
+.menuButton:active,
+.mark:active {
+  transform: scale(0.97);
+}
+
+.soundDot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+}
+
+.soundDot[data-enabled="true"] {
+  border-color: var(--color-garnet);
+  background: var(--color-garnet);
+  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-garnet) 14%, transparent);
+}
+
+.menuButton {
+  min-width: 5.5rem;
+  justify-content: space-between;
+  border-left: 1px solid var(--line);
+}
+
+.menuGlyph {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+}
+
+.menuGlyph i {
   position: absolute;
-  right: 0;
-  bottom: 0.4rem;
+  top: 50%;
   left: 0;
+  width: 100%;
   height: 1px;
-  transform: scaleX(0);
-  transform-origin: right;
+  transform: translateY(-0.18rem);
   background: currentColor;
-  content: "";
   transition: transform var(--duration-medium) var(--ease-house);
 }
 
-.navigationLink:hover::after,
-.navigationLink[aria-current="page"]::after {
-  transform: scaleX(1);
+.menuGlyph i:last-child {
+  transform: translateY(0.18rem);
+}
+
+.header[data-open="true"] .menuGlyph i {
+  transform: rotate(45deg);
+}
+
+.header[data-open="true"] .menuGlyph i:last-child {
+  transform: rotate(-45deg);
+}
+
+.panel {
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  visibility: hidden;
+  clip-path: circle(0 at calc(100% - var(--page-gutter) - 2rem) 2.4rem);
+  background: var(--color-paper);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    clip-path 680ms var(--ease-ceremony),
+    opacity 240ms ease,
+    visibility 0s 680ms;
+}
+
+.panel[data-open="true"] {
+  visibility: visible;
+  clip-path: circle(150% at calc(100% - var(--page-gutter) - 2rem) 2.4rem);
+  opacity: 1;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.panelInner {
+  display: grid;
+  min-height: 100svh;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: var(--header-height) 1fr auto;
+  gap: var(--space-5) clamp(0.75rem, 1.4vw, 1.5rem);
+  padding-block: 0 var(--space-5);
+}
+
+.studioNote {
+  grid-column: 1 / span 4;
+  grid-row: 2;
+  align-self: start;
+  max-width: 24rem;
+  margin-top: clamp(5rem, 11vh, 8rem);
+  color: var(--color-ink-soft);
+  font-size: var(--step--1);
+}
+
+.navigation {
+  grid-column: 5 / -1;
+  grid-row: 2;
+  align-self: center;
+  border-top: 1px solid var(--line-strong);
+}
+
+.navigationLink {
+  display: grid;
+  min-height: clamp(5rem, 13vh, 8.5rem);
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.navigationLink > span,
+.navigationLink > em {
+  font-family: var(--font-sans);
+  font-size: 0.63rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.navigationLink strong {
   transform-origin: left;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6.4vw, 7rem);
+  font-weight: 300;
+  letter-spacing: -0.055em;
+  line-height: 0.8;
+  transition:
+    color var(--duration-medium) var(--ease-house),
+    transform var(--duration-medium) var(--ease-house);
 }
 
-.navigationGroup:last-child .navigationLink:last-child {
-  padding-inline: 0.95rem;
-  border: 1px solid var(--color-ink);
+.navigationLink:hover strong,
+.navigationLink:focus-visible strong {
+  transform: translateX(0.5rem);
+  color: var(--color-garnet);
+  font-style: italic;
 }
 
-.menuButton,
-.mobilePanel {
-  display: none;
+.navigationLink[aria-current="page"] em {
+  color: var(--color-garnet);
 }
 
-@media (max-width: 63.99rem) {
-  .desktopNavigation {
+.panelMeta {
+  display: flex;
+  grid-column: 1 / -1;
+  grid-row: 3;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line-strong);
+  font-size: 0.65rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 47.99rem) {
+  .utilityButton span:last-child:not(.soundDot) {
     display: none;
   }
 
+  .utilityButton {
+    width: 2.75rem;
+    padding-inline: 0.35rem;
+  }
+
   .menuButton {
-    display: inline-flex;
-    min-width: 5.2rem;
-    min-height: 2.75rem;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-3);
-    padding: 0;
-    border: 0;
-    background: transparent;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    min-width: 4.9rem;
+    padding-right: 0;
   }
 
-  .mark {
-    position: static;
-    transform: none;
+  .panelInner {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: var(--header-height) auto 1fr auto;
   }
 
-  .inner {
-    justify-content: space-between;
+  .studioNote {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: var(--space-7);
   }
 
-  .menuGlyph {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 300;
+  .navigation {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    align-self: center;
   }
 
-  .mobilePanel {
-    display: block;
-    position: fixed;
-    z-index: 1;
-    top: 100%;
-    right: 0;
-    bottom: auto;
-    left: 0;
-    height: calc(100svh - var(--header-height));
-    visibility: hidden;
-    transform: translateY(-1rem);
-    background: var(--color-ivory-raised);
-    opacity: 0;
-    transition:
-      opacity var(--duration-medium) var(--ease-house),
-      transform var(--duration-medium) var(--ease-house),
-      visibility 0s var(--duration-medium);
+  .navigationLink {
+    min-height: 5.6rem;
+    grid-template-columns: 2.5rem 1fr auto;
   }
 
-  .mobilePanel[data-open="true"] {
-    visibility: visible;
-    transform: translateY(0);
-    opacity: 1;
-    transition-delay: 0s;
+  .navigationLink strong {
+    font-size: clamp(2.7rem, 14vw, 4rem);
   }
 
-  .mobileNavigation {
-    display: flex;
-    min-height: 100%;
+  .panelMeta {
+    grid-column: 1 / -1;
+    grid-row: 4;
     flex-direction: column;
-    justify-content: center;
-    padding-block: var(--space-7);
-  }
-
-  .mobileLink {
-    display: grid;
-    min-height: 4.5rem;
-    grid-template-columns: 3rem 1fr;
-    align-items: baseline;
-    border-bottom: 1px solid var(--line);
-    font-family: var(--font-display);
-    font-size: var(--step-3);
-    font-weight: 380;
-    letter-spacing: -0.025em;
-    text-decoration: none;
-  }
-
-  .mobileLink span {
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    font-weight: 650;
-    letter-spacing: 0.08em;
+    gap: var(--space-2);
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .header {
     background: var(--color-ivory);
-    backdrop-filter: none;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .mobilePanel,
-  .navigationLink::after {
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .panel,
+  .menuGlyph i,
+  .navigationLink strong {
     transition: none;
+  }
+
+  .panel {
+    clip-path: none;
   }
 }

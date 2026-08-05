@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { App } from "../../src/App";
 import {
@@ -12,33 +12,30 @@ describe("production route architecture", () => {
     window.localStorage.clear();
   });
 
-  it("opens with the House Adel product position and primary navigation", () => {
+  it("opens with the House Adel product position and three-route navigation", () => {
     render(<App />);
 
     expect(
       screen.getByRole("heading", {
-        name: "Digital invitations and private worlds for singular celebrations.",
+        name: "Wedding websites, composed as private worlds.",
       }),
     ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Menu" }));
     const navigation = screen.getByRole("navigation", { name: "Primary navigation" });
-    expect(navigation).toBeInTheDocument();
-    expect(within(navigation).getByRole("link", { name: "Editions" })).toHaveAttribute(
+    expect(within(navigation).getByRole("link", { name: /Home/ })).toHaveAttribute("href", "/");
+    expect(within(navigation).getByRole("link", { name: /Work/ })).toHaveAttribute("href", "/work");
+    expect(within(navigation).getByRole("link", { name: /Commissions/ })).toHaveAttribute(
       "href",
-      "/editions",
-    );
-    expect(within(navigation).getByRole("link", { name: "Apply" })).toHaveAttribute(
-      "href",
-      "/apply",
+      "/commissions",
     );
   });
 
-  it("resolves a direct Edition route", async () => {
-    window.history.replaceState({}, "", "/editions/threshold");
+  it("resolves the direct, truthful empty Work archive", () => {
+    window.history.replaceState({}, "", "/work");
     render(<App />);
 
-    expect(await screen.findByRole("heading", { name: "Threshold", level: 1 })).toBeInTheDocument();
-    expect(screen.getAllByText("House Adel Study — Self-initiated.").length).toBeGreaterThan(0);
-    expect(screen.getByRole("heading", { name: "Live invitation demonstration" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "The work, when it is ready.", level: 1 })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "No completed commissions are published yet." })).toBeInTheDocument();
   });
 
   it("uses the production not-found state for unknown paths", async () => {
@@ -76,15 +73,15 @@ describe("application schema", () => {
   });
 
   it("rejects an application when the honeypot is filled", () => {
-    const result = applicationSchema.safeParse({ ...validApplication, website: "spam" });
-    expect(result.success).toBe(false);
+    expect(applicationSchema.safeParse({ ...validApplication, website: "spam" }).success).toBe(false);
   });
 
   it("requires Not sure yet to stand alone", () => {
-    const result = applicationSchema.safeParse({
-      ...validApplication,
-      needs: ["not-sure", "digital-invitation"],
-    });
-    expect(result.success).toBe(false);
+    expect(
+      applicationSchema.safeParse({
+        ...validApplication,
+        needs: ["not-sure", "digital-invitation"],
+      }).success,
+    ).toBe(false);
   });
 });

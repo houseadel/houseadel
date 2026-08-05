@@ -1,13 +1,17 @@
 import { useFormContext } from "react-hook-form";
+import { useLanguage } from "../../../context/LanguageContext";
 import { Link } from "../../../lib/router";
-import { CONTACT_METHOD_LABELS, CONTACT_METHOD_VALUES } from "../applicationOptions";
+import { CONTACT_METHOD_LABELS, CONTACT_METHOD_LABELS_ID, CONTACT_METHOD_VALUES } from "../applicationOptions";
 import { FIELD_LIMITS, type ApplicationValues } from "../applicationSchema";
+import { translateApplicationError } from "../applicationTranslations";
 import { ApplicationSection } from "./ApplicationSection";
 import { FieldShell } from "./FieldShell";
 import { TurnstileField } from "./TurnstileField";
 import styles from "./ApplicationForm.module.css";
 
 export function ContactFields() {
+  const { language } = useLanguage();
+  const id = language === "id";
   const {
     register,
     formState: { errors },
@@ -17,13 +21,13 @@ export function ContactFields() {
     <ApplicationSection
       id="contact"
       number="05"
-      title="Contact"
-      introduction="These details are used only to review and respond to this application."
+      title={id ? "Kontak" : "Contact"}
+      introduction={id ? "Detail ini hanya digunakan untuk meninjau dan menanggapi pengajuan." : "These details are used only to review and respond to this application."}
     >
       <FieldShell
         id="contact-name"
-        label="Contact name"
-        description="The person House Adel should contact about the project."
+        label={id ? "Nama kontak" : "Contact name"}
+        description={id ? "Orang yang perlu dihubungi House Adel mengenai proyek." : "The person House Adel should contact about the project."}
         error={errors.contactName?.message}
         required
       >
@@ -46,7 +50,7 @@ export function ContactFields() {
         <FieldShell
           id="contact-email"
           label="Email"
-          description="Used for the application response and no unrelated marketing."
+          description={id ? "Digunakan untuk tanggapan pengajuan, tanpa pemasaran yang tidak terkait." : "Used for the application response and no unrelated marketing."}
           error={errors.email?.message}
           required
         >
@@ -67,8 +71,8 @@ export function ContactFields() {
         </FieldShell>
         <FieldShell
           id="contact-phone"
-          label="WhatsApp or phone"
-          description="Required only when WhatsApp or phone is the preferred method."
+          label={id ? "WhatsApp atau telepon" : "WhatsApp or phone"}
+          description={id ? "Wajib hanya jika WhatsApp atau telepon menjadi metode pilihan." : "Required only when WhatsApp or phone is the preferred method."}
           error={errors.phone?.message}
         >
           {(describedBy) => (
@@ -89,8 +93,8 @@ export function ContactFields() {
 
       <FieldShell
         id="preferred-contact"
-        label="Preferred contact method"
-        description="Choose how House Adel should reply, or select “Not sure yet.”"
+        label={id ? "Metode kontak pilihan" : "Preferred contact method"}
+        description={id ? "Pilih cara House Adel sebaiknya membalas, atau pilih “Belum yakin”." : "Choose how House Adel should reply, or select “Not sure yet.”"}
         error={errors.preferredContact?.message}
         required
       >
@@ -105,7 +109,7 @@ export function ContactFields() {
           >
             {CONTACT_METHOD_VALUES.map((value) => (
               <option key={value} value={value}>
-                {CONTACT_METHOD_LABELS[value]}
+                {(id ? CONTACT_METHOD_LABELS_ID : CONTACT_METHOD_LABELS)[value]}
               </option>
             ))}
           </select>
@@ -115,8 +119,8 @@ export function ContactFields() {
       <div className={styles.fieldPair}>
         <FieldShell
           id="contact-country"
-          label="Country"
-          description="The country from which you are enquiring."
+          label={id ? "Negara" : "Country"}
+          description={id ? "Negara tempat Anda mengajukan pertanyaan." : "The country from which you are enquiring."}
           error={errors.country?.message}
           required
         >
@@ -136,8 +140,8 @@ export function ContactFields() {
         </FieldShell>
         <FieldShell
           id="contact-time-zone"
-          label="Time zone"
-          description="For example, UTC+7 or Asia/Jakarta."
+          label={id ? "Zona waktu" : "Time zone"}
+          description={id ? "Contohnya, UTC+7 atau Asia/Jakarta." : "For example, UTC+7 or Asia/Jakarta."}
           error={errors.timeZone?.message}
           required
         >
@@ -159,8 +163,8 @@ export function ContactFields() {
 
       <FieldShell
         id="best-contact-time"
-        label="Best contact time"
-        description="A broad window is enough."
+        label={id ? "Waktu kontak terbaik" : "Best contact time"}
+        description={id ? "Rentang waktu umum sudah cukup." : "A broad window is enough."}
         error={errors.bestContactTime?.message}
       >
         {(describedBy) => (
@@ -186,14 +190,14 @@ export function ContactFields() {
             {...register("privacyConsent")}
           />
           <span aria-hidden="true" className={styles.checkMark} />
-          <span>I consent to House Adel using these details to assess and respond to this application.</span>
+          <span>{id ? "Saya menyetujui House Adel menggunakan detail ini untuk menilai dan menanggapi pengajuan." : "I consent to House Adel using these details to assess and respond to this application."}</span>
         </label>
         <p className={styles.description} id="privacy-note">
-          Review the <Link to="/privacy">Privacy page</Link> for handling and retention information.
+          {id ? "Baca " : "Review the "}<Link to="/privacy">{id ? "halaman Privasi" : "Privacy page"}</Link>{id ? " untuk informasi penanganan dan penyimpanan." : " for handling and retention information."}
         </p>
         {errors.privacyConsent?.message ? (
           <p className={styles.error} id="privacy-error" role="alert">
-            {errors.privacyConsent.message}
+            {translateApplicationError(errors.privacyConsent.message, language)}
           </p>
         ) : null}
       </div>
@@ -201,7 +205,7 @@ export function ContactFields() {
       <TurnstileField />
 
       <div className={styles.honeypot} aria-hidden="true">
-        <label htmlFor="website">Leave this field empty</label>
+        <label htmlFor="website">{id ? "Biarkan bidang ini kosong" : "Leave this field empty"}</label>
         <input id="website" type="text" tabIndex={-1} autoComplete="off" {...register("website")} />
       </div>
     </ApplicationSection>

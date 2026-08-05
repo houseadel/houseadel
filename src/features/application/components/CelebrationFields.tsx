@@ -1,8 +1,11 @@
 import { useFormContext } from "react-hook-form";
+import { useLanguage } from "../../../context/LanguageContext";
 import {
   EVENT_COUNT_LABELS,
+  EVENT_COUNT_LABELS_ID,
   EVENT_COUNT_VALUES,
   GUEST_COUNT_LABELS,
+  GUEST_COUNT_LABELS_ID,
   GUEST_COUNT_VALUES,
 } from "../applicationOptions";
 import { FIELD_LIMITS, type ApplicationValues } from "../applicationSchema";
@@ -11,6 +14,8 @@ import { FieldShell } from "./FieldShell";
 import styles from "./ApplicationForm.module.css";
 
 export function CelebrationFields() {
+  const { language } = useLanguage();
+  const id = language === "id";
   const {
     register,
     formState: { errors },
@@ -20,13 +25,13 @@ export function CelebrationFields() {
     <ApplicationSection
       id="your-celebration"
       number="01"
-      title="Your celebration"
-      introduction="Begin with the practical outline. Dates may remain unconfirmed."
+      title={id ? "Perayaan Anda" : "Your celebration"}
+      introduction={id ? "Mulai dari garis besar praktis. Tanggal boleh belum pasti." : "Begin with the practical outline. Dates may remain unconfirmed."}
     >
       <FieldShell
         id="applicant-name"
-        label="Applicant name"
-        description="The person preparing this application."
+        label={id ? "Nama pemohon" : "Applicant name"}
+        description={id ? "Orang yang menyiapkan pengajuan ini." : "The person preparing this application."}
         error={errors.applicantName?.message}
         required
       >
@@ -47,8 +52,8 @@ export function CelebrationFields() {
 
       <FieldShell
         id="celebration-names"
-        label="Partner or project names"
-        description="The names or working title that should identify the celebration."
+        label={id ? "Nama pasangan atau proyek" : "Partner or project names"}
+        description={id ? "Nama atau judul kerja yang akan mengidentifikasi perayaan." : "The names or working title that should identify the celebration."}
         error={errors.celebrationNames?.message}
         required
       >
@@ -70,8 +75,8 @@ export function CelebrationFields() {
       <div className={styles.fieldPair}>
         <FieldShell
           id="celebration-date"
-          label="Wedding or celebration date"
-          description="Leave blank if it is not confirmed."
+          label={id ? "Tanggal pernikahan atau perayaan" : "Wedding or celebration date"}
+          description={id ? "Kosongkan jika belum pasti." : "Leave blank if it is not confirmed."}
           error={errors.celebrationDate?.message}
         >
           {(describedBy) => (
@@ -87,8 +92,8 @@ export function CelebrationFields() {
         </FieldShell>
         <FieldShell
           id="required-launch-date"
-          label="Required website launch date"
-          description="The latest useful date, if known."
+          label={id ? "Tanggal peluncuran situs" : "Required website launch date"}
+          description={id ? "Tanggal paling akhir yang berguna, jika sudah diketahui." : "The latest useful date, if known."}
           error={errors.requiredLaunchDate?.message}
         >
           {(describedBy) => (
@@ -106,8 +111,8 @@ export function CelebrationFields() {
 
       <FieldShell
         id="celebration-location"
-        label="Location"
-        description="City, country, venue, or “Not sure yet.”"
+        label={id ? "Lokasi" : "Location"}
+        description={id ? "Kota, negara, venue, atau “Belum yakin”." : "City, country, venue, or “Not sure yet.”"}
         error={errors.location?.message}
         required
       >
@@ -129,8 +134,8 @@ export function CelebrationFields() {
       <div className={styles.fieldPair}>
         <FieldShell
           id="guest-count"
-          label="Approximate guest count"
-          description="A broad range is enough."
+          label={id ? "Perkiraan jumlah tamu" : "Approximate guest count"}
+          description={id ? "Kisaran umum sudah cukup." : "A broad range is enough."}
           error={errors.approximateGuestCount?.message}
           required
         >
@@ -145,7 +150,7 @@ export function CelebrationFields() {
             >
               {GUEST_COUNT_VALUES.map((value) => (
                 <option key={value} value={value}>
-                  {GUEST_COUNT_LABELS[value]}
+                  {(id ? GUEST_COUNT_LABELS_ID : GUEST_COUNT_LABELS)[value]}
                 </option>
               ))}
             </select>
@@ -153,8 +158,8 @@ export function CelebrationFields() {
         </FieldShell>
         <FieldShell
           id="event-count"
-          label="Number of events"
-          description="Include every event the invitation may need to distinguish."
+          label={id ? "Jumlah acara" : "Number of events"}
+          description={id ? "Sertakan setiap acara yang perlu dibedakan oleh undangan." : "Include every event the invitation may need to distinguish."}
           error={errors.numberOfEvents?.message}
           required
         >
@@ -169,7 +174,7 @@ export function CelebrationFields() {
             >
               {EVENT_COUNT_VALUES.map((value) => (
                 <option key={value} value={value}>
-                  {EVENT_COUNT_LABELS[value]}
+                  {(id ? EVENT_COUNT_LABELS_ID : EVENT_COUNT_LABELS)[value]}
                 </option>
               ))}
             </select>
@@ -179,4 +184,3 @@ export function CelebrationFields() {
     </ApplicationSection>
   );
 }
-

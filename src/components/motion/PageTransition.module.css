@@ -1,0 +1,53 @@
+.overlay {
+  position: fixed;
+  z-index: 800;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: var(--page-gutter);
+  transform: translateY(100%);
+  visibility: hidden;
+  background: var(--color-garnet-deep);
+  color: var(--color-ivory-raised);
+  pointer-events: none;
+}
+
+.overlay[data-active="true"] {
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.destination {
+  align-self: end;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 12rem);
+  font-style: italic;
+  font-weight: 280;
+  letter-spacing: -0.065em;
+  line-height: 0.78;
+}
+
+.rule {
+  width: 100%;
+  height: 1px;
+  margin-top: var(--space-7);
+  transform: scaleX(0.04);
+  transform-origin: left;
+  background: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .overlay {
+    display: none;
+  }
+}

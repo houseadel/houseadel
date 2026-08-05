@@ -1,9 +1,7 @@
 export const primaryNavigation = [
-  { label: "Editions", href: "/editions" },
-  { label: "Private Commissions", href: "/private-commissions" },
-  { label: "Stories", href: "/stories" },
-  { label: "The House", href: "/the-house" },
-  { label: "Apply", href: "/apply" },
+  { label: "Home", labelId: "Beranda", href: "/" },
+  { label: "Work", labelId: "Karya", href: "/work" },
+  { label: "Commissions", labelId: "Komisi", href: "/commissions" },
 ] as const;
 
 export const footerNavigation = [

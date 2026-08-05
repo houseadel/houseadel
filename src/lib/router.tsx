@@ -31,11 +31,28 @@ export function useLocation() {
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }
 
-export function navigate(to: string, options: { replace?: boolean } = {}) {
+export type NavigationOptions = { replace?: boolean; immediate?: boolean };
+type NavigationInterceptor = (to: string, options: NavigationOptions) => boolean;
+
+let navigationInterceptor: NavigationInterceptor | null = null;
+
+export function setNavigationInterceptor(interceptor: NavigationInterceptor) {
+  navigationInterceptor = interceptor;
+  return () => {
+    if (navigationInterceptor === interceptor) navigationInterceptor = null;
+  };
+}
+
+export function commitNavigation(to: string, options: NavigationOptions = {}) {
   const current = getSnapshot();
   if (to === current) return;
   window.history[options.replace ? "replaceState" : "pushState"]({}, "", to);
   window.dispatchEvent(new Event(NAVIGATION_EVENT));
+}
+
+export function navigate(to: string, options: NavigationOptions = {}) {
+  if (!options.immediate && navigationInterceptor?.(to, options)) return;
+  commitNavigation(to, options);
 }
 
 type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {

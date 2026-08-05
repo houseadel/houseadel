@@ -72,6 +72,11 @@ select {
   cursor: pointer;
 }
 
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 button:disabled,
 input:disabled,
 textarea:disabled,
@@ -309,6 +314,20 @@ ol {
 .route-transition {
   animation: page-swap 560ms var(--ease-ceremony) both;
   transform-origin: 50% 0;
+}
+
+.loader-preload-image {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-sonic]:active {
+  transition-duration: 80ms;
 }
 
 @keyframes house-loader {

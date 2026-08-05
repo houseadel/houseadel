@@ -14,18 +14,13 @@ const outputPath = path.join(repoRoot, "docs", "performance-results.json");
 const cases = [
   { id: "home-desktop", route: "/", viewport: { width: 1440, height: 900 } },
   {
-    id: "editions-desktop",
-    route: "/editions",
+    id: "work-desktop",
+    route: "/work",
     viewport: { width: 1440, height: 900 },
   },
   {
-    id: "edition-desktop",
-    route: "/editions/threshold",
-    viewport: { width: 1440, height: 900 },
-  },
-  {
-    id: "private-desktop",
-    route: "/private-commissions",
+    id: "commissions-desktop",
+    route: "/commissions",
     viewport: { width: 1440, height: 900 },
   },
   {
@@ -35,14 +30,14 @@ const cases = [
     mobile: true,
   },
   {
-    id: "editions-mobile",
-    route: "/editions",
+    id: "work-mobile",
+    route: "/work",
     viewport: { width: 390, height: 844 },
     mobile: true,
   },
   {
-    id: "apply-mobile",
-    route: "/apply",
+    id: "commissions-mobile",
+    route: "/commissions",
     viewport: { width: 390, height: 844 },
     mobile: true,
   },

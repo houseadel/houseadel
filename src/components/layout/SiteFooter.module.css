@@ -1,100 +1,186 @@
 .footer {
+  position: relative;
+  overflow: hidden;
   background: var(--color-ink);
   color: var(--color-ivory);
 }
 
 .inner {
+  position: relative;
   display: grid;
+  min-height: min(46rem, 92svh);
   grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-rows: 1fr auto;
   gap: var(--space-7) clamp(0.75rem, 1.4vw, 1.5rem);
   padding-block: var(--space-8) var(--space-5);
 }
 
 .signature {
-  grid-column: 1 / span 5;
+  position: relative;
+  z-index: 1;
+  grid-column: 1 / span 6;
 }
 
 .statement {
-  max-width: 19ch;
-  margin-top: var(--space-4);
+  max-width: 10ch;
+  margin-top: var(--space-5);
   font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 350;
-  line-height: 1.1;
+  font-size: var(--step-4);
+  font-weight: 310;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+}
+
+.begin {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-7);
+  border-bottom: 1px solid currentColor;
+  font-size: var(--step--1);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.begin span {
+  transition: transform var(--duration-medium) var(--ease-house);
+}
+
+.begin:hover span,
+.begin:focus-visible span {
+  transform: translate(0.2rem, -0.2rem);
 }
 
 .navigation {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-column: 7 / span 2;
-  gap: var(--space-2);
+  grid-column: 8 / -1;
   align-content: start;
+  border-top: 1px solid rgba(251, 250, 246, 0.3);
 }
 
-.navigation a,
-.contact a {
-  min-height: 2.75rem;
-  width: max-content;
-  font-size: var(--step--1);
-  text-underline-offset: 0.28em;
+.navigation a {
+  display: grid;
+  min-height: 4.4rem;
+  grid-template-columns: 2.5rem 1fr;
+  align-items: center;
+  border-bottom: 1px solid rgba(251, 250, 246, 0.16);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  text-decoration: none;
+}
+
+.navigation a span {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
 }
 
 .contact {
-  grid-column: 9 / -1;
+  position: relative;
+  z-index: 1;
+  grid-column: 8 / -1;
+  align-self: end;
+}
+
+.contact a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  text-underline-offset: 0.28em;
 }
 
 .contact p {
-  max-width: 23rem;
-  margin-top: var(--space-3);
-  color: color-mix(in srgb, var(--color-ivory) 68%, transparent);
+  max-width: 26rem;
+  color: color-mix(in srgb, var(--color-ivory) 62%, transparent);
   font-size: var(--step--1);
 }
 
-.copyright {
+.lower {
+  position: relative;
+  z-index: 1;
+  display: flex;
   grid-column: 1 / -1;
-  padding-top: var(--space-5);
-  border-top: 1px solid rgba(242, 238, 229, 0.22);
+  grid-row: 2;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(251, 250, 246, 0.22);
   color: color-mix(in srgb, var(--color-ivory) 62%, transparent);
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
+.lower nav {
+  display: flex;
+  gap: var(--space-5);
+}
+
+.mark {
+  position: absolute;
+  right: -4vw;
+  bottom: -18vw;
+  width: min(42rem, 46vw);
+  filter: invert(1);
+  opacity: 0.035;
+  pointer-events: none;
+}
+
 @media (max-width: 63.99rem) {
-  .inner {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-  }
-
   .signature {
-    grid-column: 1 / span 5;
+    grid-column: 1 / span 6;
   }
 
-  .navigation {
-    grid-column: 6 / -1;
-  }
-
+  .navigation,
   .contact {
-    grid-column: 1 / -1;
+    grid-column: 7 / -1;
   }
 }
 
 @media (max-width: 47.99rem) {
   .inner {
+    min-height: 48rem;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: var(--space-6) 0.75rem;
+    grid-template-rows: auto auto auto auto;
+    gap: var(--space-7) 0.75rem;
   }
 
   .signature,
   .navigation,
   .contact,
-  .copyright {
+  .lower {
     grid-column: 1 / -1;
   }
 
-  .statement {
-    max-width: 16ch;
+  .signature {
+    grid-row: 1;
   }
 
   .navigation {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-row: 2;
+  }
+
+  .contact {
+    grid-row: 3;
+  }
+
+  .lower {
+    grid-row: 4;
+    flex-direction: column;
+  }
+
+  .statement {
+    font-size: clamp(2.8rem, 13vw, 4rem);
+  }
+
+  .mark {
+    right: -25vw;
+    bottom: -7rem;
+    width: 24rem;
   }
 }

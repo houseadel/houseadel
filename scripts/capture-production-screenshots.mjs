@@ -23,30 +23,8 @@ const VIEWPORTS = [
 
 const ROUTES = [
   { id: "home", path: "/" },
-  { id: "editions", path: "/editions" },
-  { id: "edition-threshold", path: "/editions/threshold" },
-  { id: "edition-correspondence", path: "/editions/correspondence" },
-  { id: "edition-afterlight", path: "/editions/afterlight" },
-  { id: "private-commissions", path: "/private-commissions" },
-  { id: "stories", path: "/stories" },
-  {
-    id: "story-threshold",
-    path: "/stories/threshold-an-invitation-as-entrance",
-  },
-  {
-    id: "story-correspondence",
-    path: "/stories/correspondence-the-guest-as-reader",
-  },
-  {
-    id: "story-atlas-table",
-    path: "/stories/atlas-table-from-fragments-to-order",
-  },
-  {
-    id: "story-afterlight",
-    path: "/stories/afterlight-time-as-material",
-  },
-  { id: "the-house", path: "/the-house" },
-  { id: "apply", path: "/apply" },
+  { id: "work", path: "/work" },
+  { id: "commissions", path: "/commissions" },
   { id: "application-received-direct", path: "/application-received" },
   { id: "privacy", path: "/privacy" },
   { id: "terms", path: "/terms" },
@@ -107,8 +85,16 @@ async function settlePage(page, path) {
   }
 
   await page.locator("[data-route-heading]").waitFor({ state: "visible" });
+  await page
+    .locator("[data-loader-overlay]")
+    .waitFor({ state: "detached", timeout: 8_000 })
+    .catch(() => undefined);
   await page.evaluate(async () => {
-    await document.fonts.ready;
+    await Promise.all([
+      document.fonts.load('400 16px "Newsreader Variable"'),
+      document.fonts.load('400 italic 16px "Newsreader Variable"'),
+      document.fonts.load('400 16px "Manrope Variable"'),
+    ]);
     await new Promise((resolveFrame) =>
       requestAnimationFrame(() => requestAnimationFrame(resolveFrame)),
     );
@@ -191,16 +177,45 @@ async function captureRoutes() {
   }
 }
 
+async function captureIndonesianPrimaryRoutes() {
+  const viewport = VIEWPORTS[0];
+  const context = await makeContext(viewport);
+  await context.addInitScript(() => {
+    window.localStorage.setItem("house-adel:language", "id");
+    window.sessionStorage.setItem("house-adel:loader-seen", "true");
+  });
+  const page = await context.newPage();
+  try {
+    for (const route of ROUTES.slice(0, 3)) {
+      await settlePage(page, route.path);
+      await recordScreenshot(page, {
+        id: `${route.id}-id-${viewport.id}`,
+        kind: "language-state",
+        state: "indonesian",
+        route: route.path,
+        viewport: viewport.id,
+        width: viewport.width,
+        height: viewport.height,
+        fullPage: true,
+        file: `${route.id}-id-${viewport.width}x${viewport.height}.png`,
+        title: await page.title(),
+      });
+    }
+  } finally {
+    await context.close();
+  }
+}
+
 async function captureMobileNavigation() {
   const viewport = VIEWPORTS.find(({ id }) => id === "mobile-390x844");
   const context = await makeContext(viewport);
   const page = await context.newPage();
   try {
     await settlePage(page, "/");
-    await page.locator('button[aria-controls="mobile-navigation"]').click();
+    await page.locator('button[aria-controls="site-navigation"]').click();
     await page
-      .getByRole("navigation", { name: "Mobile navigation" })
-      .getByRole("link", { name: "Editions" })
+      .getByRole("navigation", { name: "Primary navigation" })
+      .getByRole("link", { name: /Work/ })
       .waitFor({ state: "visible" });
     await recordScreenshot(page, {
       id: "state-mobile-navigation-open-390x844",
@@ -265,55 +280,12 @@ async function captureSpatialSequence(viewport) {
   }
 }
 
-async function captureEditionPreview() {
-  const viewport = VIEWPORTS[0];
-  const context = await makeContext(viewport);
-  const page = await context.newPage();
-  try {
-    await settlePage(page, "/editions/threshold");
-    await page.getByLabel("First sample name").fill("Ari");
-    await page.getByLabel("Second sample name").fill("Sol");
-    await page.getByLabel("Sample guest name").fill("Mira");
-    await page.getByRole("button", { name: "Mobile" }).click();
-    await page
-      .getByRole("navigation", { name: "Invitation sections" })
-      .getByRole("button", { name: "RSVP" })
-      .click();
-    await page.getByLabel("Joyfully attending").check();
-    const demonstrationHeading = page.getByRole("heading", {
-      name: "Live invitation demonstration",
-    });
-    await demonstrationHeading.evaluate((heading) => {
-      const section = heading.closest("section");
-      const sectionTop = section?.getBoundingClientRect().top ?? heading.getBoundingClientRect().top;
-      window.scrollTo(0, Math.max(0, window.scrollY + sectionTop - 96));
-    });
-    await page.evaluate(
-      () => new Promise((resolveFrame) => requestAnimationFrame(() => resolveFrame(undefined))),
-    );
-    await recordScreenshot(page, {
-      id: "state-edition-live-preview-1440x900",
-      kind: "state",
-      state: "edition-live-preview-mobile-rsvp",
-      route: "/editions/threshold",
-      viewport: viewport.id,
-      width: viewport.width,
-      height: viewport.height,
-      fullPage: false,
-      file: "state-edition-live-preview-1440x900.png",
-      title: await page.title(),
-    });
-  } finally {
-    await context.close();
-  }
-}
-
 async function captureApplyValidation() {
   const viewport = VIEWPORTS[0];
   const context = await makeContext(viewport);
   const page = await context.newPage();
   try {
-    await settlePage(page, "/apply");
+    await settlePage(page, "/commissions#application");
     await page.getByRole("button", { name: "Review application" }).click();
     await page
       .getByText("Some required answers need attention. Nothing has been sent.")
@@ -326,7 +298,7 @@ async function captureApplyValidation() {
       id: "state-apply-validation-1440x900",
       kind: "state",
       state: "application-validation",
-      route: "/apply",
+      route: "/commissions#application",
       viewport: viewport.id,
       width: viewport.width,
       height: viewport.height,
@@ -345,7 +317,7 @@ async function fillReviewApplication(page) {
   await page.getByLabel("Location").fill("Jakarta");
   await page.getByLabel("Approximate guest count").selectOption("50-100");
   await page.getByLabel("Number of events").selectOption("two");
-  await page.getByLabel("Digital invitation").check();
+  await page.getByRole("checkbox", { name: "Digital invitation", exact: true }).check();
   await page
     .getByLabel("What should guests feel when opening the invitation?")
     .fill("Warm, composed and unmistakably personal.");
@@ -366,7 +338,7 @@ async function captureApplyReview() {
   const context = await makeContext(viewport);
   const page = await context.newPage();
   try {
-    await settlePage(page, "/apply");
+    await settlePage(page, "/commissions#application");
     await fillReviewApplication(page);
     await page.getByRole("button", { name: "Review application" }).click();
     await page.getByRole("heading", { name: "Review the living brief." }).waitFor({ state: "visible" });
@@ -378,7 +350,7 @@ async function captureApplyReview() {
       id: "state-apply-review-1440x900",
       kind: "state",
       state: "application-review",
-      route: "/apply",
+      route: "/commissions#application",
       viewport: viewport.id,
       width: viewport.width,
       height: viewport.height,
@@ -494,10 +466,9 @@ try {
   browser = await chromium.launch({ headless: true });
 
   await captureRoutes();
+  await captureIndonesianPrimaryRoutes();
   await captureSpatialSequence(VIEWPORTS[0]);
-  await captureSpatialSequence(VIEWPORTS[3]);
   await captureMobileNavigation();
-  await captureEditionPreview();
   await captureApplyValidation();
   await captureApplyReview();
   await captureReducedMotionHome();

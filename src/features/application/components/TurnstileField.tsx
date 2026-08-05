@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { useLanguage } from "../../../context/LanguageContext";
 import type { ApplicationValues } from "../applicationSchema";
 import styles from "./TurnstileField.module.css";
 
@@ -52,10 +53,12 @@ function loadTurnstile() {
 }
 
 export function TurnstileField() {
+  const { language } = useLanguage();
+  const id = language === "id";
   const siteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim();
   const container = useRef<HTMLDivElement>(null);
   const { setValue } = useFormContext<ApplicationValues>();
-  const [status, setStatus] = useState("Preparing spam protection.");
+  const [status, setStatus] = useState(id ? "Menyiapkan perlindungan spam." : "Preparing spam protection.");
 
   useEffect(() => {
     if (!siteKey || !container.current) return;
@@ -74,22 +77,22 @@ export function TurnstileField() {
           callback: (token) => {
             if (!active) return;
             setValue("turnstileToken", token, { shouldValidate: true });
-            setStatus("Spam protection complete.");
+            setStatus(id ? "Perlindungan spam selesai." : "Spam protection complete.");
           },
           "expired-callback": () => {
             if (!active) return;
             setValue("turnstileToken", "", { shouldValidate: true });
-            setStatus("Spam protection expired. Complete it again before sending.");
+            setStatus(id ? "Perlindungan spam kedaluwarsa. Selesaikan lagi sebelum mengirim." : "Spam protection expired. Complete it again before sending.");
           },
           "error-callback": () => {
             if (!active) return;
             setValue("turnstileToken", "", { shouldValidate: true });
-            setStatus("Spam protection is unavailable. Please try again before sending.");
+            setStatus(id ? "Perlindungan spam tidak tersedia. Coba lagi sebelum mengirim." : "Spam protection is unavailable. Please try again before sending.");
           },
         });
       })
       .catch(() => {
-        if (active) setStatus("Spam protection is unavailable. Please try again before sending.");
+        if (active) setStatus(id ? "Perlindungan spam tidak tersedia. Coba lagi sebelum mengirim." : "Spam protection is unavailable. Please try again before sending.");
       });
 
     return () => {
@@ -97,15 +100,15 @@ export function TurnstileField() {
       setValue("turnstileToken", "", { shouldValidate: false });
       if (api && widgetId) api.remove(widgetId);
     };
-  }, [setValue, siteKey]);
+  }, [id, setValue, siteKey]);
 
   if (!siteKey) return null;
 
   return (
     <section className={styles.field} aria-labelledby="turnstile-heading">
       <div>
-        <h3 id="turnstile-heading">Spam protection</h3>
-        <p>A short verification protects the application from automated submissions.</p>
+        <h3 id="turnstile-heading">{id ? "Perlindungan spam" : "Spam protection"}</h3>
+        <p>{id ? "Verifikasi singkat melindungi pengajuan dari pengiriman otomatis." : "A short verification protects the application from automated submissions."}</p>
       </div>
       <div className={styles.widget} ref={container} />
       <p className={styles.status} role="status" aria-live="polite">

@@ -1,8 +1,22 @@
 # Production decisions
 
-Last updated: 2026-08-03
+Last updated: 2026-08-04
 
 ## Accepted
+
+### Replace the earlier catalogue architecture with three primary pages
+
+The current product brief deliberately narrows the public architecture to Home, Work, and Commissions. This supersedes the earlier primary navigation for Editions, Stories, The House, and Apply without deleting the underlying production research. Work remains an honest empty archive until approved commissions exist. Commissions combines fit, relationship, practical detail, privacy, and the existing Living Brief; legacy commission/application paths remain compatibility aliases only.
+
+No dependency is added for this change. The existing Vite/React/TypeScript, History API router, GSAP, progressive WebGL, React Hook Form, and Zod foundations are retained.
+
+### Use references as behavioural research only
+
+Immersive Garden, Lando Norris, Active Theory, and Bruno Simon informed high-level behavioural qualities: sparse hierarchy, explicit sound state, decisive page changes, responsive micro-feedback, and transparent performance choices. No reference asset, typeface, source code, copy, layout, shader, mark, or distinctive composition is used. House Adel retains its self-hosted Newsreader/Manrope typography, warm ivory/ink/stone/garnet palette, ceremonial aperture, approved public-domain archival material, and original interaction system.
+
+### Make language and sound global visitor controls
+
+English and Indonesian are complete primary-route states, including navigation, commission fields/options/errors/review, and application receipt. The language preference updates `<html lang>` and persists locally. Sound is an optional synthesized feedback layer: it is off by default, has a visible pressed state, downloads no audio file, and never autoplays.
 
 ### Ceremonial Spatial Editorialism is the permanent direction
 
@@ -101,8 +115,8 @@ No dependency is installed until its purpose, limitation, and alternative are re
 
 | Dependency | Status | Purpose | Why existing code is insufficient | Bundle/performance implication | Alternatives considered |
 | --- | --- | --- | --- | --- | --- |
-| `react-hook-form` | Installed runtime dependency | Accessible form state, field registration, dirty/completion state, review editing, and efficient updates for the Living Brief | The repository had no production form-state layer; a hand-built controlled form for the required field set would duplicate registration, error, and touched-state logic | Route-loaded only with `/apply`; avoids rerendering the whole form for every keystroke | A custom reducer or controlled inputs would avoid a package but increase implementation and regression risk |
-| `zod` | Installed shared dependency | One application schema for client validation, server validation, limits, normalisation, and provider contracts | TypeScript types disappear at runtime and cannot validate untrusted submissions | Route-loaded with `/apply` and reused by the server adapter; no homepage or WebGL cost | Hand-written validators duplicate client/server rules; another schema library would add the same category of dependency without an existing project advantage |
+| `react-hook-form` | Installed runtime dependency | Accessible form state, field registration, dirty/completion state, review editing, and efficient updates for the Living Brief | The repository had no production form-state layer; a hand-built controlled form for the required field set would duplicate registration, error, and touched-state logic | Route-loaded with the form on `/commissions`; avoids rerendering the whole form for every keystroke | A custom reducer or controlled inputs would avoid a package but increase implementation and regression risk |
+| `zod` | Installed shared dependency | One application schema for client validation, server validation, limits, normalisation, and provider contracts | TypeScript types disappear at runtime and cannot validate untrusted submissions | Route-loaded with the form on `/commissions` and reused by the server adapter; no homepage or WebGL cost | Hand-written validators duplicate client/server rules; another schema library would add the same category of dependency without an existing project advantage |
 | `eslint`, `@eslint/js`, `typescript-eslint`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh`, `globals` | Installed development-only toolchain | Lint TypeScript, React hooks, browser globals, server code, scripts, and Vite boundaries | `tsc --noEmit` catches type errors but not hook dependency errors, unsafe patterns, or maintainability rules | Zero production-bundle cost; adds install size and CI time only | Type checking alone does not meet the acceptance gate; a custom regex/script lint would be weaker and harder to maintain. `eslint-plugin-react` is unnecessary with the modern JSX runtime and TypeScript |
 | `prettier` | Deferred; not currently justified | Automated formatting only | Existing formatting is consistent enough for the architecture phase and ESLint addresses correctness | Would have zero runtime cost but add another development dependency and command | Use editor formatting and focused ESLint rules; revisit only if formatting drift becomes measurable |
 

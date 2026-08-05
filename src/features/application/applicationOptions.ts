@@ -34,6 +34,23 @@ export const NEED_LABELS: Record<NeedValue, string> = {
   "not-sure": "Not sure yet",
 };
 
+export const NEED_LABELS_ID: Record<NeedValue, string> = {
+  "save-the-date": "Save the date",
+  "digital-invitation": "Undangan digital",
+  "wedding-website": "Situs pernikahan lengkap",
+  rsvp: "RSVP",
+  "guest-specific-invitations": "Undangan khusus per tamu",
+  "multiple-events": "Beberapa acara",
+  "travel-accommodation": "Perjalanan dan akomodasi",
+  registry: "Daftar hadiah",
+  "multilingual-content": "Konten multibahasa",
+  photography: "Fotografi",
+  film: "Film",
+  illustration: "Ilustrasi",
+  "interactive-experience": "Pengalaman 3D atau interaktif",
+  "not-sure": "Belum yakin",
+};
+
 export const NEED_OPTIONS = NEED_VALUES.map((value) => ({ value, label: NEED_LABELS[value] }));
 
 export const GUEST_COUNT_VALUES = [
@@ -56,6 +73,15 @@ export const GUEST_COUNT_LABELS: Record<GuestCountValue, string> = {
   "not-sure": "Not sure yet",
 };
 
+export const GUEST_COUNT_LABELS_ID: Record<GuestCountValue, string> = {
+  "under-50": "Di bawah 50",
+  "50-100": "50–100",
+  "101-200": "101–200",
+  "201-350": "201–350",
+  "over-350": "Lebih dari 350",
+  "not-sure": "Belum yakin",
+};
+
 export const EVENT_COUNT_VALUES = ["one", "two", "three", "four-plus", "not-sure"] as const;
 
 export type EventCountValue = (typeof EVENT_COUNT_VALUES)[number];
@@ -68,6 +94,14 @@ export const EVENT_COUNT_LABELS: Record<EventCountValue, string> = {
   "not-sure": "Not sure yet",
 };
 
+export const EVENT_COUNT_LABELS_ID: Record<EventCountValue, string> = {
+  one: "Satu acara",
+  two: "Dua acara",
+  three: "Tiga acara",
+  "four-plus": "Empat acara atau lebih",
+  "not-sure": "Belum yakin",
+};
+
 export const ENGAGEMENT_VALUES = ["edition", "private-commission", "not-sure"] as const;
 
 export type EngagementValue = (typeof ENGAGEMENT_VALUES)[number];
@@ -76,6 +110,12 @@ export const ENGAGEMENT_LABELS: Record<EngagementValue, string> = {
   edition: "Edition",
   "private-commission": "Private Commission",
   "not-sure": "Not sure yet",
+};
+
+export const ENGAGEMENT_LABELS_ID: Record<EngagementValue, string> = {
+  edition: "Edition",
+  "private-commission": "Komisi Privat",
+  "not-sure": "Belum yakin",
 };
 
 export const CONTACT_METHOD_VALUES = ["email", "whatsapp", "phone", "not-sure"] as const;
@@ -89,6 +129,13 @@ export const CONTACT_METHOD_LABELS: Record<ContactMethodValue, string> = {
   "not-sure": "Not sure yet",
 };
 
+export const CONTACT_METHOD_LABELS_ID: Record<ContactMethodValue, string> = {
+  email: "Email",
+  whatsapp: "WhatsApp",
+  phone: "Telepon",
+  "not-sure": "Belum yakin",
+};
+
 export const CONFIDENTIALITY_VALUES = ["standard", "contact-before-sharing", "discuss"] as const;
 
 export type ConfidentialityValue = (typeof CONFIDENTIALITY_VALUES)[number];
@@ -99,3 +146,8 @@ export const CONFIDENTIALITY_LABELS: Record<ConfidentialityValue, string> = {
   discuss: "Prefer to discuss",
 };
 
+export const CONFIDENTIALITY_LABELS_ID: Record<ConfidentialityValue, string> = {
+  standard: "Privasi proyek standar",
+  "contact-before-sharing": "Hubungi saya sebelum membagikan detail proyek",
+  discuss: "Lebih baik didiskusikan",
+};

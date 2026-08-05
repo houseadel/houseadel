@@ -1,8 +1,11 @@
 import { useFormContext } from "react-hook-form";
+import { useLanguage } from "../../../context/LanguageContext";
 import {
   CONFIDENTIALITY_LABELS,
+  CONFIDENTIALITY_LABELS_ID,
   CONFIDENTIALITY_VALUES,
   ENGAGEMENT_LABELS,
+  ENGAGEMENT_LABELS_ID,
   ENGAGEMENT_VALUES,
 } from "../applicationOptions";
 import { FIELD_LIMITS, type ApplicationValues } from "../applicationSchema";
@@ -11,6 +14,8 @@ import { FieldShell } from "./FieldShell";
 import styles from "./ApplicationForm.module.css";
 
 export function ScopeFields() {
+  const { language } = useLanguage();
+  const id = language === "id";
   const {
     register,
     formState: { errors },
@@ -20,13 +25,13 @@ export function ScopeFields() {
     <ApplicationSection
       id="scope"
       number="04"
-      title="Scope"
-      introduction="Indicate the likely path and constraints. “Not sure yet” is welcome."
+      title={id ? "Lingkup" : "Scope"}
+      introduction={id ? "Jelaskan arah dan batasan yang mungkin. “Belum yakin” tetap diterima." : "Indicate the likely path and constraints. “Not sure yet” is welcome."}
     >
       <FieldShell
         id="engagement-type"
-        label="Project path"
-        description="An Edition begins with a House Adel world. A Private Commission begins with yours."
+        label={id ? "Jalur proyek" : "Project path"}
+        description={id ? "Edition dimulai dari dunia House Adel. Komisi Privat dimulai dari dunia Anda." : "An Edition begins with a House Adel world. A Private Commission begins with yours."}
         error={errors.engagementType?.message}
         required
       >
@@ -41,7 +46,7 @@ export function ScopeFields() {
           >
             {ENGAGEMENT_VALUES.map((value) => (
               <option key={value} value={value}>
-                {ENGAGEMENT_LABELS[value]}
+                {(id ? ENGAGEMENT_LABELS_ID : ENGAGEMENT_LABELS)[value]}
               </option>
             ))}
           </select>
@@ -51,8 +56,8 @@ export function ScopeFields() {
       <div className={styles.fieldPair}>
         <FieldShell
           id="budget-range"
-          label="Budget range"
-          description="Include a currency and approximate range, or write “Not sure yet.”"
+          label={id ? "Kisaran anggaran" : "Budget range"}
+          description={id ? "Sertakan mata uang dan kisaran, atau tulis “Belum yakin”." : "Include a currency and approximate range, or write “Not sure yet.”"}
           error={errors.budgetRange?.message}
           required
         >
@@ -71,8 +76,8 @@ export function ScopeFields() {
         </FieldShell>
         <FieldShell
           id="project-deadline"
-          label="Project deadline"
-          description="Leave blank if it is not fixed."
+          label={id ? "Tenggat proyek" : "Project deadline"}
+          description={id ? "Kosongkan jika belum tetap." : "Leave blank if it is not fixed."}
           error={errors.projectDeadline?.message}
         >
           {(describedBy) => (
@@ -90,8 +95,8 @@ export function ScopeFields() {
 
       <FieldShell
         id="languages"
-        label="Languages"
-        description="List every language the guest experience may require, or write “Not sure yet.”"
+        label={id ? "Bahasa" : "Languages"}
+        description={id ? "Cantumkan setiap bahasa yang mungkin dibutuhkan tamu, atau tulis “Belum yakin”." : "List every language the guest experience may require, or write “Not sure yet.”"}
         error={errors.languages?.message}
         required
       >
@@ -111,8 +116,8 @@ export function ScopeFields() {
 
       <FieldShell
         id="collaborators"
-        label="Planner or creative collaborators"
-        description="Share names and roles only when useful at this stage."
+        label={id ? "Perencana atau kolaborator kreatif" : "Planner or creative collaborators"}
+        description={id ? "Bagikan nama dan peran hanya jika berguna pada tahap ini." : "Share names and roles only when useful at this stage."}
         error={errors.collaborators?.message}
       >
         {(describedBy) => (
@@ -130,8 +135,8 @@ export function ScopeFields() {
 
       <FieldShell
         id="confidentiality"
-        label="Confidentiality needs"
-        description="Choose the handling that feels appropriate for an initial enquiry."
+        label={id ? "Kebutuhan kerahasiaan" : "Confidentiality needs"}
+        description={id ? "Pilih penanganan yang sesuai untuk pertanyaan awal." : "Choose the handling that feels appropriate for an initial enquiry."}
         error={errors.confidentiality?.message}
         required
       >
@@ -146,7 +151,7 @@ export function ScopeFields() {
           >
             {CONFIDENTIALITY_VALUES.map((value) => (
               <option key={value} value={value}>
-                {CONFIDENTIALITY_LABELS[value]}
+                {(id ? CONFIDENTIALITY_LABELS_ID : CONFIDENTIALITY_LABELS)[value]}
               </option>
             ))}
           </select>
@@ -155,4 +160,3 @@ export function ScopeFields() {
     </ApplicationSection>
   );
 }
-

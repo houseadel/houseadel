@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { useLanguage } from "../../../context/LanguageContext";
+import { translateApplicationError } from "../applicationTranslations";
 import styles from "./ApplicationForm.module.css";
 
 type FieldShellProps = {
@@ -18,6 +20,7 @@ export function FieldShell({
   required = false,
   children,
 }: FieldShellProps) {
+  const { language } = useLanguage();
   const descriptionId = `${id}-description`;
   const errorId = `${id}-error`;
   const describedBy = error ? `${descriptionId} ${errorId}` : descriptionId;
@@ -26,7 +29,11 @@ export function FieldShell({
     <div className={styles.field} data-invalid={error ? "true" : undefined}>
       <label className={styles.label} htmlFor={id}>
         {label}
-        <span className={styles.requirement}>{required ? "Required" : "Optional"}</span>
+        <span className={styles.requirement}>
+          {required
+            ? language === "en" ? "Required" : "Wajib"
+            : language === "en" ? "Optional" : "Opsional"}
+        </span>
       </label>
       <p className={styles.description} id={descriptionId}>
         {description}
@@ -34,10 +41,9 @@ export function FieldShell({
       {children(describedBy)}
       {error ? (
         <p className={styles.error} id={errorId} role="alert">
-          {error}
+          {translateApplicationError(error, language)}
         </p>
       ) : null}
     </div>
   );
 }
-

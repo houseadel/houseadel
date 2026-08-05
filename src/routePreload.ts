@@ -1,19 +1,16 @@
-// Direct document requests know their first route before React starts. Warming only
-// that route removes a second network round trip while preserving route-level chunks.
+// Direct document requests know their first route before React starts. The three
+// primary routes are synchronous; utility routes warm only their own chunk.
 const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
 
-if (pathname === "/" || pathname === "/private-commissions" || pathname === "/apply") {
-  // These business-critical entry points are part of the initial application chunk.
-} else if (pathname === "/editions") {
-  void import("./pages/EditionsPage");
-} else if (pathname.startsWith("/editions/")) {
-  void import("./pages/EditionPage");
-} else if (pathname === "/stories") {
-  void import("./pages/StoriesPage");
-} else if (pathname.startsWith("/stories/")) {
-  void import("./pages/StoryPage");
-} else if (pathname === "/the-house") {
-  void import("./pages/TheHousePage");
+if (
+  pathname === "/" ||
+  pathname === "/work" ||
+  pathname === "/commissions" ||
+  pathname === "/private-commissions" ||
+  pathname === "/apply" ||
+  pathname === "/begin-a-project"
+) {
+  // Business-critical shells are part of the initial application chunk.
 } else if (pathname === "/application-received") {
   void import("./pages/ApplicationReceivedPage");
 } else if (pathname === "/privacy") {

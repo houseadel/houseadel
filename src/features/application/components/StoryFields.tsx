@@ -1,10 +1,13 @@
 import { useFormContext } from "react-hook-form";
+import { useLanguage } from "../../../context/LanguageContext";
 import { FIELD_LIMITS, type ApplicationValues } from "../applicationSchema";
 import { ApplicationSection } from "./ApplicationSection";
 import { FieldShell } from "./FieldShell";
 import styles from "./ApplicationForm.module.css";
 
 export function StoryFields() {
+  const { language } = useLanguage();
+  const id = language === "id";
   const {
     register,
     formState: { errors },
@@ -14,13 +17,13 @@ export function StoryFields() {
     <ApplicationSection
       id="the-story"
       number="03"
-      title="The story"
-      introduction="Fragments are useful. A long narrative is neither expected nor required."
+      title={id ? "Cerita" : "The story"}
+      introduction={id ? "Fragmen sangat berguna. Narasi panjang tidak diharapkan maupun diwajibkan." : "Fragments are useful. A long narrative is neither expected nor required."}
     >
       <FieldShell
         id="story-together"
-        label="Tell us briefly about the two of you"
-        description="A few factual or personal lines are enough."
+        label={id ? "Ceritakan secara singkat tentang kalian" : "Tell us briefly about the two of you"}
+        description={id ? "Beberapa baris faktual atau personal sudah cukup." : "A few factual or personal lines are enough."}
         error={errors.storyTogether?.message}
       >
         {(describedBy) => (
@@ -38,8 +41,8 @@ export function StoryFields() {
 
       <FieldShell
         id="meaningful-material"
-        label="A meaningful place, object, memory or atmosphere"
-        description="One specific fragment often gives the clearest starting point."
+        label={id ? "Tempat, benda, ingatan, atau atmosfer yang bermakna" : "A meaningful place, object, memory or atmosphere"}
+        description={id ? "Satu fragmen spesifik sering memberi titik awal yang paling jelas." : "One specific fragment often gives the clearest starting point."}
         error={errors.meaningfulMaterial?.message}
       >
         {(describedBy) => (
@@ -57,8 +60,8 @@ export function StoryFields() {
 
       <FieldShell
         id="opening-feeling"
-        label="What should guests feel when opening the invitation?"
-        description="A few words are enough—for example, quiet anticipation or generous informality."
+        label={id ? "Apa yang seharusnya dirasakan tamu saat membuka undangan?" : "What should guests feel when opening the invitation?"}
+        description={id ? "Beberapa kata sudah cukup—misalnya, penantian yang tenang atau keakraban yang hangat." : "A few words are enough—for example, quiet anticipation or generous informality."}
         error={errors.openingFeeling?.message}
         required
       >
@@ -78,8 +81,8 @@ export function StoryFields() {
 
       <FieldShell
         id="reference-links"
-        label="Reference links"
-        description="Up to six complete http or https links, one per line. Files are not accepted in version one."
+        label={id ? "Tautan referensi" : "Reference links"}
+        description={id ? "Maksimal enam tautan http atau https lengkap, satu per baris. Berkas belum diterima pada versi ini." : "Up to six complete http or https links, one per line. Files are not accepted in version one."}
         error={errors.referenceLinks?.message}
       >
         {(describedBy) => (
@@ -99,8 +102,8 @@ export function StoryFields() {
 
       <FieldShell
         id="existing-website"
-        label="Existing website or mood-board link"
-        description="Use a complete http or https link."
+        label={id ? "Tautan situs atau mood board yang ada" : "Existing website or mood-board link"}
+        description={id ? "Gunakan tautan http atau https yang lengkap." : "Use a complete http or https link."}
         error={errors.existingWebsite?.message}
       >
         {(describedBy) => (
@@ -120,4 +123,3 @@ export function StoryFields() {
     </ApplicationSection>
   );
 }
-

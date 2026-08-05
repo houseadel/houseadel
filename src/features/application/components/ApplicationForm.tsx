@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { useLanguage } from "../../../context/LanguageContext";
 import { navigate } from "../../../lib/router";
 import { getApplicationSteps } from "../applicationProgress";
 import {
@@ -41,6 +42,43 @@ function createRestoredDefaults(): ApplicationValues {
 }
 
 export function ApplicationForm() {
+  const { language } = useLanguage();
+  const id = language === "id";
+  const copy = id
+    ? {
+        initial: "Belum ada yang dikirim. Peninjauan diperlukan sebelum pengiriman.",
+        invalid: "Beberapa jawaban wajib perlu diperiksa. Belum ada yang dikirim.",
+        reviewStatus: "Mode tinjau. Periksa setiap jawaban sebelum mengirim; belum ada yang dikirim.",
+        editing: "Penyuntingan dilanjutkan. Belum ada yang dikirim.",
+        provider: "Penyedia pengiriman",
+        mockNotice: "Mode pengembangan aktif. Tanda terima hanya ditampilkan jika endpoint lokal menerima pengajuan secara eksplisit.",
+        providerNotice: "Pengajuan dicatat hanya setelah endpoint yang dikonfigurasi mengonfirmasi penerimaan.",
+        reviewDoesNotSend: "Meninjau tidak mengirim pengajuan.",
+        reviewButton: "Tinjau pengajuan",
+        finalCheck: "Pemeriksaan akhir",
+        reviewTitle: "Tinjau brief yang hidup.",
+        finalNotice: "Tidak ada yang dikirim sampai tombol akhir di bawah digunakan.",
+        return: "Kembali menyunting",
+        send: "Kirim pengajuan",
+        sending: "Mengirim pengajuan…",
+      }
+    : {
+        initial: "Nothing has been sent. Review is required before submission.",
+        invalid: "Some required answers need attention. Nothing has been sent.",
+        reviewStatus: "Review mode. Check each answer before sending; nothing has been sent yet.",
+        editing: "Editing resumed. Nothing has been sent.",
+        provider: "Submission provider",
+        mockNotice: "Development mode is active. A mock receipt is shown only if the local endpoint explicitly accepts the application.",
+        providerNotice: "The application is recorded only after the configured endpoint confirms acceptance.",
+        reviewDoesNotSend: "Reviewing does not send the application.",
+        reviewButton: "Review application",
+        finalCheck: "Final check",
+        reviewTitle: "Review the living brief.",
+        finalNotice: "Nothing is sent until you use the final button below.",
+        return: "Return to editing",
+        send: "Send application",
+        sending: "Sending application…",
+      };
   const defaults = useMemo(createRestoredDefaults, []);
   const methods = useForm<ApplicationValues>({
     defaultValues: defaults,
@@ -58,7 +96,7 @@ export function ApplicationForm() {
   const steps = getApplicationSteps(values);
   const mode = getApplicationMode();
   const [view, setView] = useState<View>("edit");
-  const [status, setStatus] = useState("Nothing has been sent. Review is required before submission.");
+  const [status, setStatus] = useState(copy.initial);
   const [statusTone, setStatusTone] = useState<StatusTone>("neutral");
   const [submitting, setSubmitting] = useState(false);
   const reviewHeadingRef = useRef<HTMLHeadingElement>(null);
@@ -88,7 +126,7 @@ export function ApplicationForm() {
 
   const handleInvalid = () => {
     setStatusTone("error");
-    setStatus("Some required answers need attention. Nothing has been sent.");
+    setStatus(copy.invalid);
   };
 
   const showReview = (validated: ApplicationValues) => {
@@ -96,13 +134,13 @@ export function ApplicationForm() {
     methods.reset(normalized);
     setView("review");
     setStatusTone("neutral");
-    setStatus("Review mode. Check each answer before sending; nothing has been sent yet.");
+    setStatus(copy.reviewStatus);
   };
 
   const editSection = (sectionId: string) => {
     setView("edit");
     setStatusTone("neutral");
-    setStatus("Editing resumed. Nothing has been sent.");
+    setStatus(copy.editing);
     window.requestAnimationFrame(() => {
       const section = document.getElementById(sectionId);
       section?.scrollIntoView({ block: "start" });
@@ -118,8 +156,12 @@ export function ApplicationForm() {
     setStatusTone("neutral");
     setStatus(
       mode === "mock"
-        ? "Sending to the local mock endpoint. Receipt still requires an explicit server confirmation."
-        : `Sending through ${getApplicationModeLabel(mode)}.`,
+        ? id
+          ? "Mengirim ke endpoint mock lokal. Tanda terima tetap memerlukan konfirmasi server yang eksplisit."
+          : "Sending to the local mock endpoint. Receipt still requires an explicit server confirmation."
+        : id
+          ? `Mengirim melalui ${getApplicationModeLabel(mode)}.`
+          : `Sending through ${getApplicationModeLabel(mode)}.`,
     );
 
     try {
@@ -128,7 +170,13 @@ export function ApplicationForm() {
       navigate(`/application-received?confirmed=1&mode=${encodeURIComponent(result.mode)}`);
     } catch (error) {
       setStatusTone("error");
-      setStatus(error instanceof Error ? error.message : "The application was not accepted. Nothing was sent.");
+      setStatus(
+        error instanceof Error
+          ? error.message
+          : id
+            ? "Pengajuan tidak diterima. Tidak ada yang dikirim."
+            : "The application was not accepted. Nothing was sent.",
+      );
     } finally {
       if (activeRequest.current === request) activeRequest.current = null;
       setSubmitting(false);
@@ -146,14 +194,12 @@ export function ApplicationForm() {
           <div
             className={styles.submissionNotice}
             data-mode={mode}
-            aria-label="Application submission mode"
+            aria-label={id ? "Mode pengiriman pengajuan" : "Application submission mode"}
           >
-            <span>Submission provider</span>
+            <span>{copy.provider}</span>
             <strong>{getApplicationModeLabel(mode)}</strong>
             <p>
-              {mode === "mock"
-                ? "Development mode is active. A mock receipt is shown only if the local endpoint explicitly accepts the application."
-                : "The application is recorded only after the configured endpoint confirms acceptance."}
+              {mode === "mock" ? copy.mockNotice : copy.providerNotice}
             </p>
           </div>
 
@@ -174,20 +220,20 @@ export function ApplicationForm() {
               <ScopeFields />
               <ContactFields />
               <div className={styles.formActions}>
-                <p>Reviewing does not send the application.</p>
+                <p>{copy.reviewDoesNotSend}</p>
                 <button className={styles.primaryButton} type="submit">
-                  Review application
+                  {copy.reviewButton}
                 </button>
               </div>
             </>
           ) : (
             <section className={styles.review} aria-labelledby="application-review-title">
               <header className={styles.reviewHeader}>
-                <p>Final check</p>
+                <p>{copy.finalCheck}</p>
                 <h2 id="application-review-title" ref={reviewHeadingRef} tabIndex={-1}>
-                  Review the living brief.
+                  {copy.reviewTitle}
                 </h2>
-                <p>Nothing is sent until you use the final button below.</p>
+                <p>{copy.finalNotice}</p>
               </header>
               <ReviewSummary values={values} onEdit={editSection} />
               <div className={styles.formActions}>
@@ -197,10 +243,10 @@ export function ApplicationForm() {
                   onClick={() => editSection("your-celebration")}
                   disabled={submitting}
                 >
-                  Return to editing
+                  {copy.return}
                 </button>
                 <button className={styles.primaryButton} type="submit" disabled={submitting}>
-                  {submitting ? "Sending application…" : "Send application"}
+                  {submitting ? copy.sending : copy.send}
                 </button>
               </div>
             </section>
@@ -212,4 +258,3 @@ export function ApplicationForm() {
     </FormProvider>
   );
 }
-

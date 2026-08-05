@@ -1,27 +1,12 @@
 import { lazy, Suspense, useEffect, useState, type ReactElement } from "react";
 import { SiteLayout } from "./components/layout/SiteLayout";
-import { getEdition } from "./data/editions";
-import { getStory } from "./data/stories";
+import { AudioProvider } from "./context/AudioContext";
+import { LanguageProvider } from "./context/LanguageContext";
 import { useLocation, useRouteEffects } from "./lib/router";
-import { ApplyPage } from "./pages/ApplyPage";
+import { CommissionsPage } from "./pages/CommissionsPage";
 import { HomePage } from "./pages/HomePage";
-import { PrivateCommissionsPage } from "./pages/PrivateCommissionsPage";
+import { WorkPage } from "./pages/WorkPage";
 
-const EditionsPage = lazy(() =>
-  import("./pages/EditionsPage").then((module) => ({ default: module.EditionsPage })),
-);
-const EditionPage = lazy(() =>
-  import("./pages/EditionPage").then((module) => ({ default: module.EditionPage })),
-);
-const StoriesPage = lazy(() =>
-  import("./pages/StoriesPage").then((module) => ({ default: module.StoriesPage })),
-);
-const StoryPage = lazy(() =>
-  import("./pages/StoryPage").then((module) => ({ default: module.StoryPage })),
-);
-const TheHousePage = lazy(() =>
-  import("./pages/TheHousePage").then((module) => ({ default: module.TheHousePage })),
-);
 const ApplicationReceivedPage = lazy(() =>
   import("./pages/ApplicationReceivedPage").then((module) => ({
     default: module.ApplicationReceivedPage,
@@ -36,68 +21,34 @@ const TermsPage = lazy(() =>
 const NotFoundPage = lazy(() =>
   import("./pages/NotFoundPage").then((module) => ({ default: module.NotFoundPage })),
 );
+const LoaderLabPage = lazy(() =>
+  import("./labs/loader/LoaderLabPage").then((module) => ({ default: module.LoaderLabPage })),
+);
 
 type RouteMatch = {
   title: string;
   element: ReactElement;
 };
 
-function safeSlug(value: string | undefined) {
-  if (!value) return "";
-  try {
-    return decodeURIComponent(value);
-  } catch {
-    return "";
-  }
-}
-
 function matchRoute(pathname: string, search: string): RouteMatch {
   if (pathname === "/") {
     return {
-      title: "House Adel — Digital Invitations and Private Commissions",
+      title: "House Adel — Wedding Websites as Private Worlds",
       element: <HomePage />,
     };
   }
 
-  if (pathname === "/editions") {
-    return { title: "House Editions — House Adel", element: <EditionsPage /> };
+  if (pathname === "/work") {
+    return { title: "Work — House Adel", element: <WorkPage /> };
   }
 
-  const editionMatch = pathname.match(/^\/editions\/([^/]+)$/);
-  if (editionMatch) {
-    const slug = safeSlug(editionMatch[1]);
-    const edition = getEdition(slug);
-    return edition
-      ? { title: `${edition.title} — House Adel Edition`, element: <EditionPage slug={slug} /> }
-      : { title: "Edition not found — House Adel", element: <NotFoundPage /> };
-  }
-
-  if (pathname === "/private-commissions") {
-    return {
-      title: "Private Commissions — House Adel",
-      element: <PrivateCommissionsPage />,
-    };
-  }
-
-  if (pathname === "/stories") {
-    return { title: "Stories — House Adel", element: <StoriesPage /> };
-  }
-
-  const storyMatch = pathname.match(/^\/stories\/([^/]+)$/);
-  if (storyMatch) {
-    const slug = safeSlug(storyMatch[1]);
-    const story = getStory(slug);
-    return story
-      ? { title: `${story.title} — House Adel Story`, element: <StoryPage slug={slug} /> }
-      : { title: "Story not found — House Adel", element: <NotFoundPage /> };
-  }
-
-  if (pathname === "/the-house") {
-    return { title: "The House — House Adel", element: <TheHousePage /> };
-  }
-
-  if (pathname === "/apply") {
-    return { title: "Apply for a Project — House Adel", element: <ApplyPage /> };
+  if (
+    pathname === "/commissions" ||
+    pathname === "/private-commissions" ||
+    pathname === "/apply" ||
+    pathname === "/begin-a-project"
+  ) {
+    return { title: "Commissions — House Adel", element: <CommissionsPage /> };
   }
 
   if (pathname === "/application-received") {
@@ -113,6 +64,10 @@ function matchRoute(pathname: string, search: string): RouteMatch {
 
   if (pathname === "/terms") {
     return { title: "Terms — House Adel", element: <TermsPage /> };
+  }
+
+  if (pathname === "/labs/loader") {
+    return { title: "Loader Lab — House Adel", element: <LoaderLabPage /> };
   }
 
   return { title: "Page not found — House Adel", element: <NotFoundPage /> };
@@ -133,7 +88,7 @@ function RouteAnnouncer({ location, title }: { location: string; title: string }
   );
 }
 
-export function App() {
+function HouseAdelApplication() {
   const location = useLocation();
   const url = new URL(location, window.location.origin);
   const pathname = url.pathname.replace(/\/+$/, "") || "/";
@@ -153,5 +108,15 @@ export function App() {
         {route.element}
       </Suspense>
     </SiteLayout>
+  );
+}
+
+export function App() {
+  return (
+    <LanguageProvider>
+      <AudioProvider>
+        <HouseAdelApplication />
+      </AudioProvider>
+    </LanguageProvider>
   );
 }

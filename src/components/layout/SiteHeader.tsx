@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { useAudio } from "../../context/AudioContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { primaryNavigation } from "../../data/navigation";
 import { Link } from "../../lib/router";
 import styles from "./SiteHeader.module.css";
@@ -11,14 +13,41 @@ export function SiteHeader({ pathname }: SiteHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuButton = useRef<HTMLButtonElement>(null);
   const firstMenuLink = useRef<HTMLAnchorElement>(null);
-  const mobilePanel = useRef<HTMLDivElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
+  const { language, toggleLanguage } = useLanguage();
+  const audio = useAudio();
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  const copy = {
+    menu: language === "en" ? "Menu" : "Menu",
+    close: language === "en" ? "Close" : "Tutup",
+    navigation: language === "en" ? "Primary navigation" : "Navigasi utama",
+    languageLabel:
+      language === "en" ? "Change language to Indonesian" : "Ganti bahasa ke Inggris",
+    soundLabel: audio.enabled
+      ? language === "en"
+        ? "Turn sound off"
+        : "Matikan suara"
+      : language === "en"
+        ? "Turn sound on"
+        : "Nyalakan suara",
+    studio:
+      language === "en"
+        ? "Wedding websites · Art direction, design and development"
+        : "Situs pernikahan · Arahan seni, desain, dan pengembangan",
+  };
+
+  useEffect(() => setMenuOpen(false), [pathname]);
 
   useEffect(() => {
     document.body.dataset.menuOpen = String(menuOpen);
+    const inertTargets = [
+      document.getElementById("main-content"),
+      document.querySelector<HTMLElement>("footer"),
+    ].filter((target): target is HTMLElement => Boolean(target));
+    const previous = inertTargets.map((target) => target.inert);
+    inertTargets.forEach((target) => {
+      target.inert = menuOpen;
+    });
     if (menuOpen) firstMenuLink.current?.focus();
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -29,92 +58,118 @@ export function SiteHeader({ pathname }: SiteHeaderProps) {
         return;
       }
       if (event.key !== "Tab") return;
-
-      const links = [...(mobilePanel.current?.querySelectorAll<HTMLElement>("a[href]") ?? [])];
-      const lastLink = links.at(-1);
-      if (!event.shiftKey && document.activeElement === lastLink) {
+      const focusable = [
+        ...(panel.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? []),
+        menuButton.current,
+      ].filter((element): element is HTMLElement => Boolean(element));
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (!event.shiftKey && document.activeElement === last) {
         event.preventDefault();
-        menuButton.current?.focus();
-      } else if (event.shiftKey && document.activeElement === menuButton.current) {
+        first?.focus();
+      } else if (event.shiftKey && document.activeElement === first) {
         event.preventDefault();
-        lastLink?.focus();
+        last?.focus();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => {
+      inertTargets.forEach((target, index) => {
+        target.inert = previous[index] ?? false;
+      });
       delete document.body.dataset.menuOpen;
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [menuOpen]);
 
-  const isCurrent = (href: string) =>
-    pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
-
-  const link = (item: (typeof primaryNavigation)[number]) => (
-    <Link
-      className={styles.navigationLink}
-      to={item.href}
-      key={item.href}
-      aria-current={isCurrent(item.href) ? "page" : undefined}
-    >
-      {item.label}
-    </Link>
-  );
+  const isCurrent = (href: string) => pathname === href;
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} data-open={menuOpen}>
       <div className={`${styles.inner} page-frame`}>
-        <nav className={styles.desktopNavigation} aria-label="Primary navigation">
-          <span className={styles.navigationGroup}>{primaryNavigation.slice(0, 3).map(link)}</span>
-          <span className={styles.navigationGroup}>{primaryNavigation.slice(3).map(link)}</span>
-        </nav>
-
-        <Link className={styles.mark} to="/" aria-label="House Adel, home">
+        <Link className={styles.mark} to="/" aria-label="House Adel, home" data-sonic>
           <img className={styles.markSymbol} src="/adel-mark.svg" alt="" aria-hidden="true" />
           <span>House Adel</span>
         </Link>
 
-        <button
-          ref={menuButton}
-          className={styles.menuButton}
-          type="button"
-          aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span>{menuOpen ? "Close" : "Menu"}</span>
-          <span className={styles.menuGlyph} aria-hidden="true">
-            {menuOpen ? "×" : "+"}
-          </span>
-        </button>
+        <div className={styles.controls}>
+          <button
+            className={styles.utilityButton}
+            type="button"
+            aria-label={copy.languageLabel}
+            onClick={toggleLanguage}
+            data-sonic
+          >
+            <span aria-hidden="true">{language === "en" ? "EN" : "ID"}</span>
+          </button>
+          <button
+            className={styles.utilityButton}
+            type="button"
+            aria-label={copy.soundLabel}
+            aria-pressed={audio.enabled}
+            onClick={audio.toggle}
+            disabled={!audio.supported}
+            data-sonic
+          >
+            <span className={styles.soundDot} data-enabled={audio.enabled} aria-hidden="true" />
+            <span aria-hidden="true">{language === "en" ? "Sound" : "Suara"}</span>
+          </button>
+          <button
+            ref={menuButton}
+            className={styles.menuButton}
+            type="button"
+            aria-expanded={menuOpen}
+            aria-controls="site-navigation"
+            onClick={() => setMenuOpen((open) => !open)}
+            data-sonic
+          >
+            <span>{menuOpen ? copy.close : copy.menu}</span>
+            <span className={styles.menuGlyph} aria-hidden="true">
+              <i />
+              <i />
+            </span>
+          </button>
+        </div>
       </div>
 
       <div
-        ref={mobilePanel}
-        className={styles.mobilePanel}
-        id="mobile-navigation"
+        ref={panel}
+        className={styles.panel}
+        id="site-navigation"
         data-open={menuOpen}
         aria-hidden={!menuOpen}
         role="dialog"
         aria-modal={menuOpen ? "true" : undefined}
-        aria-label="House Adel navigation"
+        aria-label={copy.navigation}
       >
-        <nav className={`${styles.mobileNavigation} page-frame`} aria-label="Mobile navigation">
-          {primaryNavigation.map((item, index) => (
-            <Link
-              ref={index === 0 ? firstMenuLink : undefined}
-              className={styles.mobileLink}
-              to={item.href}
-              key={item.href}
-              tabIndex={menuOpen ? 0 : -1}
-              aria-current={isCurrent(item.href) ? "page" : undefined}
-            >
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <div className={`${styles.panelInner} page-frame`}>
+          <p className={styles.studioNote}>{copy.studio}</p>
+          <nav className={styles.navigation} aria-label={copy.navigation}>
+            {primaryNavigation.map((item, index) => (
+              <Link
+                ref={index === 0 ? firstMenuLink : undefined}
+                className={styles.navigationLink}
+                to={item.href}
+                key={item.href}
+                tabIndex={menuOpen ? 0 : -1}
+                aria-current={isCurrent(item.href) ? "page" : undefined}
+                onClick={() => setMenuOpen(false)}
+                data-sonic
+              >
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{language === "en" ? item.label : item.labelId}</strong>
+                <em>{isCurrent(item.href) ? (language === "en" ? "Current" : "Aktif") : "↗"}</em>
+              </Link>
+            ))}
+          </nav>
+          <div className={styles.panelMeta}>
+            <span>Jakarta · Worldwide</span>
+            <a href="mailto:studio@houseadel.com" tabIndex={menuOpen ? 0 : -1} data-sonic>
+              studio@houseadel.com
+            </a>
+          </div>
+        </div>
       </div>
     </header>
   );
