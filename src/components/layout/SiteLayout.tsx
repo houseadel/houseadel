@@ -3,6 +3,7 @@ import { RealLoaderLab } from "../../labs/loader/RealLoaderLab";
 import { PageTransition } from "../motion/PageTransition";
 import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
+import { resolveAppUrl } from "../../lib/basePath";
 
 type SiteLayoutProps = {
   children: ReactNode;
@@ -34,7 +35,7 @@ export function SiteLayout({ children, pathname }: SiteLayoutProps) {
       <img
         ref={criticalPoster}
         className="loader-preload-image"
-        src="/assets/open-access/met-390163-1600w.webp"
+        src={resolveAppUrl("/assets/open-access/met-390163-1600w.webp")}
         alt=""
         aria-hidden="true"
       />

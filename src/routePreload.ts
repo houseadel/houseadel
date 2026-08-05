@@ -1,6 +1,8 @@
 // Direct document requests know their first route before React starts. The three
 // primary routes are synchronous; utility routes warm only their own chunk.
-const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+import { stripAppBasePath } from "./lib/basePath";
+
+const pathname = stripAppBasePath(window.location.pathname.replace(/\/+$/, "")) || "/";
 
 if (
   pathname === "/" ||

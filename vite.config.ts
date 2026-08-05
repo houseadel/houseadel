@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
   const environment = { ...process.env, ...loadedEnvironment };
 
   return {
+    base: "./",
     plugins: [
       applicationApiPlugin(environment),
       react(),

@@ -5,6 +5,7 @@ import {
   type LoaderReport,
   type LoaderVisitMode,
 } from "./RealLoaderLab";
+import { resolveAppUrl } from "../../lib/basePath";
 import styles from "./LoaderLabPage.module.css";
 
 function querySetting(name: string) {
@@ -65,10 +66,10 @@ export function LoaderLabPage() {
       <div ref={contentReference}>
         <section className={styles.hero} aria-labelledby="loader-lab-title">
           <picture className={styles.poster} data-loader-reveal>
-            <source srcSet="/assets/open-access/met-390163-1600w.avif" type="image/avif" />
+            <source srcSet={resolveAppUrl("/assets/open-access/met-390163-1600w.avif")} type="image/avif" />
             <img
               ref={posterReference}
-              src="/assets/open-access/met-390163-1600w.webp"
+              src={resolveAppUrl("/assets/open-access/met-390163-1600w.webp")}
               alt="An architectural drawing-room interior used as the static spatial fallback."
               loading="eager"
               decoding="async"

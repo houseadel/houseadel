@@ -1,12 +1,13 @@
+import { resolveAppUrl } from "../../lib/basePath";
 import styles from "./SpatialFallback.module.css";
 
 export function SpatialFallback() {
   return (
     <div className={styles.composition} aria-hidden="true" data-spatial-fallback>
       <picture className={styles.archivalImage} data-spatial-plane="image">
-        <source srcSet="/assets/open-access/met-390163-1600w.avif" type="image/avif" />
+        <source srcSet={resolveAppUrl("/assets/open-access/met-390163-1600w.avif")} type="image/avif" />
         <img
-          src="/assets/open-access/met-390163-1600w.webp"
+          src={resolveAppUrl("/assets/open-access/met-390163-1600w.webp")}
           alt=""
           loading="eager"
           decoding="async"

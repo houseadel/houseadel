@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useState, type ReactElement } from "react";
 import { SiteLayout } from "./components/layout/SiteLayout";
 import { AudioProvider } from "./context/AudioContext";
 import { LanguageProvider } from "./context/LanguageContext";
+import { stripAppBasePath } from "./lib/basePath";
 import { useLocation, useRouteEffects } from "./lib/router";
 import { CommissionsPage } from "./pages/CommissionsPage";
 import { HomePage } from "./pages/HomePage";
@@ -91,7 +92,7 @@ function RouteAnnouncer({ location, title }: { location: string; title: string }
 function HouseAdelApplication() {
   const location = useLocation();
   const url = new URL(location, window.location.origin);
-  const pathname = url.pathname.replace(/\/+$/, "") || "/";
+  const pathname = stripAppBasePath(url.pathname.replace(/\/+$/, "")) || "/";
   const route = matchRoute(pathname, url.search);
   useRouteEffects(location, route.title);
 

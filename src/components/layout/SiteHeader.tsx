@@ -3,6 +3,7 @@ import { useAudio } from "../../context/AudioContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { primaryNavigation } from "../../data/navigation";
 import { Link } from "../../lib/router";
+import { resolveAppUrl } from "../../lib/basePath";
 import styles from "./SiteHeader.module.css";
 
 type SiteHeaderProps = {
@@ -89,7 +90,7 @@ export function SiteHeader({ pathname }: SiteHeaderProps) {
     <header className={styles.header} data-open={menuOpen}>
       <div className={`${styles.inner} page-frame`}>
         <Link className={styles.mark} to="/" aria-label="House Adel, home" data-sonic>
-          <img className={styles.markSymbol} src="/adel-mark.svg" alt="" aria-hidden="true" />
+          <img className={styles.markSymbol} src={resolveAppUrl("/adel-mark.svg")} alt="" aria-hidden="true" />
           <span>House Adel</span>
         </Link>
 

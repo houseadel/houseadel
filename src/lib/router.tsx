@@ -7,6 +7,7 @@ import {
   useRef,
   useSyncExternalStore,
 } from "react";
+import { resolveAppUrl } from "./basePath";
 
 const NAVIGATION_EVENT = "house-adel:navigate";
 
@@ -44,15 +45,18 @@ export function setNavigationInterceptor(interceptor: NavigationInterceptor) {
 }
 
 export function commitNavigation(to: string, options: NavigationOptions = {}) {
+  const destination = new URL(to, window.location.href);
+  const target = `${destination.pathname}${destination.search}${destination.hash}`;
   const current = getSnapshot();
-  if (to === current) return;
-  window.history[options.replace ? "replaceState" : "pushState"]({}, "", to);
+  if (target === current) return;
+  window.history[options.replace ? "replaceState" : "pushState"]({}, "", target);
   window.dispatchEvent(new Event(NAVIGATION_EVENT));
 }
 
 export function navigate(to: string, options: NavigationOptions = {}) {
   if (!options.immediate && navigationInterceptor?.(to, options)) return;
-  commitNavigation(to, options);
+  const resolved = resolveAppUrl(to);
+  commitNavigation(resolved, options);
 }
 
 type LinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
@@ -91,7 +95,7 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(function Link(
   };
 
   return (
-    <a ref={ref} href={to} target={target} onClick={handleClick} {...props}>
+    <a ref={ref} href={resolveAppUrl(to)} target={target} onClick={handleClick} {...props}>
       {children}
     </a>
   );

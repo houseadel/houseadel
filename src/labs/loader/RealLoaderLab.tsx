@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
+import { resolveAppUrl } from "../../lib/basePath";
 import styles from "./LoaderLabPage.module.css";
 
 const LOADER_VISIT_KEY = "house-adel:loader-seen";
@@ -341,7 +342,7 @@ export function RealLoaderLab({
           </text>
         </svg>
         <span className={styles.loaderMarkFrame}>
-          <img ref={markReference} src="/adel-mark.svg" alt="" />
+          <img ref={markReference} src={resolveAppUrl("/adel-mark.svg")} alt="" />
         </span>
       </div>
 

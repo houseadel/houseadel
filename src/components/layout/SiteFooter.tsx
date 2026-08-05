@@ -1,6 +1,7 @@
 import { useLanguage } from "../../context/LanguageContext";
 import { primaryNavigation } from "../../data/navigation";
 import { Link } from "../../lib/router";
+import { resolveAppUrl } from "../../lib/basePath";
 import styles from "./SiteFooter.module.css";
 
 export function SiteFooter() {
@@ -56,7 +57,7 @@ export function SiteFooter() {
             <Link to="/terms">{copy.terms}</Link>
           </nav>
         </div>
-        <img className={styles.mark} src="/adel-mark.svg" alt="" aria-hidden="true" />
+        <img className={styles.mark} src={resolveAppUrl("/adel-mark.svg")} alt="" aria-hidden="true" />
       </div>
     </footer>
   );
