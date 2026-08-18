@@ -1,0 +1,166 @@
+/* The trigger. A word, in the same micro-label voice the rest of the chrome uses. */
+.trigger {
+  display: none;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 47.99rem) {
+  .trigger {
+    display: inline-flex;
+  }
+}
+
+:global(:root[data-chrome="pale"]) .trigger {
+  color: #2a241d;
+}
+
+/*
+ * The panel.
+ *
+ * Not a drawer sliding in from an edge — that is a component arriving. It is the
+ * room the site is already in, brought forward: the same near-black, the same
+ * faint cool lift at the edges, and the page settling back behind it. Opening it
+ * is a small change of depth, not an event.
+ */
+.panel {
+  position: fixed;
+  z-index: 860;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: max(5.5rem, 14vh) var(--page-gutter) max(2rem, env(safe-area-inset-bottom));
+  /* Opaque. The page behind it is not atmosphere, it is a page, and reading it
+     through the menu makes both harder to read. */
+  background:
+    radial-gradient(118% 92% at 50% 34%, #0d1013 0%, #07080a 66%, #040506 100%);
+  opacity: 0;
+  visibility: hidden;
+  overscroll-behavior: contain;
+  transition:
+    opacity 280ms var(--ease-house),
+    visibility 280ms step-end;
+}
+
+.panel[data-open="true"] {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 280ms var(--ease-house),
+    visibility 0s;
+}
+
+.routes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+}
+
+/*
+ * Each route arrives a beat after the one above it. The stagger is short — this
+ * is a menu, and a menu that performs is a menu that is slow to use.
+ */
+.route {
+  display: block;
+  width: 100%;
+  padding-block: clamp(0.7rem, 2.4vh, 1.05rem);
+  border-bottom: 1px solid var(--line);
+  color: var(--color-paper);
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 9vw, 2.9rem);
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(0.6rem);
+  transition:
+    opacity 320ms var(--ease-house),
+    transform 320ms var(--ease-house),
+    color 200ms var(--ease-house);
+}
+
+.panel[data-open="true"] .route {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(60ms + var(--index, 0) * 45ms);
+}
+
+.route:first-child {
+  border-top: 1px solid var(--line);
+}
+
+/*
+ * The route already being read.
+ *
+ * It stays in the list, because a menu that hides where you are is a menu that
+ * has lost its map. It simply stops asking to be pressed: recessed, with a small
+ * mark to say this is the one. The page does not need to announce itself twice.
+ */
+.route[data-current="true"] {
+  color: var(--color-ink-soft);
+  opacity: 0.55;
+}
+
+.panel[data-open="true"] .route[data-current="true"] {
+  opacity: 0.55;
+}
+
+.here {
+  display: inline-block;
+  width: 0.3rem;
+  height: 0.3rem;
+  margin-left: 0.6rem;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 0.35em;
+}
+
+/* Peripheral row: everything that is not a place to go. */
+.aside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  opacity: 0;
+  transition: opacity 320ms var(--ease-house);
+}
+
+.panel[data-open="true"] .aside {
+  opacity: 1;
+  transition-delay: 220ms;
+}
+
+.aside a,
+.aside button {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .route,
+  .aside {
+    transition-duration: 1ms;
+  }
+
+  .panel[data-open="true"] .route,
+  .panel[data-open="true"] .aside {
+    transition-delay: 0s;
+  }
+}

@@ -1,0 +1,56 @@
+/*
+ * The drawn part of the transition, and only that.
+ *
+ * There is no panel, no curtain and no covering layer here — the handover
+ * between the two pages is done by the document itself, by clipping the incoming
+ * route to a vector contour. What this canvas contributes is the material at the
+ * boundary: the fine breakup where the page is coming apart, and the thin
+ * spectral edge that appears with it and is gone before the movement ends.
+ *
+ * It is transparent everywhere else, and it never takes a pointer event.
+ */
+.host {
+  position: fixed;
+  z-index: 880;
+  inset: 0;
+  pointer-events: none;
+}
+
+/*
+ * Genuinely absent between navigations rather than merely transparent, so it
+ * cannot intercept anything and costs nothing to composite.
+ */
+.host[data-active="false"] {
+  visibility: hidden;
+}
+
+/*
+ * Sized by the renderer, never by CSS.
+ *
+ * A canvas whose CSS size disagrees with its backing store is the classic way to
+ * get a soft, stretched image, and stretching a small buffer across a large one
+ * is exactly the pixelation this transition was rebuilt to remove. Three writes
+ * both sizes together from the device pixel ratio, and nothing here overrides
+ * either of them.
+ */
+.canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  /*
+   * The global reset gives every canvas `max-width: 100%`, which is right for
+   * media in an editorial column and wrong here: it silently clamped the CSS
+   * width below the backing store whenever a scrollbar was present, leaving the
+   * buffer stretched across slightly fewer pixels than it was drawn for. Small,
+   * but it is precisely the kind of mismatch this transition was rebuilt to be
+   * free of, so the reset is refused rather than worked around.
+   */
+  max-width: none;
+}
+
+@media (forced-colors: active) {
+  .host {
+    display: none;
+  }
+}

@@ -1,10 +1,8 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
-export { gsap, ScrollTrigger };
-
-export function motionIsReduced() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
+export { gsap, ScrollTrigger, SplitText };
+export { motionIsReduced, forcedColorsActive, pointerIsFine, interactionLayerDisabled } from "./preferences";

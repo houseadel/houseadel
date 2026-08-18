@@ -5,13 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="House Adel creates authored wedding websites and private digital invitation worlds through art direction, design and development."
+      content="House Adel is an independent web studio creating interactive websites for weddings, birthdays, dinners, launches and private events."
     />
     <meta name="theme-color" content="#fbfaf6" />
     <meta name="color-scheme" content="light" />
     <base href="%BASE_URL%" />
     <link rel="icon" href="%BASE_URL%adel-mark.svg" type="image/svg+xml" />
-    <title>House Adel — Wedding Websites as Private Worlds</title>
+    <!--
+      How a link to the studio unfurls.
+
+      One 1200x630 card, the size every major crawler crops to, so the studio's
+      own mark and ground are what appear when the site is shared rather than a
+      blank rectangle and a URL.
+
+      The path is resolved against `<base>` above. Most crawlers resolve a
+      relative `og:image` against the document, but a few insist on an absolute
+      one — so once the site has a fixed public domain this should become the
+      full `https://…/preview.png`, which is the only form that is universally
+      honoured.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="House Adel" />
+    <meta property="og:title" content="House Adel" />
+    <meta
+      property="og:description"
+      content="House Adel is an independent web studio creating interactive websites for weddings, birthdays, dinners, launches and private events."
+    />
+    <meta property="og:image" content="%BASE_URL%preview.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="House Adel, interactive web experiences." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="House Adel" />
+    <meta
+      name="twitter:description"
+      content="House Adel is an independent web studio creating interactive websites for weddings, birthdays, dinners, launches and private events."
+    />
+    <meta name="twitter:image" content="%BASE_URL%preview.png" />
+    <meta name="twitter:image:alt" content="House Adel, interactive web experiences." />
+    <title>House Adel</title>
   </head>
   <body>
     <div id="root"></div>

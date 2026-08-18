@@ -1,211 +1,78 @@
-.workspace {
-  display: grid;
-  grid-template-columns: minmax(10rem, 2fr) minmax(30rem, 6.6fr) minmax(16rem, 3.4fr);
-  align-items: start;
-  gap: clamp(1.5rem, 3vw, 4rem);
-}
-
-.progressRail,
-.briefCard {
-  position: sticky;
-  top: calc(var(--header-height) + var(--space-5));
-}
-
-.railHeading,
-.briefHeader {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-3);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.railHeading p:last-child {
-  color: var(--color-garnet);
-}
-
-.progressTrack {
-  height: 1px;
-  margin-block: var(--space-4) var(--space-5);
-  overflow: hidden;
-  background: var(--line);
-}
-
-.progressTrack span {
-  display: block;
-  block-size: 100%;
-  background: var(--color-garnet);
-}
-
-.progressList {
-  list-style: none;
-}
-
-.progressList li {
-  border-top: 1px solid var(--line);
-}
-
-.progressList li:last-child {
-  border-bottom: 1px solid var(--line);
-}
-
-.progressList a {
-  display: grid;
-  min-height: 3.2rem;
-  grid-template-columns: 1.5rem 1fr auto;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: 0.72rem;
-  text-decoration: none;
-}
-
-.progressList a > span:first-child,
-.stepState {
-  color: var(--color-ink-soft);
-  font-size: 0.62rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.progressList li[data-complete="true"] .stepState {
-  color: var(--color-garnet);
-}
-
-.autosaveNote {
-  margin-top: var(--space-5);
-  color: var(--color-ink-soft);
-  font-size: 0.7rem;
-  line-height: 1.55;
-}
-
+/*
+ * The form is the composition.
+ *
+ * One column of questions in a wide dark field, at a measure that reads. The
+ * previous layout put short fields side by side and spaced everything by up to
+ * six and a half rems, which turned nine questions into four screens of mostly
+ * empty page and made the eye hunt for where the next question started. A single
+ * column with a consistent, much shorter rhythm is both calmer and quicker: the
+ * negative space is around the column, where it does some work, rather than
+ * between every pair of fields.
+ */
 .form {
-  min-width: 0;
-}
-
-.submissionNotice {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-1) var(--space-4);
-  padding: var(--space-4);
-  border: 1px solid var(--line-strong);
-  background: var(--surface-vellum);
-  font-size: var(--step--1);
-}
-
-.submissionNotice > span {
-  color: var(--color-ink-soft);
-}
-
-.submissionNotice > strong {
-  color: var(--color-garnet);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.submissionNotice p {
-  grid-column: 1 / -1;
-  max-width: 55rem;
-  color: var(--color-ink-soft);
-}
-
-.submissionNotice[data-mode="mock"] {
-  border-color: var(--color-metal);
+  gap: clamp(2rem, 3.5vw, 3rem);
+  width: 100%;
+  max-width: 46rem;
 }
 
 .status {
-  min-height: 3rem;
-  margin-top: var(--space-3);
-  padding: 0.7rem var(--space-4);
-  border-left: 2px solid var(--color-metal);
-  background: color-mix(in srgb, var(--color-paper) 58%, transparent);
+  max-width: 42rem;
+  padding: 0.7rem 0 0.7rem var(--space-4);
+  border-left: 1px solid var(--line-strong);
   color: var(--color-ink-soft);
   font-size: var(--step--1);
 }
 
 .status[data-tone="error"] {
-  border-left-color: var(--color-error);
-  color: var(--color-error);
+  border-left-color: color-mix(in srgb, var(--color-error) 70%, var(--color-paper));
+  color: color-mix(in srgb, var(--color-error) 70%, var(--color-paper));
 }
 
-.section {
-  scroll-margin-top: calc(var(--header-height) + var(--space-5));
-  padding-block: var(--space-8);
-  border-bottom: 1px solid var(--line-strong);
-}
-
-.sectionHeader {
+.coreFields,
+.closingFields {
   display: grid;
-  grid-template-columns: 2.5rem 1fr;
-  gap: var(--space-4);
-  margin-bottom: var(--space-7);
-}
-
-.sectionNumber {
-  padding-top: 0.4rem;
-  color: var(--color-garnet);
-  font-size: 0.66rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.sectionTitle {
-  font-family: var(--font-display);
-  font-size: var(--step-3);
-  font-weight: 380;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-.sectionIntroduction {
-  max-width: 35rem;
-  margin-top: var(--space-3);
-  color: var(--color-ink-soft);
-  font-size: var(--step--1);
-}
-
-.fields {
-  display: grid;
-  gap: var(--space-6);
-  padding-left: calc(2.5rem + var(--space-4));
-}
-
-.fieldPair {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-5);
+  gap: clamp(2rem, 3.5vw, 3rem);
 }
 
 .field {
   min-width: 0;
+  animation: fieldEnter 700ms var(--ease-house) both;
+  animation-delay: calc(var(--field-index) * 55ms);
 }
 
+/* Question, then helper, then the answer. One shape, nine times. */
 .label {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-3);
+  gap: 0.55rem;
   margin-bottom: var(--space-1);
-  font-size: var(--step--1);
-  font-weight: 700;
+  font-size: var(--step-1);
+  font-weight: 400;
+  line-height: 1.25;
 }
 
+.question {
+  min-width: 0;
+}
+
+/* Lower case, small, and the same weight as the helper text underneath: the
+   state of a field is an aside, not a heading. */
 .requirement {
+  flex: none;
   color: var(--color-ink-soft);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
 }
 
 .description {
+  max-width: 46ch;
   margin-bottom: var(--space-2);
   color: var(--color-ink-soft);
-  font-size: 0.72rem;
-  line-height: 1.5;
+  font-size: 0.82rem;
+  line-height: 1.55;
 }
 
 .input,
@@ -213,144 +80,261 @@
 .textarea {
   display: block;
   width: 100%;
-  border: 1px solid var(--line-strong);
+  border: 0;
+  border-bottom: 1px solid var(--line-strong);
   border-radius: 0;
-  background: color-mix(in srgb, var(--color-ivory-raised) 68%, transparent);
+  background: transparent;
+  color: var(--color-paper);
+  font: inherit;
   outline: none;
+  transition: border-color var(--duration-medium) var(--ease-house), background-color var(--duration-medium) var(--ease-house);
+}
+
+.input[type="date"] {
+  color-scheme: dark;
 }
 
 .input,
 .select {
-  min-height: 3.25rem;
-  padding: 0.72rem 0.85rem;
+  min-height: 3.4rem;
+  padding: 0.78rem 0;
+}
+
+.select {
+  color-scheme: dark;
+  cursor: pointer;
+}
+
+.select option {
+  background: var(--color-ink);
+  color: var(--color-paper);
 }
 
 .textarea {
   min-height: 7rem;
-  padding: 0.8rem 0.85rem;
-  resize: vertical;
+  max-height: 30rem;
+  padding: 0.9rem 0;
+  field-sizing: content;
+  resize: none;
+  overflow-y: auto;
 }
 
+.input:hover,
+.select:hover,
+.textarea:hover,
 .input:focus,
 .select:focus,
 .textarea:focus {
-  border-color: var(--color-garnet);
-  box-shadow: 0 0 0 1px var(--color-garnet);
+  border-bottom-color: var(--color-paper);
 }
 
 .field[data-invalid="true"] .input,
 .field[data-invalid="true"] .select,
-.field[data-invalid="true"] .textarea,
-.consentField[data-invalid="true"] {
-  border-color: var(--color-error);
+.field[data-invalid="true"] .textarea {
+  border-bottom-color: color-mix(in srgb, var(--color-error) 72%, var(--color-paper));
+  background: linear-gradient(180deg, transparent 72%, rgb(200 105 95 / 5%));
 }
 
-.monospaceInput {
-  font-family: ui-monospace, "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
-  font-size: 0.82rem;
+.contactBlock {
+  min-width: 0;
 }
 
-.error {
-  margin-top: var(--space-2);
-  color: var(--color-error);
-  font-size: 0.72rem;
-  font-weight: 650;
-}
-
-.optionFieldset {
+.contactMethod {
   min-width: 0;
   padding: 0;
   border: 0;
 }
 
-.fieldsetLegend {
+.contactMethod .label {
   width: 100%;
-  margin-bottom: var(--space-1);
-  font-size: var(--step--1);
-  font-weight: 700;
 }
 
-.optionGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-top: 1px solid var(--line-strong);
+/*
+ * Three words, not three boxes.
+ *
+ * This was a row of equal bordered rectangles across the full measure — the only
+ * CSS rectangles left on a site whose whole affordance is a rule drawn under
+ * type — and being the loudest object on the page, it read as the thing the page
+ * was asking for. It is not: it is one line of the enquiry, deciding where the
+ * reply should go.
+ *
+ * The choices are set in the same serif as the questions they sit under and
+ * behave like every other action here: soft ink at rest, a rule that draws
+ * itself under the word on hover or focus, and the rule left standing on the one
+ * that is chosen. The answer is carried by weight, colour and that rule together,
+ * so it does not rest on colour alone, and it is still a native radio group
+ * underneath — arrow keys, `checked`, and the required validation all unchanged.
+ */
+.methodChoices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 clamp(1.6rem, 4vw, 3rem);
+  margin-top: var(--space-3);
 }
 
-.checkOption,
-.consentLabel {
-  display: grid;
+.methodChoice {
   position: relative;
-  min-height: 3.4rem;
-  grid-template-columns: 1.15rem 1fr;
+  display: inline-flex;
+  min-height: 44px;
   align-items: center;
-  gap: var(--space-3);
+  color: var(--color-ink-soft);
   cursor: pointer;
-  font-size: var(--step--1);
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  transition: color var(--duration-fast) var(--ease-house);
 }
 
-.checkOption {
-  padding: 0.6rem var(--space-3);
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.checkOption:nth-child(even) {
-  border-right: 0;
-}
-
-.checkOption input,
-.consentLabel input {
+/*
+ * Present but not drawn. The input keeps the whole of its behaviour — it is
+ * focusable, it answers to the arrow keys, and it is what the label toggles —
+ * while the state it holds is shown by the word instead of by a disc beside it.
+ * Not `display: none` or `visibility: hidden`, either of which would take it out
+ * of the tab order and out of the radio group's keyboard navigation.
+ */
+.methodChoice input {
   position: absolute;
   width: 1px;
   height: 1px;
   opacity: 0;
+  pointer-events: none;
 }
 
-.checkOption:focus-within,
-.consentLabel:focus-within {
-  outline: 0.14rem solid var(--color-garnet);
-  outline-offset: 0.12rem;
+.methodChoice span {
+  position: relative;
+  padding-bottom: 0.16em;
 }
 
-.checkMark {
-  display: grid;
-  width: 1.05rem;
-  height: 1.05rem;
-  place-items: center;
-  border: 1px solid var(--line-strong);
-  background: var(--color-ivory-raised);
-}
-
-.checkOption input:checked + .checkMark,
-.consentLabel input:checked + .checkMark {
-  border-color: var(--color-garnet);
-  background: var(--color-garnet);
-}
-
-.checkOption input:checked + .checkMark::after,
-.consentLabel input:checked + .checkMark::after {
-  width: 0.26rem;
-  height: 0.48rem;
-  transform: translateY(-0.06rem) rotate(45deg);
-  border-right: 1px solid var(--color-ivory-raised);
-  border-bottom: 1px solid var(--color-ivory-raised);
+.methodChoice span::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-medium) var(--ease-house);
   content: "";
 }
 
-.consentField {
-  padding: var(--space-4);
-  border: 1px solid var(--line-strong);
-  background: var(--surface-vellum);
+.methodChoice:hover,
+.methodChoice:focus-within,
+.methodChoice[data-touch-hover],
+.methodChoice[data-selected="true"] {
+  color: var(--color-paper);
 }
 
-.consentLabel {
-  align-items: start;
-  min-height: 2.75rem;
-  padding-block: var(--space-2);
+.methodChoice:hover span::after,
+.methodChoice:focus-within span::after,
+.methodChoice[data-touch-hover] span::after,
+.methodChoice[data-selected="true"] span::after {
+  transform: scaleX(1);
+  transform-origin: left;
+  transition-duration: var(--duration-fast);
 }
 
-.consentField .description {
-  margin: var(--space-2) 0 0 calc(1.15rem + var(--space-3));
+.methodChoice[data-selected="true"] {
+  font-weight: 500;
+}
+
+/*
+ * The focus ring belongs to the keyboard. `:focus-within` alone would draw a box
+ * around the word every time it was clicked, which is the rectangle this row
+ * just stopped being.
+ */
+.methodChoice:has(input:focus-visible) {
+  outline: 1px solid var(--color-paper);
+  outline-offset: 0.35em;
+}
+
+.contactMethod[data-invalid="true"] .methodChoices {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-error) 72%, var(--color-paper));
+  padding-bottom: var(--space-2);
+}
+
+.contactReveal {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  animation: contactReveal 460ms var(--ease-house) both;
+}
+
+.phoneFields {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.9fr) minmax(10rem, 1.1fr);
+  gap: var(--space-4);
+}
+
+.error {
+  margin-top: var(--space-2);
+  color: color-mix(in srgb, var(--color-error) 68%, var(--color-paper));
+  font-size: 0.78rem;
+}
+
+/*
+ * The optional extra.
+ *
+ * It was a section with its own four-rem headline, its own lede and its own
+ * rules — an entire chapter announcing something the visitor is explicitly not
+ * required to do, sitting at the same weight as the questions that matter. It is
+ * a disclosure now: one line, the size of a control, opening one field.
+ */
+.more {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.moreToggle {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.7rem;
+  justify-self: start;
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.63rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color var(--duration-fast) var(--ease-house);
+}
+
+.moreToggle:hover,
+.moreToggle:focus-visible,
+.moreToggle[data-touch-hover] {
+  color: var(--color-paper);
+}
+
+.moreToggle span {
+  min-width: 1em;
+  font-size: 0.95rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.morePanel {
+  animation: detailsOpen 520ms var(--ease-house) both;
+}
+
+.morePanel[hidden] {
+  display: none;
+}
+
+/*
+ * The acknowledgement.
+ *
+ * Sits with the submit control because that is the action it concerns, and it is
+ * set at the smallest size on the page because it is a note, not a term being
+ * negotiated. It concerns handling the enquiry and nothing else.
+ */
+.consent {
+  max-width: 46ch;
+  color: var(--color-ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.consent a {
+  border-bottom: 1px solid currentColor;
+  color: var(--color-paper);
 }
 
 .honeypot {
@@ -358,396 +342,167 @@
   width: 1px;
   height: 1px;
   overflow: hidden;
-  clip: rect(0 0 0 0);
   clip-path: inset(50%);
   white-space: nowrap;
 }
 
+/*
+ * The end of the enquiry, and the one thing on the page that is an action.
+ *
+ * Submit and "add more details" were set at the same size, the same weight and
+ * the same tracking, so the control that sends the message looked exactly like
+ * the control that opens an optional field. The submit is reversed: the
+ * acknowledgement now follows it rather than standing above it, and it is given
+ * the rule permanently instead of on hover, which is how this site says a thing
+ * is the action rather than merely an action.
+ */
 .formActions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding-block: var(--space-6);
-}
-
-.formActions p {
-  color: var(--color-ink-soft);
-  font-size: var(--step--1);
-}
-
-.primaryButton,
-.secondaryButton,
-.editButton {
-  min-height: 2.75rem;
-  border-radius: 0;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.primaryButton,
-.secondaryButton {
-  padding: 0.75rem 1.1rem;
-  border: 1px solid var(--color-ink);
+  display: grid;
+  gap: var(--space-5);
+  justify-items: start;
+  margin-top: var(--space-5);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line);
 }
 
 .primaryButton {
-  background: var(--color-garnet);
-  border-color: var(--color-garnet);
-  color: var(--color-ivory-raised);
-}
-
-.secondaryButton {
-  background: transparent;
-}
-
-.primaryButton:hover:not(:disabled),
-.primaryButton:focus-visible:not(:disabled) {
-  border-color: var(--color-garnet-deep);
-  background: var(--color-garnet-deep);
-}
-
-.secondaryButton:hover:not(:disabled),
-.secondaryButton:focus-visible:not(:disabled) {
-  background: var(--color-ink);
-  color: var(--color-ivory-raised);
-}
-
-.briefCard {
-  --brief-progress: 0;
-
-  min-height: 31rem;
-  padding: var(--space-5);
-  overflow: hidden;
-  border: 1px solid var(--line-strong);
-  background:
-    linear-gradient(90deg, transparent 49.8%, var(--line) 49.9%, var(--line) 50.1%, transparent 50.2%) top / 100% 2.1rem no-repeat,
-    var(--color-ivory-raised);
-  box-shadow: var(--shadow-paper);
-}
-
-.briefAssembly {
-  display: grid;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  height: 0.18rem;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1px;
-  overflow: hidden;
-  background: var(--line);
-}
-
-.briefAssembly::after {
-  position: absolute;
-  inset: 0;
-  transform: scaleX(var(--brief-progress));
-  transform-origin: left;
-  background: var(--color-garnet);
-  content: "";
-  will-change: transform;
-}
-
-.briefAssembly span {
-  position: relative;
-  z-index: 1;
-  border-right: 1px solid var(--color-ivory-raised);
-}
-
-.briefAssembly span:last-child {
-  border-right: 0;
-}
-
-.briefCorner {
-  display: block;
-  position: absolute;
-  right: var(--space-5);
-  bottom: var(--space-5);
-  width: 2.2rem;
-  height: 2.2rem;
-  border-right: 1px solid var(--color-garnet);
-  border-bottom: 1px solid var(--color-garnet);
-  transform-origin: 100% 100%;
-  will-change: transform, opacity;
-}
-
-.briefHeader {
-  padding-bottom: var(--space-5);
-  border-bottom: 1px solid var(--line);
-}
-
-.briefHeader span {
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-weight: 380;
-}
-
-.briefCard h2 {
-  max-width: 12ch;
-  margin-top: var(--space-6);
-  font-family: var(--font-display);
-  font-size: var(--step-3);
-  font-weight: 380;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
-  overflow-wrap: anywhere;
-}
-
-.briefPremise {
-  margin-top: var(--space-4);
-  color: var(--color-garnet);
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-style: italic;
-  line-height: 1.2;
-}
-
-.briefDetails {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin-top: var(--space-6);
-  border-top: 1px solid var(--line);
-}
-
-.briefDetails div {
-  min-width: 0;
-  padding: var(--space-3) var(--space-2) var(--space-3) 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.briefDetails dt,
-.briefNeeds > p:first-child {
-  color: var(--color-ink-soft);
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.briefDetails dd {
-  margin-top: var(--space-1);
-  font-size: 0.72rem;
-  overflow-wrap: anywhere;
-}
-
-.briefNeeds {
-  margin-top: var(--space-5);
-}
-
-.briefNeeds > p:last-child {
-  margin-top: var(--space-2);
-  font-size: 0.72rem;
-}
-
-.briefFooter {
-  margin-top: var(--space-7);
-  padding-right: 2.5rem;
-  color: var(--color-ink-soft);
-  font-size: 0.66rem;
-}
-
-.review {
-  padding-top: var(--space-7);
-}
-
-.reviewHeader {
-  padding-bottom: var(--space-7);
-  border-bottom: 1px solid var(--line-strong);
-}
-
-.reviewHeader > p:first-child {
-  color: var(--color-garnet);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.reviewHeader h2 {
-  max-width: 14ch;
-  margin-top: var(--space-3);
-  font-family: var(--font-display);
-  font-size: var(--step-4);
-  font-weight: 380;
-  letter-spacing: -0.035em;
-  line-height: 0.98;
-}
-
-.reviewHeader > p:last-child {
-  margin-top: var(--space-4);
-  color: var(--color-ink-soft);
-}
-
-.reviewGroup {
-  padding-block: var(--space-6);
-  border-bottom: 1px solid var(--line);
-}
-
-.reviewGroup > header {
-  display: flex;
+  display: inline-flex;
+  min-height: 44px;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
-.reviewGroup h3 {
-  font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 400;
+.primaryButton::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 
-.editButton {
-  padding-inline: var(--space-3);
-  border: 0;
-  border-bottom: 1px solid currentColor;
-  background: transparent;
+/* Spaced with a margin rather than a flex gap: `.action` sets `inline-block`,
+   and whichever of the two stylesheets lands last decides the display mode. */
+.primaryButton i {
+  margin-left: 0.7rem;
+  font-style: normal;
+  transition: transform var(--duration-fast) var(--ease-house);
 }
 
-.reviewGroup dl {
-  margin-top: var(--space-4);
+.primaryButton:hover i,
+.primaryButton:focus-visible i,
+.primaryButton[data-touch-hover] i {
+  transform: translateX(0.28rem);
 }
 
-.reviewGroup dl > div {
-  display: grid;
-  grid-template-columns: minmax(8rem, 0.38fr) minmax(0, 0.62fr);
-  gap: var(--space-4);
-  padding-block: var(--space-2);
-  border-top: 1px solid var(--line);
-}
-
-.reviewGroup dt {
+.primaryButton:disabled {
   color: var(--color-ink-soft);
-  font-size: 0.7rem;
+  cursor: wait;
 }
 
-.reviewGroup dd {
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
+.primaryButton:disabled i {
+  transform: none;
 }
 
-@media (max-width: 79.99rem) {
-  .workspace {
-    grid-template-columns: minmax(10rem, 2fr) minmax(0, 6fr);
-  }
-
-  .briefCard {
-    position: relative;
-    top: auto;
-    grid-column: 2;
-    min-height: 0;
-  }
+.success {
+  display: grid;
+  min-height: min(70svh, 48rem);
+  align-content: center;
+  justify-items: start;
+  animation: successEnter 900ms var(--ease-house) both;
 }
 
-@media (max-width: 63.99rem) {
-  .workspace {
-    grid-template-columns: minmax(9rem, 2fr) minmax(0, 6fr);
-    gap: var(--space-5);
-  }
+.successEyebrow,
+.successId {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
 
-  .fields {
-    padding-left: 0;
-  }
+.success h2 {
+  margin-top: var(--space-5);
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 9vw, 8rem);
+  font-weight: 280;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+}
 
-  .sectionHeader {
-    grid-template-columns: 2rem 1fr;
-  }
+.successMessage {
+  max-width: 32rem;
+  margin-top: var(--space-6);
+  font-size: var(--step-1);
+  line-height: 1.45;
+}
 
-  .fieldPair,
-  .optionGrid {
+.successId {
+  margin-top: var(--space-8);
+}
+
+@keyframes fieldEnter {
+  from { opacity: 0; clip-path: inset(0 0 18% 0); }
+  to { opacity: 1; clip-path: inset(0); }
+}
+
+@keyframes detailsOpen {
+  from { opacity: 0; clip-path: inset(0 0 100%); }
+  to { opacity: 1; clip-path: inset(0); }
+}
+
+@keyframes contactReveal {
+  from { clip-path: inset(0 0 100%); }
+  to { clip-path: inset(0); }
+}
+
+@keyframes successEnter {
+  from { opacity: 0; clip-path: inset(0 0 22%); }
+  to { opacity: 1; clip-path: inset(0); }
+}
+
+@media (max-width: 720px) {
+  .coreFields,
+  .closingFields,
+  .moreHeading {
     grid-template-columns: 1fr;
   }
 
-  .checkOption {
-    border-right: 0;
-  }
-}
-
-@media (max-width: 47.99rem) {
-  .workspace {
-    display: block;
-  }
-
-  .progressRail,
-  .briefCard {
-    position: relative;
-    top: auto;
-  }
-
-  .progressRail {
-    margin-bottom: var(--space-6);
-  }
-
-  .progressList {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .progressList li:last-child,
-  .progressList li:nth-last-child(2) {
-    border-bottom: 1px solid var(--line);
-  }
-
-  .progressList a {
-    grid-template-columns: 1.4rem 1fr;
-    padding-right: var(--space-2);
-  }
-
-  .stepState {
-    display: none;
-  }
-
-  .submissionNotice {
-    grid-template-columns: 1fr;
-  }
-
-  .submissionNotice > strong,
-  .submissionNotice p {
+  .coreFields > :nth-child(n),
+  .closingFields > :nth-child(n) {
     grid-column: 1;
   }
 
-  .section {
-    padding-block: var(--space-7);
+  .moreHeading {
+    align-items: start;
   }
 
-  .sectionHeader {
-    margin-bottom: var(--space-6);
+  .moreToggle {
+    justify-self: start;
   }
 
-  .formActions {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .primaryButton,
-  .secondaryButton {
-    width: 100%;
-    min-height: 3.2rem;
-  }
-
-  .briefCard {
-    margin-top: var(--space-7);
-  }
-
-  .reviewGroup dl > div {
+  .phoneFields {
     grid-template-columns: 1fr;
-    gap: var(--space-1);
   }
-}
 
-@media (forced-colors: active) {
-  .checkOption input:checked + .checkMark,
-  .consentLabel input:checked + .checkMark {
-    forced-color-adjust: none;
-    background: Highlight;
+  /* Still one row where it fits, wrapping to two where it does not. Stacking
+     three words down the page would give them a column of their own. */
+  .methodChoices {
+    gap: 0 clamp(1.25rem, 6vw, 2rem);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .briefCorner {
-    transform: none !important;
-    opacity: 1 !important;
+  .field,
+  .contactReveal,
+  .morePanel,
+  .success {
+    animation: none;
+  }
+
+  .textarea {
+    transition: none;
   }
 }

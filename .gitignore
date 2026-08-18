@@ -20,3 +20,13 @@ Thumbs.db
 public/generated/
 references/captures/generated/
 references/recordings/generated/
+
+# Local source masters kept for re-baking only. The site ships the derived
+# artefacts instead: baked point clouds in public/assets/house-adel/*.bin and
+# encoded audio in public/assets/house-adel/sound/*.m4a. These originals run to
+# well over a gigabyte and are not deployable.
+assets/originals/open-access/3d/
+assets/originals/open-access/*.stl
+assets/originals/open-access/*.wav
+assets/originals/open-access/*.mp3
+.asset-review/

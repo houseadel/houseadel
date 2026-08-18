@@ -4,14 +4,20 @@ import { AudioProvider } from "./context/AudioContext";
 import { LanguageProvider } from "./context/LanguageContext";
 import { stripAppBasePath } from "./lib/basePath";
 import { useLocation, useRouteEffects } from "./lib/router";
-import { CommissionsPage } from "./pages/CommissionsPage";
+import { chapterForPath, isChapterPath } from "./lib/chapters";
 import { HomePage } from "./pages/HomePage";
-import { WorkPage } from "./pages/WorkPage";
 
-const ApplicationReceivedPage = lazy(() =>
-  import("./pages/ApplicationReceivedPage").then((module) => ({
-    default: module.ApplicationReceivedPage,
-  })),
+const MarvellTwentyPage = lazy(() =>
+  import("./pages/MarvellTwentyPage").then((module) => ({ default: module.MarvellTwentyPage })),
+);
+const StudiesPage = lazy(() =>
+  import("./pages/StudiesPage").then((module) => ({ default: module.StudiesPage })),
+);
+const ContactPage = lazy(() =>
+  import("./pages/ContactPage").then((module) => ({ default: module.ContactPage })),
+);
+const EnquiryReceivedPage = lazy(() =>
+  import("./pages/EnquiryReceivedPage").then((module) => ({ default: module.EnquiryReceivedPage })),
 );
 const PrivacyPage = lazy(() =>
   import("./pages/PrivacyPage").then((module) => ({ default: module.PrivacyPage })),
@@ -32,30 +38,32 @@ type RouteMatch = {
 };
 
 function matchRoute(pathname: string, search: string): RouteMatch {
-  if (pathname === "/") {
+  // Chapters of the continuous document all render it; which one the reader
+  // lands in is decided by scrolling, not by mounting a different tree.
+  if (isChapterPath(pathname)) {
+    return { title: chapterForPath(pathname)?.title ?? "House Adel", element: <HomePage /> };
+  }
+
+  if (pathname === "/marvell-20") {
+    return { title: "MARVELL 20 — House Adel", element: <MarvellTwentyPage /> };
+  }
+
+  if (pathname === "/studies") {
+    return { title: "Studies — House Adel", element: <StudiesPage /> };
+  }
+
+  if (pathname === "/contact") {
+    return { title: "Contact — House Adel", element: <ContactPage /> };
+  }
+
+  if (pathname === "/begin-a-project") {
+    return { title: "Contact — House Adel", element: <ContactPage /> };
+  }
+
+  if (pathname === "/enquiry-received") {
     return {
-      title: "House Adel — Wedding Websites as Private Worlds",
-      element: <HomePage />,
-    };
-  }
-
-  if (pathname === "/work") {
-    return { title: "Work — House Adel", element: <WorkPage /> };
-  }
-
-  if (
-    pathname === "/commissions" ||
-    pathname === "/private-commissions" ||
-    pathname === "/apply" ||
-    pathname === "/begin-a-project"
-  ) {
-    return { title: "Commissions — House Adel", element: <CommissionsPage /> };
-  }
-
-  if (pathname === "/application-received") {
-    return {
-      title: "Application Status — House Adel",
-      element: <ApplicationReceivedPage search={search} />,
+      title: "Enquiry Received — House Adel",
+      element: <EnquiryReceivedPage search={search} />,
     };
   }
 
@@ -67,9 +75,13 @@ function matchRoute(pathname: string, search: string): RouteMatch {
     return { title: "Terms — House Adel", element: <TermsPage /> };
   }
 
-  if (pathname === "/labs/loader") {
+  if (pathname === "/labs-loader") {
     return { title: "Loader Lab — House Adel", element: <LoaderLabPage /> };
   }
+
+
+
+
 
   return { title: "Page not found — House Adel", element: <NotFoundPage /> };
 }

@@ -1,0 +1,54 @@
+/*
+ * The dot sits on the cursor, not behind it, and the label reads off to its
+ * right. An earlier version was a wide translucent ring centred on the pointer,
+ * which put the label under the hand and made the dot hard to see against the
+ * relief.
+ */
+:global(:root[data-chrome="pale"]) .dot {
+  background: #111211;
+}
+
+:global(:root[data-chrome="pale"]) .label {
+  color: #56534d;
+}
+
+.halo {
+  position: fixed;
+  z-index: 800;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.dot {
+  width: 0.3rem;
+  height: 0.3rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--color-paper);
+  transition: transform var(--duration-medium) var(--ease-house);
+}
+
+.halo[data-enabled="true"] .dot {
+  transform: scale(1.5);
+}
+
+.label {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  font-weight: 650;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce), (pointer: coarse), (forced-colors: active) {
+  .halo {
+    display: none;
+  }
+}

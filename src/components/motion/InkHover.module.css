@@ -1,0 +1,93 @@
+/*
+ * Inactive navigation inverts against whatever is behind it.
+ *
+ * The god rays sweep the top right corner, which is exactly where the navigation
+ * sits. Painted a fixed near-white it disappeared into the bright shaft as it
+ * passed. `difference` blending means the type is always the opposite of its
+ * backdrop, so it stays legible over black ground and over the brightest part of
+ * the beam alike, with no state to track.
+ */
+.host {
+  display: inline-block;
+  color: var(--color-paper);
+  mix-blend-mode: difference;
+  transition: color var(--duration-medium) var(--ease-house);
+}
+
+/*
+ * Hover drops the inversion and takes real colour, because a difference-blended
+ * spectrum would come out as its own negative.
+ */
+/*
+ * `[data-touch-hover]` is the finger's version of `:hover`.
+ *
+ * The shared pointer marks whatever a finger is currently over, so every rule
+ * that answers a cursor answers a fingertip in the same breath rather than in a
+ * separate stylesheet that would drift out of step with this one.
+ */
+.host:hover,
+.host:focus-within,
+:global([data-touch-hover]) .host {
+  mix-blend-mode: normal;
+  transition-duration: var(--duration-fast);
+}
+
+.char {
+  display: inline-block;
+  /*
+   * Each letter carries its own delay, so the resolve runs left to right. The
+   * animation touches blur, opacity and colour only: no transform, no tracking,
+   * so the word cannot shift under the pointer.
+   */
+  animation-delay: calc(var(--index) * 26ms);
+}
+
+.host:hover .char,
+.host:focus-within .char,
+:global([data-touch-hover]) .host .char {
+  animation: resolve 620ms var(--ease-house) backwards;
+}
+
+/*
+ * The colour is the relief's, borrowed: each letter passes through the same
+ * refracted spectrum the particles take when a brush lifts them, then settles to
+ * paper. The navigation and the sculpture answer in the same light.
+ */
+@keyframes resolve {
+  0% {
+    opacity: 0.2;
+    color: #7cf5d8;
+    filter: blur(0.24em);
+  }
+
+  35% {
+    opacity: 1;
+    color: #c58bff;
+    filter: blur(0.08em);
+  }
+
+  62% {
+    color: #ffcf7a;
+    filter: blur(0.02em);
+  }
+
+  100% {
+    opacity: 1;
+    color: var(--color-paper);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .host:hover .char,
+  .host:focus-within .char,
+  :global([data-touch-hover]) .host .char {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .host {
+    mix-blend-mode: normal;
+  }
+}

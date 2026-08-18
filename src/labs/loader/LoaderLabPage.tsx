@@ -59,6 +59,7 @@ export function LoaderLabPage() {
         graphicsMode={graphicsMode}
         preview={preview}
         visitMode={visitMode}
+        forceOpening
         onComplete={handleComplete}
         onReport={handleReport}
       />

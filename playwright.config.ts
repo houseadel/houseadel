@@ -7,10 +7,13 @@ export default defineConfig({
   testDir: "./tests",
   testMatch: /.*\.spec\.ts/,
   outputDir: "test-results",
-  fullyParallel: true,
+  // The homepage holds a WebGL context. Browsers cap how many a process may keep,
+  // so unrestricted parallelism starved workers of contexts and produced blank
+  // pages that looked like product failures. Two workers stays well inside the cap.
+  fullyParallel: false,
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 2 : undefined,
+  workers: 2,
   reporter: [["list"], ["html", { outputFolder: "playwright-report", open: "never" }]],
   expect: {
     timeout: 8_000,

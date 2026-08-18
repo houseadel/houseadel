@@ -1,0 +1,26 @@
+/*
+ * The opening's two layers: the ground it happens on, and the particles.
+ *
+ * They are separate elements rather than one painted canvas because they have to
+ * come apart at the end. The ground clears while the cloud is still travelling,
+ * so the site is revealed *through* the explosion instead of after it — a single
+ * layer fading would take the particles with it and turn a release into a
+ * cross-fade.
+ */
+.veil {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: var(--color-ink);
+  opacity: 1;
+}
+
+.canvas {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}

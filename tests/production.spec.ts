@@ -1,26 +1,42 @@
 import { expect, test, type Page } from "@playwright/test";
 
-async function waitForLoader(page: Page) {
-  await page.locator("[data-loader-overlay]").waitFor({ state: "detached", timeout: 7_000 }).catch(() => undefined);
+// The first-visit loader ends on a sound choice that would sit over every
+// assertion. Marking it seen gives each test the returning-visitor path, which is
+// the state the rest of the site is being checked in.
+test.beforeEach(async ({ context }) => {
+  await context.addInitScript(() => {
+    try {
+      window.sessionStorage.setItem("house-adel:loader-seen", "true");
+    } catch {
+      /* storage may be unavailable */
+    }
+  });
+});
+
+async function settle(page: Page) {
+  await page
+    .locator("[data-loader-overlay]")
+    .waitFor({ state: "detached", timeout: 8_000 })
+    .catch(() => undefined);
 }
 
-const routeCases = [
-  ["/", "Wedding websites, composed as private worlds."],
-  ["/work", "The work, when it is ready."],
-  ["/commissions", "Begin with your world."],
-  ["/application-received", "Submission not confirmed."],
-  ["/privacy", "Privacy, plainly stated."],
-  ["/terms", "Terms of use."],
+const routes = [
+  ["/", "Interactive websites for singular occasions."],
+  ["/marvell-20", "MARVELL 20"],
+  ["/studies", "Work made without a brief, to find out how something behaves."],
+  ["/contact", "Tell us what is taking shape."],
+  ["/begin-a-project", "Tell us what is taking shape."],
+  // Privacy is a full policy now rather than two sentences; its h1 changed with it.
+  ["/privacy", "What happens to what you send us."],
+  ["/terms", "What a commission commits us both to."],
 ] as const;
 
-test.describe("production routes", () => {
-  for (const [route, heading] of routeCases) {
-    test(`${route} has a direct, usable document route`, async ({ page }) => {
+test.describe("routes", () => {
+  for (const [route, heading] of routes) {
+    test(`${route} renders its single statement`, async ({ page }) => {
       await page.goto(route);
-      await waitForLoader(page);
+      await settle(page);
       await expect(page.getByRole("heading", { name: heading, level: 1 })).toBeVisible();
-      await expect(page.getByRole("link", { name: "House Adel, home" })).toBeVisible();
-
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
       );
@@ -28,132 +44,142 @@ test.describe("production routes", () => {
     });
   }
 
-  test("uses a truthful not-found document", async ({ page }) => {
+  test("unknown routes state the situation plainly", async ({ page }) => {
     await page.goto("/not-a-route");
-    await waitForLoader(page);
-    await expect(page.getByRole("heading", { name: "This room is not on the plan." })).toBeVisible();
+    await settle(page);
+    await expect(
+      page.getByRole("heading", { name: "This page is no longer here, or the address is incorrect." }),
+    ).toBeVisible();
   });
 });
 
-test.describe("navigation, language and sound", () => {
-  test("preserves internal Back and Forward navigation", async ({ page }) => {
-    await page.goto("/");
-    await waitForLoader(page);
-    await page.getByRole("button", { name: "Menu" }).click();
-    await page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: /Work/ }).click();
+test.describe("shell", () => {
+  test("a direct Work visit enters the foreground chapter immediately", async ({ page }) => {
+    await page.goto("/work");
+    await settle(page);
     await expect(page).toHaveURL(/\/work$/);
-    await page.getByRole("button", { name: "Menu" }).click();
-    await page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: /Commissions/ }).click();
-    await expect(page).toHaveURL(/\/commissions$/);
+    await expect(page.locator("[data-foreground-active='true']")).toBeVisible();
+    expect(await page.evaluate(() => window.scrollY)).toBeGreaterThanOrEqual(
+      await page.evaluate(() => window.innerHeight),
+    );
+  });
+
+  /*
+   * Studies is a page, not a chapter.
+   *
+   * Work is reached by scrolling the document it belongs to; Studies is a route,
+   * so reaching it is a navigation that lands at the top of a new page. Both
+   * halves of that are asserted here, because the difference between them is the
+   * whole reason the studies index is not at the foot of the home document.
+   */
+  test("Studies is its own page, reached by navigating rather than scrolling", async ({ page }) => {
+    await page.goto("/");
+    await settle(page);
+    const nav = page.getByRole("navigation", { name: "Primary navigation" });
+    await nav.getByRole("link", { name: "Studies" }).click();
+    await expect(page).toHaveURL(/\/studies$/);
+    await expect(
+      page.getByRole("heading", {
+        name: "Work made without a brief, to find out how something behaves.",
+        level: 1,
+      }),
+    ).toBeVisible();
+    expect(await page.evaluate(() => window.scrollY)).toBe(0);
+    // Studies is deliberately empty while the index is reworked, and says so
+    // rather than showing a frame with nothing in it.
+    await expect(page.getByText("Nothing is published here at the moment.")).toBeVisible();
+    await expect(page.getByRole("link", { name: /AMARA & DANIEL/ })).toHaveCount(0);
+    // The work index it was moved out of keeps only delivered work.
+    await page.goto("/work");
+    await settle(page);
+    await expect(page.getByRole("link", { name: /MARVELL 20/ }).first()).toBeVisible();
+    await expect(page.getByRole("link", { name: /AMARA & DANIEL/ })).toHaveCount(0);
+  });
+
+  test("navigation is text only, with no header bar and no wordmark", async ({ page }) => {
+    await page.goto("/");
+    await settle(page);
+    const nav = page.getByRole("navigation", { name: "Primary navigation" });
+    await expect(nav.getByRole("link", { name: "Work" })).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Studies" })).toBeVisible();
+    await expect(nav.getByRole("link", { name: "Contact" })).toBeVisible();
+    // The mark is an icon link with no visible wordmark text.
+    const mark = page.getByRole("link", { name: "House Adel, home" });
+    await expect(mark).toBeVisible();
+    expect((await mark.innerText()).trim()).toBe("");
+  });
+
+  test("moves between routes and back", async ({ page }) => {
+    await page.goto("/");
+    await settle(page);
+    const nav = page.getByRole("navigation", { name: "Primary navigation" });
+    // Work is a chapter of the same document, so this scrolls rather than routes.
+    await nav.getByRole("link", { name: "Work" }).click();
+    await expect(page).toHaveURL(/\/work$/);
+    // The forest carries no heading of its own; the projects are the content.
+    await expect(page.getByRole("link", { name: /MARVELL 20/ }).first()).toBeVisible();
+    await nav.getByRole("link", { name: "Contact" }).click();
+    await expect(page).toHaveURL(/\/contact$/);
+    const dissolve = page.locator("[data-route-transition]");
+    await dissolve.evaluate((node) => {
+      node.setAttribute("data-test-history-activations", "0");
+      new MutationObserver(() => {
+        if (node.getAttribute("data-active") === "true") {
+          const count = Number(node.getAttribute("data-test-history-activations") ?? 0);
+          node.setAttribute("data-test-history-activations", String(count + 1));
+        }
+      }).observe(node, { attributes: true, attributeFilter: ["data-active"] });
+    });
     await page.goBack();
     await expect(page).toHaveURL(/\/work$/);
+    await expect.poll(async () => Number(await dissolve.getAttribute("data-test-history-activations"))).toBeGreaterThan(0);
+    await expect(page.locator("[data-foreground-active='true']")).toBeVisible();
+    await expect(dissolve).toHaveAttribute("data-active", "false");
+    await dissolve.evaluate((node) => node.setAttribute("data-test-history-activations", "0"));
     await page.goForward();
-    await expect(page).toHaveURL(/\/commissions$/);
+    await expect(page).toHaveURL(/\/contact$/);
+    await expect.poll(async () => Number(await dissolve.getAttribute("data-test-history-activations"))).toBeGreaterThan(0);
+    await expect(page.getByRole("heading", { name: "Tell us what is taking shape." })).toBeVisible();
+    await expect(dissolve).toHaveAttribute("data-active", "false");
   });
 
-  test("opens and closes the navigation with keyboard-safe state", async ({ page }) => {
+  test("the public contact destinations remain available in the footer", async ({ page }) => {
     await page.goto("/");
-    await waitForLoader(page);
-    const menu = page.locator('button[aria-controls="site-navigation"]');
-    await menu.click();
-    await expect(menu).toHaveAttribute("aria-expanded", "true");
-    await expect(page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: /Home/ })).toBeFocused();
-    await page.keyboard.press("Escape");
-    await expect(menu).toHaveAttribute("aria-expanded", "false");
-    await expect(menu).toBeFocused();
-  });
-
-  test("switches EN/ID content and enables sound only after explicit input", async ({ page }) => {
-    await page.goto("/");
-    await waitForLoader(page);
-    const sound = page.locator('header button[aria-pressed]');
-    await expect(sound).toHaveAttribute("aria-pressed", "false");
-    await sound.click();
-    await expect(sound).toHaveAttribute("aria-pressed", "true");
-    await page.getByRole("button", { name: "Change language to Indonesian" }).click();
-    await expect(page.getByRole("heading", { name: "Situs pernikahan, digubah menjadi dunia privat." })).toBeVisible();
-    await expect(page.locator("html")).toHaveAttribute("lang", "id");
-    await page.goto("/commissions#application");
-    await waitForLoader(page);
-    await page.getByRole("button", { name: "Tinjau pengajuan" }).click();
-    await expect(page.getByText("Beberapa jawaban wajib perlu diperiksa. Belum ada yang dikirim.")).toBeVisible();
-    await expect(page.getByText("Bidang ini wajib diisi.").first()).toBeVisible();
-    await page.goto("/application-received");
-    await expect(page.getByRole("heading", { name: "Pengiriman belum dikonfirmasi." })).toBeVisible();
+    await settle(page);
+    const footer = page.getByRole("contentinfo");
+    await expect(footer.getByRole("link", { name: /Instagram @thehouseadel/ })).toHaveAttribute(
+      "href",
+      "https://www.instagram.com/thehouseadel/",
+    );
+    await expect(footer.getByRole("link", { name: /TikTok @house\.adel/ })).toHaveAttribute(
+      "href",
+      "https://www.tiktok.com/@house.adel",
+    );
+    await expect(footer.getByRole("link", { name: /WhatsApp \+62 811 7783 600/ })).toHaveAttribute(
+      "href",
+      "https://wa.me/628117783600",
+    );
+    await expect(footer.getByRole("link", { name: /Email hello\.houseofadel@gmail\.com/ })).toHaveAttribute(
+      "href",
+      "mailto:hello.houseofadel@gmail.com",
+    );
   });
 });
 
-test.describe("homepage capability and resilience", () => {
-  test("exposes capability changes through a pressed button and live readout", async ({ page }) => {
-    await page.goto("/");
-    await waitForLoader(page);
-    const development = page.getByRole("button", { name: "Development" });
-    await development.click();
-    await expect(development).toHaveAttribute("aria-pressed", "true");
-    await expect(page.getByRole("heading", { name: "Development", level: 3 })).toBeVisible();
+test.describe("enquiry", () => {
+  test("reports validation without claiming a send", async ({ page }) => {
+    await page.goto("/contact");
+    await settle(page);
+    await page.getByRole("button", { name: "Submit Enquiry" }).click();
+    await expect(page.getByRole("alert").filter({ hasText: "A few answers need your attention." })).toBeVisible();
+    await expect(page.locator("#enquiry-name")).toBeFocused();
   });
 
-  test("keeps all homepage information when motion is reduced", async ({ page }, testInfo) => {
-    test.skip(testInfo.project.name !== "reduced-motion", "Reduced-motion project only");
-    await page.emulateMedia({ reducedMotion: "reduce" });
-    await page.goto("/");
-    await waitForLoader(page);
-    await expect(page.locator("canvas")).toHaveCount(0);
-    await expect(page.getByRole("heading", { name: "One invitation, read through four layers." })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Begin a commission" }).first()).toBeVisible();
-  });
-
-  test("keeps the static opening when WebGL is explicitly disabled", async ({ page }) => {
-    await page.addInitScript(() => localStorage.setItem("house-adel:graphics", "fallback"));
-    await page.goto("/");
-    await waitForLoader(page);
-    await expect(page.locator("canvas")).toHaveCount(0);
-    await expect(page.locator("[data-spatial-fallback]")).toBeVisible();
-  });
-
-  test("does not load the WebGL runtime on Work", async ({ page }, testInfo) => {
-    test.skip(testInfo.project.name !== "chromium", "Canonical route-loading check uses Chromium");
-    const requestedAssets: string[] = [];
-    page.on("request", (request) => requestedAssets.push(request.url()));
-    await page.goto("/work");
-    await waitForLoader(page);
-    await page.waitForLoadState("networkidle");
-    expect(requestedAssets.some((url) => /\/assets\/webgl-[^/]+\.js/.test(url))).toBe(false);
-  });
-});
-
-test.describe("commission application", () => {
-  test("shows meaningful errors before review", async ({ page }) => {
-    await page.goto("/commissions#application");
-    await waitForLoader(page);
-    await page.getByRole("button", { name: "Review application" }).click();
-    await expect(page.getByText("Some required answers need attention. Nothing has been sent.")).toBeVisible();
-    await expect(page.getByLabel(/Applicant name/)).toHaveAttribute("aria-invalid", "true");
-  });
-
-  test("reviews and receives an explicit local mock acceptance", async ({ page }, testInfo) => {
-    test.skip(testInfo.project.name !== "chromium", "One canonical mock submission");
-    await page.goto("/commissions#application");
-    await waitForLoader(page);
-    await page.getByLabel(/Applicant name/).fill("Ari Example");
-    await page.getByLabel(/Partner or project names/).fill("Ari and Sol");
-    await page.getByLabel(/Location/).fill("Jakarta");
-    await page.getByLabel(/Approximate guest count/).selectOption("50-100");
-    await page.getByLabel(/Number of events/).selectOption("two");
-    await page.getByRole("checkbox", { name: "Digital invitation" }).check();
-    await page.getByLabel(/What should guests feel/).fill("Warm, composed and unmistakably personal.");
-    await page.getByLabel(/Project path/).selectOption("private-commission");
-    await page.getByLabel(/Budget range/).fill("USD 12,000–18,000");
-    await page.getByLabel(/Languages/).fill("English and Indonesian");
-    await page.getByLabel(/Contact name/).fill("Ari Example");
-    await page.getByLabel(/^Email/).fill("ari@example.com");
-    await page.getByLabel(/Country/).fill("Indonesia");
-    await page.getByLabel(/Time zone/).fill("Asia/Jakarta");
-    await page.getByLabel(/I consent to House Adel/).check();
-    await page.getByRole("button", { name: "Review application" }).click();
-    await expect(page.getByRole("heading", { name: "Review the living brief." })).toBeFocused();
-    await page.getByRole("button", { name: "Send application" }).click();
-    await expect(page).toHaveURL(/\/application-received\?confirmed=1&mode=mock$/);
-    await expect(page.getByRole("heading", { name: "Your application has been received." })).toBeVisible();
+  test("does not claim receipt for a direct visit", async ({ page }) => {
+    await page.goto("/enquiry-received");
+    await settle(page);
+    await expect(
+      page.getByRole("heading", { name: /Nothing has been sent yet/ }),
+    ).toBeVisible();
   });
 });

@@ -1,0 +1,97 @@
+/*
+ * Crepuscular light entering from the top right corner.
+ *
+ * The colour is a temperature run, not a tint: white at the source, gold through
+ * the body, orange as it thins. Real light warms as it loses intensity, and
+ * running that gradient along each shaft is what stops the group reading as a
+ * grey wash laid over the page.
+ *
+ * `screen` blending means the shafts only ever add light. Their intensity comes
+ * from `--ray`, set every frame from the same clock the relief's shader reads, so
+ * the shafts and the particles they light rise and fall together.
+ */
+.rays {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  mix-blend-mode: screen;
+  opacity: var(--ray, 0);
+  pointer-events: none;
+}
+
+/* The source, just past the corner: white core, warming outward. */
+.source {
+  position: absolute;
+  top: -13vmax;
+  right: -13vmax;
+  width: 30vmax;
+  height: 30vmax;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgb(255 252 245 / 30%) 0%,
+    rgb(255 226 160 / 15%) 28%,
+    rgb(248 168 92 / 13%) 50%,
+    transparent 74%
+  );
+}
+
+/*
+ * Shorter and narrower than the shafts they replaced: those reached the far
+ * corner and read as a diagonal wall of light rather than as a beam falling
+ * through the frame.
+ */
+.shaft {
+  position: absolute;
+  top: -6%;
+  right: -2%;
+  width: 6vmax;
+  height: 118%;
+  background: linear-gradient(
+    to bottom,
+    rgb(255 253 248 / 38%) 0%,
+    rgb(255 232 176 / 20%) 20%,
+    rgb(250 186 108 / 18%) 44%,
+    rgb(232 140 72 / 6%) 66%,
+    transparent 86%
+  );
+  transform-origin: top right;
+  filter: blur(1rem);
+}
+
+.shaft:nth-of-type(2) {
+  width: 4.5vmax;
+  transform: rotate(34deg);
+}
+
+.shaft:nth-of-type(3) {
+  width: 2vmax;
+  right: 6%;
+  height: 96%;
+  transform: rotate(46deg);
+  filter: blur(0.5rem);
+}
+
+.shaft:nth-of-type(4) {
+  width: 9vmax;
+  right: -8%;
+  height: 132%;
+  transform: rotate(26deg);
+  filter: blur(1.9rem);
+}
+
+/* One fine feather: the bright thin edge that makes a shaft read as a shaft. */
+.shaft:nth-of-type(5) {
+  width: 0.9vmax;
+  right: 11%;
+  height: 88%;
+  transform: rotate(40deg);
+  filter: blur(0.25rem);
+}
+
+@media (forced-colors: active) {
+  .rays {
+    display: none;
+  }
+}

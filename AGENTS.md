@@ -2,9 +2,13 @@
 
 ## Product
 
-House Adel creates authored wedding invitation Editions and original Private Commissions. The permanent creative direction is **Ceremonial Spatial Editorialism**: formal architectural composition softened by intimate, human material.
+House Adel is an independent web studio working across art direction, interaction design and frontend development for weddings, birthdays, dinners, launches and private events. No individual is named anywhere on the site or in copy: the studio speaks as the studio. The permanent creative direction is **Ceremonial Spatial Editorialism**: formal architectural composition softened by intimate, human material.
 
-An Edition begins with a world created by House Adel. A Private Commission begins with the client's world.
+House Adel's one published project is MARVELL 20, a digital experience created for Marvell Florist's twentieth anniversary. **MARVELL FLORIST is not House Adel work** — never present Marvell Florist's general website, branding or campaigns as House Adel work; only the MARVELL 20 project is shown. Both names use two Ls: MARVELL FLORIST, MARVELL 20.
+
+Correct spelling: **House Adel** (no trailing "e" in Adel). Correct email: `hello.houseofadel@gmail.com`. Correct Instagram: `@thehouseadel`.
+
+`docs/COPY_APPROVED.md` is the literal canonical copy for every fixed page; `docs/VOICE.md` states the writing rules (no em dashes, no fashion-luxury vocabulary, no "commission"/"investment," no budget or price mentions anywhere on the site, short paragraphs) for anything `docs/COPY_APPROVED.md` doesn't already fix. Do not paraphrase what is already fixed there.
 
 ## Commands
 
@@ -47,10 +51,10 @@ Before completion, add and use explicit `lint`, `typecheck`, and bundle-analysis
 - Use one legally available editorial serif and one neutral grotesk; an italic may come from the serif family.
 - Materials may include paper, vellum, glass, ink, handwriting fragments, archival material, lines, frames, folds, and apertures.
 - Do not use generative-AI images, video, people, wedding photography, or 3D assets.
-- Do not fabricate clients, weddings, testimonials, awards, press, results, locations, or team members.
-- Label every self-initiated project exactly: `House Adel Study — Self-initiated.`
+- Do not fabricate clients, projects, testimonials, awards, press, results, locations, or team members. Show only MARVELL 20 as completed work until another genuine House Adel project exists; never present Marvell Florist's general branding as House Adel work.
 - Do not copy reference assets, copy, code, layouts, shaders, marks, or distinctive compositions. References are behavioural only and never appear publicly.
-- Avoid marketplace cards, cyber aesthetics, generic particles, rotating chrome, cursor replacements, mouse trails, preset animation patterns, and decorative WebGL.
+- Avoid marketplace cards, cyber aesthetics, generic particles, rotating chrome, literal cursor trails, preset animation patterns, and decorative WebGL.
+- A cursor companion that supplements — and never hides or replaces — the native OS cursor is permitted as a state-feedback device. Magnetic hover on primary interactive elements is permitted within the documented timing bands. A marquee is permitted only where it carries real, reachable content with a static assistive-technology equivalent, never as decorative loop-filler.
 
 ## Motion rules
 
@@ -80,4 +84,4 @@ Before completion, add and use explicit `lint`, `typecheck`, and bundle-analysis
 
 ## Definition of done
 
-The version is done only when all required routes and navigation work; the homepage has a coherent optional spatial scene and static fallback; Editions, live Edition demo, Private Commissions, Stories, The House, and Apply interactions meet their specifications; mock submission is honestly functional; reduced-motion and no-WebGL modes preserve all content; no unlicensed, generative, or fabricated material ships; provenance is complete; and lint, typecheck, unit, Playwright, accessibility, visual, production-build, bundle, and performance checks pass. `docs/STATUS.md` must disclose any remaining launch work.
+The version is done only when all required routes (Home, Work, the MARVELL 20 project page, Contact, Begin a Project, Privacy) and navigation work; the homepage has a coherent optional spatial scene and static fallback; the Begin a Project enquiry form and mock submission are honestly functional; reduced-motion and no-WebGL modes preserve all content; no unlicensed, generative, or fabricated material ships; copy matches `docs/COPY_APPROVED.md` verbatim where fixed; provenance is complete; and lint, typecheck, unit, Playwright, accessibility, visual, production-build, bundle, and performance checks pass. `docs/STATUS.md` must disclose any remaining launch work.

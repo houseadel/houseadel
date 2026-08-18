@@ -1,6 +1,6 @@
 {
   "schemaVersion": "0.1.0",
-  "measuredAt": "2026-08-04T12:29:39.781Z",
+  "measuredAt": "2026-08-17T14:28:24.915Z",
   "mode": "Vite production preview; cold isolated browser context per route",
   "environment": {
     "platform": "win32 10.0.26200",
@@ -27,51 +27,66 @@
       "mobileEmulation": false,
       "devicePixelRatio": 1,
       "navigationMs": {
-        "responseStart": 5.099999999627471,
-        "domContentLoaded": 47.299999999813735,
-        "load": 48
+        "responseStart": 6.699999988079071,
+        "domContentLoaded": 113.39999997615814,
+        "load": 113.39999997615814
       },
       "paintMs": {
-        "firstPaint": 52,
-        "firstContentfulPaint": 164,
-        "largestContentfulPaint": 200
+        "firstPaint": 56,
+        "firstContentfulPaint": 208,
+        "largestContentfulPaint": 208
       },
       "cumulativeLayoutShift": 0,
       "resourceBytes": {
-        "javascript": 352650,
-        "css": 10013,
-        "image": 443048,
-        "font": 147440,
+        "javascript": 403288,
+        "css": 7279,
+        "image": 397549,
+        "font": 24836,
         "video": 0,
         "model": 0,
-        "other": 0
+        "other": 1350024
       },
-      "totalEncodedResourceBytes": 953151,
-      "gzipCodeBytes": 362406,
-      "domImageDecodeBytes": 56382208,
+      "totalEncodedResourceBytes": 2182976,
+      "gzipCodeBytes": 410291,
+      "domImageDecodeBytes": 14496000,
       "textureGpuBytesEstimate": 0,
-      "canvasGpuBytesEstimate": 14238720,
-      "combinedGpuBytesEstimate": 14238720,
+      "canvasGpuBytesEstimate": 46656000,
+      "combinedGpuBytesEstimate": 46656000,
       "frameIntervalMs": {
-        "median": 16.699999999999818,
-        "p95": 16.800000000000182,
-        "maximum": 16.800000000000182
+        "median": 333.3000000000029,
+        "p95": 350,
+        "maximum": 383.3000000000029
       },
       "longTasks": {
-        "count": 0,
-        "maximumMs": 0
+        "count": 153,
+        "maximumMs": 350
       },
       "canvases": [
         {
           "cssWidth": 1440,
-          "cssHeight": 824,
+          "cssHeight": 900,
           "bufferWidth": 1440,
-          "bufferHeight": 824
+          "bufferHeight": 900
+        },
+        {
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "bufferWidth": 1440,
+          "bufferHeight": 900
+        },
+        {
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "bufferWidth": 1440,
+          "bufferHeight": 900
         }
       ],
       "fallbackActive": false,
       "consoleWarnings": [],
-      "browserDiagnostics": []
+      "browserDiagnostics": [
+        "[.WebGL-0x20cc001bca00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels",
+        "[.WebGL-0x20cc001bca00]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+      ]
     },
     {
       "id": "work-desktop",
@@ -83,48 +98,61 @@
       "mobileEmulation": false,
       "devicePixelRatio": 1,
       "navigationMs": {
-        "responseStart": 2.900000000372529,
-        "domContentLoaded": 40.80000000074506,
-        "load": 40.90000000037253
+        "responseStart": 9.199999988079071,
+        "domContentLoaded": 519.3000000119209,
+        "load": 519.4000000357628
       },
       "paintMs": {
-        "firstPaint": 24,
-        "firstContentfulPaint": 152,
-        "largestContentfulPaint": 196
+        "firstPaint": 172,
+        "firstContentfulPaint": 680,
+        "largestContentfulPaint": 680
       },
       "cumulativeLayoutShift": 0,
       "resourceBytes": {
-        "javascript": 121493,
-        "css": 10013,
-        "image": 265961,
-        "font": 147440,
+        "javascript": 403288,
+        "css": 7279,
+        "image": 412523,
+        "font": 24836,
         "video": 0,
         "model": 0,
-        "other": 0
+        "other": 2178072
       },
-      "totalEncodedResourceBytes": 544907,
-      "gzipCodeBytes": 131234,
-      "domImageDecodeBytes": 44964608,
+      "totalEncodedResourceBytes": 3025998,
+      "gzipCodeBytes": 410291,
+      "domImageDecodeBytes": 31182336,
       "textureGpuBytesEstimate": 0,
-      "canvasGpuBytesEstimate": 0,
-      "combinedGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 31104000,
+      "combinedGpuBytesEstimate": 31104000,
       "frameIntervalMs": {
-        "median": 16.699999999999818,
-        "p95": 16.799999999999727,
-        "maximum": 16.800000000000182
+        "median": 450,
+        "p95": 466.70000000000437,
+        "maximum": 500
       },
       "longTasks": {
-        "count": 1,
-        "maximumMs": 73
+        "count": 100,
+        "maximumMs": 700
       },
-      "canvases": [],
+      "canvases": [
+        {
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "bufferWidth": 1440,
+          "bufferHeight": 900
+        },
+        {
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "bufferWidth": 1440,
+          "bufferHeight": 900
+        }
+      ],
       "fallbackActive": false,
       "consoleWarnings": [],
       "browserDiagnostics": []
     },
     {
-      "id": "commissions-desktop",
-      "route": "/commissions",
+      "id": "studies-desktop",
+      "route": "/studies",
       "viewport": {
         "width": 1440,
         "height": 900
@@ -132,41 +160,116 @@
       "mobileEmulation": false,
       "devicePixelRatio": 1,
       "navigationMs": {
-        "responseStart": 3.6000000005587935,
-        "domContentLoaded": 41.10000000055879,
-        "load": 41.10000000055879
+        "responseStart": 3.900000035762787,
+        "domContentLoaded": 110,
+        "load": 199.60000002384186
       },
       "paintMs": {
-        "firstPaint": 32,
-        "firstContentfulPaint": 136,
-        "largestContentfulPaint": 168
+        "firstPaint": 52,
+        "firstContentfulPaint": 200,
+        "largestContentfulPaint": 1440
       },
-      "cumulativeLayoutShift": 0,
+      "cumulativeLayoutShift": 0.3195876736111111,
       "resourceBytes": {
-        "javascript": 161191,
-        "css": 12996,
-        "image": 265961,
-        "font": 147440,
+        "javascript": 406032,
+        "css": 9088,
+        "image": 650083,
+        "font": 24836,
         "video": 0,
         "model": 0,
         "other": 0
       },
-      "totalEncodedResourceBytes": 587588,
-      "gzipCodeBytes": 173915,
-      "domImageDecodeBytes": 44964608,
+      "totalEncodedResourceBytes": 1090039,
+      "gzipCodeBytes": 414844,
+      "domImageDecodeBytes": 30243136,
       "textureGpuBytesEstimate": 0,
-      "canvasGpuBytesEstimate": 0,
-      "combinedGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 15552000,
+      "combinedGpuBytesEstimate": 15552000,
       "frameIntervalMs": {
         "median": 16.699999999999818,
-        "p95": 16.700000000000273,
+        "p95": 16.799999999999727,
         "maximum": 16.800000000000182
       },
       "longTasks": {
         "count": 0,
         "maximumMs": 0
       },
-      "canvases": [],
+      "canvases": [
+        {
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "bufferWidth": 1440,
+          "bufferHeight": 900
+        }
+      ],
+      "fallbackActive": false,
+      "consoleWarnings": [],
+      "browserDiagnostics": []
+    },
+    {
+      "id": "begin-a-project-desktop",
+      "route": "/begin-a-project",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "mobileEmulation": false,
+      "devicePixelRatio": 1,
+      "navigationMs": {
+        "responseStart": 5.300000011920929,
+        "domContentLoaded": 91.90000003576279,
+        "load": 172.69999998807907
+      },
+      "paintMs": {
+        "firstPaint": 48,
+        "firstContentfulPaint": 168,
+        "largestContentfulPaint": 488
+      },
+      "cumulativeLayoutShift": 0.4,
+      "resourceBytes": {
+        "javascript": 488773,
+        "css": 10079,
+        "image": 397549,
+        "font": 24836,
+        "video": 0,
+        "model": 0,
+        "other": 1350024
+      },
+      "totalEncodedResourceBytes": 2271261,
+      "gzipCodeBytes": 498576,
+      "domImageDecodeBytes": 25678336,
+      "textureGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 39808800,
+      "combinedGpuBytesEstimate": 39808800,
+      "frameIntervalMs": {
+        "median": 99.90000000000009,
+        "p95": 350,
+        "maximum": 366.7000000000007
+      },
+      "longTasks": {
+        "count": 98,
+        "maximumMs": 350
+      },
+      "canvases": [
+        {
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "bufferWidth": 1440,
+          "bufferHeight": 900
+        },
+        {
+          "cssWidth": 806.40625,
+          "cssHeight": 900,
+          "bufferWidth": 806,
+          "bufferHeight": 900
+        },
+        {
+          "cssWidth": 1440,
+          "cssHeight": 900,
+          "bufferWidth": 1440,
+          "bufferHeight": 900
+        }
+      ],
       "fallbackActive": false,
       "consoleWarnings": [],
       "browserDiagnostics": []
@@ -181,46 +284,52 @@
       "mobileEmulation": true,
       "devicePixelRatio": 2,
       "navigationMs": {
-        "responseStart": 2.8999999994412065,
-        "domContentLoaded": 42.5,
-        "load": 43.19999999925494
+        "responseStart": 8.799999952316284,
+        "domContentLoaded": 194.5,
+        "load": 194.5999999642372
       },
       "paintMs": {
-        "firstPaint": 48,
-        "firstContentfulPaint": 140,
-        "largestContentfulPaint": 172
+        "firstPaint": 104,
+        "firstContentfulPaint": 320,
+        "largestContentfulPaint": 320
       },
       "cumulativeLayoutShift": 0,
       "resourceBytes": {
-        "javascript": 352650,
-        "css": 10013,
-        "image": 443048,
-        "font": 147440,
+        "javascript": 403288,
+        "css": 7279,
+        "image": 412523,
+        "font": 24836,
         "video": 0,
         "model": 0,
-        "other": 0
+        "other": 1350024
       },
-      "totalEncodedResourceBytes": 953151,
-      "gzipCodeBytes": 362406,
-      "domImageDecodeBytes": 45199872,
+      "totalEncodedResourceBytes": 2197950,
+      "gzipCodeBytes": 410291,
+      "domImageDecodeBytes": 20000000,
       "textureGpuBytesEstimate": 0,
-      "canvasGpuBytesEstimate": 4795392,
-      "combinedGpuBytesEstimate": 4795392,
+      "canvasGpuBytesEstimate": 15052740,
+      "combinedGpuBytesEstimate": 15052740,
       "frameIntervalMs": {
-        "median": 16.699999999999818,
-        "p95": 16.700000000000273,
-        "maximum": 16.800000000000182
+        "median": 66.70000000000073,
+        "p95": 283.3000000000011,
+        "maximum": 283.39999999999964
       },
       "longTasks": {
-        "count": 0,
-        "maximumMs": 0
+        "count": 127,
+        "maximumMs": 467
       },
       "canvases": [
         {
           "cssWidth": 390,
-          "cssHeight": 776,
-          "bufferWidth": 448,
-          "bufferHeight": 892
+          "cssHeight": 844,
+          "bufferWidth": 487,
+          "bufferHeight": 1055
+        },
+        {
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "bufferWidth": 585,
+          "bufferHeight": 1266
         }
       ],
       "fallbackActive": false,
@@ -237,31 +346,93 @@
       "mobileEmulation": true,
       "devicePixelRatio": 2,
       "navigationMs": {
-        "responseStart": 2.599999999627471,
-        "domContentLoaded": 40.59999999962747,
-        "load": 41.299999999813735
+        "responseStart": 3.5,
+        "domContentLoaded": 75.69999998807907,
+        "load": 75.69999998807907
       },
       "paintMs": {
-        "firstPaint": 44,
-        "firstContentfulPaint": 132,
-        "largestContentfulPaint": 152
+        "firstPaint": 36,
+        "firstContentfulPaint": 148,
+        "largestContentfulPaint": 148
       },
       "cumulativeLayoutShift": 0,
       "resourceBytes": {
-        "javascript": 121493,
-        "css": 10013,
-        "image": 265961,
-        "font": 147440,
+        "javascript": 403288,
+        "css": 7279,
+        "image": 412523,
+        "font": 24836,
+        "video": 0,
+        "model": 0,
+        "other": 2178072
+      },
+      "totalEncodedResourceBytes": 3025998,
+      "gzipCodeBytes": 410291,
+      "domImageDecodeBytes": 20000000,
+      "textureGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 15052740,
+      "combinedGpuBytesEstimate": 15052740,
+      "frameIntervalMs": {
+        "median": 16.699999999999818,
+        "p95": 16.799999999999727,
+        "maximum": 16.800000000000182
+      },
+      "longTasks": {
+        "count": 2,
+        "maximumMs": 86
+      },
+      "canvases": [
+        {
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "bufferWidth": 487,
+          "bufferHeight": 1055
+        },
+        {
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "bufferWidth": 585,
+          "bufferHeight": 1266
+        }
+      ],
+      "fallbackActive": false,
+      "consoleWarnings": [],
+      "browserDiagnostics": []
+    },
+    {
+      "id": "studies-mobile",
+      "route": "/studies",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "mobileEmulation": true,
+      "devicePixelRatio": 2,
+      "navigationMs": {
+        "responseStart": 4,
+        "domContentLoaded": 80.5,
+        "load": 147.5
+      },
+      "paintMs": {
+        "firstPaint": 36,
+        "firstContentfulPaint": 136,
+        "largestContentfulPaint": 428
+      },
+      "cumulativeLayoutShift": 0,
+      "resourceBytes": {
+        "javascript": 406032,
+        "css": 9088,
+        "image": 650083,
+        "font": 24836,
         "video": 0,
         "model": 0,
         "other": 0
       },
-      "totalEncodedResourceBytes": 544907,
-      "gzipCodeBytes": 131234,
-      "domImageDecodeBytes": 33782272,
+      "totalEncodedResourceBytes": 1090039,
+      "gzipCodeBytes": 414844,
+      "domImageDecodeBytes": 19060800,
       "textureGpuBytesEstimate": 0,
-      "canvasGpuBytesEstimate": 0,
-      "combinedGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 8887320,
+      "combinedGpuBytesEstimate": 8887320,
       "frameIntervalMs": {
         "median": 16.699999999999818,
         "p95": 16.799999999999727,
@@ -271,14 +442,21 @@
         "count": 0,
         "maximumMs": 0
       },
-      "canvases": [],
+      "canvases": [
+        {
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "bufferWidth": 585,
+          "bufferHeight": 1266
+        }
+      ],
       "fallbackActive": false,
       "consoleWarnings": [],
       "browserDiagnostics": []
     },
     {
-      "id": "commissions-mobile",
-      "route": "/commissions",
+      "id": "begin-a-project-mobile",
+      "route": "/begin-a-project",
       "viewport": {
         "width": 390,
         "height": 844
@@ -286,41 +464,60 @@
       "mobileEmulation": true,
       "devicePixelRatio": 2,
       "navigationMs": {
-        "responseStart": 4.2999999998137355,
-        "domContentLoaded": 46.39999999944121,
-        "load": 46.5
+        "responseStart": 3.899999976158142,
+        "domContentLoaded": 77.80000001192093,
+        "load": 151.5999999642372
       },
       "paintMs": {
-        "firstPaint": 28,
-        "firstContentfulPaint": 144,
-        "largestContentfulPaint": 180
+        "firstPaint": 36,
+        "firstContentfulPaint": 136,
+        "largestContentfulPaint": 436
       },
       "cumulativeLayoutShift": 0,
       "resourceBytes": {
-        "javascript": 161191,
-        "css": 12996,
-        "image": 265961,
-        "font": 147440,
+        "javascript": 488773,
+        "css": 10079,
+        "image": 397549,
+        "font": 24836,
         "video": 0,
         "model": 0,
-        "other": 0
+        "other": 1350024
       },
-      "totalEncodedResourceBytes": 587588,
-      "gzipCodeBytes": 173915,
-      "domImageDecodeBytes": 33782272,
+      "totalEncodedResourceBytes": 2271261,
+      "gzipCodeBytes": 498576,
+      "domImageDecodeBytes": 25678336,
       "textureGpuBytesEstimate": 0,
-      "canvasGpuBytesEstimate": 0,
-      "combinedGpuBytesEstimate": 0,
+      "canvasGpuBytesEstimate": 17140920,
+      "combinedGpuBytesEstimate": 17140920,
       "frameIntervalMs": {
-        "median": 16.699999999999818,
-        "p95": 16.700000000000273,
-        "maximum": 16.799999999999955
+        "median": 50,
+        "p95": 66.70000000000027,
+        "maximum": 83.30000000000018
       },
       "longTasks": {
-        "count": 1,
-        "maximumMs": 61
+        "count": 104,
+        "maximumMs": 126
       },
-      "canvases": [],
+      "canvases": [
+        {
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "bufferWidth": 448,
+          "bufferHeight": 970
+        },
+        {
+          "cssWidth": 390,
+          "cssHeight": 416,
+          "bufferWidth": 487,
+          "bufferHeight": 520
+        },
+        {
+          "cssWidth": 390,
+          "cssHeight": 844,
+          "bufferWidth": 585,
+          "bufferHeight": 1266
+        }
+      ],
       "fallbackActive": false,
       "consoleWarnings": [],
       "browserDiagnostics": []

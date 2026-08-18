@@ -1,0 +1,115 @@
+/*
+ * The room the site is in.
+ *
+ * Under the header and the chrome, over the scenes. It is not a component that
+ * appears; it is the tone of the viewport, so it is present on every route and
+ * never animates in.
+ */
+.atmosphere {
+  position: fixed;
+  z-index: 380;
+  inset: 0;
+  pointer-events: none;
+  /* Nothing here is a layout input, and it is repainted on nothing. Telling the
+     compositor that keeps it off the main thread's paint list entirely. */
+  contain: strict;
+  will-change: opacity;
+}
+
+/*
+ * The vignette.
+ *
+ * Two ellipses rather than one, offset from each other and from the centre, so
+ * the darkening is not concentric. A single centred radial gradient is the thing
+ * that reads as "a radial gradient was applied"; two off-axis ones read as
+ * uneven light in a room, because that is what uneven light in a room does.
+ *
+ * The stops are close to invisible on purpose. The whole treatment is a few
+ * percent of alpha: the centre stays where it already was and only the last
+ * third of the way to the edge picks up anything at all.
+ */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      128% 108% at 44% 38%,
+      transparent 0%,
+      transparent 46%,
+      rgb(0 0 0 / 16%) 78%,
+      rgb(0 0 0 / 34%) 100%
+    ),
+    radial-gradient(
+      118% 132% at 62% 66%,
+      transparent 0%,
+      transparent 52%,
+      rgb(0 0 0 / 10%) 82%,
+      rgb(0 0 0 / 22%) 100%
+    );
+}
+
+/*
+ * Edge haze.
+ *
+ * The counterpart to the vignette, and the part that stops the corners going to
+ * a deader black than the middle. A trace of cool grey lifts the extreme edges,
+ * so the frame has air in it rather than falling away. Screen blending means it
+ * can only lighten, and at three percent it cannot tint: it moves the edge from
+ * near-black toward charcoal and stops there.
+ *
+ * This is the Active Theory observation and the whole of it. There is no colour
+ * to speak of, no glow, and no light source implied.
+ */
+.haze {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(72% 46% at 50% -6%, rgb(150 162 172 / 5.5%) 0%, transparent 62%),
+    radial-gradient(64% 40% at 50% 106%, rgb(132 145 156 / 4%) 0%, transparent 60%),
+    radial-gradient(34% 74% at -6% 44%, rgb(140 152 164 / 4%) 0%, transparent 62%),
+    radial-gradient(34% 74% at 106% 56%, rgb(140 152 164 / 3.5%) 0%, transparent 62%);
+  mix-blend-mode: screen;
+}
+
+/*
+ * Dither.
+ *
+ * Very wide, very shallow gradients band. On a dark ground the banding is the
+ * tell — a stack of visible steps is what makes a soft gradient look like CSS
+ * rather than like air. A little fixed noise at one and a half percent breaks the
+ * steps up without ever being visible as grain.
+ */
+.grain {
+  position: absolute;
+  inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.016;
+  mix-blend-mode: overlay;
+}
+
+/*
+ * The footer is pale, and a vignette built for a near-black room would sit on it
+ * as a dirty frame. The panel announces itself on the root element as it arrives
+ * under the chrome, and the atmosphere reads that flag and steps aside.
+ */
+:global(:root[data-chrome="pale"]) .atmosphere {
+  opacity: 0.22;
+}
+
+.atmosphere {
+  transition: opacity 700ms var(--ease-house);
+}
+
+/* Nothing here survives a forced palette, and nothing here is information. */
+@media (forced-colors: active) {
+  .atmosphere {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .haze,
+  .grain {
+    display: none;
+  }
+}

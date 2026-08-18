@@ -1,0 +1,91 @@
+/*
+ * Two routes, both real, for as long as a transition lasts.
+ *
+ * The dissolve reveals the incoming page *through* the outgoing one, so both
+ * have to be in the document at the same time — and both have to be real DOM,
+ * with real fonts, real text and real WebGL. Nothing here is a picture of a
+ * page. That is what keeps the transition sharp at any pixel ratio, and what
+ * makes it a handover rather than a curtain drawn over a swap.
+ */
+
+/*
+ * A slot that is not transitioning is not a box at all.
+ *
+ * `display: contents` matters more than it looks. The site is built on
+ * `position: sticky`, which resolves against a scroll container, and on
+ * `position: fixed` scenes, which resolve against the viewport unless an
+ * ancestor has a transform or a filter. A wrapper element in flow would be
+ * harmless; a wrapper that ever gained a transform would silently re-root every
+ * one of those. Removing the box entirely means the settled page is laid out
+ * exactly as it would be with no transition machinery in the tree.
+ */
+.slot {
+  display: contents;
+}
+
+/*
+ * The arriving route: a viewport-sized layer, clipped to the contour.
+ *
+ * `overflow: hidden` is doing quiet, load-bearing work. It makes this element a
+ * scroll container at offset zero, so `position: sticky` inside the incoming
+ * page resolves as if the reader were at the top of it — which is exactly where
+ * they are about to be. Without it, a page arriving while the document is
+ * scrolled two thousand pixels down would lay its sticky scenes out against that
+ * offset and visibly re-settle the moment the transition ended.
+ *
+ * It sits above the outgoing page but below the header, the atmosphere and the
+ * lens, all of which are shared by both routes and should stay continuous
+ * across the change rather than being dissolved and rebuilt.
+ */
+.slot[data-role="arriving"] {
+  display: block;
+  position: fixed;
+  z-index: 340;
+  inset: 0;
+  overflow: hidden;
+  /*
+   * The clip is the transition. It is a vector path rebuilt every frame from
+   * the same field the shader samples, so the boundary between the two pages is
+   * resolution-independent: there is no raster in the cut to pixelate, at any
+   * device pixel ratio.
+   */
+  /*
+   * An *empty* region until the first contour is written here inline. The layer
+   * exists for a frame or two before that happens, and starting from no clip
+   * would show the arriving page at full size for exactly that long — a flash of
+   * the destination before the transition has begun.
+   */
+  clip-path: path("M 0 0 Z");
+  pointer-events: none;
+  /*
+   * The site's own ground, declared identically to `body` and anchored to the
+   * viewport the same way, so the parts of the incoming page that have arrived
+   * are indistinguishable from how they will look once it has settled.
+   */
+  background:
+    radial-gradient(110% 80% at 72% 4%, rgb(96 104 108 / 9%) 0%, transparent 60%),
+    radial-gradient(90% 70% at 15% 86%, rgb(58 66 68 / 8%) 0%, transparent 64%),
+    linear-gradient(180deg, #0b0e0f 0%, #08090b 42%, #060708 76%, #050506 100%)
+      var(--color-ink);
+  background-attachment: fixed;
+}
+
+/*
+ * The camera feel, and the only thing in this transition that moves the page
+ * itself: the arriving route begins fractionally deep and settles forward.
+ *
+ * It is applied here, inside the clipped layer, rather than to the outgoing page
+ * — a transform on the outgoing route would make it the containing block for its
+ * own fixed and sticky scenes and jump them out of place on the first frame. The
+ * movement is meant to be felt and not noticed, so it is not worth a jump.
+ */
+.slot[data-role="arriving"] .shell {
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slot[data-role="arriving"] .shell {
+    transform: none;
+  }
+}

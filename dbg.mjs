@@ -1,0 +1,11 @@
+import { chromium } from "@playwright/test";
+const browser = await chromium.launch({ args:["--use-gl=angle","--use-angle=swiftshader","--enable-unsafe-swiftshader"] });
+const page = await browser.newPage({ viewport:{width:1440,height:900} });
+page.on("pageerror",(e)=>console.log("PAGEERROR:",e.message.slice(0,300)));
+page.on("console",(m)=>{ if(m.type()==="error") console.log("CONSOLE:",m.text().slice(0,300)); });
+await page.goto("http://127.0.0.1:5173/labs/relief-compare",{waitUntil:"networkidle"});
+await page.waitForTimeout(6000);
+console.log("buttons:", await page.locator("button").allTextContents());
+console.log("canvas:", await page.locator("canvas").count());
+console.log("body head:", (await page.locator("body").innerHTML()).slice(0,600));
+await browser.close();

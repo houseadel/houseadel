@@ -1,0 +1,97 @@
+/*
+ * An instrument reading, set against the right edge. A hairline rail and one
+ * travelling mark: it should be legible when looked for and quiet when not.
+ *
+ * The rail is the fixed part of the instrument, and it is the only thing here
+ * given a position. Everything else hangs off it absolutely, so no change of
+ * label or reading can push it up or down the screen — the mark moves, the rail
+ * never does. It was laid out as a flex column before, which meant a two-line
+ * label or a wider figure re-centred the whole assembly mid-scroll.
+ */
+:global(:root[data-chrome="pale"]) .tracker {
+  color: #56534d;
+}
+
+.tracker {
+  position: fixed;
+  z-index: 400;
+  top: 50%;
+  right: clamp(0.9rem, 2vw, 1.6rem);
+  /* A fixed column width, so the rail keeps one x as well as one y. Sized to the
+     content before, which moved it sideways whenever the label under it did. */
+  width: 7rem;
+  transform: translateY(-50%);
+  color: var(--color-stone);
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  pointer-events: none;
+}
+
+/* The rail. Its filled portion is the document, not the section. */
+.rail {
+  position: relative;
+  width: 1px;
+  margin-inline: auto;
+  /* Tall enough to read as a measure of the whole document rather than as a
+     tick beside it, and still short of the viewport at either end. */
+  height: clamp(11rem, 42vh, 24rem);
+  background: color-mix(in srgb, var(--color-paper) 16%, transparent);
+}
+
+.fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--progress, 0) * 100%);
+  background: color-mix(in srgb, var(--color-paper) 62%, transparent);
+}
+
+.mark {
+  position: absolute;
+  top: calc(var(--progress, 0) * 100%);
+  left: 50%;
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 50%;
+  background: var(--color-paper);
+  transform: translate(-50%, -50%);
+}
+
+/*
+ * Hung below the rail rather than stacked under it, and centred on the rail's
+ * own line. Out of flow, so however long the name of the section is — and some
+ * of them wrap — the rail above it stays exactly where it was.
+ */
+.label {
+  position: absolute;
+  top: calc(100% + var(--space-4));
+  left: 50%;
+  width: 7rem;
+  margin-left: -3.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  /* Upright rather than rotated: a rotated label is harder to read than a short
+     one is wide, and this one is short. */
+  line-height: 1.4;
+}
+
+@media (max-width: 47.99rem) {
+  .label {
+    display: none;
+  }
+
+  /* Without the label there is nothing to reserve width for, and the rail can go
+     back to hugging the edge where it takes the least room. */
+  .tracker {
+    width: auto;
+  }
+}
+
+@media (forced-colors: active) {
+  .tracker {
+    color: CanvasText;
+  }
+}

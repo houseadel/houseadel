@@ -11,15 +11,18 @@ function normalizeBasePath(baseUrl: string) {
 }
 
 const knownRouteSuffixes = [
-  "/labs/loader",
-  "/application-received",
-  "/private-commissions",
+  // Flat, deliberately. The build uses base "./", so a route nested more than
+  // one level deep resolves its own asset URLs against its directory and 404s on
+  // a static host. Keeping every route at depth one is what makes that base work.
+  "/labs-loader",
+  "/enquiry-received",
   "/begin-a-project",
-  "/commissions",
+  "/marvell-20",
+  "/contact",
   "/privacy",
   "/terms",
+  "/studies",
   "/work",
-  "/apply",
   "/",
 ];
 
@@ -48,11 +51,11 @@ function getAppRootPath(pathname: string) {
     }
   }
 
-  const segments = normalized.split("/");
-  if (segments.length === 1) {
-    return `/${segments[0]}`;
-  }
-
+  // Anything left is not a known route. It used to be assumed to be a deploy
+  // sub-directory and stripped, which silently rendered the homepage for every
+  // unrecognised address — the 404 page was unreachable. A path only counts as a
+  // base when removing it leaves a route we actually have, which the loop above
+  // already tested, so by here there is no base to strip.
   return "/";
 }
 

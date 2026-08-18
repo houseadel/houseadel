@@ -19,8 +19,13 @@ const cases = [
     viewport: { width: 1440, height: 900 },
   },
   {
-    id: "commissions-desktop",
-    route: "/commissions",
+    id: "studies-desktop",
+    route: "/studies",
+    viewport: { width: 1440, height: 900 },
+  },
+  {
+    id: "begin-a-project-desktop",
+    route: "/begin-a-project",
     viewport: { width: 1440, height: 900 },
   },
   {
@@ -36,8 +41,14 @@ const cases = [
     mobile: true,
   },
   {
-    id: "commissions-mobile",
-    route: "/commissions",
+    id: "studies-mobile",
+    route: "/studies",
+    viewport: { width: 390, height: 844 },
+    mobile: true,
+  },
+  {
+    id: "begin-a-project-mobile",
+    route: "/begin-a-project",
     viewport: { width: 390, height: 844 },
     mobile: true,
   },

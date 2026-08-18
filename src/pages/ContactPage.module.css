@@ -1,0 +1,195 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  min-height: 100svh;
+  padding-top: clamp(6rem, 13vh, 9rem);
+}
+
+.atmosphere {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100svh;
+  opacity: 0.72;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 68%, transparent 100%);
+}
+
+.atmosphere canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/*
+ * Everything that is read sits in one column, and the column leans left.
+ *
+ * The statement, the questionnaire and the aside at the end all share a measure,
+ * so the eye has a single left edge to follow from the first word to the last —
+ * and the width that is left over is not waste, it is where Cupid stands. Before
+ * this the headline ran nearly to the right gutter and the form stopped
+ * two-thirds of the way across, which read as an unfinished layout rather than
+ * as a composition.
+ *
+ * The measure is on the column and never on the frame. `page-frame` centres what
+ * it is given, so a max-width there would take the leftover width off both sides
+ * and stand the enquiry in the middle of the page — beside the sculpture rather
+ * than opposite it. The frame keeps its gutter and its alignment with the header;
+ * the column starts at that gutter and simply stops early.
+ */
+.layout {
+  position: relative;
+  z-index: 1;
+}
+
+.column {
+  max-width: 50rem;
+}
+
+.intro {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  padding-bottom: clamp(3rem, 6.5vw, 5.5rem);
+}
+
+.heading {
+  max-width: 9em;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6.2vw, 5.6rem);
+  font-weight: 260;
+  letter-spacing: -0.045em;
+  line-height: 0.94;
+  text-wrap: balance;
+}
+
+/*
+ * Second, and unmistakably so.
+ *
+ * It used to be set at the body size in the ink the questions are set in, which
+ * put the sentence that explains the page at the same volume as the page itself.
+ * A step down, in the soft ink every other explanatory line on the site uses,
+ * and on a short measure so it reads as a caption to the headline rather than as
+ * a paragraph in its own right.
+ */
+.support {
+  max-width: 32rem;
+  color: var(--color-ink-soft);
+  font-size: var(--step--1);
+  line-height: 1.6;
+}
+
+.formFrame {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * The alternative, kept small on purpose.
+ *
+ * A rule across the column ends the questionnaire, and what is under it is set
+ * at the size of the site's smallest labels. Nothing here competes with the
+ * submit control above it: the order on the page is the order of the offer.
+ */
+.direct {
+  margin-top: clamp(4rem, 9vw, 7rem);
+  padding-top: var(--space-6);
+  padding-bottom: clamp(4rem, 9vw, 8rem);
+  border-top: 1px solid var(--line);
+}
+
+.directTitle {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.directList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5) clamp(2rem, 5vw, 4rem);
+  margin-top: var(--space-5);
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * Channel over address. The label names the route and the line under it is the
+ * address itself, which is the thing worth being able to copy or press.
+ */
+.directItem {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: start;
+}
+
+.directLabel {
+  color: var(--color-stone);
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.directValue {
+  color: var(--color-ink-soft);
+  font-size: var(--step--1);
+  transition: color var(--duration-fast) var(--ease-house);
+}
+
+.directValue:hover,
+.directValue:focus-visible,
+.directValue[data-touch-hover] {
+  color: var(--color-paper);
+}
+
+@media (max-width: 60rem) {
+  /*
+   * Cupid is above the statement here rather than beside it, so the column has
+   * to start below him. The padding is the sculpture's height, not a guess.
+   */
+  .page {
+    padding-top: clamp(15rem, 46svh, 22rem);
+  }
+
+  .column {
+    max-width: 46rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .intro {
+    gap: var(--space-3);
+    padding-bottom: var(--space-7);
+  }
+
+  .heading {
+    max-width: 12em;
+    font-size: clamp(2.4rem, 11vw, 3.6rem);
+  }
+
+  .support {
+    max-width: 30rem;
+  }
+
+  .directList {
+    gap: var(--space-5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .atmosphere {
+    display: none;
+  }
+
+  /* Nothing is standing above the column, so it starts where it always did. */
+  .page {
+    padding-top: clamp(6rem, 13vh, 9rem);
+  }
+}

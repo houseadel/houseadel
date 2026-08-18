@@ -1,228 +1,336 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-03T07:02:11.341Z",
+  "updatedAt": "2026-08-13",
   "policy": {
     "eligibleRights": [
       "Public Domain Mark 1.0",
-      "CC0 1.0"
+      "CC0 1.0",
+      "Unsplash License",
+      "Pexels License"
     ],
     "approvalRequired": true,
     "productionUseRequiresApproval": true
   },
   "assets": [
     {
-      "id": "met-389774",
-      "assetType": "open-access-image",
-      "intendedUse": "Public-domain architectural and material references for editorial image plates; never presented as client photography.",
+      "id": "invitation-cinematic-v3",
+      "assetType": "licensed-photography-set",
+      "intendedUse": "The full photographic sequence for the Amara and Daniel invitation: touch, chapel, glasshouse, handwritten memory, veil light, and dusk closing. Stock subjects are atmospheric stand-ins and are not identified as Amara or Daniel; architecture is not represented as documentary photography of the named venues.",
       "source": {
-        "institution": "The Metropolitan Museum of Art",
-        "provider": "met",
-        "objectId": "389774",
-        "title": "Drawing for an Interior",
-        "artist": "Anonymous, Italian, 18th century",
-        "date": "1750–1800",
-        "canonicalUrl": "https://www.metmuseum.org/art/collection/search/389774",
-        "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP803208.jpg"
+        "institution": "Pexels",
+        "provider": "pexels",
+        "items": [
+          {
+            "objectId": "9551241",
+            "creator": "Lada Rezantseva",
+            "title": "A Couple Holding Hands",
+            "canonicalUrl": "https://www.pexels.com/photo/a-couple-holding-hands-9551241/"
+          },
+          {
+            "objectId": "36647760",
+            "creator": "TBD Tuyen",
+            "title": "Romantic Wedding Couple Embrace Under Veil",
+            "canonicalUrl": "https://www.pexels.com/photo/romantic-wedding-couple-embrace-under-veil-36647760/"
+          },
+          {
+            "objectId": "36937106",
+            "creator": "Leonardo Barucci",
+            "title": "Dimly Lit Church Altar with Gothic Windows",
+            "canonicalUrl": "https://www.pexels.com/photo/dimly-lit-church-altar-with-gothic-windows-36937106/"
+          },
+          {
+            "objectId": "18816025",
+            "creator": "Josh Hild",
+            "title": "Plants Behind a Wet Glass House Window",
+            "canonicalUrl": "https://www.pexels.com/photo/green-plants-growing-behind-a-wet-glass-house-window-18816025/"
+          },
+          {
+            "objectId": "6752323",
+            "creator": "cottonbro studio",
+            "title": "A Person Writing a Letter",
+            "canonicalUrl": "https://www.pexels.com/photo/a-person-writing-a-letter-6752323/"
+          },
+          {
+            "objectId": "30175883",
+            "creator": "Alina Chernii",
+            "title": "Elegant Bride in Sunlight with Veil",
+            "canonicalUrl": "https://www.pexels.com/photo/elegant-bride-in-sunlight-with-veil-30175883/"
+          },
+          {
+            "objectId": "20183377",
+            "creator": "Ravi Roshan",
+            "title": "Couple Holding Hands at Sunset",
+            "canonicalUrl": "https://www.pexels.com/photo/couple-holding-hands-at-sunset-20183377/"
+          }
+        ],
+        "canonicalUrl": "https://www.pexels.com/license/"
       },
       "rights": {
-        "status": "public-domain",
-        "statement": "Public Domain; The Met Collection API reports isPublicDomain=true.",
-        "url": "https://www.metmuseum.org/policies/image-resources",
+        "status": "Pexels License",
+        "statement": "Each photograph was downloaded from its creator page marked Free to use under the Pexels License. The files are used as part of a designed website and are not sold or redistributed as standalone stock photographs.",
         "commercialUse": true,
-        "verifiedAt": "2026-08-03T07:01:43.954Z",
-        "evidence": "Met Collection API object 389774: isPublicDomain=true and primaryImage supplied."
+        "verifiedAt": "2026-08-13"
       },
-      "retrievalDate": "2026-08-03T07:01:43.954Z",
+      "retrievalDate": "2026-08-13",
       "files": {
-        "original": {
-          "path": "assets/originals/open-access/met-389774.jpg",
-          "mimeType": "image/jpeg",
-          "width": 2715,
-          "height": 3916,
-          "bytes": 2335936,
-          "sha256": "759c8e793420d7d6eb9f378ced25c4707c449369d4c21d0d75f4a2287cfb2555"
-        },
+        "originals": [
+          "assets/originals/open-access/invitation-v3/touch.jpg",
+          "assets/originals/open-access/invitation-v3/couple-veil.jpg",
+          "assets/originals/open-access/invitation-v3/chapel.jpg",
+          "assets/originals/open-access/invitation-v3/glasshouse.jpg",
+          "assets/originals/open-access/invitation-v3/letter.jpg",
+          "assets/originals/open-access/invitation-v3/sunlight-veil.jpg",
+          "assets/originals/open-access/invitation-v3/closing.jpg"
+        ],
         "derivatives": [
-          {
-            "path": "public/assets/open-access/met-389774-960w.avif",
-            "format": "avif",
-            "width": 960,
-            "height": 1385,
-            "bytes": 92528,
-            "sha256": "f8eb0770856b7fb99dea99c71d2aff5913447f1d827c8ad5e47f8f2067b66ce2",
-            "transformation": "Auto-oriented; resized to fit within 960px width without enlargement; encoded as AVIF."
-          },
-          {
-            "path": "public/assets/open-access/met-389774-960w.webp",
-            "format": "webp",
-            "width": 960,
-            "height": 1385,
-            "bytes": 168898,
-            "sha256": "09fb4283772e26bc46fb71a9dee4858595d722a0d7a86ef4c3ee24343ac9e6f3",
-            "transformation": "Auto-oriented; resized to fit within 960px width without enlargement; encoded as WEBP."
-          },
-          {
-            "path": "public/assets/open-access/met-389774-1600w.avif",
-            "format": "avif",
-            "width": 1600,
-            "height": 2308,
-            "bytes": 253764,
-            "sha256": "e69d2a3f922c33aa99af3fd563dd79b77ba72251dfd0955716d48d7f48fb981b",
-            "transformation": "Auto-oriented; resized to fit within 1600px width without enlargement; encoded as AVIF."
-          },
-          {
-            "path": "public/assets/open-access/met-389774-1600w.webp",
-            "format": "webp",
-            "width": 1600,
-            "height": 2308,
-            "bytes": 452748,
-            "sha256": "b021608fd099b953dede25bee53082159f920d1c3c1cbc95fa56a7f08a07e5d8",
-            "transformation": "Auto-oriented; resized to fit within 1600px width without enlargement; encoded as WEBP."
-          },
-          {
-            "path": "public/assets/open-access/met-389774-2400w.avif",
-            "format": "avif",
-            "width": 2400,
-            "height": 3462,
-            "bytes": 517767,
-            "sha256": "9100ee7a8ef1aa03ca972084c4e83d9b30c71c3173fa9456db4357ab2e40183c",
-            "transformation": "Auto-oriented; resized to fit within 2400px width without enlargement; encoded as AVIF."
-          },
-          {
-            "path": "public/assets/open-access/met-389774-2400w.webp",
-            "format": "webp",
-            "width": 2400,
-            "height": 3462,
-            "bytes": 860226,
-            "sha256": "bce6cad3a9c38d47efc4f42647d22a5d54ae9a1a7fe538e3924ec524833e3d15",
-            "transformation": "Auto-oriented; resized to fit within 2400px width without enlargement; encoded as WEBP."
-          }
+          "public/assets/invitation/cinematic/touch-720.avif",
+          "public/assets/invitation/cinematic/touch-720.webp",
+          "public/assets/invitation/cinematic/touch-1280.avif",
+          "public/assets/invitation/cinematic/touch-1280.webp",
+          "public/assets/invitation/cinematic/couple-veil-720.avif",
+          "public/assets/invitation/cinematic/couple-veil-720.webp",
+          "public/assets/invitation/cinematic/couple-veil-1280.avif",
+          "public/assets/invitation/cinematic/couple-veil-1280.webp",
+          "public/assets/invitation/cinematic/couple-veil-1920.avif",
+          "public/assets/invitation/cinematic/couple-veil-1920.webp",
+          "public/assets/invitation/cinematic/chapel-720.avif",
+          "public/assets/invitation/cinematic/chapel-720.webp",
+          "public/assets/invitation/cinematic/chapel-1280.avif",
+          "public/assets/invitation/cinematic/chapel-1280.webp",
+          "public/assets/invitation/cinematic/chapel-1920.avif",
+          "public/assets/invitation/cinematic/chapel-1920.webp",
+          "public/assets/invitation/cinematic/glasshouse-720.avif",
+          "public/assets/invitation/cinematic/glasshouse-720.webp",
+          "public/assets/invitation/cinematic/glasshouse-1280.avif",
+          "public/assets/invitation/cinematic/glasshouse-1280.webp",
+          "public/assets/invitation/cinematic/glasshouse-1920.avif",
+          "public/assets/invitation/cinematic/glasshouse-1920.webp",
+          "public/assets/invitation/cinematic/letter-720.avif",
+          "public/assets/invitation/cinematic/letter-720.webp",
+          "public/assets/invitation/cinematic/letter-1280.avif",
+          "public/assets/invitation/cinematic/letter-1280.webp",
+          "public/assets/invitation/cinematic/letter-1920.avif",
+          "public/assets/invitation/cinematic/letter-1920.webp",
+          "public/assets/invitation/cinematic/sunlight-veil-720.avif",
+          "public/assets/invitation/cinematic/sunlight-veil-720.webp",
+          "public/assets/invitation/cinematic/sunlight-veil-1280.avif",
+          "public/assets/invitation/cinematic/sunlight-veil-1280.webp",
+          "public/assets/invitation/cinematic/sunlight-veil-1920.avif",
+          "public/assets/invitation/cinematic/sunlight-veil-1920.webp",
+          "public/assets/invitation/cinematic/closing-720.avif",
+          "public/assets/invitation/cinematic/closing-720.webp",
+          "public/assets/invitation/cinematic/closing-1280.avif",
+          "public/assets/invitation/cinematic/closing-1280.webp",
+          "public/assets/invitation/cinematic/closing-1920.avif",
+          "public/assets/invitation/cinematic/closing-1920.webp"
         ]
       },
       "transformations": [
-        "Original institution-supplied file preserved byte-for-byte outside the public directory.",
-        "Derivative exports auto-orient metadata and resize without cropping or enlargement.",
-        "WebP quality 82 and AVIF quality 55; no generative fill, retouching, or content alteration."
+        "Responsive AVIF and WebP derivatives generated at 720, 1280, and where the source allowed, 1920 pixels wide.",
+        "No generative fill, compositing, facial retouching, or content alteration. Presentation-only CSS exposure and saturation adjustments harmonise the sequence without changing skin colour."
       ],
       "pages": [
-        "/",
-        "/editions",
-        "/stories"
+        "/invitation"
       ],
       "approval": {
         "status": "approved",
-        "approvedBy": "House Adel creative direction review",
-        "approvedAt": "2026-08-03"
+        "approvedBy": "House Adel creative-direction review",
+        "approvedAt": "2026-08-13"
       },
-      "creditLine": "The Elisha Whittelsey Collection, The Elisha Whittelsey Fund, 1953",
-      "notes": "Met Open Access records; production placement approved for House Adel editorial study."
+      "creditLine": "Photography: Lada Rezantseva, TBD Tuyen, Leonardo Barucci, Josh Hild, cottonbro studio, Alina Chernii, and Ravi Roshan via Pexels.",
+      "notes": "Replace the complete stock set with couple-owned photography for a commissioned invitation. The requirement field in src/data/invitation.ts defines each replacement shot."
     },
     {
-      "id": "met-390163",
-      "assetType": "open-access-image",
-      "intendedUse": "Public-domain architectural and material references for editorial image plates; never presented as client photography.",
+      "id": "house-adel-relief",
+      "assetType": "derived-height-map",
+      "intendedUse": "The homepage relief. Rendered as a particle surface; the same file also drives the mesh and displacement representations.",
       "source": {
-        "institution": "The Metropolitan Museum of Art",
-        "provider": "met",
-        "objectId": "390163",
-        "title": "Interior of a Drawing Room",
-        "artist": "Anonymous, Italian, 19th century",
-        "date": "1838",
-        "canonicalUrl": "https://www.metmuseum.org/art/collection/search/390163",
-        "imageUrl": "https://images.metmuseum.org/CRDImages/dp/original/DP803905.jpg"
+        "institution": "House Adel",
+        "provider": "project-owner",
+        "objectId": "3d relief.stl",
+        "title": "Bas-relief scan, seated figure writing and a winged figure at a stele",
+        "canonicalUrl": "3d relief.stl"
       },
       "rights": {
-        "status": "public-domain",
-        "statement": "Public Domain; The Met Collection API reports isPublicDomain=true.",
-        "url": "https://www.metmuseum.org/policies/image-resources",
-        "commercialUse": true,
-        "verifiedAt": "2026-08-03T07:02:11.340Z",
-        "evidence": "Met Collection API object 390163: isPublicDomain=true and primaryImage supplied."
+        "status": "pending-verification",
+        "statement": "Supplied by the House Adel project owner as a 148 MB / 2,966,746-triangle binary STL, replacing an earlier scan of the same name on 2026-08-08. The originating scan, sculpture, photographer and licence have NOT been verified by this repository. Rights must be confirmed by the project owner before public launch.",
+        "commercialUse": false,
+        "verifiedAt": null
       },
-      "retrievalDate": "2026-08-03T07:02:11.340Z",
+      "retrievalDate": "2026-08-08",
       "files": {
         "original": {
-          "path": "assets/originals/open-access/met-390163.jpg",
-          "mimeType": "image/jpeg",
-          "width": 2835,
-          "height": 3161,
-          "bytes": 1568995,
-          "sha256": "ac151cb802b75f487b7b1535be9699a7687d384639f7164fad2cb3b9444aeeb2"
+          "path": "3d relief.stl",
+          "mimeType": "model/stl",
+          "bytes": 148337384,
+          "notes": "Binary STL, 2,966,746 triangles. Not shipped; kept outside the build. Re-bake with scripts/bake-relief-depth.mjs."
         },
         "derivatives": [
           {
-            "path": "public/assets/open-access/met-390163-960w.avif",
-            "format": "avif",
-            "width": 960,
-            "height": 1070,
-            "bytes": 79705,
-            "sha256": "8d3678ea8ef6dab58bdd7d3e59aa36295116b4e2c0327046d66ce38aeaea9b4a",
-            "transformation": "Auto-oriented; resized to fit within 960px width without enlargement; encoded as AVIF."
+            "path": "public/assets/house-adel/relief-depth-2048.png",
+            "format": "png",
+            "width": 2048,
+            "height": 1619,
+            "bytes": 1135859,
+            "transformation": "Height baked from the STL onto a 2048x1619 grid by scripts/bake-relief-depth.mjs: carved axis and depth polarity detected from the geometry, cropped to where the surface samples densely, holes closed by neighbour dilation, despeckled with a 3px median. Encodes height only; no colour from the source exists."
           },
           {
-            "path": "public/assets/open-access/met-390163-960w.webp",
-            "format": "webp",
-            "width": 960,
-            "height": 1070,
-            "bytes": 127206,
-            "sha256": "de8109260d9661edc82f23ecff58ec48c1170b1cf535e2967f3e75d4abbcba5e",
-            "transformation": "Auto-oriented; resized to fit within 960px width without enlargement; encoded as WEBP."
-          },
-          {
-            "path": "public/assets/open-access/met-390163-1600w.avif",
-            "format": "avif",
-            "width": 1600,
-            "height": 1784,
-            "bytes": 177087,
-            "sha256": "a2b3cb6e5868fa638fa0a55da52d2f68e00640ffb1f9a6db2f5d8a7c236f4056",
-            "transformation": "Auto-oriented; resized to fit within 1600px width without enlargement; encoded as AVIF."
-          },
-          {
-            "path": "public/assets/open-access/met-390163-1600w.webp",
-            "format": "webp",
-            "width": 1600,
-            "height": 1784,
-            "bytes": 265178,
-            "sha256": "d2532b4c7f6862447ba17440a6bd2576d7ca9adbd953ecee3305489d62d6b36a",
-            "transformation": "Auto-oriented; resized to fit within 1600px width without enlargement; encoded as WEBP."
-          },
-          {
-            "path": "public/assets/open-access/met-390163-2400w.avif",
-            "format": "avif",
-            "width": 2400,
-            "height": 2676,
-            "bytes": 318056,
-            "sha256": "0898676f68c22084bbb37b347955ae4b4c5023e0b0828dd2e96141510c906df5",
-            "transformation": "Auto-oriented; resized to fit within 2400px width without enlargement; encoded as AVIF."
-          },
-          {
-            "path": "public/assets/open-access/met-390163-2400w.webp",
-            "format": "webp",
-            "width": 2400,
-            "height": 2676,
-            "bytes": 469596,
-            "sha256": "486d3ea172d56dee1af2a40ce05dc6bae831e20acb70d5d949c94710fa3a4574",
-            "transformation": "Auto-oriented; resized to fit within 2400px width without enlargement; encoded as WEBP."
+            "path": "public/assets/house-adel/relief-depth-1024.png",
+            "format": "png",
+            "width": 1024,
+            "height": 809,
+            "bytes": 396766,
+            "transformation": "Height baked from the STL onto a 1024x809 grid by scripts/bake-relief-depth.mjs: carved axis and depth polarity detected from the geometry, cropped to where the surface samples densely, holes closed by neighbour dilation, despeckled with a 3px median. Encodes height only; no colour from the source exists."
           }
         ]
       },
       "transformations": [
-        "Original institution-supplied file preserved byte-for-byte outside the public directory.",
-        "Derivative exports auto-orient metadata and resize without cropping or enlargement.",
-        "WebP quality 82 and AVIF quality 55; no generative fill, retouching, or content alteration."
+        "The scan is a bas-relief: its shallow axis spans only 11.3% of its width, so it is fully described by one height per point.",
+        "Baking replaces a 143 MB mesh with a 207 KB height map, a reduction of roughly 700x, with no geometry shipped.",
+        "No crop, colour grade, retouch or generative fill. Height values only."
+      ],
+      "pages": [
+        "/"
+      ],
+      "approval": {
+        "status": "pending-verification",
+        "approvedBy": null,
+        "approvedAt": null
+      },
+      "creditLine": "Credit line pending; originating sculpture and scan unconfirmed.",
+      "notes": "Rights must be confirmed before public launch. The relief is the homepage centrepiece, so this is a launch blocker rather than a lab-only caveat."
+    },
+    {
+      "id": "house-adel-home-cloud",
+      "assetType": "derived-3d-model-set",
+      "intendedUse": "Homepage sculpture rendered as a dense, depth-shaded particle surface.",
+      "source": {
+        "institution": "House Adel",
+        "provider": "project-owner",
+        "objectId": "home.stl",
+        "title": "Home sculpture scan, two figures held close together",
+        "canonicalUrl": "assets/originals/open-access/3d/home.stl"
+      },
+      "rights": {
+        "status": "owner-confirmed-commercial",
+        "statement": "Supplied by the House Adel project owner, who confirms this model is licensed for commercial use. It replaces an earlier sculpture that was not. The originating sculpture, scan creator and licence URL are still to be recorded here before launch.",
+        "commercialUse": true,
+        "verifiedAt": null
+      },
+      "retrievalDate": "2026-08-16",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/3d/home.stl",
+          "mimeType": "model/stl",
+          "bytes": 100017384,
+          "notes": "Binary source mesh, 2,000,346 triangles. Retained outside the public build."
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/house-adel/home-cloud.bin",
+            "format": "house-adel-point-cloud",
+            "bytes": 1350024,
+            "transformation": "Area-weighted sampling of 150,000 points from the source STL surface, with positions quantized to 16-bit values and normals packed to signed 8-bit values, by scripts/bake-point-cloud.mjs. No yaw correction was needed."
+          }
+        ]
+      },
+      "transformations": [
+        "The page renders the 1.29 MB surface-sampled point cloud rather than downloading the source STL.",
+        "No generative geometry: every point lies on the supplied mesh surface."
+      ]
+    },
+    {
+      "id": "house-adel-cupid-cloud",
+      "assetType": "derived-3d-model-set",
+      "intendedUse": "Contact page sculpture rendered as a depth-shaded particle surface beside the enquiry.",
+      "source": {
+        "institution": "House Adel",
+        "provider": "project-owner",
+        "objectId": "cupid.stl",
+        "title": "Cupid sculpture scan, a winged figure",
+        "canonicalUrl": "assets/originals/open-access/3d/cupid.stl"
+      },
+      "rights": {
+        "status": "owner-confirmed-commercial",
+        "statement": "Supplied by the House Adel project owner, who confirms this model is licensed for commercial use. It replaces an earlier sculpture that was not. The originating sculpture, scan creator and licence URL are still to be recorded here before launch.",
+        "commercialUse": true,
+        "verifiedAt": null
+      },
+      "retrievalDate": "2026-08-16",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/3d/cupid.stl",
+          "mimeType": "model/stl",
+          "bytes": 199989084,
+          "notes": "Binary source mesh, 3,999,780 triangles. Retained outside the public build."
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/house-adel/cupid-cloud.bin",
+            "format": "house-adel-point-cloud",
+            "bytes": 1350024,
+            "transformation": "Area-weighted sampling of 150,000 points from the source STL surface, with positions quantized to 16-bit values and normals packed to signed 8-bit values, by scripts/bake-point-cloud.mjs. No yaw correction was needed."
+          }
+        ]
+      },
+      "transformations": [
+        "The page renders the 1.29 MB surface-sampled point cloud rather than downloading the source STL.",
+        "No generative geometry: every point lies on the supplied mesh surface."
+      ]
+    },
+    {
+      "id": "house-adel-work-sculpture",
+      "assetType": "derived-3d-model-set",
+      "intendedUse": "Global House Adel footer sculpture, rendered as a responsive particle surface behind the canonical footer information.",
+      "source": {
+        "institution": "House Adel",
+        "provider": "project-owner",
+        "objectId": "3d work.stl",
+        "title": "Work sculpture scan",
+        "canonicalUrl": "assets/originals/open-access/3d work.stl"
+      },
+      "rights": {
+        "status": "pending-verification",
+        "statement": "Supplied in the House Adel project workspace. The originating sculpture, scan creator and licence have not been independently verified.",
+        "commercialUse": false,
+        "verifiedAt": null
+      },
+      "retrievalDate": "2026-08-14",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/3d work.stl",
+          "mimeType": "model/stl",
+          "bytes": 28392084,
+          "notes": "Binary source mesh retained outside the public build."
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/house-adel/work-cloud.bin",
+            "format": "house-adel-point-cloud",
+            "bytes": 1440024,
+            "transformation": "Area-weighted sampling of 160,000 points from the source STL surface, with positions quantized to 16-bit values and normals packed to signed 8-bit values."
+          }
+        ]
+      },
+      "transformations": [
+        "The footer renders the 1.37 MB surface-sampled derivative instead of downloading the 27.08 MB STL.",
+        "The Z-up source is rotated into a standing Y-up presentation at runtime. No generative geometry, texture replacement or content addition."
       ],
       "pages": [
         "/",
-        "/editions",
-        "/stories"
+        "/work",
+        "/contact",
+        "/begin-a-project",
+        "/privacy",
+        "/marvell-20"
       ],
       "approval": {
-        "status": "approved",
-        "approvedBy": "House Adel creative direction review",
-        "approvedAt": "2026-08-03"
+        "status": "pending-verification",
+        "approvedBy": null,
+        "approvedAt": null
       },
-      "creditLine": "The Elisha Whittelsey Collection, The Elisha Whittelsey Fund, 1954",
-      "notes": "Met Open Access records; production placement approved for House Adel editorial study."
+      "creditLine": "Credit line pending; originating sculpture and scan unconfirmed.",
+      "notes": "Rights confirmation remains a launch requirement."
     },
     {
       "id": "house-adel-mark",
@@ -255,8 +363,12 @@
           }
         ]
       },
-      "transformations": ["Byte-for-byte copy; no redrawing or modification."],
-      "pages": ["/"],
+      "transformations": [
+        "Byte-for-byte copy; no redrawing or modification."
+      ],
+      "pages": [
+        "/"
+      ],
       "approval": {
         "status": "approved",
         "approvedBy": "House Adel project owner",
@@ -264,6 +376,753 @@
       },
       "creditLine": "House Adel mark, supplied by the project owner.",
       "notes": "Use the supplied file; do not substitute a hand-drawn or reference-derived mark."
+    },
+    {
+      "id": "house-adel-soundpack",
+      "assetType": "audio",
+      "intendedUse": "The site’s sonic identity: press, route transition, loader bed and resolve, and the cues for type resolving and receding, plus the background score.",
+      "source": {
+        "institution": "House Adel",
+        "provider": "project-owner",
+        "objectId": "HOUSE ADEL — Sonic Identity v4",
+        "title": "House Adel sonic identity, version 4",
+        "canonicalUrl": "assets/originals/open-access/README.txt"
+      },
+      "rights": {
+        "status": "pending-verification",
+        "statement": "Supplied by the House Adel project owner as WAV and MP3 on 2026-08-08 with a README describing the intent of each cue. Composer, licence and any third-party sample content have NOT been verified by this repository. Rights must be confirmed by the project owner before public launch.",
+        "commercialUse": false,
+        "verifiedAt": null
+      },
+      "retrievalDate": "2026-08-08",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/",
+          "mimeType": "audio/wav",
+          "bytes": 36700160,
+          "notes": "16 WAV cues plus a 10 minute MP3 score. Not shipped; kept outside the build."
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/house-adel/sound/01_button_press_chamber.m4a",
+            "format": "m4a",
+            "bytes": 21048,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/02_page_transition_opening.m4a",
+            "format": "m4a",
+            "bytes": 70310,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/03_loading_chamber_loop_14s.m4a",
+            "format": "m4a",
+            "bytes": 165559,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/04_load_complete_reveal.m4a",
+            "format": "m4a",
+            "bytes": 54697,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/05_text_bloom.m4a",
+            "format": "m4a",
+            "bytes": 37495,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/06_text_recede.m4a",
+            "format": "m4a",
+            "bytes": 39423,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/07_particle_sand_01.m4a",
+            "format": "m4a",
+            "bytes": 40332,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/07_particle_sand_02.m4a",
+            "format": "m4a",
+            "bytes": 43228,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/07_particle_sand_03.m4a",
+            "format": "m4a",
+            "bytes": 40286,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/07_particle_sand_04.m4a",
+            "format": "m4a",
+            "bytes": 43524,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/07_particle_sand_05.m4a",
+            "format": "m4a",
+            "bytes": 44099,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/07_particle_sand_06.m4a",
+            "format": "m4a",
+            "bytes": 42929,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/07_particle_sand_07.m4a",
+            "format": "m4a",
+            "bytes": 43444,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/07_particle_sand_08.m4a",
+            "format": "m4a",
+            "bytes": 43195,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/07_particle_sand_09.m4a",
+            "format": "m4a",
+            "bytes": 41858,
+            "transformation": "Transcoded to AAC mono 96 kbps. Fetched and decoded only after a visitor switches sound on."
+          },
+          {
+            "path": "public/assets/house-adel/sound/09_score_theme.m4a",
+            "format": "m4a",
+            "bytes": 5570304,
+            "transformation": "Transcoded to AAC stereo 72 kbps. Streamed by an audio element rather than decoded, so a ten minute bed never sits in memory."
+          }
+        ]
+      },
+      "notes": "Rights must be confirmed before public launch, alongside the relief. 07_particle_sand_01-09 and 03_loading_chamber_loop are shipped but not currently voiced; see src/lib/soundpack.ts for why."
+    },
+    {
+      "id": "met-437379-redon-bouquet",
+      "assetType": "public-domain-artwork",
+      "intendedUse": "Primary floral artwork for the Amara and Daniel invitation demonstration and its Work index preview.",
+      "source": {
+        "institution": "The Metropolitan Museum of Art",
+        "provider": "The Met Open Access",
+        "objectId": "56.50 / 437379",
+        "title": "Bouquet of Flowers",
+        "creator": "Odilon Redon",
+        "date": "ca. 1900–1905",
+        "canonicalUrl": "https://www.metmuseum.org/art/collection/search/437379"
+      },
+      "rights": {
+        "status": "CC0 1.0",
+        "statement": "The Met marks the work Public Domain and makes its Open Access public-domain images available for unrestricted commercial and noncommercial use.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-10"
+      },
+      "retrievalDate": "2026-08-10",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/invitation/met-437379.jpg",
+          "mimeType": "image/jpeg",
+          "width": 951,
+          "height": 1200,
+          "bytes": 240210
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/invitation/redon-bouquet-800w.webp",
+            "format": "webp",
+            "width": 800,
+            "height": 1009,
+            "transformation": "Lanczos resize and WebP encoding at quality 84."
+          },
+          {
+            "path": "public/assets/invitation/redon-bouquet-800w.avif",
+            "format": "avif",
+            "width": 800,
+            "height": 1009,
+            "transformation": "Lanczos resize and AVIF encoding at quality 68."
+          },
+          {
+            "path": "public/assets/invitation/redon-bouquet-1400w.webp",
+            "format": "webp",
+            "width": 951,
+            "height": 1200,
+            "transformation": "WebP encoding at quality 84 without enlargement."
+          },
+          {
+            "path": "public/assets/invitation/redon-bouquet-1400w.avif",
+            "format": "avif",
+            "width": 951,
+            "height": 1200,
+            "transformation": "AVIF encoding at quality 68 without enlargement."
+          }
+        ]
+      },
+      "transformations": [
+        "Responsive encoding only. No generative fill, retouching or content alteration."
+      ],
+      "pages": [
+        "/invitation",
+        "/work"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel project owner",
+        "approvedAt": "2026-08-10"
+      },
+      "creditLine": "Odilon Redon, Bouquet of Flowers, ca. 1900–1905. The Metropolitan Museum of Art. Public Domain."
+    },
+    {
+      "id": "met-39648-hiroshige-morning-glories",
+      "assetType": "public-domain-artwork",
+      "intendedUse": "Supporting floral artwork for gift and closing passages of the Amara and Daniel invitation demonstration.",
+      "source": {
+        "institution": "The Metropolitan Museum of Art",
+        "provider": "The Met Open Access",
+        "objectId": "JP2534 / 39648",
+        "title": "Morning Glories",
+        "creator": "Utagawa Hiroshige",
+        "date": "ca. 1847",
+        "canonicalUrl": "https://www.metmuseum.org/art/collection/search/39648"
+      },
+      "rights": {
+        "status": "CC0 1.0",
+        "statement": "The Met marks the work Public Domain and makes its Open Access public-domain images available for unrestricted commercial and noncommercial use.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-10"
+      },
+      "retrievalDate": "2026-08-10",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/invitation/met-39648.jpg",
+          "mimeType": "image/jpeg",
+          "width": 420,
+          "height": 1200,
+          "bytes": 97882
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/invitation/hiroshige-morning-glories-800w.webp",
+            "format": "webp",
+            "width": 420,
+            "height": 1200,
+            "transformation": "WebP encoding at quality 84 without enlargement."
+          },
+          {
+            "path": "public/assets/invitation/hiroshige-morning-glories-800w.avif",
+            "format": "avif",
+            "width": 420,
+            "height": 1200,
+            "transformation": "AVIF encoding at quality 68 without enlargement."
+          },
+          {
+            "path": "public/assets/invitation/hiroshige-morning-glories-1400w.webp",
+            "format": "webp",
+            "width": 420,
+            "height": 1200,
+            "transformation": "WebP encoding at quality 84 without enlargement."
+          },
+          {
+            "path": "public/assets/invitation/hiroshige-morning-glories-1400w.avif",
+            "format": "avif",
+            "width": 420,
+            "height": 1200,
+            "transformation": "AVIF encoding at quality 68 without enlargement."
+          }
+        ]
+      },
+      "transformations": [
+        "Responsive encoding only. No generative fill, retouching or content alteration."
+      ],
+      "pages": [
+        "/invitation"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel project owner",
+        "approvedAt": "2026-08-10"
+      },
+      "creditLine": "Utagawa Hiroshige, Morning Glories, ca. 1847. The Metropolitan Museum of Art. Public Domain."
+    },
+    {
+      "id": "unsplash-scott-broome-hands-4kldzk1xwqw",
+      "assetType": "licensed-editorial-photography",
+      "intendedUse": "Opening hands image for the Amara and Daniel invitation demonstration.",
+      "source": {
+        "institution": "Unsplash",
+        "provider": "Unsplash",
+        "objectId": "4KlDZK1xWqw",
+        "title": "Woman and man holding hands",
+        "creator": "Scott Broome",
+        "canonicalUrl": "https://unsplash.com/photos/woman-and-man-holding-hands-4KlDZK1xWqw"
+      },
+      "rights": {
+        "status": "Unsplash License",
+        "statement": "Downloaded from the photographer's Unsplash page for use under the Unsplash License. The image may not be sold without significant modification or used to create a competing image service.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-13"
+      },
+      "retrievalDate": "2026-08-13",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/invitation-v2/scott-broome-hands.jpg",
+          "mimeType": "image/jpeg",
+          "width": 3000,
+          "height": 2000,
+          "bytes": 1128210
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/invitation/story/hands-720.avif",
+            "format": "avif",
+            "width": 720,
+            "height": 480
+          },
+          {
+            "path": "public/assets/invitation/story/hands-720.webp",
+            "format": "webp",
+            "width": 720,
+            "height": 480
+          },
+          {
+            "path": "public/assets/invitation/story/hands-1280.avif",
+            "format": "avif",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "path": "public/assets/invitation/story/hands-1280.webp",
+            "format": "webp",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "path": "public/assets/invitation/story/hands-1920.avif",
+            "format": "avif",
+            "width": 1920,
+            "height": 1280
+          },
+          {
+            "path": "public/assets/invitation/story/hands-1920.webp",
+            "format": "webp",
+            "width": 1920,
+            "height": 1280
+          }
+        ]
+      },
+      "transformations": [
+        "Responsive resizing and AVIF/WebP encoding only. No retouching, generative fill, or subject alteration."
+      ],
+      "pages": [
+        "/invitation"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel project owner",
+        "approvedAt": "2026-08-13"
+      },
+      "creditLine": "Photograph by Scott Broome on Unsplash."
+    },
+    {
+      "id": "unsplash-debby-hudson-chapel-sgdybq6kheq",
+      "assetType": "licensed-editorial-photography",
+      "intendedUse": "Chapel atmosphere image for the place chapter of the Amara and Daniel invitation demonstration; not represented as a documentary photograph of the named venue.",
+      "source": {
+        "institution": "Unsplash",
+        "provider": "Unsplash",
+        "objectId": "sgdyBq6kheQ",
+        "title": "Cathedral interior",
+        "creator": "Debby Hudson",
+        "canonicalUrl": "https://unsplash.com/photos/cathedral-interior-sgdyBq6kheQ"
+      },
+      "rights": {
+        "status": "Unsplash License",
+        "statement": "Downloaded from the photographer's Unsplash page for use under the Unsplash License. The image may not be sold without significant modification or used to create a competing image service.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-13"
+      },
+      "retrievalDate": "2026-08-13",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/invitation-v2/debby-hudson-chapel.jpg",
+          "mimeType": "image/jpeg",
+          "width": 3000,
+          "height": 2000,
+          "bytes": 960215
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/invitation/story/chapel-720.avif",
+            "format": "avif",
+            "width": 720,
+            "height": 480
+          },
+          {
+            "path": "public/assets/invitation/story/chapel-720.webp",
+            "format": "webp",
+            "width": 720,
+            "height": 480
+          },
+          {
+            "path": "public/assets/invitation/story/chapel-1280.avif",
+            "format": "avif",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "path": "public/assets/invitation/story/chapel-1280.webp",
+            "format": "webp",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "path": "public/assets/invitation/story/chapel-1920.avif",
+            "format": "avif",
+            "width": 1920,
+            "height": 1280
+          },
+          {
+            "path": "public/assets/invitation/story/chapel-1920.webp",
+            "format": "webp",
+            "width": 1920,
+            "height": 1280
+          }
+        ]
+      },
+      "transformations": [
+        "Responsive resizing and AVIF/WebP encoding only. No retouching, generative fill, or subject alteration."
+      ],
+      "pages": [
+        "/invitation"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel project owner",
+        "approvedAt": "2026-08-13"
+      },
+      "creditLine": "Photograph by Debby Hudson on Unsplash."
+    },
+    {
+      "id": "unsplash-jake-johnson-field-xrrqzwkh300",
+      "assetType": "licensed-editorial-photography",
+      "intendedUse": "Landscape image for the couple chapter of the Amara and Daniel invitation demonstration; stock subjects are not identified as the named couple.",
+      "source": {
+        "institution": "Unsplash",
+        "provider": "Unsplash",
+        "objectId": "XRrQzwkH300",
+        "title": "Two figures standing beneath a wide sky",
+        "creator": "Jake Johnson",
+        "canonicalUrl": "https://unsplash.com/photos/silhouette-of-2-person-standing-on-grass-field-under-white-clouds-and-blue-sky-during-daytime-XRrQzwkH300"
+      },
+      "rights": {
+        "status": "Unsplash License",
+        "statement": "Downloaded from the photographer's Unsplash page for use under the Unsplash License. The image may not be sold without significant modification or used to create a competing image service.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-13"
+      },
+      "retrievalDate": "2026-08-13",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/invitation-v2/jake-johnson-field.jpg",
+          "mimeType": "image/jpeg",
+          "width": 3000,
+          "height": 1989,
+          "bytes": 1285335
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/invitation/story/field-720.avif",
+            "format": "avif",
+            "width": 720,
+            "height": 477
+          },
+          {
+            "path": "public/assets/invitation/story/field-720.webp",
+            "format": "webp",
+            "width": 720,
+            "height": 477
+          },
+          {
+            "path": "public/assets/invitation/story/field-1280.avif",
+            "format": "avif",
+            "width": 1280,
+            "height": 849
+          },
+          {
+            "path": "public/assets/invitation/story/field-1280.webp",
+            "format": "webp",
+            "width": 1280,
+            "height": 849
+          },
+          {
+            "path": "public/assets/invitation/story/field-1920.avif",
+            "format": "avif",
+            "width": 1920,
+            "height": 1273
+          },
+          {
+            "path": "public/assets/invitation/story/field-1920.webp",
+            "format": "webp",
+            "width": 1920,
+            "height": 1273
+          }
+        ]
+      },
+      "transformations": [
+        "Responsive resizing and AVIF/WebP encoding only. No retouching, generative fill, or subject alteration."
+      ],
+      "pages": [
+        "/invitation"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel project owner",
+        "approvedAt": "2026-08-13"
+      },
+      "creditLine": "Photograph by Jake Johnson on Unsplash."
+    },
+    {
+      "id": "unsplash-joshua-manjgo-table-5rfyq9urdx0",
+      "assetType": "licensed-editorial-photography",
+      "intendedUse": "Dinner table detail for the couple chapter of the Amara and Daniel invitation demonstration.",
+      "source": {
+        "institution": "Unsplash",
+        "provider": "Unsplash",
+        "objectId": "5RfyQ9urdx0",
+        "title": "A table set with flowers and candles",
+        "creator": "Joshua Manjgo",
+        "canonicalUrl": "https://unsplash.com/photos/a-table-is-set-with-flowers-and-candles-5RfyQ9urdx0"
+      },
+      "rights": {
+        "status": "Unsplash License",
+        "statement": "Downloaded from the photographer's Unsplash page for use under the Unsplash License. The image may not be sold without significant modification or used to create a competing image service.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-13"
+      },
+      "retrievalDate": "2026-08-13",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/invitation-v2/joshua-manjgo-table.jpg",
+          "mimeType": "image/jpeg",
+          "width": 3000,
+          "height": 4500,
+          "bytes": 1859646
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/invitation/story/table-720.avif",
+            "format": "avif",
+            "width": 720,
+            "height": 1080
+          },
+          {
+            "path": "public/assets/invitation/story/table-720.webp",
+            "format": "webp",
+            "width": 720,
+            "height": 1080
+          },
+          {
+            "path": "public/assets/invitation/story/table-1280.avif",
+            "format": "avif",
+            "width": 1280,
+            "height": 1920
+          },
+          {
+            "path": "public/assets/invitation/story/table-1280.webp",
+            "format": "webp",
+            "width": 1280,
+            "height": 1920
+          },
+          {
+            "path": "public/assets/invitation/story/table-1920.avif",
+            "format": "avif",
+            "width": 1920,
+            "height": 2880
+          },
+          {
+            "path": "public/assets/invitation/story/table-1920.webp",
+            "format": "webp",
+            "width": 1920,
+            "height": 2880
+          }
+        ]
+      },
+      "transformations": [
+        "Responsive resizing and AVIF/WebP encoding only. No retouching, generative fill, or subject alteration."
+      ],
+      "pages": [
+        "/invitation"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel project owner",
+        "approvedAt": "2026-08-13"
+      },
+      "creditLine": "Photograph by Joshua Manjgo on Unsplash."
+    },
+    {
+      "id": "unsplash-j-balla-dusk-zqftoei3z2y",
+      "assetType": "licensed-editorial-photography",
+      "intendedUse": "Dusk closing image for the Amara and Daniel invitation demonstration; stock subjects are not identified as the named couple.",
+      "source": {
+        "institution": "Unsplash",
+        "provider": "Unsplash",
+        "objectId": "zQfToEi3z2Y",
+        "title": "A man and a woman holding hands as the sun sets",
+        "creator": "J. Balla Photography",
+        "canonicalUrl": "https://unsplash.com/photos/a-man-and-a-woman-holding-hands-as-the-sun-sets-zQfToEi3z2Y"
+      },
+      "rights": {
+        "status": "Unsplash License",
+        "statement": "Downloaded from the photographer's Unsplash page for use under the Unsplash License. The image may not be sold without significant modification or used to create a competing image service.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-13"
+      },
+      "retrievalDate": "2026-08-13",
+      "files": {
+        "original": {
+          "path": "assets/originals/open-access/invitation-v2/j-balla-dusk.jpg",
+          "mimeType": "image/jpeg",
+          "width": 3000,
+          "height": 2000,
+          "bytes": 443385
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/invitation/story/dusk-720.avif",
+            "format": "avif",
+            "width": 720,
+            "height": 480
+          },
+          {
+            "path": "public/assets/invitation/story/dusk-720.webp",
+            "format": "webp",
+            "width": 720,
+            "height": 480
+          },
+          {
+            "path": "public/assets/invitation/story/dusk-1280.avif",
+            "format": "avif",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "path": "public/assets/invitation/story/dusk-1280.webp",
+            "format": "webp",
+            "width": 1280,
+            "height": 853
+          },
+          {
+            "path": "public/assets/invitation/story/dusk-1920.avif",
+            "format": "avif",
+            "width": 1920,
+            "height": 1280
+          },
+          {
+            "path": "public/assets/invitation/story/dusk-1920.webp",
+            "format": "webp",
+            "width": 1920,
+            "height": 1280
+          }
+        ]
+      },
+      "transformations": [
+        "Responsive resizing and AVIF/WebP encoding only. No retouching, generative fill, or subject alteration."
+      ],
+      "pages": [
+        "/invitation"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel project owner",
+        "approvedAt": "2026-08-13"
+      },
+      "creditLine": "Photograph by J. Balla Photography on Unsplash."
+    },
+    {
+      "id": "marvell-20-captures",
+      "assetType": "project-owned-screenshot",
+      "intendedUse": "Case study imagery for MARVELL 20, the studio’s one published project.",
+      "source": {
+        "institution": "House Adel",
+        "provider": "project-owner",
+        "objectId": "marvell20 invitation site",
+        "title": "MARVELL 20 invitation, screen captures",
+        "canonicalUrl": "https://marvellflorist.github.io/marvell20/"
+      },
+      "rights": {
+        "status": "project-owned",
+        "statement": "Captures of a site House Adel designed and built for Marvell Florist. The work shown is the studio’s own; only the MARVELL 20 project is presented as House Adel work, never Marvell Florist’s wider branding.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-13"
+      },
+      "retrievalDate": "2026-08-13",
+      "files": {
+        "original": {
+          "path": "https://marvellflorist.github.io/marvell20/",
+          "mimeType": "text/html"
+        },
+        "derivatives": [
+          {
+            "path": "public/assets/marvell-20/marvell-20-opening-1600w.webp",
+            "format": "webp",
+            "transformation": "Viewport capture of the invitation opening, resized to 1600w."
+          },
+          {
+            "path": "public/assets/marvell-20/marvell-20-opening-1600w.avif",
+            "format": "avif",
+            "transformation": "Same capture, AVIF at 1600w."
+          },
+          {
+            "path": "public/assets/marvell-20/marvell-20-opening-900w.webp",
+            "format": "webp",
+            "transformation": "Same capture, 900w."
+          },
+          {
+            "path": "public/assets/marvell-20/marvell-20-opening-900w.avif",
+            "format": "avif",
+            "transformation": "Same capture, AVIF at 900w."
+          },
+          {
+            "path": "public/assets/marvell-20/marvell-20-venue-1600w.webp",
+            "format": "webp",
+            "transformation": "Viewport capture of the venue section, resized to 1600w."
+          },
+          {
+            "path": "public/assets/marvell-20/marvell-20-venue-1600w.avif",
+            "format": "avif",
+            "transformation": "Same capture, AVIF at 1600w."
+          },
+          {
+            "path": "public/assets/marvell-20/marvell-20-venue-900w.webp",
+            "format": "webp",
+            "transformation": "Same capture, 900w."
+          },
+          {
+            "path": "public/assets/marvell-20/marvell-20-venue-900w.avif",
+            "format": "avif",
+            "transformation": "Same capture, AVIF at 900w."
+          }
+        ]
+      },
+      "transformations": [
+        "Resized to 900w and 1600w; encoded to WebP and AVIF. No retouching, recolouring or compositing."
+      ],
+      "pages": [
+        "/",
+        "/marvell-20"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "House Adel project owner",
+        "approvedAt": "2026-08-13"
+      },
+      "creditLine": "MARVELL 20 for Marvell Florist, by House Adel.",
+      "notes": "Captured from the live site at the canonical URL. Re-capture rather than edit if the site changes."
     }
   ]
 }

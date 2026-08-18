@@ -48,7 +48,7 @@ Require clear answers to these questions:
 - Can the asset quality, rights, mobile reinterpretation, accessibility, and production burden be sustained?
 - What comes from a reference, and how has the principle been transformed rather than copied?
 
-Reject generic AI imagery, Awwwards pastiche, Marvel multiverse language, gaming menus, stock portal motifs, indiscriminate particles, glowing-button UI, decorative custom cursors, and five skins sharing one layout. Reject novelty that has no narrative or functional role.
+Reject generic AI imagery, Awwwards pastiche, Marvel multiverse language, gaming menus, stock portal motifs, indiscriminate particles, glowing-button UI, novelty cursor replacements, and five skins sharing one layout. Reject novelty that has no narrative or functional role. A restrained cursor companion that supplements the native cursor with clear hover-state feedback is not a novelty cursor replacement — judge it, like any other device, by whether it survives the questions above.
 
 ## Record and present decisions
 

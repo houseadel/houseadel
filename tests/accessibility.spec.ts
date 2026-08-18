@@ -2,17 +2,26 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
 async function waitForLoader(page: Page) {
-  await page.locator("[data-loader-overlay]").waitFor({ state: "detached", timeout: 7_000 }).catch(() => undefined);
+  const overlay = page.locator("[data-loader-overlay]");
+  await overlay.waitFor({ state: "detached", timeout: 3_000 }).catch(async () => {
+    const continueButton = overlay.getByRole("button", { name: "Continue without sound" });
+    if (await continueButton.isVisible().catch(() => false)) {
+      await continueButton.click().catch(() => undefined);
+    }
+    await overlay.waitFor({ state: "detached", timeout: 5_000 }).catch(() => undefined);
+  });
 }
 
 const routes = [
   "/",
   "/work",
-  "/commissions",
-  "/application-received",
+  "/studies",
+  "/marvell-20",
+  "/contact",
+  "/begin-a-project",
+  "/enquiry-received",
   "/privacy",
   "/terms",
-  "/labs/loader?visit=repeat&graphics=fallback",
 ] as const;
 
 for (const route of routes) {
@@ -20,7 +29,7 @@ for (const route of routes) {
     await page.addInitScript(() => localStorage.setItem("house-adel:graphics", "fallback"));
     await page.goto(route);
     await page.locator("[data-route-heading]").waitFor();
-    if (route.startsWith("/labs/loader")) {
+    if (route.startsWith("/labs-loader")) {
       await page.locator("[data-loader-complete='true']").waitFor();
     } else {
       await waitForLoader(page);
@@ -41,35 +50,4 @@ test("skip navigation reaches the main landmark", async ({ page }, testInfo) => 
   await expect(skipLink).toBeFocused();
   await skipLink.press("Enter");
   await expect(page.locator("#main-content")).toBeFocused();
-});
-
-test("capability hover has equivalent focus and press behavior", async ({ page }) => {
-  await page.goto("/");
-  await waitForLoader(page);
-  const button = page.getByRole("button", { name: "Motion" });
-  await button.focus();
-  await button.press("Enter");
-  await expect(button).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByRole("heading", { name: "Motion", level: 3 })).toBeVisible();
-});
-
-test("mobile controls meet the 44 by 44 touch-target rule", async ({ page }, testInfo) => {
-  test.skip(!testInfo.project.name.startsWith("mobile"), "Mobile-only target-size assertion");
-
-  const expectTouchTarget = async (locator: ReturnType<typeof page.locator>, label: string) => {
-    const box = await locator.boundingBox();
-    expect(box, `${label} should be visible`).not.toBeNull();
-    expect(box!.width, `${label} width`).toBeGreaterThanOrEqual(44);
-    expect(box!.height, `${label} height`).toBeGreaterThanOrEqual(44);
-  };
-
-  await page.goto("/");
-  await waitForLoader(page);
-  const menu = page.getByRole("button", { name: "Menu" });
-  await expectTouchTarget(menu, "menu button");
-  await menu.click();
-  await expectTouchTarget(
-    page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: /Commissions/ }),
-    "Commissions menu link",
-  );
 });

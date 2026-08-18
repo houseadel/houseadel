@@ -1,0 +1,66 @@
+/* Shared shape for every page that is one sentence and nothing else. */
+.page {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(8rem, 20vh, 14rem) var(--space-9);
+}
+
+.inverse {
+  background: #f5f3ee;
+  color: #111211;
+}
+
+.inverse .action,
+.inverse .note {
+  color: #111211;
+}
+
+.inverse :focus-visible {
+  outline-color: #111211;
+}
+
+.spatialBackdrop {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sentence {
+  max-width: 16em;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5.2vw, 4.4rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.note {
+  max-width: 34em;
+  margin-top: var(--space-6);
+  color: var(--color-ink-soft);
+  font-size: var(--step--1);
+}
+
+.action {
+  align-self: flex-start;
+  margin-top: var(--space-7);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+}

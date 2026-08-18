@@ -1,18 +1,58 @@
 # Production status
 
-Last updated: 2026-08-04
+Last updated: 2026-08-17
+
+## Commission inquiry system
+
+`/contact` is now the single public inquiry experience, with `/begin-a-project` retained as a compatibility alias to the same component. The static frontend generates an inquiry ID and internal metadata, reveals one optional freeform detail field, accepts optional reference links, and keeps all answers after a failed request. It prevents repeat clicks while a request is in flight and reuses the same inquiry ID for a retry.
+
+`google-apps-script/Code.gs` is the paste-ready backend. Its idempotent setup function creates the 13-item **House Adel — Commission Inquiry** Form, creates and links **House Adel — Commission Inquiry Responses**, records their IDs in Script Properties, and logs the Form, Sheet, and item details. An explicit migration archives the former 25-item development pair without deleting it. `doPost` validates and sanitises public data before submitting a Form response. A short-lived, inquiry-ID-only status endpoint lets the static site confirm delivery when the browser cannot read Apps Script's cross-origin POST response. No Form ID, Sheet ID, Google credential, or private key is present in the frontend.
+
+The Apps Script receiver is configured in `src/config/commissionBackend.ts` and live. On 2026-08-15, a real browser submission using the public Contact form was accepted as `HA-I-2026-5PAG44GM`. The inline confirmation appeared only after the backend confirmed that `FormResponse.submit()` completed. The response is deliberately labelled **House Adel website test** and may be deleted from the linked Form and Sheet after review. The updated static build still needs to be published to GitHub Pages before public visitors receive this configuration.
+
+## Interaction-system review
+
+**The opening is automatic.** There is no click-to-enter gate and no sound choice at the door. Required assets settle, the mark and its ring resolve, the overlay fades and recedes, and the site is interactive — roughly a second and a half on a warm load. Autoplay policy is respected rather than worked around: audio stays off until a real gesture asks for it, offered by the cursor companion on a desktop and by the mobile menu on a phone. This supersedes the `Enter with sound` / `Continue without sound` / `Skip` block in `docs/COPY_APPROVED.md`; see `docs/DECISIONS.md`.
+
+**One pointer, fed by mouse and finger alike.** `src/lib/pointerSignal.ts` publishes a single normalised pointer that the wireframe backdrop, the forest ripple, the relief brush and the relief's pointer uniform all read through `PointerBridge`. Touch listeners are passive throughout and nothing calls `preventDefault`, so a swipe scrolls with the browser's own physics and is read on the way past. Lifting a finger fades the reaction over about half a second rather than deleting it. Elements under a fingertip are marked `[data-touch-hover]`, and every `:hover` rule on the site answers that selector in the same declaration; `elementFromPoint` is rationed by both distance moved and interval.
+
+**Scroll.** The desktop authority is wheel-only and lives at the layout, so it governs every route rather than only Home. It was retuned to a ~0.16s time constant at full wheel gain with a reach of about a screen and a quarter, which restores the coast a 210px cap was throwing away. Touch is untouched by construction — there is no touch path to disable. Velocity is published once by `src/lib/scrollSignal.ts`; the forest camera and project media lean on it, typography does not.
+
+**Route changes are an organic dissolve, not a wipe.** The outgoing page loses coherence along an irregular boundary that travels across the frame, and the destination is revealed through it. Both routes are live DOM for the whole movement — two slots in `SiteLayout` hold them, so nothing is rasterised, cloned or remounted, and both stay sharp at any pixel ratio. A coarse noise-and-gradient field is generated per navigation; a GSAP timeline sweeps a threshold across it; the document clips the incoming route to the marching-squares contour of that threshold, and one reused WebGL layer draws the fine breakup and a narrow four-stop spectral edge along the same contour. The colour peaks at the midpoint and is zero at both ends, so nothing is left on the destination. Direction runs away from the press point going forward and reverses exactly going back.
+
+Everything runs through the router's interceptors, so navbar, project links, CTAs, programmatic navigation and browser Back/Forward all reach it; history direction is read from a monotonic index stamped into `history.state`. The commit is owned by a clock that never waits on the GPU, and the clip is pure DOM, so a machine with no WebGL still gets the dissolve and simply loses its edge. Reduced motion gets a short crossfade. Chapters of the continuous document (`/` and `/work`) are a scroll rather than a navigation and no longer tear the home document down to reach a place it was already showing.
+
+**Chrome and ending.** Mobile navigation is a real menu panel (routes, plus privacy, language and the sound control) rather than the desktop row compressed into a corner; the header lifts above it so Close stays reachable. The word for the current route recedes rather than sitting at full weight. The footer is one invitation and a peripheral row — the ticker, the oversized wordmark and the particle sculpture are gone — and its tonal change is a ramp over more than a screen of travel rather than a flip. It now settles onto the site's own raised ink rather than resolving into pale paper: a near-black site should not end on a white screen, and with nothing pale under the chrome the header, scroll rail and cursor companion no longer flip to ink. On `/contact` and `/begin-a-project` the invitation is dropped entirely.
+
+**A page is not finished until its sculpture is there.** `src/features/relief/sculptures.ts` is the single answer to which point cloud each route cannot open without — the home document's own figure, and Cupid on Contact. The loader holds the site back for it as a critical asset alongside the fonts, the poster and the mark, so the overlay lifts onto a page whose subject is already standing rather than one it arrives into afterwards. `loadPointCloud` caches by URL, so the loader awaits the very promise the stage then reads, at a cost of one decode per visit. Navigations have no loader, so the route transition starts the destination's cloud with the destination's chunk and it decodes across the movement.
+
+The wait is bounded and degrades in the right direction: the sculpture gets 8 seconds where other critical assets get 3.5, and a cloud that fails or 404s rejects immediately and opens the page without it. Verified: a cloud delayed 1.5s and one delayed 9s both hold the overlay until they land; an aborted and a 404 cloud both open the site in about two seconds with heading, navigation and content intact.
+
+**Links unfurl with the studio's own card.** `public/preview.png` is a 1200×630 share image wired to `og:image` and `twitter:image` in `index.html`. The path resolves against the document's `<base>`; once a fixed public domain exists it should become an absolute `https://…/preview.png`, which is the only form every crawler honours.
+
+**Atmosphere and composition.** `ViewportAtmosphere` gives the dark viewport tonal structure: two off-axis vignette ellipses, a trace of cool grey at the extreme edges under `screen` blending, and fixed noise to keep shallow gradients from banding. No colour, no glow, no implied light source. The mobile forest is its own arrangement — one legible tree standing on the ground left of centre, a dimmer one far behind it, undergrowth scattered across four depths with a deliberate gap — replacing a row that read as landscaping. Home's vertical pacing is reduced from 10.3 screens to roughly 7, with a further tightening at mobile widths. The MARVELL 20 page now changes compositional mode as it is travelled: opening, full-bleed plate, statement, offset prose, small inset image, a laterally stepping sequence, and quiet metadata.
+
+Particle-sculpture pointer hits use an exact cursor ray intersection, and first hover produces one travelling spectral ripple. Contact keeps the site's dark atmospheric ground with a subtle interactive spatial mesh behind its opening. Its contact question starts with WhatsApp, Instagram or Email, then reveals the relevant input; WhatsApp uses country calling codes and numbering-plan validation before normalizing into the unchanged backend Contact field. Reduced motion bypasses the route effect and liquid trail while retaining static content. Demand-mode canvases render on input rather than continuously, and the explicit `house-adel:graphics=fallback` preference prevents WebGL canvases from mounting while retaining all semantic content and navigation.
+
+## Invitation media status
+
+The rebuilt Amara and Daniel invitation now uses a coherent five-image, responsive AVIF/WebP editorial sequence under the Unsplash License: hands, chapel atmosphere, a wide landscape, a dinner detail, and a dusk closing. It contains no procedural photo substitutes or unrelated public-domain paintings. Neutral alternative text does not identify stock subjects as Amara and Daniel, and the chapel photograph is recorded as atmosphere rather than documentary evidence of the named venue. `docs/INVITATION_MEDIA.md` records the sources and the five couple-owned replacements required before adapting the experience for a real wedding. The story note remains explicitly provisional. Optional music remains disabled until a cleared track is supplied.
 
 ## Current review milestone
 
-The requested three-page House Adel architecture is implemented and ready for visual review:
+The site was rebuilt around a verbatim copy-and-structure brief (recorded in `docs/COPY_APPROVED.md`, decision recorded in `docs/DECISIONS.md`) that replaced the earlier "wedding invitation Editions / Private Commissions" framing entirely:
 
-- Home introduces the world, proposition, process, optional spatial opening, and operable capability instrument.
-- Work is a truthful empty archive with a reserved Request / Response / Glimpse case-study structure. No client work is invented.
-- Commissions explains accepted work, boundaries, the relationship, practical facts, and a detailed staged enquiry.
+- **Home** introduces House Adel plainly, shows the one published project (MARVELL 20), states the studio position, and ends on contact.
+- **Work** is a truthful single-project archive (MARVELL 20). No placeholder or fabricated work is shown, and nothing self-initiated appears there: the wedding invitation demonstration moved to Studies, which is what removed the last `placeholder` entry from that index.
+- **Studies** is a page of its own at `/studies`, entered the way Contact is entered, and holds what the studio builds without a brief. It states why the page exists, what a study is not, and what the studio is working out at the moment, then lists the studies themselves: the Amara & Daniel wedding invitation as the lead piece, and the opening, the relief and the forest as pieces running on this site, each pointing at where it can be seen. It carries no WebGL of its own — the surface is a ruled sheet drawn in CSS — and no filter, since there is not yet enough in it for filtering to do anything. It was built first as a third chapter of the home document and moved out; that decision, and the reference analysis behind the page's structure, are recorded in `docs/DECISIONS.md`.
+- **`/marvell-20`** is the project's own page: overview, website, live experience, and project details. `View Website` and `Next Project` are both omitted for now — no real destination URL or second project exists yet; both are trivial to add back once they do.
+- **Contact** is the single public enquiry experience. `/begin-a-project` remains only as a compatibility alias and renders the same component, so there is no duplicate form or intermediate call to action. The form has one preferred-contact field, project purpose and meaning, one optional freeform detail area, reference links, and an optional closing note. It contains no budget or pricing field.
+- **Privacy** is now a full policy rather than two sentences, written against what the code actually does: the enquiry fields, the hidden metadata the form sends, Google Apps Script/Forms/Sheets as the real processors, retention, how to request access or deletion, and an explicit statement that there are no cookies and no analytics (there are none). It states plainly that submitting an enquiry grants no right to publish anyone's project — portfolio rights belong in a client agreement and are deliberately not taken here. This supersedes the short Privacy block in `docs/COPY_APPROVED.md`.
+- **Terms** is now published at `/terms`, reversing the brief's footer/structure exclusion at the studio's instruction. The studio supplied a full 29-clause document — services, acceptance, fees and the 50/50 schedule, third-party costs, schedules, revisions, creative direction, production methods, ownership, portfolio rights, handover and the 14-day correction period, cancellation, termination, governing law — and it is reproduced verbatim in English and Indonesian rather than rewritten into house voice, since editorial voice applied to a refund or liability clause changes its meaning. Linked from the footer and mobile menu beside Privacy. Final legal review of this copy is still outstanding.
 
-The global frame includes the House Adel favicon/mark, English/Indonesian preference, opt-in synthesized sound, keyboard-safe full-screen navigation, page-change choreography, production loader, mobile states, reduced motion, and static/no-WebGL fallbacks. `/labs/loader` remains available as the isolated regression lab.
+The global frame includes the House Adel favicon/mark, English/Indonesian preference (kept as a deliberate project decision — the brief itself is English-only), opt-in sound offered after arrival rather than at a gate (cursor companion at desktop, menu at mobile), keyboard-safe navigation (inline links at desktop, a menu panel at mobile), page-change choreography, mobile states, reduced motion, and static/no-WebGL fallbacks. `/labs/loader` remains available as the isolated regression lab.
 
-No reference assets, fonts, code, copy, layouts, shaders, marks, or distinctive compositions were used. No new dependency was installed. The implementation uses the existing self-hosted Newsreader and Manrope families, approved public-domain Met material, GSAP, and progressive Three/R3F architecture.
+No new runtime dependency was installed. `gsap`'s `SplitText` (bundled free since GSAP 3.13) is now registered and used for scroll/loader text reveal; this was recorded in `docs/DECISIONS.md`. Motion primitives from the prior interaction-system pass (cursor companion, magnetic hover, split-text reveal, marquee, parallax) were kept and re-pointed at the new copy, not rebuilt.
 
 ## Verification
 
@@ -20,30 +60,38 @@ No reference assets, fonts, code, copy, layouts, shaders, marks, or distinctive 
 | --- | --- |
 | ESLint | Passed with zero warnings. |
 | Strict TypeScript | Passed. |
-| Vitest | 6 passed. |
-| Production + loader Playwright | 48 passed; 18 project-inapplicable skips across Chromium, mobile Chromium, and reduced motion. |
-| Accessibility / Axe | 19 passed; 1 desktop-only touch-target skip across Chromium and mobile Chromium. |
-| Visual regression | 12 passed; 24 project-inapplicable skips. Local fonts are warmed before comparison for deterministic baselines. |
-| Production build | Passed. Main app 17.92 KiB gzip; application form 40.05 KiB gzip; motion 44.40 KiB gzip; optional lazy WebGL 231.29 KiB gzip. |
-| Production captures | Complete manifest with 39 screenshots in `output/playwright/final-production`, covering primary routes at four viewports plus Indonesian, menu, application validation/review, reduced-motion, no-WebGL, master-frame, and spatial states. |
-| Structure / assets / provenance | Passed. All 13 production image files have provenance records. |
-| Runtime budgets | All 6 current route/viewport cases passed. Home 931 KiB, Work 532 KiB, Commissions 574 KiB; LCP 152–200 ms and frame p95 16.7–16.8 ms in the local harness. |
-| Bundle analysis | Generated at `output/bundle-report.html`. |
+| Vitest | Passed, 26 of 26, including method-aware contact validation, WhatsApp E.164 normalization, the simplified payload, natural validation copy, links-only references, optional-detail persistence, inline confirmation, duplicate-click handling, non-destructive schema migration, all 13 response items, backend validation, deduplication, and JSONP delivery confirmation. |
+| Production Playwright | The Back/Forward transition test passed in production Chromium. Focused public-contact and enquiry checks passed in desktop and mobile Chromium, 6 of 6. The earlier full production route pass remains recorded. |
+| Accessibility / Axe | Contact and its `/begin-a-project` compatibility alias passed in desktop Chromium, mobile Chromium, and reduced motion with zero WCAG A/AA violations. The earlier full-route and invitation scans remain passed. |
+| Production build / bundle | Passed. Contact is 308.47 KiB raw and 85.95 KiB gzip with full international phone metadata; the shared WebGL chunk is 910.80 KiB raw and 243.61 KiB gzip. Vite continues to report its existing greater-than-500-KiB chunk warning. |
+| Dependency audit | `npm audit` reports `GHSA-2v37-7h3g-55p8` in `nanoid@3.3.16`, pulled through the existing Vite to PostCSS toolchain. `libphonenumber-js@1.13.11` is not implicated. No automatic audit fix was applied because dependency changes outside this refinement require separate review. |
+| Live inquiry delivery | Passed through the real Apps Script `/exec` deployment. Inquiry `HA-I-2026-5PAG44GM` reached the inline Received state after server confirmation; the browser reported zero errors and zero warnings. |
+| Loader functional/visual Playwright | **Not verified this pass.** `/labs/loader` is a two-segment path, and `vite preview`'s relative `base: "./"` breaks any two-segment route loaded directly (asset URLs resolve one directory too deep, causing 404s and an unrendered page). This is confirmed present on the pre-brief baseline via `git stash` comparison — it is not caused by this work, but it blocks running `tests/loader.spec.ts`/`tests/loader.visual.spec.ts` against a `vite preview` build until fixed. `npm run dev` is unaffected (Vite's dev server serves an absolute base). See "Known pre-existing issue" below. |
+| Provenance | Passed. 49 production image files, all with provenance records. This includes the 30 responsive AVIF/WebP invitation story derivatives added on 2026-08-13; see `docs/ASSET_PROVENANCE.md`. |
+| Runtime budgets | All 6 measured route/viewport cases passed. Home 864 KiB, Work 465 KiB, Begin a Project 496 KiB; LCP 128–388 ms and frame p95 16.7 ms in the local harness. |
+| Structure audit | Fails on a missing `references/` directory — this is unrelated to this work: that directory (behavioural research material, never shipped in production) was found deleted from disk at the start of this session, is not git-tracked, and could not be recovered via git or the Recycle Bin. This is a separate, still-open investigation, not part of this brief. |
 
-Local runtime numbers are lab evidence, not field Core Web Vitals. The approximately 231 KiB gzip WebGL chunk is lazy, Home-only, and never required for content or navigation.
+Local runtime numbers are lab evidence, not field Core Web Vitals.
+
+Focused `/invitation` review on 2026-08-13: production build, strict TypeScript, ESLint, asset provenance, and asset-size reporting passed. Axe passed in desktop Chromium, mobile Chromium, and the reduced-motion project. Real-browser checks at 1280 × 720 and 390 × 844 covered direct route loading, the opening and place transition, schedule, story, accepting RSVP branch and completion state, FAQ expansion, mobile RSVP navigation, closing scene, image loading, and console output. No browser console errors were observed.
+
+## Known pre-existing issue (not introduced by this work)
+
+`vite.config.ts`'s `base: "./"` (relative base, presumably chosen for flexible static-host deployment) breaks any **two-segment route** loaded directly against a `vite preview`/production-style build: asset `<script>`/`<link>` URLs are relative and resolve against the current document path, so `/labs/loader` (pre-existing) and, before it was flattened to `/marvell-20` during this work, the originally-planned `/work/marvell-20` both 404 their JS/CSS chunks on direct load or refresh. Confirmed via `git stash` that `/labs/loader` fails identically on the pre-brief baseline. Fixing this needs either an absolute `base: "/"` (only valid if the site deploys at a domain root) or a build-time/runtime base-path correction — out of scope for this pass. Until fixed, avoid adding further multi-segment routes, and treat `/labs/loader` as dev-server-only (`npm run dev`) for now.
 
 ## Requirements before public launch
 
-- Configure and verify a real server-owned application provider. Local mock acceptance is intentionally non-persistent and is not public delivery.
-- Verify that `studio@houseadel.com` is active and monitored; human-review minimum investment, availability, Privacy, Terms, and all business claims.
+- Publish the updated static build to GitHub Pages, then repeat one labelled submission from the public `/contact` URL. The Apps Script receiver and centralized `/exec` configuration are already live and locally verified.
+- Verify that `hello.houseofadel@gmail.com` is active and monitored; human-review Privacy and all business claims.
 - Test audio, touch, keyboard, VoiceOver, and visual viewport behaviour on physical iPhone Safari, Android Chrome, and representative assistive technology.
-- Confirm final art direction and archival crops with the creative owner. Any future client fragments or photography require explicit permission and complete provenance.
-- Add real Work entries only after completed commissions are approved for publication.
+- Supply a real MARVELL 20 website URL (restores the `View Website` button) and a real screenshot/photography set if one becomes available and cleared for use.
+- Fix the `base: "./"` two-segment-route issue above before adding any further nested routes, or before relying on `/labs/loader` in a deployed (non-dev-server) environment.
+- Resolve the separate, still-open `references/` directory investigation (unrelated to this brief).
+- Verify the originating sculpture, scan creator and licence for the supplied `3d work.stl`; its footer derivative remains a launch blocker until those rights are confirmed.
 
-## Environment for non-mock deployment
+## Inquiry deployment configuration
 
-- Provider: `HOUSE_ADEL_APPLICATION_PROVIDER`.
-- Email mode: `HOUSE_ADEL_EMAIL_WEBHOOK_URL`; optional `HOUSE_ADEL_EMAIL_WEBHOOK_TOKEN`.
-- Google Sheets mode: `HOUSE_ADEL_GOOGLE_SHEETS_ID`, `HOUSE_ADEL_GOOGLE_SHEETS_RANGE`, and `HOUSE_ADEL_GOOGLE_SERVICE_ACCOUNT_JSON`.
-- Optional Turnstile: paired `VITE_TURNSTILE_SITE_KEY` and `HOUSE_ADEL_TURNSTILE_SECRET_KEY`.
-- Optional deployment settings: `HOUSE_ADEL_TRUST_PROXY`, `HOUSE_ADEL_BUILD_SOURCEMAPS`.
+- Public Apps Script `/exec` URL: `src/config/commissionBackend.ts`.
+- Public metadata: `frontendVersion` and `source` in the same config file.
+- Optional build setting: `HOUSE_ADEL_BUILD_SOURCEMAPS`.
+- No Google Form ID, Sheet ID, API key, OAuth credential, or service-account credential belongs in the frontend or repository.

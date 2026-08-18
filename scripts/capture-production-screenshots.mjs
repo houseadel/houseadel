@@ -24,8 +24,11 @@ const VIEWPORTS = [
 const ROUTES = [
   { id: "home", path: "/" },
   { id: "work", path: "/work" },
-  { id: "commissions", path: "/commissions" },
-  { id: "application-received-direct", path: "/application-received" },
+  { id: "studies", path: "/studies" },
+  { id: "marvell-20", path: "/marvell-20" },
+  { id: "contact", path: "/contact" },
+  { id: "begin-a-project", path: "/begin-a-project" },
+  { id: "enquiry-received-direct", path: "/enquiry-received" },
   { id: "privacy", path: "/privacy" },
   { id: "terms", path: "/terms" },
   { id: "not-found", path: "/not-a-route" },
@@ -186,7 +189,11 @@ async function captureIndonesianPrimaryRoutes() {
   });
   const page = await context.newPage();
   try {
-    for (const route of ROUTES.slice(0, 3)) {
+    // Home, Work, Studies and the project page. The slice grew with Studies
+    // rather than sliding off the end of it: the project page was always in this
+    // set, and a new chapter should be added to the Indonesian pass, not swapped
+    // into it.
+    for (const route of ROUTES.slice(0, 4)) {
       await settlePage(page, route.path);
       await recordScreenshot(page, {
         id: `${route.id}-id-${viewport.id}`,
@@ -285,8 +292,8 @@ async function captureApplyValidation() {
   const context = await makeContext(viewport);
   const page = await context.newPage();
   try {
-    await settlePage(page, "/commissions#application");
-    await page.getByRole("button", { name: "Review application" }).click();
+    await settlePage(page, "/begin-a-project");
+    await page.getByRole("button", { name: "Submit Enquiry" }).click();
     await page
       .getByText("Some required answers need attention. Nothing has been sent.")
       .waitFor({ state: "visible" });
@@ -297,65 +304,13 @@ async function captureApplyValidation() {
     await recordScreenshot(page, {
       id: "state-apply-validation-1440x900",
       kind: "state",
-      state: "application-validation",
-      route: "/commissions#application",
+      state: "enquiry-validation",
+      route: "/begin-a-project",
       viewport: viewport.id,
       width: viewport.width,
       height: viewport.height,
       fullPage: true,
       file: "state-apply-validation-1440x900.png",
-      title: await page.title(),
-    });
-  } finally {
-    await context.close();
-  }
-}
-
-async function fillReviewApplication(page) {
-  await page.getByLabel("Applicant name").fill("Ari Example");
-  await page.getByLabel("Partner or project names").fill("Ari and Sol");
-  await page.getByLabel("Location").fill("Jakarta");
-  await page.getByLabel("Approximate guest count").selectOption("50-100");
-  await page.getByLabel("Number of events").selectOption("two");
-  await page.getByRole("checkbox", { name: "Digital invitation", exact: true }).check();
-  await page
-    .getByLabel("What should guests feel when opening the invitation?")
-    .fill("Warm, composed and unmistakably personal.");
-  await page.getByLabel("Project path").selectOption("edition");
-  await page.getByLabel("Budget range").fill("USD 3,000-6,000");
-  await page.getByLabel("Languages").fill("English");
-  await page.getByLabel("Confidentiality needs").selectOption("standard");
-  await page.getByLabel("Contact name").fill("Ari Example");
-  await page.getByLabel("Email").fill("ari@example.com");
-  await page.getByLabel("Preferred contact method").selectOption("email");
-  await page.getByLabel("Country").fill("Indonesia");
-  await page.getByLabel("Time zone").fill("Asia/Jakarta");
-  await page.getByLabel(/I consent to House Adel/).check();
-}
-
-async function captureApplyReview() {
-  const viewport = VIEWPORTS[0];
-  const context = await makeContext(viewport);
-  const page = await context.newPage();
-  try {
-    await settlePage(page, "/commissions#application");
-    await fillReviewApplication(page);
-    await page.getByRole("button", { name: "Review application" }).click();
-    await page.getByRole("heading", { name: "Review the living brief." }).waitFor({ state: "visible" });
-    await page.evaluate(() => {
-      window.scrollTo(0, 0);
-      if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
-    });
-    await recordScreenshot(page, {
-      id: "state-apply-review-1440x900",
-      kind: "state",
-      state: "application-review",
-      route: "/commissions#application",
-      viewport: viewport.id,
-      width: viewport.width,
-      height: viewport.height,
-      fullPage: true,
-      file: "state-apply-review-1440x900.png",
       title: await page.title(),
     });
   } finally {
@@ -470,7 +425,6 @@ try {
   await captureSpatialSequence(VIEWPORTS[0]);
   await captureMobileNavigation();
   await captureApplyValidation();
-  await captureApplyReview();
   await captureReducedMotionHome();
   await captureNoWebGLHome();
 } catch (error) {
