@@ -6,8 +6,11 @@
 # repository and would drift.
 #
 # The Content-Security-Policy below is built from what this site actually loads,
-# and is verified by `.tmp/csp-probe.mjs` against the real production build
-# rather than written from a template. Every allowance has a reason next to it.
+# not from a template. It was verified by serving dist/ with these exact headers
+# and driving every route — including a route transition, so the dissolve's clip
+# and shader both ran — while collecting violation reports: zero, with neither
+# 'unsafe-inline' nor 'unsafe-eval' anywhere in it. Every allowance below has a
+# reason written next to it; if one stops being true, remove it.
 
 /*
   # HTTPS only, for a year. Subdomains are included because mail.houseadel.com
