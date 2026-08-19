@@ -267,7 +267,6 @@ export function HomePage() {
               been the only thing not using it.
             */}
             <InkHover>{isEnglish ? "Begin a Project" : "Mulai sebuah Proyek"}</InkHover>
-            <i aria-hidden="true">→</i>
           </Link>
         </section>
       </div>

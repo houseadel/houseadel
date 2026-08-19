@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { Link } from "../../lib/router";
 import styles from "./LegalNav.module.css";
 
@@ -128,6 +128,61 @@ function useCurrentSection(ids: string[]) {
   return current;
 }
 
+
+/**
+ * The rail's own scroll, published as the two numbers its indicator needs.
+ *
+ * `--rail-extent` is how much of the list is on screen and `--rail-progress` is
+ * how far through it the reader is — the same pair the page's own scroll
+ * instrument works from. They are written straight to the element rather than
+ * held as React state, because this runs on every frame of a scroll and a
+ * re-render per frame is the one thing a list this long cannot afford.
+ *
+ * `data-scrollable` carries the third fact: whether there is anything to
+ * indicate at all. Below the rail width, and on the Privacy Policy where ten
+ * clauses fit comfortably, there is not, and the stylesheet draws nothing.
+ */
+function useRailIndicator(ref: RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const rail = ref.current;
+    const scroller = rail?.querySelector<HTMLElement>("[data-rail-scroller]");
+    if (!rail || !scroller) return;
+
+    let frame = 0;
+    const measure = () => {
+      frame = 0;
+      const travel = scroller.scrollHeight - scroller.clientHeight;
+      const scrollable = travel > 1;
+      rail.dataset.scrollable = scrollable ? "true" : "false";
+      if (!scrollable) return;
+      const extent = scroller.clientHeight / scroller.scrollHeight;
+      rail.style.setProperty("--rail-extent", `${(extent * 100).toFixed(2)}%`);
+      rail.style.setProperty("--rail-progress", (scroller.scrollTop / travel).toFixed(4));
+    };
+
+    const schedule = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(measure);
+    };
+
+    scroller.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+    // The list changes height when the disclosure opens or the language swaps,
+    // and neither of those is a scroll or a resize.
+    const observer = new ResizeObserver(schedule);
+    observer.observe(scroller);
+    if (scroller.firstElementChild) observer.observe(scroller.firstElementChild);
+    measure();
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      scroller.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      observer.disconnect();
+    };
+  }, [ref]);
+}
+
 export function LegalNav({ label, items, anchorPrefix, sibling }: LegalNavProps) {
   const here = window.location.pathname;
   const anchorId = (id: string) => `${anchorPrefix}-${id}`;
@@ -151,9 +206,29 @@ export function LegalNav({ label, items, anchorPrefix, sibling }: LegalNavProps)
    * layouts different defaults.
    */
   const [open, setOpen] = useState(() => window.matchMedia(RAIL).matches);
+  const railRef = useRef<HTMLElement>(null);
+  useRailIndicator(railRef);
 
   return (
-    <nav className={styles.nav} aria-label={label}>
+    <nav className={styles.nav} aria-label={label} ref={railRef}>
+      {/*
+        The scrolling happens one level in, so the indicator can be drawn on
+        something that stays put. A track and a thumb painted on the scroller
+        itself would scroll away with the list they describe.
+      */}
+      <div
+        className={styles.scroller}
+        /*
+         * The wheel belongs to this list while the pointer is over it. The
+         * site's smooth scrolling takes the wheel globally and would otherwise
+         * move the page behind a contents list the reader is trying to scroll;
+         * this is the opt-out it already provides, and it only takes effect
+         * while there is genuinely something here to scroll. See
+         * `lib/useSmoothScroll`.
+         */
+        data-native-scroll
+        data-rail-scroller
+      >
       <details className={styles.disclosure} open={open} onToggle={(event) => setOpen(event.currentTarget.open)}>
         <summary className={styles.label}>
           <span>{label}</span>
@@ -204,6 +279,7 @@ export function LegalNav({ label, items, anchorPrefix, sibling }: LegalNavProps)
         <span className={styles.siblingLabel}>{sibling.label}</span>
         <span className={styles.siblingDescription}>{sibling.description}</span>
       </Link>
+      </div>
     </nav>
   );
 }

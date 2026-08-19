@@ -224,7 +224,6 @@
 .begin {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.28em;
   color: var(--color-paper);
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 7.5vw, 6rem);
@@ -232,26 +231,6 @@
   letter-spacing: -0.022em;
   line-height: 1.02;
   text-wrap: balance;
-}
-
-/* Sized against the type it follows, so it stays a mark of direction rather
-   than becoming a second word. */
-.begin i {
-  font-size: 0.42em;
-  font-style: normal;
-  transition: transform var(--duration-fast) var(--ease-house);
-}
-
-.begin:hover i,
-.begin:focus-visible i,
-.begin[data-touch-hover] i {
-  transform: translateX(0.22em);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .begin i {
-    transition: none;
-  }
 }
 
 /*

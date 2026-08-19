@@ -11,6 +11,7 @@
  * `pages/LegalDocument.module.css`; everything here is how it is *set*.
  */
 .nav {
+  position: relative;
   padding-top: var(--space-4);
   border-top: 1px solid var(--line);
 }
@@ -33,18 +34,86 @@
     position: sticky;
     top: clamp(3.5rem, 8vh, 5rem);
     /*
-     * Its own scrollbar rather than the page's. The Terms list runs to
-     * twenty-nine clauses, comfortably past a laptop viewport, and a sticky
-     * element taller than the screen simply loses its foot — the last clauses
-     * would be permanently unreachable from the contents, which is precisely the
-     * ones a reader is most likely to be hunting for.
+     * No background of its own. The rail has its own grid column and nothing
+     * ever passes beneath it, so painting it meant painting a flat panel over
+     * the body's fixed gradient — a rectangle very slightly the wrong colour,
+     * which is exactly the thing this page is least able to afford.
+     */
+    max-height: calc(100dvh - clamp(6rem, 14vh, 8rem));
+  }
+
+  .scroller {
+    /*
+     * The Terms list runs to twenty-nine clauses, comfortably past a laptop
+     * viewport, and a sticky element taller than the screen simply loses its
+     * foot — the last clauses would be permanently unreachable from the
+     * contents, which is precisely the ones a reader is most likely to be
+     * hunting for. So it scrolls, inside itself.
      */
     max-height: calc(100dvh - clamp(6rem, 14vh, 8rem));
     overflow-y: auto;
+    /*
+     * The wheel moves the contents while the pointer is over them, and reaching
+     * either end stops there rather than handing the gesture on to the document.
+     * A list that silently starts scrolling the page underneath it is a list you
+     * cannot reach the bottom of.
+     */
     overscroll-behavior: contain;
-    /* Nothing should be able to read through the rail as it scrolls past. */
-    background: var(--color-ink);
-    scrollbar-width: thin;
+    /* Clear of the indicator drawn down the right edge. */
+    padding-right: var(--space-4);
+    /*
+     * The platform's own bar is declined in favour of the one drawn below. It is
+     * an overlay on most desktops — zero width, visible only mid-gesture, and
+     * styled differently on every OS — which is three reasons it cannot be the
+     * instrument on a page this quiet.
+     */
+    scrollbar-width: none;
+  }
+
+  .scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  /*
+   * The same instrument as the page's own scroll rail, at the same weights: a
+   * hairline track at sixteen per cent of the paper colour and a travelling mark
+   * at sixty-two. See `layout/ScrollTracker.module.css`, which is where both
+   * numbers come from — this is that reading taken in a smaller place, and it
+   * should not look like a second, louder idea.
+   *
+   * Drawn only when there is something to report. On the Privacy Policy, whose
+   * ten clauses fit without scrolling, there is no bar at all rather than a
+   * full-height one saying so.
+   */
+  .nav[data-scrollable="true"] {
+    position: sticky;
+  }
+
+  .nav[data-scrollable="true"]::before,
+  .nav[data-scrollable="true"]::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 1px;
+    pointer-events: none;
+  }
+
+  .nav[data-scrollable="true"]::before {
+    top: 0;
+    bottom: 0;
+    background: color-mix(in srgb, var(--color-paper) 16%, transparent);
+  }
+
+  .nav[data-scrollable="true"]::after {
+    /*
+     * As tall a fraction of the track as the visible list is of the whole, and
+     * that far down it. Both numbers are written to the element by
+     * `useRailIndicator`; the arithmetic stays here so the shape of the thing is
+     * described where the rest of its appearance is.
+     */
+    height: var(--rail-extent, 100%);
+    top: calc(var(--rail-progress, 0) * (100% - var(--rail-extent, 100%)));
+    background: color-mix(in srgb, var(--color-paper) 62%, transparent);
   }
 }
 
