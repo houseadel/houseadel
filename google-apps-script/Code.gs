@@ -85,6 +85,64 @@ const HOUSE_ADEL_LIMITS = Object.freeze({
   paragraph: 4000,
 });
 
+/**
+ * How many inquiries this endpoint will accept before it starts refusing.
+ *
+ * The /exec URL is public and has to be — a static site cannot hold a secret to
+ * authenticate with. So anyone can POST to it directly, without ever loading the
+ * website, and neither the honeypot nor the completion-time check does anything
+ * about that: both live in the payload, and a script writing the payload simply
+ * writes them correctly.
+ *
+ * What that threatens is not the data — every field is validated and allowlisted
+ * below — but the quota. Apps Script and Forms both have daily ceilings, and a
+ * few thousand automated posts would spend them, at which point the studio's
+ * only inquiry channel is down until the quota resets.
+ *
+ * These numbers are therefore a quota guard rather than an anti-spam measure.
+ * They sit far above any believable human rate — a person sends one inquiry, and
+ * a busy week is a handful — and far below the level that costs the account its
+ * day. The limit is deliberately global rather than per-visitor: Apps Script is
+ * not given the caller's IP address, so per-visitor limiting is not something
+ * this layer can honestly claim to do. Anything stronger belongs in front of the
+ * endpoint, not inside it.
+ */
+const HOUSE_ADEL_RATE_LIMIT = Object.freeze({
+  perMinute: 12,
+  perHour: 60,
+  perDay: 300,
+});
+
+/**
+ * Counts one attempt against each window and reports whether it is over.
+ *
+ * `CacheService` is the right store for this and `PropertiesService` is not:
+ * these counters are meant to expire, and a cache that forgets them on its own
+ * is the whole mechanism. Called inside the script lock the caller already
+ * holds, so the read-modify-write cannot interleave.
+ */
+function withinRateLimit_() {
+  const cache = CacheService.getScriptCache();
+  const now = new Date();
+  const windows = [
+    { key: "ha-rate-min-" + Math.floor(now.getTime() / 60000), limit: HOUSE_ADEL_RATE_LIMIT.perMinute, ttl: 120 },
+    { key: "ha-rate-hour-" + Math.floor(now.getTime() / 3600000), limit: HOUSE_ADEL_RATE_LIMIT.perHour, ttl: 7200 },
+    { key: "ha-rate-day-" + Math.floor(now.getTime() / 86400000), limit: HOUSE_ADEL_RATE_LIMIT.perDay, ttl: 21600 },
+  ];
+
+  for (var i = 0; i < windows.length; i += 1) {
+    var current = Number(cache.get(windows[i].key)) || 0;
+    if (current >= windows[i].limit) return false;
+  }
+  // Only counted once every window has been found to have room, so a request
+  // that is refused does not also deepen the hole it was refused for.
+  for (var j = 0; j < windows.length; j += 1) {
+    var value = Number(cache.get(windows[j].key)) || 0;
+    cache.put(windows[j].key, String(value + 1), windows[j].ttl);
+  }
+  return true;
+}
+
 /** Creates the Form and linked response Sheet once, then logs every identifier. */
 function setupHouseAdelCommissionBackend() {
   const lock = LockService.getScriptLock();
@@ -244,7 +302,7 @@ function testHouseAdelCommissionSubmission() {
   const result = processSubmission_({
     submissionId: "HA-I-" + now.getUTCFullYear() + "-" + token,
     name: "House Adel test",
-    contact: "hello.houseofadel@gmail.com",
+    contact: "hello@houseadel.com",
     planning: "A test inquiry created from Apps Script.",
     eventDate: "",
     websitePurpose: "Confirm that the Form and linked Sheet receive every mapped field.",
@@ -278,6 +336,17 @@ function processSubmission_(rawPayload) {
     const recentIds = readRecentSubmissionIds_(properties);
     if (recentIds.indexOf(payload.submissionId) !== -1) {
       return { ok: true, submissionId: payload.submissionId, duplicate: true };
+    }
+
+    /*
+     * Checked after the duplicate test on purpose. A visitor whose confirmation
+     * did not reach them and who presses send again is replaying an inquiry that
+     * has already been recorded, and answering that from the duplicate branch
+     * costs no quota at all. Charging it against the rate limit would penalise
+     * the one retry pattern that is entirely innocent.
+     */
+    if (!withinRateLimit_()) {
+      throw new Error("Too many inquiries have been received just now. Please try again shortly.");
     }
 
     const itemByTitle = {};

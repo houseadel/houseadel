@@ -6,7 +6,7 @@ House Adel is an independent web studio working across art direction, interactio
 
 House Adel's one published project is MARVELL 20, a digital experience created for Marvell Florist's twentieth anniversary. **MARVELL FLORIST is not House Adel work** — never present Marvell Florist's general website, branding or campaigns as House Adel work; only the MARVELL 20 project is shown. Both names use two Ls: MARVELL FLORIST, MARVELL 20.
 
-Correct spelling: **House Adel** (no trailing "e" in Adel). Correct email: `hello.houseofadel@gmail.com`. Correct Instagram: `@thehouseadel`.
+Correct spelling: **House Adel** (no trailing "e" in Adel). Correct public email: `hello@houseadel.com`. It routes into an underlying inbox through Cloudflare Email Routing; that inbox is infrastructure and must never appear in anything the site renders. Correct Instagram: `@thehouseadel`.
 
 `docs/COPY_APPROVED.md` is the literal canonical copy for every fixed page; `docs/VOICE.md` states the writing rules (no em dashes, no fashion-luxury vocabulary, no "commission"/"investment," no budget or price mentions anywhere on the site, short paragraphs) for anything `docs/COPY_APPROVED.md` doesn't already fix. Do not paraphrase what is already fixed there.
 

@@ -112,9 +112,9 @@ describe("site architecture", () => {
       "href",
       "https://wa.me/628117783600",
     );
-    expect(screen.getByRole("link", { name: /Email hello\.houseofadel@gmail\.com/ })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /Email hello@houseadel\.com/ })).toHaveAttribute(
       "href",
-      "mailto:hello.houseofadel@gmail.com",
+      "mailto:hello@houseadel.com",
     );
   });
 });

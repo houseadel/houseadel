@@ -7,7 +7,7 @@ This is the canonical English copy source of truth, recorded verbatim from the a
 ## Facts
 
 - Correct spelling: House Adel (no trailing "e" in Adel).
-- Correct email: hello.houseofadel@gmail.com
+- Correct public email: hello@houseadel.com (routes via Cloudflare Email Routing into the studio's underlying inbox, which is never published)
 - Correct Instagram: @thehouseadel
 - Correct TikTok: @house.adel
 - Correct WhatsApp: +62 811 7783 600
@@ -80,7 +80,7 @@ CONTACT
 Tell us what is taking shape.
 Share the occasion, the date if known and what the website should help people do.
 Begin a Project
-hello.houseofadel@gmail.com
+hello@houseadel.com
 Instagram @thehouseadel
 TikTok @house.adel
 WhatsApp +62 811 7783 600
@@ -217,7 +217,7 @@ No promised response time.
 PRIVACY
 Information submitted through this website is used to review and respond to enquiries.
 Do not submit guest lists, identification documents or private event information at this stage.
-For privacy questions, contact: hello.houseofadel@gmail.com
+For privacy questions, contact: hello@houseadel.com
 Return Home
 ```
 
@@ -236,7 +236,7 @@ HOUSE ADEL
 Work
 Contact
 Privacy
-hello.houseofadel@gmail.com
+hello@houseadel.com
 Instagram @thehouseadel
 TikTok @house.adel
 WhatsApp +62 811 7783 600

@@ -13,20 +13,89 @@
   border-top: 1px solid var(--line);
 }
 
+/*
+ * The list stays with the reader.
+ *
+ * Twenty-nine clauses is far enough that the contents scroll away long before
+ * they stop being useful, and a reader who wants clause 23 after reading clause
+ * 4 should not have to travel back to the top to find it. Held below the site
+ * header, which floats over the page.
+ *
+ * Only where there is room. On a short viewport a sticky block is a block that
+ * has taken over the screen, so it is released and simply sits where it is
+ * written.
+ */
+@media (min-width: 48rem) and (min-height: 34rem) {
+  .nav {
+    position: sticky;
+    top: clamp(3.5rem, 8vh, 5rem);
+    z-index: 1;
+    /*
+     * Its own scrollbar rather than the page's. The Terms list is long enough to
+     * exceed a laptop viewport, and a sticky element taller than the screen
+     * simply loses its foot — the last clauses would be permanently unreachable
+     * from the contents, which is precisely the clauses a reader is most likely
+     * to be hunting for.
+     */
+    max-height: calc(100dvh - clamp(6rem, 14vh, 8rem));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /*
+     * The page's own ground, so text scrolling underneath a sticky block does
+     * not read through it.
+     */
+    background: var(--color-ink);
+  }
+}
+
+.disclosure {
+  /*
+   * A disclosure widget on a phone and a plain heading everywhere else. The
+   * marker is removed in both, because on a wide screen there is nothing to
+   * disclose and an arrow beside an always-open list is a control that lies.
+   */
+  display: block;
+}
+
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
 .label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
   font-family: var(--font-sans);
   font-size: 0.63rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-ink-soft);
+  list-style: none;
+  cursor: default;
+}
+
+/* The clause the reader is in, shown only while the list is shut. */
+.here {
+  font-size: 0.6rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: none;
+  color: var(--color-ink-soft);
+  opacity: 0.75;
+  text-align: right;
+}
+
+.disclosure[open] .here {
+  display: none;
 }
 
 /*
  * Columns, because twenty-nine clauses in one column is the scrolling this is
  * meant to remove. `auto-fill` rather than a fixed count so the list reflows to
  * whatever the reading column actually is, and a short list — the Privacy
- * Policy has nine — simply fills fewer of them.
+ * Policy has ten — simply fills fewer of them.
  */
 .list {
   display: grid;
@@ -49,6 +118,16 @@
 .entry:hover,
 .entry:focus-visible,
 .entry[data-touch-hover] {
+  color: var(--color-paper);
+}
+
+/*
+ * Where the reader is, marked by weight rather than by a highlight or a rule.
+ * The page has one accent gesture and it is not this; a contents list that
+ * announced itself in colour would be the brightest thing on the plainest page
+ * on the site.
+ */
+.entry[data-current="true"] {
   color: var(--color-paper);
 }
 
@@ -89,5 +168,11 @@
 @media (max-width: 47.99rem) {
   .list {
     grid-template-columns: 1fr;
+  }
+
+  /* On a phone the summary is a real control, so it says so. */
+  .label {
+    cursor: pointer;
+    padding-block: var(--space-2);
   }
 }

@@ -82,7 +82,7 @@ Focused `/invitation` review on 2026-08-13: production build, strict TypeScript,
 ## Requirements before public launch
 
 - Publish the updated static build to GitHub Pages, then repeat one labelled submission from the public `/contact` URL. The Apps Script receiver and centralized `/exec` configuration are already live and locally verified.
-- Verify that `hello.houseofadel@gmail.com` is active and monitored; human-review Privacy and all business claims.
+- Verify that `hello@houseadel.com` delivers and is monitored; human-review Privacy and all business claims.
 - Test audio, touch, keyboard, VoiceOver, and visual viewport behaviour on physical iPhone Safari, Android Chrome, and representative assistive technology.
 - Supply a real MARVELL 20 website URL (restores the `View Website` button) and a real screenshot/photography set if one becomes available and cleared for use.
 - Fix the `base: "./"` two-segment-route issue above before adding any further nested routes, or before relying on `/labs/loader` in a deployed (non-dev-server) environment.

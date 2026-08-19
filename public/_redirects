@@ -1,0 +1,14 @@
+# House Adel — Cloudflare Pages routing.
+#
+# One rule, and it is the one a single-page application cannot launch without.
+# Every route on this site is a real address that can be typed, bookmarked,
+# refreshed and shared — /work, /contact, /marvell-20, /privacy, /terms — but
+# only /index.html exists on disk. Without this, a refresh on any of them is a
+# hard 404 from the edge before a single line of the application runs.
+#
+# 200, not 302: the address stays exactly as the visitor typed it, and the
+# router reads it from location on the way in. A redirect would rewrite the
+# address bar to / and lose the page they asked for.
+#
+# Assets are matched by the file system first, so this rule never shadows them.
+/*    /index.html   200

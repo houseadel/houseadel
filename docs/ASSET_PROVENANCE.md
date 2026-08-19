@@ -23,6 +23,12 @@ House Adel version one ships no generative-AI image, generative-AI video, AI-cre
 | `public/assets/house-adel/home-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/home.stl` | **Owner-confirmed for commercial use.** Originating sculpture, scan creator and licence URL still to be recorded here. | Depth-shaded particle homepage sculpture | Area-sampled to 150,000 points with quantized positions and packed normals |
 | `public/assets/house-adel/cupid-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/cupid.stl` | **Owner-confirmed for commercial use.** Originating sculpture, scan creator and licence URL still to be recorded here. | Depth-shaded particle sculpture beside the Contact enquiry | Area-sampled to 150,000 points with quantized positions and packed normals |
 | `public/assets/house-adel/work-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d work.stl` | **Pending verification.** Originating sculpture, scan creator and licence unconfirmed. Launch blocker. | Global footer particle sculpture | Surface area-sampled to 160,000 points with quantized positions and packed normals; the Z-up source is oriented upright at runtime |
+| `public/assets/house-adel/tree-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/island_tree_02_4k.glb` | **Pending verification. Launch blocker.** The `*_4k.glb` naming and the accompanying `.blend.zip` are the distribution convention of a well-known CC0 3D library, but a naming convention is not a licence. Source URL and licence to be recorded before launch. | The Work chapter's forest canopy | Area-sampled to a 39,000-point cloud with quantized positions and packed normals |
+| `public/assets/house-adel/fern-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/fern_02_4k.glb` | **Pending verification. Launch blocker.** As above: source URL and licence to be recorded before launch. | The Work chapter's undergrowth | Area-sampled to a 30,000-point cloud with quantized positions and packed normals |
+| `public/assets/house-adel/dove-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/dove.glb` | **Pending verification.** Not currently referenced by any runtime code; shipped but unused. | None at present | Area-sampled point cloud |
+| `public/assets/house-adel/periwinkle-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/periwinkle_plant_4k.glb` | **Pending verification.** Not currently referenced by any runtime code; shipped but unused. | None at present | Area-sampled point cloud |
+| `public/assets/marvell-20/marvell-20-*.avif` and `.webp` | House Adel, commissioned work for Marvell Florist | Studio's own delivered work, shown as portfolio under clause 12 of the Terms | The MARVELL 20 project page and the Work index | Responsive AVIF and WebP encoding of screen captures |
+| `public/preview.png` | House Adel | Project-owned; composed from the studio's own Work-chapter render | Open Graph and Twitter social card | Composed at 1200×630 |
 | `public/adel-mark.svg` | House Adel project owner, supplied `adel mark.svg` | Project-owned | Persistent navigation mark | Byte-for-byte copy; no redraw |
 | `public/assets/invitation/redon-bouquet-*` | Odilon Redon, *Bouquet of Flowers*, ca. 1900–1905, The Metropolitan Museum of Art, object 437379 | Public Domain / The Met Open Access | Stored legacy asset and Work preview; not used by `/invitation` | Responsive AVIF and WebP encoding; no content alteration |
 | `public/assets/invitation/hiroshige-morning-glories-*` | Utagawa Hiroshige, *Morning Glories*, ca. 1847, The Metropolitan Museum of Art, object 39648 | Public Domain / The Met Open Access | Stored legacy asset; no longer referenced by `/invitation` | Responsive AVIF and WebP encoding; no content alteration |
@@ -86,3 +92,39 @@ Verified 2026-08-03: the provenance audit found the approved Met derivatives and
 ### Sculptures withdrawn on 2026-08-17
 
 `love.stl` (homepage) and `davidd.stl` (Contact) were replaced by `home.stl` and `cupid.stl`, which the project owner confirms are licensed for commercial use where the previous pair were not. Their baked derivatives — `love-cloud.bin`, `love-solid.glb` and `david-cloud.bin` — have been deleted from `public/` so they are no longer published, and nothing in `src/` references them. The source STLs remain outside the build in `assets/originals/`.
+
+
+## Launch licence review
+
+Nothing below is a reason to delete an asset. Each is a question that has to be
+answered by the studio owner before the site is public, because the answer is
+not derivable from the repository.
+
+**Blocking — record the source and licence, or replace the asset:**
+
+1. `public/assets/house-adel/sound/*.m4a` — the whole sonic identity. Composer,
+   licence, and whether any third-party sample content is present, all
+   unconfirmed. This is sixteen files including a five-and-a-half-megabyte score.
+2. `public/assets/house-adel/relief-depth-2048.png` / `-1024.png` — baked from
+   `3d relief.stl`. Originating sculpture, scan creator and licence unconfirmed.
+3. `public/assets/house-adel/work-cloud.bin` — baked from `3d work.stl`. Same
+   question, unanswered.
+4. `public/assets/house-adel/tree-cloud.bin` and `fern-cloud.bin` — the entire
+   Work chapter. The file naming points at a CC0 library, and pointing is not
+   proof.
+
+**Blocking, and specifically about scans:** a sculpture being centuries old does
+not put a modern 3D scan of it in the public domain. The scan is a separate work
+with its own author and its own licence, and several 3D libraries distribute
+scans of public-domain sculpture under terms that restrict commercial use or
+require attribution. `home-cloud.bin` and `cupid-cloud.bin` are recorded above as
+owner-confirmed for commercial use; that confirmation still needs a source URL
+and a licence name written down beside it, because "confirmed" with nothing to
+point at is not something that can be relied on later.
+
+**Not blocking:**
+
+- `dove-cloud.bin` and `periwinkle-cloud.bin` are shipped but unreferenced. They
+  are 639 KB of payload nobody downloads, since nothing requests them. Left in
+  place rather than deleted, per the rule that an asset is not removed merely
+  because no import is currently obvious.

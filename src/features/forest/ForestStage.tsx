@@ -1,12 +1,11 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ReclaimContext } from "../atmosphere/ReclaimContext";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { graphicsAreDisabled, motionIsReduced, pointerIsFine } from "../../lib/preferences";
 import { scrollSignal } from "../../lib/scrollSignal";
 import { resolveAppUrl } from "../../lib/basePath";
 import { SpatialBackdrop } from "../atmosphere/SpatialBackdrop";
-import { InputFrameInvalidator } from "../atmosphere/InputFrameInvalidator";
+import { RenderGate, frameloopFor, noPointerEvents } from "../../lib/webgl/renderGate";
 import { PointerBridge } from "../atmosphere/PointerBridge";
 import { PearlCloud } from "./PearlCloud";
 import { ForestRippleDriver } from "./ForestRippleDriver";
@@ -291,7 +290,12 @@ export function ForestStage({
   const pointer = useRef(new THREE.Vector2(4, 4));
   // One disturbance for the whole wood. Every plant and the floor read it.
   const ripple = useRef(createForestRipple());
-  const [onScreen, setOnScreen] = useState(false);
+  /*
+   * Starts true. The stage is mounted because the chapter it belongs to is in the
+   * document; beginning at false meant the wood's first act was to refuse to draw
+   * itself and wait for an observer to contradict it.
+   */
+  const [onScreen, setOnScreen] = useState(true);
   const [tabVisible, setTabVisible] = useState(!document.hidden);
   const [compact, setCompact] = useState(() => window.matchMedia("(max-width: 47.99rem)").matches);
   const reduced = motionIsReduced();
@@ -333,16 +337,31 @@ export function ForestStage({
       className={[styles.stage, className].filter(Boolean).join(" ")}
       data-foreground-active={active ? "true" : "false"}
     >
-      {!graphicsDisabled && !reduced && onScreen ? (
+      {!graphicsDisabled && !reduced ? (
         <Canvas
           className={styles.canvas}
           dpr={dpr}
-          frameloop={compact ? "demand" : active && tabVisible ? "always" : "never"}
+          /*
+           * Built once, for the life of the chapter.
+           *
+           * This used to read `active && tabVisible ? "always" : "never"`, and
+           * `"never"` is the one setting a scene cannot be woken out of: r3f's
+           * `invalidate()` returns early on it, so the wood was unreachable
+           * whenever it was not the chapter being read — and the canvas itself
+           * was unmounted whenever it was scrolled out of view, which threw the
+           * whole forest away and rebuilt it on the way back. See
+           * `lib/webgl/renderGate`.
+           */
+          frameloop={frameloopFor(onScreen && tabVisible && active, reduced)}
           camera={{ position: compact ? [0, 0.48, 3.8] : CAMERA_START, fov: compact ? 58 : 50 }}
           gl={{ antialias: true, powerPreference: "low-power", alpha: true }}
+          /*
+           * Nothing here is clickable, and nothing raycasts. See
+           * `noPointerEvents` for why r3f's DOM event layer is declined.
+           */
+          events={noPointerEvents}
         >
-          <ReclaimContext />
-          <InputFrameInvalidator enabled={compact && tabVisible} />
+          <RenderGate active={onScreen && tabVisible && active} />
           <PointerBridge pointer={pointer} reduced={reduced} />
           <ForestRippleDriver pointer={pointer} ripple={ripple} reduced={reduced} />
           <Camera progressRef={progressRef} compact={compact} />

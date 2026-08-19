@@ -20,19 +20,9 @@ import { ProjectPlane } from "../gallery/WorkGallery";
 import { TURNS, panFor } from "../gallery/helix";
 import type { Project } from "../../data/work";
 import styles from "./ReliefStage.module.css";
-import { InputFrameInvalidator } from "../atmosphere/InputFrameInvalidator";
+import { RenderGate, frameloopFor, noPointerEvents } from "../../lib/webgl/renderGate";
 import { coverageAt, silhouetteProfile } from "./silhouette";
 import { onTransitionFrame } from "../transition/transitionClock";
-import { ReclaimContext } from "../atmosphere/ReclaimContext";
-
-/**
- * How many times a stage will rebuild a context that was taken from it.
- *
- * Enough to survive the ordinary case — one eviction while another scene was
- * being built — without turning a page that has genuinely run out of contexts
- * into a loop that keeps asking for more.
- */
-const MAX_CONTEXT_RETRIES = 6;
 
 /**
  * The box a framed model fills, in the stage's own normalised space.
@@ -1177,14 +1167,15 @@ export function ReliefStage({
 }: StageProps) {
   const [field, setField] = useState<ReliefHeightField | null>(null);
   const [failed, setFailed] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [contextLost, setContextLost] = useState(false);
   /*
-   * Bumped to build a fresh context after one is taken away. It is the canvas's
-   * React key, so raising it is exactly "ask the browser for another context".
+   * Whether the stage should be animating — not whether it should exist.
+   *
+   * It starts true. A stage that is mounted is a stage the page has put on
+   * screen, and beginning at false meant the very first thing every canvas did
+   * was hold still and wait to be told otherwise.
    */
-  const [generation, setGeneration] = useState(0);
-  const retriesRef = useRef(0);
+  const [visible, setVisible] = useState(true);
+  const [contextLost, setContextLost] = useState(false);
   const hostRef = useRef<HTMLDivElement>(null);
   const pointer = useRef(new THREE.Vector2(4, 4));
   const disperseRef = useRef(disperse);
@@ -1377,7 +1368,15 @@ export function ReliefStage({
     });
   }, [q.pointer, reduced]);
 
-  const ready = !failed && !contextLost && Boolean(modelSrc || resting || field || mode === "displacement");
+  /*
+   * Whether there is a subject to draw. Deliberately not "and the context is
+   * alive": a lost context now leaves the canvas mounted so that the browser's
+   * own `webglcontextrestored` has something to restore, and the stand-in is
+   * shown over the top meanwhile. Unmounting on loss threw away the very element
+   * the restore would have arrived on, which is how a recoverable stall became a
+   * permanent one.
+   */
+  const ready = !failed && Boolean(modelSrc || resting || field || mode === "displacement");
 
   // One stable host, always mounted. An earlier version swapped this element when
   // the height map finished loading, which left the IntersectionObserver watching a
@@ -1390,16 +1389,19 @@ export function ReliefStage({
       role="img"
       aria-label={alt}
       /*
-       * Why the sculpture is or is not on screen, in one attribute.
+       * What the stage is currently doing, in one attribute.
        *
-       * The stage can be empty for three unrelated reasons — its cloud has not
-       * arrived, it has been judged off screen, or its GL context was taken away
-       * — and from the outside all three look identical: a labelled box with
-       * nothing in it. `ForestStage` already reports itself this way; without the
-       * same here, a vanished sculpture cannot be told apart from a slow one.
+       * A stage can be showing nothing for three unrelated reasons — its cloud
+       * has not arrived, it is paused because nobody is looking at it, or its GL
+       * context was taken away — and from the outside all three look identical:
+       * a labelled box with nothing in it. Published here so a blank sculpture
+       * can be told apart from a slow one without a debugger, in production.
+       *
+       * "paused" is not "gone". The scene, its context and its buffers are all
+       * still there; only the frameloop is idling.
        */
       data-sculpture={
-        contextLost ? "context-lost" : !ready ? "loading" : visible ? "drawing" : "offscreen"
+        contextLost ? "context-lost" : !ready ? "loading" : visible ? "drawing" : "paused"
       }
     >
       {/*
@@ -1407,58 +1409,49 @@ export function ReliefStage({
         model has no plate to fall back to, and an <img> with no source is a
         broken-image glyph sitting where the sculpture should be.
       */}
-      {depthSrc && (graphicsDisabled || (!ready && !restingSrc && !modelSrc)) ? (
+      {depthSrc && (graphicsDisabled || contextLost || (!ready && !restingSrc && !modelSrc)) ? (
         <img className={styles.fallback} src={depthSrc} alt="" aria-hidden="true" />
       ) : null}
-      {!graphicsDisabled && ready && visible ? (
+      {!graphicsDisabled && ready ? (
       <Canvas
-        key={generation}
         className={styles.canvas}
         dpr={q.dpr}
-        frameloop={reduced || !q.pointer ? "demand" : "always"}
+        /*
+         * Built once and kept for the life of the stage. Being scrolled past or
+         * backgrounded changes how often this draws, never whether it exists:
+         * see `lib/webgl/renderGate`.
+         */
+        frameloop={frameloopFor(visible && !contextLost, reduced)}
         camera={{ position: [0, 0, 1.55], fov: 40 }}
         gl={{ antialias: true, powerPreference: "low-power", alpha: true }}
+        /*
+         * Nothing here is clickable, and nothing raycasts. See
+         * `noPointerEvents` for why r3f's DOM event layer is declined.
+         */
+        events={noPointerEvents}
         onCreated={({ gl }) => {
-          // A lost context leaves a permanently blank canvas. Preventing the
-          // default lets the browser restore it; if it cannot, drop to the static
-          // height map rather than showing an empty black frame.
+          /*
+           * A genuine context loss — a driver reset, a GPU switch, a machine
+           * waking from sleep. Preventing the default is what allows the browser
+           * to hand the context back, and `webglcontextrestored` is where it says
+           * it has. Until then the stage shows its static stand-in rather than an
+           * empty black frame.
+           *
+           * There is deliberately no rebuild ladder here any more. Asking for a
+           * replacement context on a page that has run out of them is what
+           * produced the loop this pass exists to remove; a scene that keeps its
+           * one context for its whole life does not run the page out in the first
+           * place.
+           */
           const canvas = gl.domElement;
           canvas.addEventListener("webglcontextlost", (event) => {
             event.preventDefault();
             setContextLost(true);
-            /*
-             * A context the browser took to make room for another one is never
-             * handed back. `webglcontextrestored` only arrives after a driver
-             * reset, so waiting for it means waiting forever, and the stage
-             * stays an empty labelled box on a page that is otherwise perfect.
-             * The only way back is to ask for a new context, which remounting
-             * the canvas does.
-             *
-             * Not when this stage is the one giving its context up on unmount —
-             * that loss is deliberate, and answering it would build the very
-             * context that was just released. And not indefinitely: if the page
-             * is genuinely out of contexts, retrying forever would thrash the
-             * GPU instead of degrading quietly.
-             */
-            if (canvas.dataset.reclaimed === "true") return;
-            if (retriesRef.current >= MAX_CONTEXT_RETRIES) return;
-            retriesRef.current += 1;
-            // Backed off a little further each time, so a page that is briefly
-            // over its context budget is given room to come back under it rather
-            // than being asked again immediately.
-            window.setTimeout(
-              () => {
-                setContextLost(false);
-                setGeneration((value) => value + 1);
-              },
-              320 * retriesRef.current,
-            );
           });
           canvas.addEventListener("webglcontextrestored", () => setContextLost(false));
         }}
       >
-        <ReclaimContext />
-        <InputFrameInvalidator enabled={!q.pointer && visible} />
+        <RenderGate active={visible} />
         <ambientLight intensity={0.55} />
         <directionalLight position={[-1.5, 1.4, 1.9]} intensity={1.9} color="#fff6ea" />
         <directionalLight position={[1.7, -0.8, 1.1]} intensity={0.35} color="#c3ccd8" />

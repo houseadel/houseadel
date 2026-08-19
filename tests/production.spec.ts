@@ -159,9 +159,9 @@ test.describe("shell", () => {
       "href",
       "https://wa.me/628117783600",
     );
-    await expect(footer.getByRole("link", { name: /Email hello\.houseofadel@gmail\.com/ })).toHaveAttribute(
+    await expect(footer.getByRole("link", { name: /Email hello@houseadel\.com/ })).toHaveAttribute(
       "href",
-      "mailto:hello.houseofadel@gmail.com",
+      "mailto:hello@houseadel.com",
     );
   });
 });

@@ -312,7 +312,7 @@ The first lint installation attempt exposed a real peer-dependency conflict: `ty
 - Whether human-approved project-owned or open-access photography, scans, or archival material should supplement the deliberately image-free version-one system.
 - Field Core Web Vitals and physical integrated-GPU/mobile validation after a production host is selected.
 - Final legal review of the Privacy and Terms copy.
-- Verification that `hello.houseofadel@gmail.com` is active and monitored before public launch.
+- Verification that `hello@houseadel.com` delivers into the studio's underlying inbox and is monitored before public launch. The public address is the only one the site renders; the inbox behind it is infrastructure.
 
 ### 2026-08-15 — Move the liquid response to the final composite
 

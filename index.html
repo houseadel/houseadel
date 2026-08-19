@@ -7,10 +7,19 @@
       name="description"
       content="House Adel is an independent web studio creating interactive websites for weddings, birthdays, dinners, launches and private events."
     />
-    <meta name="theme-color" content="#fbfaf6" />
-    <meta name="color-scheme" content="light" />
+    <!--
+      Both of these describe the ground the site actually renders on, which is
+      near-black (`--color-ink`). They used to declare a near-white page: the
+      browser painted its own canvas ivory before any stylesheet arrived, so
+      every cold load opened with a white flash and then fell to black, and
+      mobile browser chrome tinted itself to a colour the site never uses.
+    -->
+    <meta name="theme-color" content="#070809" />
+    <meta name="color-scheme" content="dark" />
     <base href="%BASE_URL%" />
+    <link rel="canonical" href="https://houseadel.com/" />
     <link rel="icon" href="%BASE_URL%adel-mark.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="%BASE_URL%preview.png" />
     <!--
       How a link to the studio unfurls.
 
@@ -18,11 +27,11 @@
       own mark and ground are what appear when the site is shared rather than a
       blank rectangle and a URL.
 
-      The path is resolved against `<base>` above. Most crawlers resolve a
-      relative `og:image` against the document, but a few insist on an absolute
-      one — so once the site has a fixed public domain this should become the
-      full `https://…/preview.png`, which is the only form that is universally
-      honoured.
+      Absolute, not resolved against `<base>`. Most crawlers will resolve a
+      relative `og:image` against the document, but several of the ones that
+      matter most for this studio — WhatsApp among them — will not, and a card
+      that fails to unfurl on the channel clients actually share links through
+      is the same as having no card at all.
     -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="House Adel" />
@@ -31,7 +40,8 @@
       property="og:description"
       content="House Adel is an independent web studio creating interactive websites for weddings, birthdays, dinners, launches and private events."
     />
-    <meta property="og:image" content="%BASE_URL%preview.png" />
+    <meta property="og:url" content="https://houseadel.com/" />
+    <meta property="og:image" content="https://houseadel.com/preview.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -42,7 +52,7 @@
       name="twitter:description"
       content="House Adel is an independent web studio creating interactive websites for weddings, birthdays, dinners, launches and private events."
     />
-    <meta name="twitter:image" content="%BASE_URL%preview.png" />
+    <meta name="twitter:image" content="https://houseadel.com/preview.png" />
     <meta name="twitter:image:alt" content="House Adel, interactive web experiences." />
     <title>House Adel</title>
   </head>

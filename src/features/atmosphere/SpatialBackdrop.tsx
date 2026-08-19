@@ -1,9 +1,8 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ReclaimContext } from "./ReclaimContext";
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { graphicsAreDisabled, motionIsReduced, pointerIsFine } from "../../lib/preferences";
-import { InputFrameInvalidator } from "./InputFrameInvalidator";
+import { RenderGate, frameloopFor, noPointerEvents } from "../../lib/webgl/renderGate";
 import { PointerBridge } from "./PointerBridge";
 
 export type BackdropPlacement = "frame" | "center" | "full";
@@ -197,7 +196,7 @@ export function SpatialBackdropStage({
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
   const pointer = useRef(new THREE.Vector2(4, 4));
-  const [onScreen, setOnScreen] = useState(false);
+  const [onScreen, setOnScreen] = useState(true);
   const [tabVisible, setTabVisible] = useState(!document.hidden);
   const reduced = motionIsReduced();
   const finePointer = pointerIsFine();
@@ -223,15 +222,24 @@ export function SpatialBackdropStage({
 
   return (
     <div ref={hostRef} className={className} aria-hidden="true">
-      {!graphicsDisabled && onScreen ? (
+      {!graphicsDisabled ? (
         <Canvas
           dpr={finePointer ? [1, 1.35] : [1, 1.15]}
-          frameloop={tabVisible && !reduced && finePointer ? "always" : "demand"}
+          /*
+           * Built once and kept. Scrolling this backdrop out of view parks its
+           * frameloop; it does not take its context away and give it back. See
+           * `lib/webgl/renderGate`.
+           */
+          frameloop={frameloopFor(onScreen && tabVisible, reduced)}
           camera={{ position: [0, 0, 1.55], fov: 40 }}
           gl={{ antialias: true, powerPreference: "low-power", alpha: true }}
+          /*
+           * Nothing here is clickable, and nothing raycasts. See
+           * `noPointerEvents` for why r3f's DOM event layer is declined.
+           */
+          events={noPointerEvents}
         >
-          <ReclaimContext />
-          <InputFrameInvalidator enabled={!finePointer && tabVisible && !reduced} />
+          <RenderGate active={onScreen && tabVisible} />
           <PointerBridge pointer={pointer} reduced={reduced} />
           <SpatialBackdrop reduced={reduced} pointer={pointer} placement={placement} />
         </Canvas>

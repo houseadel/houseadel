@@ -1,0 +1,14 @@
+# House Adel — houseadel.com
+#
+# Everything public is crawlable. The two paths below are not public pages:
+# /labs-loader is a development harness for the opening sequence, and
+# /enquiry-received is the confirmation a visitor reaches only by submitting the
+# enquiry form. Neither is useful in a search result and neither should be
+# reachable from one.
+
+User-agent: *
+Allow: /
+Disallow: /labs-loader
+Disallow: /enquiry-received
+
+Sitemap: https://houseadel.com/sitemap.xml

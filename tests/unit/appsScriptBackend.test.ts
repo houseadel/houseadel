@@ -107,6 +107,13 @@ function createHarness() {
   const forms = new Map<string, MockForm>();
   const sheets = new Map<string, MockSpreadsheet>();
   const properties = new MockProperties();
+  const cacheStore = new Map<string, string>();
+  const cache = {
+    get: (key: string) => cacheStore.get(key) ?? null,
+    put: (key: string, value: string) => {
+      cacheStore.set(key, value);
+    },
+  };
   const context = {
     FormApp: {
       DestinationType: { SPREADSHEET: "SPREADSHEET" },
@@ -134,6 +141,13 @@ function createHarness() {
       },
     },
     PropertiesService: { getScriptProperties: () => properties },
+    /*
+     * The rate limiter's store. Apps Script gives `CacheService` real expiry;
+     * this mock deliberately does not, because every test here runs inside one
+     * window and an entry that quietly expired mid-test would make the limiter
+     * look like it was working when it was not.
+     */
+    CacheService: { getScriptCache: () => cache },
     LockService: {
       getScriptLock: () => ({ waitLock: () => undefined, releaseLock: () => undefined }),
     },
@@ -160,7 +174,13 @@ function createHarness() {
     context,
   );
   const backend = (context as typeof context & { __backend: BackendExports }).__backend;
-  return { backend, forms, sheets };
+  return { backend, forms, sheets, cacheStore };
+}
+
+/** Distinct, well-formed submission ids, for tests that need more than one. */
+function submissionId(index: number) {
+  const token = String(index).padStart(2, "0");
+  return `HA-I-${new Date().getUTCFullYear()}-ABCDEF${token}`;
 }
 
 function payload(overrides: Record<string, unknown> = {}) {
@@ -266,6 +286,43 @@ describe("Apps Script commission backend", () => {
     expect(post(harness.backend, value).ok).toBe(true);
     expect(post(harness.backend, value)).toMatchObject({ ok: true, duplicate: true });
     expect([...harness.forms.values()][0].submissions).toHaveLength(1);
+  });
+
+  /*
+   * The /exec endpoint is public and unauthenticated by necessity, so the only
+   * thing standing between an automated flood and the studio's Apps Script quota
+   * is this limiter. It is worth a test that actually reaches the ceiling rather
+   * than one that asserts the code is present.
+   */
+  it("refuses further inquiries once the per-minute ceiling is reached", () => {
+    harness.backend.setup();
+    const accepted = [];
+    for (let index = 0; index < 12; index += 1) {
+      accepted.push(post(harness.backend, payload({ submissionId: submissionId(index) })).ok);
+    }
+    expect(accepted.every(Boolean)).toBe(true);
+
+    const overflow = post(harness.backend, payload({ submissionId: submissionId(99) }));
+    expect(overflow.ok).toBe(false);
+    expect(String(overflow.error)).toMatch(/try again shortly/i);
+    // Nothing beyond the ceiling reaches the Form, which is the point: the quota
+    // is what is being protected, not the shape of the error.
+    expect([...harness.forms.values()][0].submissions).toHaveLength(12);
+  });
+
+  it("does not charge a resent inquiry against the rate limit", () => {
+    harness.backend.setup();
+    const value = payload();
+    expect(post(harness.backend, value).ok).toBe(true);
+    for (let index = 0; index < 30; index += 1) {
+      expect(post(harness.backend, value)).toMatchObject({ ok: true, duplicate: true });
+    }
+    // One real submission, thirty replays of it, and the minute window has still
+    // only been charged once — a visitor whose confirmation went astray must not
+    // be able to lock themselves out by pressing send again.
+    const minuteKey = [...harness.cacheStore.keys()].find((key) => key.startsWith("ha-rate-min-"));
+    expect(minuteKey).toBeDefined();
+    expect(harness.cacheStore.get(minuteKey as string)).toBe("1");
   });
 
   it("confirms an accepted submission through the JSONP status endpoint", () => {

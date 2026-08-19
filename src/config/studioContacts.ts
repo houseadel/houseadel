@@ -1,3 +1,14 @@
+/**
+ * Every public address House Adel is reachable at, in one place.
+ *
+ * `hello@houseadel.com` is the canonical public address. Mail sent to it is
+ * routed by Cloudflare Email Routing into the studio's underlying inbox, and
+ * replies leave through Brevo's SMTP relay as that same address — but none of
+ * that is the website's business. The underlying inbox is infrastructure and is
+ * deliberately never published here, because everything in this file is
+ * rendered into the page: the footer, the Contact column, and the contact line
+ * on both legal pages all read from it.
+ */
 export const studioContacts = Object.freeze({
   instagram: {
     label: "Instagram",
@@ -16,8 +27,8 @@ export const studioContacts = Object.freeze({
   },
   email: {
     label: "Email",
-    value: "hello.houseofadel@gmail.com",
-    href: "mailto:hello.houseofadel@gmail.com",
+    value: "hello@houseadel.com",
+    href: "mailto:hello@houseadel.com",
   },
 });
 

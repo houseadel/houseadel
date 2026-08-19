@@ -95,11 +95,22 @@ export function PrivacyPage() {
           id: "why",
           title: "Why we collect it",
           body: (
-            <p>
-              To read your enquiry, work out whether House Adel is right for it, and reply to you
-              using the contact detail you gave. That is the whole purpose. We do not use it to
-              build a profile of you, and we do not send marketing.
-            </p>
+            <>
+              <p>
+                To read your enquiry, understand the project, work out whether House Adel is right
+                for it, and reply to you using the contact detail you gave.
+              </p>
+              <p>
+                Where an enquiry becomes a commission, the same information also becomes part of
+                the ordinary business record for that project. The timing values and the spam trap
+                described above are used for one thing only: keeping the form from being abused.
+              </p>
+              <p>
+                We do not use any of it to build an advertising profile of you, and sending the
+                form does not sign you up to anything. You will not be marketed to because you
+                made an enquiry.
+              </p>
+            </>
           ),
         },
         {
@@ -112,10 +123,14 @@ export function PrivacyPage() {
                 where it is held so that it can be read and answered.
               </p>
               <p>
-                That record is hosted for us by an established third-party provider, which stores
-                and processes the enquiry on our behalf, on our instructions, and is not permitted
-                to use it for its own purposes. If you would like to know who that provider is
-                before you send anything, ask and we will tell you.
+                Google services are used as third-party infrastructure to receive and hold that
+                record on House Adel's behalf. Cloudflare and Brevo handle limited information
+                where it is needed to run this website and the studio's email — delivering a
+                message you send to our address, for instance.
+              </p>
+              <p>
+                Each of them acts on House Adel's instructions as a service provider. None of them
+                is permitted to use your enquiry for its own purposes.
               </p>
               <p>
                 Nothing is stored in your browser as part of sending an enquiry, and nothing about
@@ -129,9 +144,9 @@ export function PrivacyPage() {
           title: "Who else sees it",
           body: (
             <p>
-              House Adel, and the provider that hosts the record described above, acting on our
-              instructions. We do not sell personal information, we do not share it with
-              advertisers, and we do not pass it to anyone else unless we are legally required to.
+              House Adel, and the providers described above, acting on our instructions. We do not
+              sell personal information, we do not share it with advertisers, and we do not pass it
+              to anyone else unless we are legally required to.
             </p>
           ),
         },
@@ -141,10 +156,20 @@ export function PrivacyPage() {
           body: (
             <>
               <p>
-                Enquiries are kept in that record while a project is under discussion and for as
-                long as the working relationship lasts. If an enquiry does not lead to a project,
-                we remove it once it is clearly no longer live. You can ask us to remove it sooner
-                at any time.
+                An enquiry that does not become a project is removed once there is no longer a
+                reasonable need to keep it, unless there is a legitimate legal, security or
+                record-keeping reason to hold it for longer.
+              </p>
+              <p>
+                An enquiry that does become a project stops being only an enquiry. It becomes part
+                of the business record for that commission, and those records are kept for as long
+                as contractual, accounting, tax and project-history purposes require.
+              </p>
+              <p>
+                You can ask us to remove an enquiry sooner, and we will, subject to those same
+                obligations. What we will not claim is that deletion is instantaneous everywhere:
+                routine backups held by the providers above age out on their own schedule rather
+                than on request.
               </p>
               <p>
                 Reference numbers of recent submissions are held separately for a short period so
@@ -177,8 +202,14 @@ export function PrivacyPage() {
             <>
               <p>
                 This site sets no cookies and runs no analytics. There is no tracking pixel, no
-                advertising tag, and no third-party measurement of any kind. We cannot see how many
-                people visit or what they look at.
+                advertising tag, and no third-party measurement of any kind. House Adel does not
+                operate visitor-behaviour analytics and does not do advertising tracking.
+              </p>
+              <p>
+                That is a statement about what House Adel does, not a claim that the internet is
+                unobserved. The companies that host this site and carry its email keep their own
+                operational records, as any such provider does. We do not use them to study
+                visitors.
               </p>
               <p>
                 Your browser does keep three small preferences on this device so the site behaves
@@ -188,6 +219,18 @@ export function PrivacyPage() {
                 removes them.
               </p>
             </>
+          ),
+        },
+        {
+          id: "international",
+          title: "Where in the world it is handled",
+          body: (
+            <p>
+              House Adel works from Indonesia, and the providers above are global services. Your
+              enquiry may therefore be processed or stored on systems in a country other than your
+              own. Where that happens it is because it is necessary to receive your enquiry and
+              answer it, and the same protections described on this page apply wherever it is held.
+            </p>
           ),
         },
         {
@@ -266,11 +309,23 @@ export function PrivacyPage() {
           id: "why",
           title: "Mengapa kami mengumpulkannya",
           body: (
-            <p>
-              Untuk membaca pertanyaan Anda, menimbang apakah House Adel tepat untuknya, dan
-              membalas Anda melalui kontak yang Anda berikan. Itu saja tujuannya. Kami tidak
-              menggunakannya untuk menyusun profil Anda, dan kami tidak mengirim pemasaran.
-            </p>
+            <>
+              <p>
+                Untuk membaca pertanyaan Anda, memahami proyeknya, menimbang apakah House Adel
+                tepat untuknya, dan membalas Anda melalui kontak yang Anda berikan.
+              </p>
+              <p>
+                Jika sebuah pertanyaan berlanjut menjadi komisi, informasi yang sama juga menjadi
+                bagian dari catatan bisnis biasa untuk proyek itu. Nilai waktu dan perangkap spam
+                yang dijelaskan di atas hanya dipakai untuk satu hal: menjaga formulir dari
+                penyalahgunaan.
+              </p>
+              <p>
+                Kami tidak menggunakannya untuk menyusun profil iklan tentang Anda, dan mengirim
+                formulir tidak mendaftarkan Anda ke apa pun. Anda tidak akan dikirimi pemasaran
+                hanya karena Anda mengirim pertanyaan.
+              </p>
+            </>
           ),
         },
         {
@@ -283,11 +338,15 @@ export function PrivacyPage() {
                 Adel, tempat ia disimpan agar dapat dibaca dan dijawab.
               </p>
               <p>
-                Catatan itu dihosting untuk kami oleh penyedia pihak ketiga yang mapan, yang
-                menyimpan dan memproses pertanyaan tersebut atas nama kami, berdasarkan instruksi
-                kami, dan tidak diperkenankan menggunakannya untuk kepentingannya sendiri. Jika
-                Anda ingin tahu siapa penyedia itu sebelum mengirim apa pun, tanyakan dan kami
-                akan memberitahukannya.
+                Layanan Google digunakan sebagai infrastruktur pihak ketiga untuk menerima dan
+                menyimpan catatan itu atas nama House Adel. Cloudflare dan Brevo menangani
+                informasi terbatas jika diperlukan untuk menjalankan situs ini dan surel studio —
+                misalnya mengantarkan pesan yang Anda kirim ke alamat kami.
+              </p>
+              <p>
+                Masing-masing bertindak berdasarkan instruksi House Adel sebagai penyedia layanan.
+                Tidak satu pun diperkenankan menggunakan pertanyaan Anda untuk kepentingannya
+                sendiri.
               </p>
               <p>
                 Tidak ada yang disimpan di peramban Anda sebagai bagian dari pengiriman, dan tidak
@@ -301,10 +360,9 @@ export function PrivacyPage() {
           title: "Siapa lagi yang melihatnya",
           body: (
             <p>
-              House Adel, dan penyedia yang menghosting catatan yang dijelaskan di atas,
-              berdasarkan instruksi kami. Kami tidak menjual informasi pribadi, tidak membagikannya
-              kepada pengiklan, dan tidak menyerahkannya kepada siapa pun kecuali diwajibkan secara
-              hukum.
+              House Adel, dan para penyedia yang dijelaskan di atas, berdasarkan instruksi kami.
+              Kami tidak menjual informasi pribadi, tidak membagikannya kepada pengiklan, dan tidak
+              menyerahkannya kepada siapa pun kecuali diwajibkan secara hukum.
             </p>
           ),
         },
@@ -314,10 +372,21 @@ export function PrivacyPage() {
           body: (
             <>
               <p>
-                Pertanyaan disimpan dalam catatan tersebut selama sebuah proyek sedang dibicarakan
-                dan selama hubungan kerja berlangsung. Jika sebuah pertanyaan tidak berlanjut
-                menjadi proyek, kami menghapusnya begitu jelas tidak lagi berjalan. Anda dapat
-                meminta kami menghapusnya lebih awal kapan saja.
+                Pertanyaan yang tidak berlanjut menjadi proyek dihapus begitu tidak ada lagi alasan
+                wajar untuk menyimpannya, kecuali ada alasan hukum, keamanan, atau pencatatan yang
+                sah untuk menahannya lebih lama.
+              </p>
+              <p>
+                Pertanyaan yang berlanjut menjadi proyek tidak lagi sekadar pertanyaan. Ia menjadi
+                bagian dari catatan bisnis untuk komisi itu, dan catatan tersebut disimpan selama
+                diperlukan untuk keperluan kontrak, akuntansi, pajak, dan riwayat proyek.
+              </p>
+              <p>
+                Anda dapat meminta kami menghapus sebuah pertanyaan lebih awal, dan kami akan
+                melakukannya, dengan tunduk pada kewajiban yang sama. Yang tidak akan kami klaim
+                adalah bahwa penghapusan terjadi seketika di mana-mana: cadangan rutin yang
+                dipegang penyedia di atas kedaluwarsa menurut jadwalnya sendiri, bukan atas
+                permintaan.
               </p>
               <p>
                 Nomor referensi pengiriman terbaru disimpan terpisah untuk waktu singkat agar
@@ -353,8 +422,14 @@ export function PrivacyPage() {
               <p>
                 Situs ini tidak menyetel kuki dan tidak menjalankan analitik. Tidak ada piksel
                 pelacak, tidak ada tag iklan, dan tidak ada pengukuran pihak ketiga dalam bentuk
-                apa pun. Kami tidak dapat melihat berapa banyak orang yang berkunjung atau apa yang
-                mereka lihat.
+                apa pun. House Adel tidak menjalankan analitik perilaku pengunjung dan tidak
+                melakukan pelacakan iklan.
+              </p>
+              <p>
+                Itu pernyataan tentang apa yang House Adel lakukan, bukan klaim bahwa internet
+                tidak terpantau. Perusahaan yang menghosting situs ini dan membawa surelnya
+                menyimpan catatan operasional mereka sendiri, sebagaimana penyedia mana pun. Kami
+                tidak menggunakannya untuk mempelajari pengunjung.
               </p>
               <p>
                 Peramban Anda memang menyimpan tiga preferensi kecil di perangkat ini agar situs
@@ -364,6 +439,19 @@ export function PrivacyPage() {
                 penyimpanan peramban.
               </p>
             </>
+          ),
+        },
+        {
+          id: "international",
+          title: "Di mana informasi ini ditangani",
+          body: (
+            <p>
+              House Adel bekerja dari Indonesia, dan penyedia yang disebut di atas adalah layanan
+              global. Karena itu pertanyaan Anda dapat diproses atau disimpan pada sistem di negara
+              selain negara Anda. Hal itu terjadi karena diperlukan untuk menerima dan menjawab
+              pertanyaan Anda, dan perlindungan yang dijelaskan di halaman ini tetap berlaku di
+              mana pun informasi itu disimpan.
+            </p>
           ),
         },
         {
@@ -403,7 +491,7 @@ export function PrivacyPage() {
         {isEnglish ? "What happens to what you send us." : "Apa yang terjadi pada yang Anda kirim."}
       </InkText>
       <p className={styles.updated}>
-        {isEnglish ? "Last updated 17 August 2026" : "Terakhir diperbarui 17 Agustus 2026"}
+        {isEnglish ? "Last updated 18 August 2026" : "Terakhir diperbarui 18 Agustus 2026"}
       </p>
       <p className={styles.lede}>
         {isEnglish
