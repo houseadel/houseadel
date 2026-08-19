@@ -1868,26 +1868,27 @@ export function TermsPage() {
         )}
       </div>
 
-      <LegalNav
-        label={isEnglish ? "Contents" : "Daftar isi"}
-        items={sections.map(({ id, title }) => ({ id, title }))}
-        anchorPrefix="terms"
-        sibling={{
-          to: "/privacy",
-          label: isEnglish ? "Privacy Policy" : "Kebijakan Privasi",
-          description: isEnglish
-            ? "What happens to what you send us: what the enquiry form collects, where it goes, and how to ask for it back."
-            : "Apa yang terjadi pada yang Anda kirim: apa yang dikumpulkan formulir pertanyaan, ke mana perginya, dan cara memintanya kembali.",
-        }}
-      />
-
-      <div className={styles.sections}>
-        {sections.map((section) => (
-          <section key={section.id} className={styles.section} aria-labelledby={`terms-${section.id}`}>
-            <h2 id={`terms-${section.id}`}>{section.title}</h2>
-            <div className={styles.body}>{section.body}</div>
-          </section>
-        ))}
+      <div className={styles.document}>
+        <LegalNav
+          label={isEnglish ? "Contents" : "Daftar isi"}
+          items={sections.map(({ id, title }) => ({ id, title }))}
+          anchorPrefix="terms"
+          sibling={{
+            to: "/privacy",
+            label: isEnglish ? "Privacy Policy" : "Kebijakan Privasi",
+            description: isEnglish
+              ? "What happens to what you send us: what the enquiry form collects, where it goes, and how to ask for it back."
+              : "Apa yang terjadi pada yang Anda kirim: apa yang dikumpulkan formulir pertanyaan, ke mana perginya, dan cara memintanya kembali.",
+          }}
+        />
+        <div className={styles.sections}>
+          {sections.map((section) => (
+            <section key={section.id} className={styles.section} aria-labelledby={`terms-${section.id}`}>
+              <h2 id={`terms-${section.id}`}>{section.title}</h2>
+              <div className={styles.body}>{section.body}</div>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
   );

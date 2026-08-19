@@ -499,26 +499,27 @@ export function PrivacyPage() {
           : "House Adel mengumpulkan informasi melalui satu formulir di situs ini, formulir pertanyaan, dan menggunakannya untuk membaca dan menjawab pertanyaan Anda."}
       </p>
 
-      <LegalNav
-        label={isEnglish ? "Contents" : "Daftar isi"}
-        items={sections.map(({ id, title }) => ({ id, title }))}
-        anchorPrefix="privacy"
-        sibling={{
-          to: "/terms",
-          label: isEnglish ? "Terms" : "Ketentuan",
-          description: isEnglish
-            ? "What a commission commits us both to: scope, fees, revisions, ownership and cancellation."
-            : "Apa yang mengikat kami dan Anda dalam sebuah komisi: lingkup, biaya, revisi, kepemilikan, dan pembatalan.",
-        }}
-      />
-
-      <div className={styles.sections}>
-        {sections.map((section) => (
-          <section key={section.id} className={styles.section} aria-labelledby={`privacy-${section.id}`}>
-            <h2 id={`privacy-${section.id}`}>{section.title}</h2>
-            <div className={styles.body}>{section.body}</div>
-          </section>
-        ))}
+      <div className={styles.document}>
+        <LegalNav
+          label={isEnglish ? "Contents" : "Daftar isi"}
+          items={sections.map(({ id, title }) => ({ id, title }))}
+          anchorPrefix="privacy"
+          sibling={{
+            to: "/terms",
+            label: isEnglish ? "Terms" : "Ketentuan",
+            description: isEnglish
+              ? "What a commission commits us both to: scope, fees, revisions, ownership and cancellation."
+              : "Apa yang mengikat kami dan Anda dalam sebuah komisi: lingkup, biaya, revisi, kepemilikan, dan pembatalan.",
+          }}
+        />
+        <div className={styles.sections}>
+          {sections.map((section) => (
+            <section key={section.id} className={styles.section} aria-labelledby={`privacy-${section.id}`}>
+              <h2 id={`privacy-${section.id}`}>{section.title}</h2>
+              <div className={styles.body}>{section.body}</div>
+            </section>
+          ))}
+        </div>
       </div>
     </div>
   );

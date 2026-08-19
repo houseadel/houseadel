@@ -5,46 +5,46 @@
  * that arrived with its own art direction would be the loudest thing on a page
  * whose whole argument is that nothing should be. It is a ruled block of small
  * type: the same register as the clause numbers it points at.
+ *
+ * The left rail of the document on a wide screen, the block above it on a
+ * narrow one. Its position in the page is set by `.document` in
+ * `pages/LegalDocument.module.css`; everything here is how it is *set*.
  */
 .nav {
-  max-width: 62rem;
-  margin-top: clamp(3rem, 7vh, 4.5rem);
-  padding-top: var(--space-5);
+  padding-top: var(--space-4);
   border-top: 1px solid var(--line);
 }
 
 /*
- * The list stays with the reader.
+ * Held in place for the length of the document.
  *
  * Twenty-nine clauses is far enough that the contents scroll away long before
  * they stop being useful, and a reader who wants clause 23 after reading clause
- * 4 should not have to travel back to the top to find it. Held below the site
- * header, which floats over the page.
+ * 4 should not have to travel back to the top to find it.
  *
- * Only where there is room. On a short viewport a sticky block is a block that
- * has taken over the screen, so it is released and simply sits where it is
- * written.
+ * Only where there is a second column to hold it in — below this width the rail
+ * becomes the first row of a single column, and a sticky block there would cover
+ * the clause it was just used to reach. The height floor is the other condition:
+ * on a short viewport a list this long is most of the screen, so it is released
+ * and simply sits where it is written.
  */
-@media (min-width: 48rem) and (min-height: 34rem) {
+@media (min-width: 64rem) and (min-height: 34rem) {
   .nav {
     position: sticky;
     top: clamp(3.5rem, 8vh, 5rem);
-    z-index: 1;
     /*
-     * Its own scrollbar rather than the page's. The Terms list is long enough to
-     * exceed a laptop viewport, and a sticky element taller than the screen
-     * simply loses its foot — the last clauses would be permanently unreachable
-     * from the contents, which is precisely the clauses a reader is most likely
-     * to be hunting for.
+     * Its own scrollbar rather than the page's. The Terms list runs to
+     * twenty-nine clauses, comfortably past a laptop viewport, and a sticky
+     * element taller than the screen simply loses its foot — the last clauses
+     * would be permanently unreachable from the contents, which is precisely the
+     * ones a reader is most likely to be hunting for.
      */
     max-height: calc(100dvh - clamp(6rem, 14vh, 8rem));
     overflow-y: auto;
     overscroll-behavior: contain;
-    /*
-     * The page's own ground, so text scrolling underneath a sticky block does
-     * not read through it.
-     */
+    /* Nothing should be able to read through the rail as it scrolls past. */
     background: var(--color-ink);
+    scrollbar-width: thin;
   }
 }
 
@@ -92,15 +92,17 @@
 }
 
 /*
- * Columns, because twenty-nine clauses in one column is the scrolling this is
- * meant to remove. `auto-fill` rather than a fixed count so the list reflows to
- * whatever the reading column actually is, and a short list — the Privacy
- * Policy has ten — simply fills fewer of them.
+ * One column now, in every layout.
+ *
+ * The list used to reflow into as many columns as the page width allowed,
+ * because it spanned the page and twenty-nine clauses in a single column would
+ * have been a wall. As a rail it is a single narrow column by definition, and a
+ * vertical list is also the shape that lets the current clause be found at a
+ * glance — the eye travels one line at a time rather than hunting a grid.
  */
 .list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-  gap: var(--space-2) clamp(1.5rem, 4vw, 3rem);
+  gap: var(--space-2);
   margin-top: var(--space-4);
   padding: 0;
   list-style: none;
@@ -154,7 +156,7 @@
 }
 
 .siblingDescription {
-  max-width: 46ch;
+  max-width: 42ch;
   font-size: var(--step-0);
   line-height: 1.5;
 }
@@ -165,12 +167,14 @@
   color: var(--color-paper);
 }
 
-@media (max-width: 47.99rem) {
-  .list {
-    grid-template-columns: 1fr;
-  }
-
-  /* On a phone the summary is a real control, so it says so. */
+/*
+ * Below the rail width the list is a disclosure the reader opens, so its heading
+ * is a real control and is set as one. The same 64rem appears in the component,
+ * which decides whether the list starts open — layout and behaviour have to
+ * change at the same width or the list is collapsible exactly where it should be
+ * a rail.
+ */
+@media (max-width: 63.99rem) {
   .label {
     cursor: pointer;
     padding-block: var(--space-2);

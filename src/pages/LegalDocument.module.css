@@ -60,17 +60,57 @@
   color: var(--color-ink-soft);
 }
 
+/*
+ * The document proper: contents on the left, clauses on the right.
+ *
+ * A contents list that stays with the reader has to sit *beside* what it points
+ * into, not above it. Stacked, a sticky block covers the very clause it was used
+ * to reach; alongside, it can hold its place for the whole document while the
+ * text scrolls past it — which is the only arrangement in which stickiness is
+ * worth anything.
+ *
+ * Below the breakpoint the rail becomes the first row and stops being sticky,
+ * because a phone has no second column to give it. See `LegalNav.module.css`.
+ */
+.document {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+  max-width: 74rem;
+  margin-top: clamp(3.5rem, 8vh, 6rem);
+}
+
+@media (min-width: 64rem) {
+  .document {
+    grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    /*
+     * Start, not stretch. A sticky child cannot move inside a grid item that has
+     * been stretched to the full height of the row — it is already as tall as the
+     * area it would travel through, so it simply never sticks.
+     */
+    align-items: start;
+  }
+}
+
 .sections {
   display: grid;
   gap: clamp(2.5rem, 5vw, 3.75rem);
-  max-width: 62rem;
-  margin-top: clamp(3.5rem, 8vh, 6rem);
+  min-width: 0;
 }
 
 .section {
   display: grid;
-  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
-  gap: var(--space-4) clamp(2rem, 5vw, 4rem);
+  /*
+   * Narrower than it was, and the gap with it. The clause number used to sit in
+   * a fifteen-rem column because it was the only thing on the left of the page;
+   * now the contents rail is, and keeping both wide pushed the reading column
+   * most of the way across the screen with two stretches of empty space in front
+   * of it. Ten and a half is the floor: below it the shorter clause titles start
+   * wrapping, and a two-line "04 — Third-party costs" is worse than the space it
+   * saves.
+   */
+  grid-template-columns: minmax(0, 10.5rem) minmax(0, 1fr);
+  gap: var(--space-4) clamp(1.5rem, 3vw, 2.5rem);
   padding-top: var(--space-5);
   border-top: 1px solid var(--line);
   /*

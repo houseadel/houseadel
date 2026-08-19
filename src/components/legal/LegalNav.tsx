@@ -34,6 +34,14 @@ import styles from "./LegalNav.module.css";
  * a sub-directory deploy, where an absolute `/terms#…` would be wrong too.
  */
 
+/**
+ * The width at which the document has a second column for the contents to live
+ * in. Stated once, here, and matched by `LegalNav.module.css`: if the layout and
+ * the open/closed default ever disagreed, the list would be collapsible at
+ * exactly the width it is supposed to be a rail.
+ */
+const RAIL = "(min-width: 64rem)";
+
 export type LegalNavItem = { id: string; title: string };
 
 type LegalNavProps = {
@@ -135,15 +143,14 @@ export function LegalNav({ label, items, anchorPrefix, sibling }: LegalNavProps)
   const current = useCurrentSection(idList.current);
 
   /*
-   * Open on a wide screen, shut on a narrow one — and after that, whatever the
-   * reader last chose. `<details>` is the whole mechanism: it is a disclosure
-   * control with a disclosure control's keyboard behaviour and a disclosure
-   * control's screen-reader announcement, already built, and `open` on a media
-   * query is all that is needed to give the two screens different defaults.
+   * Open where it is a rail, shut where it is a block above the document — and
+   * after that, whatever the reader last chose. `<details>` is the whole
+   * mechanism: it is a disclosure control with a disclosure control's keyboard
+   * behaviour and a disclosure control's screen-reader announcement, already
+   * built, and `open` on a media query is all that is needed to give the two
+   * layouts different defaults.
    */
-  const [open, setOpen] = useState(
-    () => !window.matchMedia("(max-width: 47.99rem)").matches,
-  );
+  const [open, setOpen] = useState(() => window.matchMedia(RAIL).matches);
 
   return (
     <nav className={styles.nav} aria-label={label}>
@@ -178,11 +185,11 @@ export function LegalNav({ label, items, anchorPrefix, sibling }: LegalNavProps)
                   aria-current={isCurrent ? "location" : undefined}
                   data-current={isCurrent ? "true" : undefined}
                   onClick={() => {
-                    // On a phone the list covers the document it points into, so
-                    // choosing a clause has to put it away. On a wide screen the
-                    // list is a rail beside the text and closing it would be a
-                    // sidebar collapsing under the reader for no reason.
-                    if (window.matchMedia("(max-width: 47.99rem)").matches) setOpen(false);
+                    // Stacked above the document, the list covers the clause it
+                    // points at, so choosing one has to put it away. As a rail it
+                    // sits beside the text and closing it would be a sidebar
+                    // collapsing under the reader for no reason.
+                    if (!window.matchMedia(RAIL).matches) setOpen(false);
                   }}
                   data-sonic
                 >
