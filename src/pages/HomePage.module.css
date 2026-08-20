@@ -1,444 +1,441 @@
 .page {
-  background: var(--color-ivory);
+  /* The atmosphere lives on the body now, so every page shares it. */
+  background: transparent;
 }
 
-.opening {
+.chapter {
   position: relative;
-  min-height: 142svh;
-  overflow: clip;
-  border-bottom: 1px solid var(--line);
 }
 
-.openingStage {
-  position: sticky;
-  top: var(--header-height);
-  height: calc(100svh - var(--header-height));
-  min-height: 38rem;
-  overflow: hidden;
-  background: var(--color-ivory);
-}
-
-.openingContent {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  min-height: 100%;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: auto 1fr auto;
-  gap: var(--space-5) clamp(0.75rem, 1.4vw, 1.5rem);
-  padding-block: var(--space-4);
+/*
+ * Each place keeps its scene inside its own chapter, and holds it there.
+ *
+ * Sticky rather than fixed. Fixed would carry the relief into the forest and the
+ * forest into the contact page; sticky pins a scene for exactly as long as its
+ * chapter is being read and releases it at the boundary, which is what lets one
+ * place hand over to the next.
+ */
+.reliefField,
+.forestField {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   pointer-events: none;
 }
 
-.openingContent > * {
+.reliefField {
+  top: 0;
+}
+
+/*
+ * Behind the work, not in front of it. The planting frames the view by occupying
+ * the edges, which is a composition rather than a layer: put in front it simply
+ * drew leaves over the project titles.
+ *
+ * It also starts exactly where its chapter does. An earlier version gave it a
+ * screen of head start so the crossing could be gradual, which meant foliage
+ * appeared over Home's statements. Only the relief belongs to Home.
+ */
+.forestField {
+  z-index: 0;
+  top: 0;
+}
+
+.relief,
+.forest {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+}
+
+/*
+ * Feathered at the top while it arrives, square once it has.
+ *
+ * The forest is fading up before its container has reached the top of the screen,
+ * so its own upper edge is sitting in the middle of the frame. Left hard, that
+ * edge is a horizontal line climbing the page — the seam moved rather than
+ * removed. The feather closes to nothing as the arrival completes, so the scene
+ * is never softened once it is the only thing on screen.
+ */
+.forestField {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 calc(52% * (1 - var(--forest-arrive, 1)))
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 calc(52% * (1 - var(--forest-arrive, 1)))
+  );
+}
+
+/*
+ * Leaves from the bottom up as Work approaches.
+ *
+ * A mask rather than an opacity: fading the whole scene evenly keeps every part
+ * of it present until the very end, so the boundary always has something faint on
+ * both sides of it. Sweeping a soft band up the frame empties the scene
+ * progressively instead, and the band's width is the softness of the fade while
+ * its travel is the speed of the exit — the two can then be set independently.
+ */
+.relief {
+  mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    transparent calc(var(--relief-sweep, 0) * 1%),
+    #000 calc((var(--relief-sweep, 0) + 34) * 1%),
+    #000 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to top,
+    transparent 0%,
+    transparent calc(var(--relief-sweep, 0) * 1%),
+    #000 calc((var(--relief-sweep, 0) + 34) * 1%),
+    #000 100%
+  );
+}
+
+/*
+ * One statement per screen, and the chapter carries two.
+ *
+ * The travel is the pause between two sentences read over one held scene, so it
+ * has to be longer than the text needs — but it was more than twice a screen
+ * each, with a further six tenths of a screen of padding before the line
+ * appeared, and across two of them that is over four screens of scrolling during
+ * which nothing changes but the position of a sculpture that is deliberately
+ * standing still. That is not quiet, it is distance. Held nearer a screen and a
+ * half, the pause is still unmistakably a pause and the reader arrives at the
+ * work while they are still interested in getting there.
+ */
+.screen {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 148svh;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 42svh;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* The type is brushable, so it takes the pointer back. */
+.screen :is(h1, p) {
   pointer-events: auto;
 }
 
-.heroMeta,
-.heroFoot {
-  display: flex;
-  grid-column: 1 / -1;
-  justify-content: space-between;
-  gap: var(--space-5);
-  font-size: 0.63rem;
+/* Centred and held smaller: the sculpture is the subject now, and the line
+   introduces it rather than competing with it. */
+.headline {
+  max-width: 18em;
+  margin-inline: auto;
+  font-size: clamp(1.5rem, 3vw, 2.6rem);
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: -0.012em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+.line {
+  max-width: 15em;
+  margin-inline: auto;
+  font-size: clamp(1.7rem, 4.2vw, 3.4rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+.cue {
+  margin-top: var(--space-6);
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
 }
 
-.heroCopy {
-  grid-column: 1 / span 8;
-  grid-row: 2;
-  align-self: end;
-  padding-bottom: clamp(2rem, 6vh, 5rem);
+/* Work copy stays interactive below the pointer-transparent foreground layer. */
+.masthead {
+  position: relative;
+  z-index: 2;
+  padding-top: clamp(5.5rem, 14vh, 8rem);
+  pointer-events: none;
 }
 
-.heroCopy h1 {
-  max-width: 10ch;
-  margin-top: var(--space-4);
+.chapterTitle {
+  font-family: var(--font-sans);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.projects {
+  position: relative;
+  z-index: 2;
+}
+
+/*
+ * The end of the document.
+ *
+ * One screen, the ask centred in it, and the forest still standing behind it.
+ * The wood used to dissolve across a clearing here, which meant the last thing
+ * the reader saw was a scene disappearing; it now stays, and the page simply
+ * ends. What follows is the address row and nothing else.
+ */
+.closing {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-height: 100svh;
+  /*
+   * The address row is pulled up into this screen rather than following it.
+   *
+   * Without the negative margin the document is a screen *plus* a row tall at the
+   * end, so scrolling to the bottom put the ask a row's height above centre —
+   * measured at 372 against a centre of 450, which is exactly the row. Overlapped,
+   * the last screen is the last screen: the ask is in the middle of it and the
+   * links sit at its foot, over the planting.
+   *
+   * It is done from this side because only the document wants it. Applied to the
+   * footer itself it would ride up over the final content of every other page.
+   */
+  margin-bottom: calc(-1 * var(--footer-row));
+  place-items: center;
+  text-align: center;
+  /*
+   * The overlap above is deliberate — see the margin comment — but this box's
+   * own hit-testable area is still the full screen it is laid out at, and its
+   * z-index put that whole empty grid area above the footer wherever the two
+   * overlap. The address row sitting under the ask was silently unclickable.
+   * Only `.begin` is interactive here, so only `.begin` needs to take clicks.
+   */
+  pointer-events: none;
+}
+
+/*
+ * The one thing asked, at the size of a statement.
+ *
+ * The largest type in the document after its own headline, in the reading face,
+ * because it is the studio speaking and not a control being offered. It was
+ * eleven-pixel uppercase sans in a footer — correct for an address row, wrong for
+ * the only question the site asks.
+ */
+.begin {
+  display: inline-flex;
+  align-items: baseline;
+  /* The one interactive thing inside a container that no longer takes clicks. */
+  pointer-events: auto;
+  color: var(--color-paper);
   font-family: var(--font-display);
-  font-size: clamp(3.8rem, 8.2vw, 9.2rem);
+  font-size: clamp(2.4rem, 7.5vw, 6rem);
   font-weight: 300;
-  letter-spacing: -0.062em;
-  line-height: 0.82;
+  letter-spacing: -0.022em;
+  line-height: 1.02;
+  text-wrap: balance;
 }
 
-.heroCopy h1 em {
-  color: var(--color-garnet);
-  font-weight: inherit;
+/*
+ * A project holds the screen, and then some. The gap is deliberate: the descent
+ * through the wood is the reason to scroll, and two projects a screen apart turn
+ * it into a list with a background.
+ */
+/* Each project holds the frame while it is read, then hands over. A screen and
+   a third is long enough to arrive, be looked at and leave; two screens was long
+   enough to wonder whether the page had stopped responding. */
+.project {
+  display: flex;
+  min-height: 132svh;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.lede {
-  max-width: 36rem;
-  margin-top: var(--space-5);
+/* The chapter announces itself once, in the middle of the clearing. */
+.chapterOpening {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: 88svh;
+  flex-direction: column;
+  /* Held in the upper third: centred, it sat in the clearing the planting frames
+     and competed with it rather than announcing it. */
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 17svh;
+  text-align: center;
+  pointer-events: none;
+}
+
+.chapterOpening h2 {
+  pointer-events: auto;
+}
+
+.chapterHeadline {
+  max-width: 14em;
+  font-size: clamp(1.8rem, 4.4vw, 3.6rem);
+  font-weight: 300;
+  letter-spacing: -0.012em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/*
+ * Each project arrives rather than being found already there.
+ *
+ * Driven by the same ink reveal the statements use, so the fade is the site's own
+ * and not a second idea about how things appear.
+ */
+.entry {
+  opacity: 0;
+  transform: translateY(1.6rem);
+  transition:
+    opacity var(--duration-slow) var(--ease-house),
+    transform var(--duration-slow) var(--ease-house);
+}
+
+.project[data-shown="true"] .entry {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.entry {
+  display: grid;
+  max-width: 46em;
+  gap: var(--space-4);
+}
+
+/* The work itself, held in the clearing the planting leaves. */
+.frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: rgb(8 9 7 / 55%);
+  box-shadow: inset 0 0 0 1px rgb(242 239 233 / 14%);
+}
+
+.frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.4);
+  transition:
+    transform var(--duration-slow) var(--ease-house),
+    filter var(--duration-slow) var(--ease-house);
+}
+
+/* A finger passing over the work while scrolling brings it up the same way a
+   cursor crossing it does. Set by the shared pointer signal. */
+.entry:hover .frame img,
+.entry:focus-visible .frame img,
+.entry[data-touch-hover] .frame img {
+  transform: scale(1.03);
+  filter: grayscale(0);
+  transition-duration: var(--duration-medium);
+}
+
+/* Not a decorative rectangle: the empty frame the real capture will occupy. */
+.awaiting {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgb(28 32 26 / 80%), rgb(10 12 10 / 80%));
+}
+
+.index {
+  color: var(--color-stone);
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.name {
+  font-size: clamp(1.8rem, 4.4vw, 3.4rem);
+  font-weight: 300;
+  letter-spacing: -0.012em;
+  line-height: 1.05;
+}
+
+.sentence {
   color: var(--color-ink-soft);
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  line-height: 1.18;
+  font-size: var(--step-0);
+  line-height: 1.5;
 }
 
-.openingActions {
+.tags {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-4) var(--space-5);
-  margin-top: var(--space-6);
+  gap: var(--space-2) var(--space-5);
+  padding-top: var(--space-2);
 }
 
-.heroFoot {
-  align-items: end;
+.tag {
+  color: var(--color-stone);
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.heroFoot span {
-  color: var(--color-garnet);
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-style: italic;
-  letter-spacing: 0;
-}
-
-.position {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--space-6) clamp(0.75rem, 1.4vw, 1.5rem);
-}
-
-.position > p {
-  grid-column: 1 / span 3;
-}
-
-.position > div {
-  grid-column: 4 / -1;
-}
-
-.position h2,
-.sectionHeading h2,
-.practice h2,
-.archive h2,
-.invitation h2 {
-  max-width: 13ch;
-  font-family: var(--font-display);
-  font-size: var(--step-4);
-  font-weight: 340;
-  letter-spacing: -0.045em;
-  line-height: 0.94;
-}
-
-.positionCopy {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-7);
-  margin-top: var(--space-7);
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--line-strong);
-  color: var(--color-ink-soft);
-}
-
-.capability {
-  padding-block-start: var(--space-8);
-}
-
-.sectionHeading {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--space-5) clamp(0.75rem, 1.4vw, 1.5rem);
-  margin-bottom: var(--space-8);
-}
-
-.sectionHeading > p:first-child {
-  grid-column: 1 / span 3;
-}
-
-.sectionHeading h2 {
-  grid-column: 4 / span 6;
-}
-
-.sectionHeading > p:last-child {
-  grid-column: 10 / -1;
-  align-self: end;
-  color: var(--color-ink-soft);
-  font-size: var(--step--1);
-}
-
-.practice {
-  background: var(--color-paper);
-}
-
-.practiceInner {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--space-7) clamp(0.75rem, 1.4vw, 1.5rem);
-  padding-block: var(--space-9);
-}
-
-.practice header {
-  grid-column: 1 / span 5;
-}
-
-.practice h2 {
-  margin-top: var(--space-5);
-}
-
-.practice ol {
-  grid-column: 7 / -1;
-  list-style: none;
-  border-top: 1px solid var(--line-strong);
-}
-
-.practice li {
-  display: grid;
-  min-height: 8.4rem;
-  grid-template-columns: 3rem 1fr;
-  grid-template-rows: auto auto;
-  align-content: center;
-  padding-block: var(--space-4);
-  border-bottom: 1px solid var(--line);
-}
-
-.practice li > span {
-  grid-row: 1 / span 2;
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-}
-
-.practice h3 {
-  font-family: var(--font-display);
-  font-size: var(--step-2);
-  font-weight: 380;
-}
-
-.practice li p {
-  max-width: 28rem;
-  margin-top: var(--space-2);
-  color: var(--color-ink-soft);
-  font-size: var(--step--1);
-}
-
-.archive {
-  display: grid;
-  min-height: 48rem;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  align-items: center;
-  gap: var(--space-6) clamp(0.75rem, 1.4vw, 1.5rem);
-}
-
-.archiveIndex {
-  grid-column: 1 / span 5;
-  color: color-mix(in srgb, var(--color-garnet) 68%, var(--color-ivory));
-  font-family: var(--font-display);
-  font-size: clamp(12rem, 27vw, 30rem);
-  font-style: italic;
-  font-weight: 250;
-  letter-spacing: -0.12em;
-  line-height: 0.65;
-}
-
-.archiveCopy {
-  grid-column: 7 / -1;
-}
-
-.archive h2 {
-  margin-top: var(--space-5);
-}
-
-.archiveCopy > p:not(:first-child) {
-  max-width: 35rem;
-  margin-top: var(--space-5);
-  color: var(--color-ink-soft);
-}
-
-.archiveCopy a {
-  margin-top: var(--space-6);
-}
-
-.invitation {
-  position: relative;
-  overflow: hidden;
-  background: var(--color-ivory-raised);
-}
-
-.invitation::after {
-  position: absolute;
-  top: -32%;
-  right: 8%;
-  width: min(32vw, 27rem);
-  aspect-ratio: 0.72;
-  transform: rotate(7deg);
-  border: 1px solid color-mix(in srgb, var(--color-garnet) 38%, transparent);
-  content: "";
-}
-
-.invitation > div {
-  position: relative;
-  z-index: 1;
-  padding-block: var(--space-10);
-}
-
-.invitation h2 {
-  margin-top: var(--space-5);
-}
-
-.invitation p:not(:first-child) {
-  max-width: 34rem;
-  margin-top: var(--space-5);
-  color: var(--color-ink-soft);
-}
-
-.invitation a {
-  margin-top: var(--space-6);
-}
-
-@media (max-width: 63.99rem) {
-  .heroCopy {
-    grid-column: 1 / span 7;
-  }
-
-  .position,
-  .sectionHeading,
-  .practiceInner,
-  .archive {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-  }
-
-  .position > p,
-  .sectionHeading > p:first-child {
-    grid-column: 1 / span 2;
-  }
-
-  .position > div,
-  .sectionHeading h2 {
-    grid-column: 3 / -1;
-  }
-
-  .sectionHeading > p:last-child {
-    grid-column: 3 / span 4;
-  }
-
-  .practice header {
-    grid-column: 1 / span 3;
-  }
-
-  .practice ol {
-    grid-column: 5 / -1;
-  }
-
-  .archiveIndex {
-    grid-column: 1 / span 3;
-  }
-
-  .archiveCopy {
-    grid-column: 4 / -1;
-  }
-}
-
+/*
+ * Mobile is tightened further.
+ *
+ * A screen of travel on a phone is a lot of thumb, and the same multipliers that
+ * read as composure on a desktop read as a page that has stopped changing. The
+ * document keeps its shape — statement, pause, statement, descent — but each
+ * beat is shorter, so the whole thing stays continuously composed rather than
+ * asking to be scrolled through.
+ */
 @media (max-width: 47.99rem) {
-  .opening {
-    min-height: calc(100svh - var(--header-height));
+  .screen {
+    min-height: 118svh;
+    padding-top: 34svh;
   }
 
-  .openingStage {
-    position: relative;
-    top: 0;
-    height: calc(100svh - var(--header-height));
-    min-height: 39rem;
+  .chapterOpening {
+    min-height: 70svh;
+    padding-top: 13svh;
   }
 
-  .openingContent {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .project {
+    min-height: 104svh;
   }
 
-  .heroMeta,
-  .heroFoot,
-  .heroCopy {
-    grid-column: 1 / -1;
-  }
-
-  .heroMeta p:first-child {
-    max-width: 14rem;
-  }
-
-  .heroMeta p:last-child {
-    display: none;
-  }
-
-  .heroCopy {
-    align-self: end;
-    padding-bottom: var(--space-4);
-  }
-
-  .heroCopy h1 {
-    max-width: 9ch;
-    font-size: clamp(3.2rem, 15.2vw, 5rem);
-    line-height: 0.86;
-  }
-
-  .lede {
-    max-width: 29ch;
-    font-size: 1rem;
-  }
-
-  .heroFoot p {
-    max-width: 12rem;
-    text-align: right;
-  }
-
-  .position,
-  .sectionHeading,
-  .practiceInner,
-  .archive {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .position > p,
-  .position > div,
-  .sectionHeading > p:first-child,
-  .sectionHeading h2,
-  .sectionHeading > p:last-child,
-  .practice header,
-  .practice ol,
-  .archiveIndex,
-  .archiveCopy {
-    grid-column: 1 / -1;
-  }
-
-  .positionCopy {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-  }
-
-  .sectionHeading > p:last-child {
-    margin-top: var(--space-3);
-  }
-
-  .practice ol {
-    margin-top: var(--space-4);
-  }
-
-  .archive {
-    min-height: auto;
-  }
-
-  .archiveIndex {
-    font-size: 12rem;
-  }
-
-  .archiveCopy {
-    margin-top: -2rem;
-  }
-
-  .invitation::after {
-    right: -28%;
-    width: 18rem;
+  .masthead {
+    padding-top: clamp(3.5rem, 9vh, 5.5rem);
   }
 }
 
-@media (prefers-reduced-motion: reduce), (forced-colors: active) {
-  .opening {
-    min-height: calc(100svh - var(--header-height));
+@media (prefers-reduced-motion: reduce) {
+  .relief,
+  .forest {
+    position: relative;
+    height: 70svh;
   }
 
-  .openingStage {
-    position: relative;
+  .forestField {
     top: 0;
+  }
+
+  .screen,
+  .project {
+    min-height: auto;
+    padding-block: var(--space-9);
   }
 }

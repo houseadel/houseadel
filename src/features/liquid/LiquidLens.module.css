@@ -1,0 +1,72 @@
+/*
+ * The last thing the page does.
+ *
+ * Two fixed layers sit above every other layer the site has — the header, the
+ * scroll rail, the sound companion, both WebGL stages, the type and the images —
+ * and neither of them takes a single pointer event. Everything below carries on
+ * exactly as it did; it is only the picture of it that is disturbed.
+ */
+
+.refraction {
+  position: fixed;
+  z-index: 820;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  /*
+   * The bend. This is the one thing a canvas above the page cannot do for
+   * itself: a backdrop filter reads the composited page underneath and pushes
+   * its pixels sideways, so the letters, the photographs and the particles all
+   * warp through the liquid rather than wearing it.
+   *
+   * Held to a box that follows the hand rather than the whole viewport, because
+   * a full-screen backdrop filter is a full-screen readback every frame for an
+   * effect that only ever exists under the pointer.
+   */
+  backdrop-filter: url("#house-adel-liquid-refract");
+  -webkit-backdrop-filter: url("#house-adel-liquid-refract");
+  /* Fades out well inside the filter region, so the bend has no border. */
+  mask-image: radial-gradient(closest-side, #000 0 26%, rgb(0 0 0 / 48%) 54%, transparent 84%);
+  -webkit-mask-image: radial-gradient(closest-side, #000 0 26%, rgb(0 0 0 / 48%) 54%, transparent 84%);
+  will-change: transform;
+}
+
+/*
+ * Parked when the fluid has settled. A backdrop filter costs a copy of what is
+ * behind it on every frame it exists, and there is nothing to bend once the
+ * trail has gone.
+ */
+.refraction[data-active="false"] {
+  display: none;
+}
+
+.composite {
+  position: fixed;
+  z-index: 830;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  pointer-events: none;
+  /*
+   * Where the trail is white the page is inverted, where it is black the page is
+   * untouched, and the boundary's three channels differ by a pixel or two. That
+   * is the whole effect: one difference composite over the finished screen.
+   */
+  mix-blend-mode: difference;
+}
+
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce), (pointer: coarse), (forced-colors: active) {
+  .refraction,
+  .composite {
+    display: none;
+  }
+}

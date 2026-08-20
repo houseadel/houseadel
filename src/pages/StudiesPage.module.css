@@ -1,0 +1,471 @@
+/*
+ * The working sheet.
+ *
+ * Everything here is set against the two chapters of the continuous document.
+ * They are centred, ceremonial and built on a rendered scene; this is
+ * left-aligned, gridded and built on nothing but ruled lines. The contrast is the
+ * point: a reader arriving here knows they have left the front of the house before
+ * reading a word.
+ *
+ * The frame matches Contact's, so the two standalone pages share a top edge and a
+ * gutter and the header sits the same distance above both.
+ */
+.page {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  min-height: 100svh;
+  padding-top: clamp(6rem, 13vh, 9rem);
+}
+
+/*
+ * The sheet is held for the length of the page, not scrolled with it.
+ *
+ * Absolute container, sticky child: the same arrangement the scenes on the
+ * document use, so the sheet is pinned while the page is being read and released
+ * at its foot rather than carried into the ending.
+ */
+.sheetField {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sheet {
+  --sheet-line: color-mix(in srgb, var(--color-paper) 6%, transparent);
+  --sheet-step: clamp(3.25rem, 6vw, 5.5rem);
+
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      var(--sheet-line) 0 1px,
+      transparent 1px var(--sheet-step)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--sheet-line) 0 1px,
+      transparent 1px var(--sheet-step)
+    );
+  /*
+   * Feathered at both ends, and never a full-strength mesh anywhere.
+   *
+   * The page arrives through a dissolve and the ending's ramp rises under its
+   * foot, so a hard-edged grid at either boundary would draw a horizontal line
+   * across the page as it scrolled. The ruling is also held well under half
+   * strength through the middle: it is the surface the studies are set on, not a
+   * thing to look at.
+   */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 26%,
+    #000 68%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 26%,
+    #000 68%,
+    transparent 100%
+  );
+  opacity: 0.5;
+}
+
+/* A single low warmth behind the reading column, so the sheet has a surface
+   rather than being ruled darkness. */
+.sheet::after {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    72% 52% at 38% 32%,
+    color-mix(in srgb, var(--color-ivory) 4%, transparent),
+    transparent 68%
+  );
+  content: "";
+}
+
+.layout {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * Left, and held to a reading width.
+ *
+ * Work announces itself centred in a clearing. This does not: the statement sits
+ * where a line on a drawing sheet would start, and the space to its right is left
+ * empty rather than filled.
+ */
+.intro {
+  padding-bottom: clamp(3rem, 8vh, 6rem);
+}
+
+.heading {
+  max-width: 20em;
+  font-size: clamp(1.7rem, 4vw, 3.2rem);
+  font-weight: 300;
+  letter-spacing: -0.012em;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/*
+ * The bench: an index that stays put, and one study held beside it.
+ *
+ * Two columns, and the proportion is the argument. The index is narrow because it
+ * is a way in rather than a thing to read, and the stage takes everything else
+ * because what is on it is a website — the one kind of content on this site that
+ * cannot be shown smaller and still be itself.
+ */
+.workbench {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  padding-bottom: clamp(4rem, 12vh, 8rem);
+}
+
+/*
+ * Pinned for the length of the bench.
+ *
+ * Held below the header rather than at the top of the viewport, so the index is
+ * never underneath the site's own chrome while it is being used, and
+ * `align-self: start` so the grid does not stretch it to the row height — a
+ * stretched sticky box has already filled its containing block and has nowhere
+ * left to travel, which is the silent way this fails.
+ */
+.index {
+  position: sticky;
+  top: clamp(5.5rem, 12vh, 8rem);
+  align-self: start;
+}
+
+.index ol {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  list-style: none;
+}
+
+/*
+ * One row per study, ruled like a ledger.
+ *
+ * The rule is on the row rather than between rows, so the last entry is closed
+ * off — which is what makes the list read as a finished index rather than as
+ * something that has been cut short.
+ */
+.entry {
+  display: grid;
+  width: 100%;
+  align-items: baseline;
+  padding-block: 0.85rem;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  gap: 0 0.75rem;
+  grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+  background: none;
+  color: var(--color-ink-soft);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition:
+    color var(--duration-fast) var(--ease-house),
+    border-color var(--duration-fast) var(--ease-house);
+}
+
+.entry:hover,
+.entry:focus-visible,
+.entry[data-touch-hover] {
+  color: var(--color-paper);
+}
+
+/*
+ * The selected row.
+ *
+ * Marked by weight and by a brighter rule, not by a filled background: a block of
+ * colour behind one row would be the only solid shape on a page built entirely
+ * out of lines.
+ */
+.entry[aria-current] {
+  border-bottom-color: var(--line-strong);
+  color: var(--color-paper);
+}
+
+.entryIndex {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.entryName {
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  line-height: 1.25;
+}
+
+.entry[aria-current] .entryName {
+  font-style: italic;
+}
+
+.entryYear {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.54rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.14em;
+}
+
+/*
+ * The one small voice left on this page.
+ *
+ * Used by the empty state and by a study's caption. It was defined among three
+ * columns of marginalia that have been removed; it stays because two things that
+ * are not marginalia still need a caption size.
+ */
+.sentence {
+  color: var(--color-ink-soft);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/*
+ * The empty state.
+ *
+ * Set where the bench would be, at the size the bench's own caption is, so an
+ * empty page keeps the shape of a full one instead of collapsing to a heading and
+ * some notes. It is a sentence and a way out, and nothing else: an index with
+ * nothing in it should not be dressed up.
+ */
+.empty {
+  display: grid;
+  justify-items: start;
+  max-width: 48ch;
+  padding-block: clamp(2rem, 7vh, 4rem) clamp(5rem, 16vh, 10rem);
+  border-top: 1px solid var(--line);
+  gap: 0.6rem;
+}
+
+.emptyLine {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+.emptyWay {
+  display: inline-flex;
+  align-items: center;
+  margin-top: var(--space-4);
+  gap: 0.5rem;
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.emptyWay i {
+  font-style: normal;
+  transition: transform var(--duration-fast) var(--ease-house);
+}
+
+.emptyWay:hover i,
+.emptyWay:focus-visible i,
+.emptyWay[data-touch-hover] i {
+  transform: translateX(0.28rem);
+}
+
+/* The study itself. */
+.stage {
+  display: grid;
+  align-content: start;
+  gap: clamp(1.25rem, 3vh, 2rem);
+}
+
+/*
+ * The frame the piece is held in.
+ *
+ * `isolation` because the embedded document is its own stacking world and the
+ * corner control has to stay above it whatever it contains.
+ */
+.plate {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  aspect-ratio: 16 / 10;
+  background: color-mix(in srgb, var(--color-ink-raised) 70%, transparent);
+  isolation: isolate;
+}
+
+/*
+ * The preview runs at a desktop width and is scaled down to fit.
+ *
+ * The embedded document always believes it has a 1440-pixel viewport, however
+ * wide the pane happens to be: handing it the pane's real width instead would
+ * have the invitation lay itself out for a tablet, which is a preview of a layout
+ * the reader is not about to see when they open it.
+ *
+ * The scale factor needs the pane's width, which only the pane knows, so the
+ * container is queried for it — `1cqw` is one percent of this box, making
+ * `100cqw / 1440px` the exact factor that fits.
+ */
+.viewport {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  container-type: size;
+}
+
+.frame {
+  --preview-width: 1440;
+
+  width: calc(var(--preview-width) * 1px);
+  height: calc(var(--preview-width) * 1px * 10 / 16);
+  border: 0;
+  scale: calc(100cqw / (var(--preview-width) * 1px));
+  transform-origin: top left;
+  /*
+   * Looked at, not used. A scaled iframe that takes the pointer swallows every
+   * scroll that crosses it, so a reader on their way down the page gets stuck on
+   * the preview instead of passing it. "Show full screen" is how it is used.
+   */
+  pointer-events: none;
+}
+
+/*
+ * A study with nothing separate to open.
+ *
+ * Set as a note on the empty plate rather than as a broken preview: the plate is
+ * the shape of a piece, and leaving it blank with a sentence in it says "there is
+ * no separate thing here" far more plainly than a screenshot would.
+ */
+.resident {
+  display: grid;
+  height: 100%;
+  align-content: center;
+  justify-items: start;
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  gap: 0.75rem;
+}
+
+.residentWhere {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.residentNote {
+  max-width: 34ch;
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  line-height: 1.5;
+}
+
+/*
+ * The way in, in the corner of the thing it opens.
+ *
+ * Bottom right, over the preview, on the page's own ground so it stays legible
+ * whatever the embedded document happens to be showing behind it.
+ */
+.corner {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+}
+
+.expand {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  gap: 0.5rem;
+  background: var(--color-ink-raised);
+  color: var(--color-paper);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.expand i {
+  font-style: normal;
+  transition: transform var(--duration-fast) var(--ease-house);
+}
+
+.expand:hover i,
+.expand:focus-visible i,
+.expand[data-touch-hover] i {
+  transform: translate(0.18rem, -0.18rem);
+}
+
+.caption {
+  display: grid;
+  max-width: 52ch;
+  gap: 0.5rem;
+}
+
+.captionName {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+}
+
+.tag {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.54rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 61.99rem) {
+  .workbench {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /*
+   * Released on a narrow frame. A pinned index above a stage that fills the
+   * screen is an index permanently covering the thing it selects.
+   */
+  .index {
+    position: static;
+  }
+
+  .plate {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry,
+  .expand i,
+  .emptyWay i {
+    transition: none;
+  }
+}

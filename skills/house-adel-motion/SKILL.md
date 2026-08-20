@@ -12,6 +12,8 @@ description: Design, implement, or review House Adel's motion grammar and GSAP t
 - Give every motion a narrative or usability purpose: orient, reveal, connect, emphasize, confirm, or hand off.
 - Preserve a shared House Adel grammar while letting each approved world express that grammar through its own material, space, typography, imagery, and rhythm.
 - Avoid default spectacle: perpetual drift, gratuitous parallax, glitch, cursor trails, particle fields, and transitions that merely hide loading.
+- A cursor companion is not a cursor trail: it is a single overlay that tracks the pointer 1:1 and changes state on hover intent, never leaves a decaying path, and never hides the native cursor. Parallax is not gratuitous when its depth is bounded, tied to real content layers, and flattened under reduced motion and on mobile per the adaptation rules below — treat unbounded or purely decorative depth as the thing being avoided, not depth itself.
+- The liquid lens is not a cursor trail either, and the test for that is what it draws. A trail draws its own colour over the page and accumulates. The lens draws nothing of its own: it is a mask that says which pixels of the finished site invert, so the interior is House Adel in its other tonal state, the spectrum exists only in the pixel or two where the mask boundary separates per channel, and overlapping passes merge into one body. If the effect is legible with the site removed from underneath it, it has become a trail and is wrong.
 
 Specify each sequence before implementation:
 
@@ -29,6 +31,7 @@ Start with these bands, then adjust only from recorded interaction tests:
 - `160-280ms`: small interface state changes and local reveals.
 - `280-600ms`: navigation, layout changes, and spatial reorientation.
 - `600-1200ms`: authored route or world handoffs.
+- `>1200ms` (signature only): reserved for the first-visit production loader's authored sequence. Must remain readiness-driven rather than fixed-duration, must be interruptible via a visible Skip control at any frame, must never block navigation or gate content behind itself, and must not repeat on a return visit.
 
 Keep essential feedback immediate. Let destination content become readable before decorative settling finishes. Exceed 1200ms only when the approved concept earns the delay and interruption remains safe.
 

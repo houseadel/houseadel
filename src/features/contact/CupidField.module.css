@@ -1,0 +1,92 @@
+/*
+ * The room the enquiry is being read in.
+ *
+ * Absolute over the whole route with a sticky scene inside it, which is the same
+ * arrangement Home uses for the relief: the scene is pinned for exactly as long
+ * as its page is being read and released at the end of it, so nothing is carried
+ * into the footer or into the next route the way a fixed layer would be.
+ *
+ * The field is the right-hand side of the page rather than the whole of it, and
+ * that is a decision about perspective rather than about layout. Cupid is carved
+ * into a slab a third as deep as it is tall; carried far off the camera's axis
+ * inside a full-width frame, the projection swung round far enough to show the
+ * whole of its left side wall, and the sculpture read as a box seen from the
+ * side. Giving the sculpture a frame of its own puts the camera in front of it
+ * again, and the composition is then made by where that frame sits on the page.
+ */
+.field {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 44%;
+  pointer-events: none;
+  /*
+   * Feathered where it meets the type. A hard edge here would draw a vertical
+   * seam down the middle of the page and turn the sculpture into a panel; the
+   * ramp is wide enough that the particles have thinned out of existence long
+   * before they reach the questions.
+   */
+  mask-image: linear-gradient(to right, transparent 0%, #000 34%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 34%);
+}
+
+/*
+ * Held to the screen for the length of the page, and dissolved at top and bottom.
+ *
+ * The vertical feather is the composition doing what the shader already does in
+ * depth: the form is whole where the reader is looking and comes apart towards
+ * everything that is further away. Cropping it with a hard edge instead would
+ * make the sculpture look framed rather than continuing past the viewport.
+ */
+.sculpture {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 82%, transparent 100%);
+}
+
+/*
+ * Narrow frames are not the wide one squeezed.
+ *
+ * Set above the opening statement instead of beside it, held to the top of the
+ * page and faded out well before the first question, so the reader meets the
+ * sculpture on the way in and then has the page to themselves. Keeping the
+ * two-column composition here would leave a sliver of Cupid behind a column of
+ * form fields, which is neither a sculpture nor a readable form.
+ */
+@media (max-width: 60rem) {
+  .field {
+    bottom: auto;
+    left: 0;
+    height: min(62svh, 26rem);
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  /*
+   * Not sticky here. There is nothing beside the sculpture to hold it against —
+   * it is above the statement rather than opposite it — so it scrolls away with
+   * the top of the page and leaves the questions the whole screen.
+   */
+  .sculpture {
+    position: static;
+    height: 100%;
+    opacity: 0.78;
+    mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 96%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 96%);
+  }
+}
+
+/*
+ * No sculpture where motion is refused or colour is being forced. Both are
+ * requests for the page to stop performing, and a turning particle field is the
+ * page performing.
+ */
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .field {
+    display: none;
+  }
+}

@@ -1,25 +1,33 @@
 :root {
-  color-scheme: light;
-  --font-display: "Newsreader Variable", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  --font-sans: "Manrope Variable", "Helvetica Neue", Arial, sans-serif;
+  /*
+   * One near-black ground and one warm off-white. The former garnet accent is
+   * gone: on a dark, particle-lit page it read as a decorative flourish rather
+   * than a signal, and every place it was used has become plain type instead.
+   */
+  --color-ink: #070809;
+  --color-ink-raised: #0c0e0f;
+  --color-paper: #f2efe9;
+  --color-ivory: #faf8f3;
+  --color-ivory-raised: #fffdf8;
+  --color-stone: #8d877e;
+  --color-ink-soft: #a8a29a;
+  --color-error: #c8695f;
 
-  --color-ivory: #fbfaf6;
-  --color-ivory-raised: #fffefa;
-  --color-paper: #f1eee7;
-  --color-stone: #c9c3b8;
-  --color-stone-soft: #ded9d0;
-  --color-ink: #24211f;
-  --color-ink-soft: #605b55;
-  --color-garnet: #71333d;
-  --color-garnet-deep: #5b2a32;
-  --color-metal: #a9977b;
-  --color-error: #8b2635;
-  --color-success: #315d48;
+  --line: color-mix(in srgb, var(--color-paper) 16%, transparent);
+  --line-strong: color-mix(in srgb, var(--color-paper) 28%, transparent);
 
-  --line: color-mix(in srgb, var(--color-ink) 16%, transparent);
-  --line-strong: color-mix(in srgb, var(--color-ink) 38%, transparent);
-  --surface-vellum: color-mix(in srgb, var(--color-ivory-raised) 84%, transparent);
-  --shadow-paper: 0 1.25rem 3rem rgba(49, 37, 31, 0.06);
+  /* Serif for everything that is read, grotesk reserved for the tracked
+     uppercase micro-labels where a serif at 0.6rem turns to mush. */
+  --font-display: "Times New Roman", Times, serif;
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --step--1: clamp(0.82rem, 0.79rem + 0.14vw, 0.9rem);
+  --step-0: clamp(0.95rem, 0.9rem + 0.22vw, 1.08rem);
+  --step-1: clamp(1.18rem, 1.05rem + 0.6vw, 1.5rem);
+  --step-2: clamp(1.45rem, 1.2rem + 1.1vw, 2.1rem);
+  --step-3: clamp(1.8rem, 1.3rem + 2vw, 3rem);
+  --step-4: clamp(2.3rem, 1.4rem + 3.6vw, 4.6rem);
+  --step-5: clamp(3rem, 1.4rem + 6vw, 7rem);
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -32,39 +40,41 @@
   --space-9: 6.5rem;
   --space-10: 9rem;
 
-  --page-gutter: clamp(1.1rem, 3.4vw, 3.75rem);
-  --page-max: 100rem;
-  --reading-max: 43rem;
-  --header-height: 4.75rem;
-  --radius-small: 0.2rem;
-
-  --step--1: clamp(0.72rem, 0.68rem + 0.15vw, 0.82rem);
-  --step-0: clamp(0.94rem, 0.88rem + 0.2vw, 1.06rem);
-  --step-1: clamp(1.08rem, 0.98rem + 0.42vw, 1.4rem);
-  --step-2: clamp(1.38rem, 1.13rem + 0.9vw, 2rem);
-  --step-3: clamp(1.8rem, 1.25rem + 2.1vw, 3.35rem);
-  --step-4: clamp(2.65rem, 1.5rem + 4.1vw, 5.9rem);
-  --step-5: clamp(3.8rem, 1.6rem + 7.3vw, 9.25rem);
-
   --ease-house: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-ceremony: cubic-bezier(0.76, 0, 0.24, 1);
-  --duration-fast: 180ms;
-  --duration-medium: 420ms;
-  --duration-slow: 760ms;
+  /* Hover is deliberately unhurried: it lingers rather than snapping back. */
+  --duration-fast: 220ms;
+  --duration-medium: 520ms;
+  --duration-slow: 900ms;
+
+  --page-gutter: clamp(1.15rem, 4vw, 3.25rem);
+
+  /*
+   * The height of the footer's address row.
+   *
+   * Shared because two files have to agree on it: the row sets itself to this
+   * height, and the document's last screen pulls the row up by exactly this much
+   * so that the ask lands in the centre of the final viewport rather than a row's
+   * height above it. Measured independently in each place, the two drift the
+   * moment either is retuned.
+   */
+  --footer-row: clamp(3.4rem, 8vh, 5rem);
+  --page-max: 100rem;
+  --reading-max: 40rem;
 }
 
 @media (max-width: 47.99rem) {
   :root {
-    --header-height: 4.25rem;
-    --space-8: 3.5rem;
-    --space-9: 5rem;
-    --space-10: 6.5rem;
+    --space-8: 3rem;
+    --space-9: 4rem;
+    --space-10: 5rem;
   }
 }
 
 @media (prefers-contrast: more) {
   :root {
-    --line: color-mix(in srgb, var(--color-ink) 50%, transparent);
-    --line-strong: var(--color-ink);
+    --line: color-mix(in srgb, var(--color-paper) 40%, transparent);
+    --line-strong: color-mix(in srgb, var(--color-paper) 60%, transparent);
+    --color-ink-soft: #cfc9c0;
   }
 }

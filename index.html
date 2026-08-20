@@ -2,16 +2,92 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <!--
+      A safety net alongside the real policy, not a replacement for it.
+
+      `public/_headers` is what a visitor actually receives in production —
+      Cloudflare Pages reads it and applies it to every response, with its full
+      reasoning written next to each directive. This tag exists for the hosts
+      that don't: `vite preview`, this project's own Playwright suite, and any
+      static host that ignores `_headers`. Those should not run with zero CSP
+      either, so the same policy is duplicated here by the one channel available
+      to all of them.
+
+      Deliberately not a substitute: `frame-ancestors` cannot be set from a meta
+      tag (the platform ignores it here by specification), and there is no meta
+      equivalent at all for Strict-Transport-Security, X-Content-Type-Options,
+      X-Frame-Options, or Permissions-Policy. Those still require Cloudflare's
+      `_headers` — or another host that reads it — to ever reach a visitor.
+
+      `upgrade-insecure-requests` is deliberately dropped from this copy, unlike
+      `_headers`'s. It is a no-op on a real HTTPS origin, which is the only place
+      `_headers`'s copy ever runs — but a meta tag runs everywhere this file is
+      served, including this project's own `vite preview` used by Playwright, which
+      is plain HTTP. WebKit enforces the upgrade there even against 127.0.0.1 (Chromium
+      and Firefox do not), rewriting every asset request to `https://127.0.0.1` and
+      failing every one of them with no TLS listener to answer — which took the whole
+      page down under WebKit specifically. Confirmed by removing this one directive
+      and nothing else: WebKit loads again, every other project is unaffected, and
+      the CSP verification (zero unexpected violations) still holds unchanged.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; script-src 'self' https://script.google.com https://script.googleusercontent.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com; img-src 'self' data: blob:; style-src 'self'; font-src 'self'; media-src 'self'; worker-src 'self' blob:; manifest-src 'self'"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="House Adel creates authored wedding websites and private digital invitation worlds through art direction, design and development."
+      content="House Adel is an independent web studio creating interactive websites for weddings, birthdays, dinners, launches and private events."
     />
-    <meta name="theme-color" content="#fbfaf6" />
-    <meta name="color-scheme" content="light" />
+    <!--
+      Both of these describe the ground the site actually renders on, which is
+      near-black (`--color-ink`). They used to declare a near-white page: the
+      browser painted its own canvas ivory before any stylesheet arrived, so
+      every cold load opened with a white flash and then fell to black, and
+      mobile browser chrome tinted itself to a colour the site never uses.
+    -->
+    <meta name="theme-color" content="#070809" />
+    <meta name="color-scheme" content="dark" />
     <base href="%BASE_URL%" />
+    <link rel="canonical" href="https://houseadel.com/" />
     <link rel="icon" href="%BASE_URL%adel-mark.svg" type="image/svg+xml" />
-    <title>House Adel — Wedding Websites as Private Worlds</title>
+    <link rel="apple-touch-icon" href="%BASE_URL%preview.png" />
+    <!--
+      How a link to the studio unfurls.
+
+      One 1200x630 card, the size every major crawler crops to, so the studio's
+      own mark and ground are what appear when the site is shared rather than a
+      blank rectangle and a URL.
+
+      Absolute, not resolved against `<base>`. Most crawlers will resolve a
+      relative `og:image` against the document, but several of the ones that
+      matter most for this studio — WhatsApp among them — will not, and a card
+      that fails to unfurl on the channel clients actually share links through
+      is the same as having no card at all.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="House Adel" />
+    <meta property="og:title" content="House Adel" />
+    <meta
+      property="og:description"
+      content="House Adel is an independent web studio creating interactive websites for weddings, birthdays, dinners, launches and private events."
+    />
+    <meta property="og:url" content="https://houseadel.com/" />
+    <meta property="og:image" content="https://houseadel.com/preview.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="House Adel, interactive web experiences." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="House Adel" />
+    <meta
+      name="twitter:description"
+      content="House Adel is an independent web studio creating interactive websites for weddings, birthdays, dinners, launches and private events."
+    />
+    <meta name="twitter:image" content="https://houseadel.com/preview.png" />
+    <meta name="twitter:image:alt" content="House Adel, interactive web experiences." />
+    <title>House Adel</title>
   </head>
   <body>
     <div id="root"></div>

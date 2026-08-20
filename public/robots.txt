@@ -1,0 +1,11 @@
+# House Adel — houseadel.com
+#
+# Everything public is crawlable. /enquiry-received is the one exception: it is
+# the confirmation a visitor reaches only by submitting the enquiry form, not
+# useful in a search result and not reachable from one.
+
+User-agent: *
+Allow: /
+Disallow: /enquiry-received
+
+Sitemap: https://houseadel.com/sitemap.xml

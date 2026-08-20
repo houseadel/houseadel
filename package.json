@@ -2,14 +2,14 @@
   "name": "house-adel",
   "version": "1.0.0",
   "private": true,
-  "description": "House Adel — authored wedding invitation Editions and Private Commissions.",
+  "description": "House Adel, an independent studio for singular digital occasions.",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "lint": "eslint src server tests scripts vite.config.ts vitest.config.ts playwright.config.ts eslint.config.js skills/house-adel-design-guardian/scripts --max-warnings=0",
+    "lint": "eslint src tests scripts vite.config.ts vitest.config.ts playwright.config.ts eslint.config.js skills/house-adel-design-guardian/scripts --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "build": "npm run typecheck && vite build",
     "preview": "vite preview --host 127.0.0.1",
@@ -33,6 +33,7 @@
   "dependencies": {
     "@react-three/fiber": "^9.6.1",
     "gsap": "^3.15.0",
+    "libphonenumber-js": "1.13.11",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-hook-form": "7.84.0",

@@ -10,19 +10,21 @@ Use **Ceremonial Spatial Editorialism**: formal architectural composition soften
 - Use a warm ivory ground, ink, stone, and a scarce garnet or oxblood accent. Avoid indiscriminate pure white or black.
 - Build with an architectural grid, generous negative space, precise alignment, and deliberate asymmetry.
 - Use paper, vellum, ink, frames, folds, apertures, restrained grain, archival marks, and project-owned or cleared imagery as a coherent material family.
-- Keep House Adel identity stable while allowing an Edition or Private Commission to have its own controlled world.
+- Keep House Adel identity stable while allowing each project's own material to speak for itself.
 - Compose mobile independently; do not merely compress the desktop layout.
 - Keep language concise, factual, and inviting. Never imply clients, weddings, results, press, awards, locations, team members, or institutional history that do not exist.
-- Label every self-initiated project exactly: **House Adel Study — Self-initiated.**
+- Show only real, published House Adel work; never present a client's general branding as House Adel work.
 
 ## Reject
 
 - Generic luxury monochrome, template-marketplace patterns, generic agency cards, or component-library styling.
-- Cyber grids, particles, glowing controls, chrome objects, mouse trails, liquid cursors, or decorative WebGL.
+- Cyber grids, particles, glowing controls, chrome objects, decaying mouse trails, novelty/liquid cursor replacements, or decorative WebGL with no content or feedback role.
 - Unrelated effects, themes, typefaces, or materials assembled without one governing system.
 - Generative-AI imagery, video, people, wedding photography, or 3D assets.
 - Copied reference-site imagery, language, code, layout, shader, logo, or distinctive composition.
 - Animation used to disguise unresolved hierarchy, spacing, typography, or content.
+
+A restrained cursor companion (supplementing, never replacing, the native cursor), magnetic hover on primary actions, a content-bearing marquee, and bounded parallax are permitted — see `docs/CREATIVE_DIRECTION.md`'s "Interaction and feedback" and `docs/MOTION_SPEC.md`'s acceptance table for the purpose test and required fallbacks each must meet.
 
 ## Review questions
 

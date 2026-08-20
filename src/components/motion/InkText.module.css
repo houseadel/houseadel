@@ -1,0 +1,31 @@
+.defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Room for the blur to bleed into, reclaimed so layout is unchanged. */
+.host {
+  padding: 0.26em 0.32em;
+  margin: -0.26em -0.32em;
+}
+
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .host {
+    filter: none !important;
+  }
+}
+
+/*
+ * Words stay whole so splitting into characters cannot change where a line
+ * wraps.
+ */
+.word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.char {
+  display: inline-block;
+}

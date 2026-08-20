@@ -1,186 +1,72 @@
+/*
+ * The last row of the site: one line of addresses, and nothing under it.
+ *
+ * It has no ground and no ramp of its own any more. Both existed to carry a
+ * reader down from the page into a footer that was a place — an invitation, and
+ * later a mark rebuilt from the forest's particles. Neither is here now: the ask
+ * is the document's own last screen, and this row simply sits at the foot of
+ * whatever that screen is showing, on a hairline. Taking the ground away is what
+ * lets it ride up under the ask instead of pushing a screen of its own beneath
+ * it, and on the continuous document it means the planting is still visible
+ * behind the links.
+ */
 .footer {
+  --footer-ink: var(--color-paper);
+  --footer-ink-soft: var(--color-ink-soft);
   position: relative;
-  overflow: hidden;
-  background: var(--color-ink);
-  color: var(--color-ivory);
+  color: var(--footer-ink);
 }
 
-.inner {
-  position: relative;
-  display: grid;
-  min-height: min(46rem, 92svh);
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: 1fr auto;
-  gap: var(--space-7) clamp(0.75rem, 1.4vw, 1.5rem);
-  padding-block: var(--space-8) var(--space-5);
-}
-
-.signature {
-  position: relative;
-  z-index: 1;
-  grid-column: 1 / span 6;
-}
-
-.statement {
-  max-width: 10ch;
-  margin-top: var(--space-5);
-  font-family: var(--font-display);
-  font-size: var(--step-4);
-  font-weight: 310;
-  letter-spacing: -0.045em;
-  line-height: 0.92;
-}
-
-.begin {
-  display: inline-flex;
-  min-height: 2.75rem;
+/*
+ * One row, one size, one weight.
+ *
+ * Nothing here is given more emphasis than anything else, because none of it is
+ * more important than any of the rest.
+ */
+.periphery {
+  display: flex;
+  min-height: var(--footer-row);
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-3);
-  margin-top: var(--space-7);
-  border-bottom: 1px solid currentColor;
-  font-size: var(--step--1);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-
-.begin span {
-  transition: transform var(--duration-medium) var(--ease-house);
-}
-
-.begin:hover span,
-.begin:focus-visible span {
-  transform: translate(0.2rem, -0.2rem);
-}
-
-.navigation {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-column: 8 / -1;
-  align-content: start;
-  border-top: 1px solid rgba(251, 250, 246, 0.3);
-}
-
-.navigation a {
-  display: grid;
-  min-height: 4.4rem;
-  grid-template-columns: 2.5rem 1fr;
-  align-items: center;
-  border-bottom: 1px solid rgba(251, 250, 246, 0.16);
-  font-family: var(--font-display);
-  font-size: var(--step-1);
-  text-decoration: none;
-}
-
-.navigation a span {
+  gap: var(--space-3) clamp(1.1rem, 3vw, 2.4rem);
+  border-top: 1px solid var(--line);
+  color: var(--footer-ink-soft);
   font-family: var(--font-sans);
-  font-size: 0.6rem;
-  letter-spacing: 0.1em;
-}
-
-.contact {
-  position: relative;
-  z-index: 1;
-  grid-column: 8 / -1;
-  align-self: end;
-}
-
-.contact a {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-  text-underline-offset: 0.28em;
-}
-
-.contact p {
-  max-width: 26rem;
-  color: color-mix(in srgb, var(--color-ivory) 62%, transparent);
-  font-size: var(--step--1);
-}
-
-.lower {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  grid-column: 1 / -1;
-  grid-row: 2;
-  justify-content: space-between;
-  gap: var(--space-5);
-  padding-top: var(--space-4);
-  border-top: 1px solid rgba(251, 250, 246, 0.22);
-  color: color-mix(in srgb, var(--color-ivory) 62%, transparent);
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
+  font-size: 0.58rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-.lower nav {
+.addresses {
   display: flex;
-  gap: var(--space-5);
+  flex-wrap: wrap;
+  gap: clamp(0.85rem, 2.2vw, 1.6rem);
 }
 
-.mark {
-  position: absolute;
-  right: -4vw;
-  bottom: -18vw;
-  width: min(42rem, 46vw);
-  filter: invert(1);
-  opacity: 0.035;
-  pointer-events: none;
+/* Pushes the copyright to the far end on a wide frame and lets it wrap on a
+   narrow one, without either being a separate bar. */
+.legal {
+  margin-left: auto;
 }
 
-@media (max-width: 63.99rem) {
-  .signature {
-    grid-column: 1 / span 6;
-  }
+.periphery a {
+  transition: color var(--duration-fast) var(--ease-house);
+}
 
-  .navigation,
-  .contact {
-    grid-column: 7 / -1;
-  }
+.periphery a:hover,
+.periphery a:focus-visible,
+.periphery a[data-touch-hover] {
+  color: var(--footer-ink);
 }
 
 @media (max-width: 47.99rem) {
-  .inner {
-    min-height: 48rem;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-template-rows: auto auto auto auto;
-    gap: var(--space-7) 0.75rem;
+  .periphery {
+    gap: var(--space-3) var(--space-5);
   }
 
-  .signature,
-  .navigation,
-  .contact,
-  .lower {
-    grid-column: 1 / -1;
-  }
-
-  .signature {
-    grid-row: 1;
-  }
-
-  .navigation {
-    grid-row: 2;
-  }
-
-  .contact {
-    grid-row: 3;
-  }
-
-  .lower {
-    grid-row: 4;
-    flex-direction: column;
-  }
-
-  .statement {
-    font-size: clamp(2.8rem, 13vw, 4rem);
-  }
-
-  .mark {
-    right: -25vw;
-    bottom: -7rem;
-    width: 24rem;
+  .legal {
+    width: 100%;
+    margin-left: 0;
   }
 }

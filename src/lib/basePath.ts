@@ -11,15 +11,21 @@ function normalizeBasePath(baseUrl: string) {
 }
 
 const knownRouteSuffixes = [
-  "/labs/loader",
-  "/application-received",
-  "/private-commissions",
+  // Flat, deliberately. A subdirectory preview build still uses a relative base,
+  // where a route nested more than one level deep would resolve its own asset
+  // URLs against its own directory and 404 on a static host — keeping every
+  // route at depth one is what makes that base work. The production build now
+  // uses an absolute base and does not have this constraint, but this list is
+  // still what lets getAppRootPath below recognise a real route and tell it
+  // apart from an actual 404 either way.
+  "/enquiry-received",
   "/begin-a-project",
-  "/commissions",
+  "/marvell-20",
+  "/contact",
   "/privacy",
   "/terms",
+  "/studies",
   "/work",
-  "/apply",
   "/",
 ];
 
@@ -48,11 +54,11 @@ function getAppRootPath(pathname: string) {
     }
   }
 
-  const segments = normalized.split("/");
-  if (segments.length === 1) {
-    return `/${segments[0]}`;
-  }
-
+  // Anything left is not a known route. It used to be assumed to be a deploy
+  // sub-directory and stripped, which silently rendered the homepage for every
+  // unrecognised address — the 404 page was unreachable. A path only counts as a
+  // base when removing it leaves a route we actually have, which the loop above
+  // already tested, so by here there is no base to strip.
   return "/";
 }
 
@@ -76,4 +82,20 @@ export function resolveAppUrl(to: string) {
   }
 
   return to === "/" ? appBaseUrl : `${appBaseUrl.replace(/\/$/, "")}${to}`;
+}
+
+/**
+ * Keeps `<link rel="canonical">` pointed at the page actually being read.
+ *
+ * `index.html` ships with it fixed to the root, which is only ever right for
+ * "/": every other route was silently telling crawlers that its content's
+ * canonical home was the homepage, which is the kind of signal that gets a
+ * page left out of search results entirely rather than merely ranked lower.
+ * Called from the same route-change effects that already own the document
+ * title, so the two stay in step.
+ */
+export function updateCanonicalLink(pathname: string) {
+  const link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!link) return;
+  link.href = pathname === "/" ? "https://houseadel.com/" : `https://houseadel.com${pathname}`;
 }

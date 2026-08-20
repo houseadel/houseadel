@@ -19,8 +19,13 @@ const cases = [
     viewport: { width: 1440, height: 900 },
   },
   {
-    id: "commissions-desktop",
-    route: "/commissions",
+    id: "studies-desktop",
+    route: "/studies",
+    viewport: { width: 1440, height: 900 },
+  },
+  {
+    id: "begin-a-project-desktop",
+    route: "/begin-a-project",
     viewport: { width: 1440, height: 900 },
   },
   {
@@ -36,8 +41,14 @@ const cases = [
     mobile: true,
   },
   {
-    id: "commissions-mobile",
-    route: "/commissions",
+    id: "studies-mobile",
+    route: "/studies",
+    viewport: { width: 390, height: 844 },
+    mobile: true,
+  },
+  {
+    id: "begin-a-project-mobile",
+    route: "/begin-a-project",
     viewport: { width: 390, height: 844 },
     mobile: true,
   },
@@ -163,19 +174,18 @@ async function measureCase(browser, testCase) {
   await page.goto(`${baseURL}${testCase.route}`, { waitUntil: "load" });
   await page.locator("[data-route-heading]").waitFor({ state: "visible" });
   await page.waitForLoadState("networkidle");
-  if (testCase.route === "/") {
-    await page.evaluate(() => window.dispatchEvent(new Event("house-adel:request-graphics")));
-    await page
-      .waitForFunction(
-        () =>
-          document
-            .querySelector("[data-spatial-opening]")
-            ?.getAttribute("data-graphics") === "ready",
-        undefined,
-        { timeout: 8_000 },
-      )
-      .catch(() => undefined);
-  }
+  /*
+   * The opening overlay (`role="status"`) unmounts itself once the reveal is
+   * done; until then it is drawing its own particle canvas on top of the page.
+   * A measurement taken mid-opening is measuring the ceremonial entrance, not
+   * the page it opens onto, so every route waits the same way for the same
+   * real signal here — not just "/", which is what this used to be scoped to
+   * before "/" was the only route left whose readiness attribute still existed
+   * in the app at all.
+   */
+  await page
+    .waitForSelector('[role="status"]', { state: "detached", timeout: 10_000 })
+    .catch(() => undefined);
   await page.waitForTimeout(750);
 
   const browserMetrics = await page.evaluate(async () => {

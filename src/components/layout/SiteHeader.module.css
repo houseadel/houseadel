@@ -1,293 +1,120 @@
+/* Floating, not a bar: no background, no border, no height of its own. */
 .header {
-  position: sticky;
-  z-index: 300;
+  position: fixed;
+  z-index: 500;
   top: 0;
-  height: var(--header-height);
-  border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--color-ivory) 97%, transparent);
-}
-
-.inner {
-  position: relative;
-  z-index: 3;
+  right: 0;
+  left: 0;
   display: flex;
-  height: 100%;
   align-items: center;
   justify-content: space-between;
+  padding: clamp(1rem, 2.4vw, 1.9rem) var(--page-gutter);
+  pointer-events: none;
+}
+
+.header > * {
+  pointer-events: auto;
+}
+
+/* Over the mobile menu while it is open, so the control that closes it is
+   reachable and the mark still returns home. Set by MobileMenu. */
+:global(:root[data-menu="open"]) .header {
+  z-index: 870;
 }
 
 .mark {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-  gap: 0.55rem;
-  font-family: var(--font-display);
-  font-size: 1.08rem;
-  font-weight: 520;
-  letter-spacing: -0.03em;
-  text-decoration: none;
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  opacity: 0.9;
+  transition: opacity var(--duration-medium) var(--ease-house);
 }
 
-.markSymbol {
-  width: 1.55rem;
-  height: 1.55rem;
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.utilityButton,
-.menuButton {
-  display: inline-flex;
-  min-height: 2.75rem;
-  align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
-  padding: 0.35rem 0.75rem;
-  border: 0;
-  background: transparent;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.utilityButton {
-  color: var(--color-ink-soft);
-}
-
-.utilityButton:hover,
-.utilityButton:focus-visible,
-.menuButton:hover,
-.menuButton:focus-visible {
-  color: var(--color-garnet);
-}
-
-.utilityButton:active,
-.menuButton:active,
-.mark:active {
-  transform: scale(0.97);
-}
-
-.soundDot {
-  width: 0.42rem;
-  height: 0.42rem;
-  border: 1px solid currentColor;
-  border-radius: 50%;
-}
-
-.soundDot[data-enabled="true"] {
-  border-color: var(--color-garnet);
-  background: var(--color-garnet);
-  box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--color-garnet) 14%, transparent);
-}
-
-.menuButton {
-  min-width: 5.5rem;
-  justify-content: space-between;
-  border-left: 1px solid var(--line);
-}
-
-.menuGlyph {
-  position: relative;
-  width: 1rem;
-  height: 1rem;
-}
-
-.menuGlyph i {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  transform: translateY(-0.18rem);
-  background: currentColor;
-  transition: transform var(--duration-medium) var(--ease-house);
-}
-
-.menuGlyph i:last-child {
-  transform: translateY(0.18rem);
-}
-
-.header[data-open="true"] .menuGlyph i {
-  transform: rotate(45deg);
-}
-
-.header[data-open="true"] .menuGlyph i:last-child {
-  transform: rotate(-45deg);
-}
-
-.panel {
-  position: fixed;
-  z-index: 2;
-  inset: 0;
-  visibility: hidden;
-  clip-path: circle(0 at calc(100% - var(--page-gutter) - 2rem) 2.4rem);
-  background: var(--color-paper);
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    clip-path 680ms var(--ease-ceremony),
-    opacity 240ms ease,
-    visibility 0s 680ms;
-}
-
-.panel[data-open="true"] {
-  visibility: visible;
-  clip-path: circle(150% at calc(100% - var(--page-gutter) - 2rem) 2.4rem);
+.mark:hover,
+.mark:focus-visible {
   opacity: 1;
-  pointer-events: auto;
-  transition-delay: 0s;
+  transition-duration: var(--duration-fast);
 }
 
-.panelInner {
-  display: grid;
-  min-height: 100svh;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: var(--header-height) 1fr auto;
-  gap: var(--space-5) clamp(0.75rem, 1.4vw, 1.5rem);
-  padding-block: 0 var(--space-5);
+.mark img {
+  width: 100%;
+  height: 100%;
+  filter: invert(1);
 }
 
-.studioNote {
-  grid-column: 1 / span 4;
-  grid-row: 2;
-  align-self: start;
-  max-width: 24rem;
-  margin-top: clamp(5rem, 11vh, 8rem);
-  color: var(--color-ink-soft);
-  font-size: var(--step--1);
-}
-
-.navigation {
-  grid-column: 5 / -1;
-  grid-row: 2;
-  align-self: center;
-  border-top: 1px solid var(--line-strong);
-}
-
-.navigationLink {
-  display: grid;
-  min-height: clamp(5rem, 13vh, 8.5rem);
-  grid-template-columns: 3.5rem 1fr auto;
-  align-items: center;
-  border-bottom: 1px solid var(--line);
-  text-decoration: none;
-}
-
-.navigationLink > span,
-.navigationLink > em {
-  font-family: var(--font-sans);
-  font-size: 0.63rem;
-  font-style: normal;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.navigationLink strong {
-  transform-origin: left;
-  font-family: var(--font-display);
-  font-size: clamp(2.8rem, 6.4vw, 7rem);
-  font-weight: 300;
-  letter-spacing: -0.055em;
-  line-height: 0.8;
-  transition:
-    color var(--duration-medium) var(--ease-house),
-    transform var(--duration-medium) var(--ease-house);
-}
-
-.navigationLink:hover strong,
-.navigationLink:focus-visible strong {
-  transform: translateX(0.5rem);
-  color: var(--color-garnet);
-  font-style: italic;
-}
-
-.navigationLink[aria-current="page"] em {
-  color: var(--color-garnet);
-}
-
-.panelMeta {
+.nav {
   display: flex;
-  grid-column: 1 / -1;
-  grid-row: 3;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--line-strong);
-  font-size: 0.65rem;
-  font-weight: 650;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  align-items: center;
+  gap: clamp(1.1rem, 2.4vw, 2.2rem);
 }
 
+/*
+ * The word for where you already are.
+ *
+ * Recessive rather than removed. Taking it out would break the row every time
+ * the reader moved; leaving it at full weight makes the page announce itself in
+ * chrome that is supposed to be pointing elsewhere. So it dims, stops drawing
+ * its rule on hover, and carries a hairline underneath instead — a mark of
+ * position rather than an invitation.
+ */
+.link[data-current] {
+  opacity: 0.42;
+  transition: opacity var(--duration-medium) var(--ease-house);
+}
+
+.link[data-current]::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.35em;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+  content: "";
+}
+
+.link[data-current]:hover,
+.link[data-current]:focus-visible {
+  opacity: 0.68;
+  transition-duration: var(--duration-fast);
+}
+
+/* The compact layout hands navigation to the menu entirely. */
 @media (max-width: 47.99rem) {
-  .utilityButton span:last-child:not(.soundDot) {
+  .nav {
     display: none;
   }
-
-  .utilityButton {
-    width: 2.75rem;
-    padding-inline: 0.35rem;
-  }
-
-  .menuButton {
-    min-width: 4.9rem;
-    padding-right: 0;
-  }
-
-  .panelInner {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-template-rows: var(--header-height) auto 1fr auto;
-  }
-
-  .studioNote {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin-top: var(--space-7);
-  }
-
-  .navigation {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    align-self: center;
-  }
-
-  .navigationLink {
-    min-height: 5.6rem;
-    grid-template-columns: 2.5rem 1fr auto;
-  }
-
-  .navigationLink strong {
-    font-size: clamp(2.7rem, 14vw, 4rem);
-  }
-
-  .panelMeta {
-    grid-column: 1 / -1;
-    grid-row: 4;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
 }
 
-@media (prefers-reduced-transparency: reduce) {
-  .header {
-    background: var(--color-ivory);
-  }
+.link {
+  color: var(--color-paper);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
 }
 
-@media (prefers-reduced-motion: reduce), (forced-colors: active) {
-  .panel,
-  .menuGlyph i,
-  .navigationLink strong {
-    transition: none;
-  }
+/*
+ * The light variant, on a route that is light and on the footer that is.
+ *
+ * `.onLight` is set by routes whose whole page is pale. The footer is pale too
+ * but arrives under a dark route's header by scrolling, so it announces itself
+ * on the root element instead and joins the same rules here rather than growing
+ * a second set that would drift out of step with them.
+ */
+.onLight .mark img,
+:global(:root[data-chrome="pale"]) .mark img {
+  filter: none;
+}
 
-  .panel {
-    clip-path: none;
-  }
+.onLight .link,
+:global(:root[data-chrome="pale"]) .link {
+  color: #2a241d;
+}
+
+.onLight .link span,
+:global(:root[data-chrome="pale"]) .link span {
+  color: #2a241d;
+  mix-blend-mode: normal;
 }

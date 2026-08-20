@@ -1,5 +1,7 @@
 # Design System Master File
 
+> **Stale scaffold, not source of truth.** This file's palette and typefaces predate the shipped system and no longer match it. The authoritative tokens live in `src/styles/tokens.css`; the authoritative creative direction lives in `docs/CREATIVE_DIRECTION.md` (with `docs/VOICE.md` for copy). `design-system/pages/` is empty and unused. Kept only for historical reference.
+
 > **LOGIC:** When building a specific page, first check `design-system/pages/[page-name].md`.
 > If that file exists, its rules **override** this Master file.
 > If not, strictly follow the rules below.

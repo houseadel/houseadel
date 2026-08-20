@@ -1,0 +1,251 @@
+/*
+ * Set as an index, not as a menu.
+ *
+ * The legal pages are the plainest on the site on purpose, and a contents list
+ * that arrived with its own art direction would be the loudest thing on a page
+ * whose whole argument is that nothing should be. It is a ruled block of small
+ * type: the same register as the clause numbers it points at.
+ *
+ * The left rail of the document on a wide screen, the block above it on a
+ * narrow one. Its position in the page is set by `.document` in
+ * `pages/LegalDocument.module.css`; everything here is how it is *set*.
+ */
+.nav {
+  position: relative;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+/*
+ * Held in place for the length of the document.
+ *
+ * Twenty-nine clauses is far enough that the contents scroll away long before
+ * they stop being useful, and a reader who wants clause 23 after reading clause
+ * 4 should not have to travel back to the top to find it.
+ *
+ * Only where there is a second column to hold it in — below this width the rail
+ * becomes the first row of a single column, and a sticky block there would cover
+ * the clause it was just used to reach. The height floor is the other condition:
+ * on a short viewport a list this long is most of the screen, so it is released
+ * and simply sits where it is written.
+ */
+@media (min-width: 64rem) and (min-height: 34rem) {
+  .nav {
+    position: sticky;
+    top: clamp(3.5rem, 8vh, 5rem);
+    /*
+     * No background of its own. The rail has its own grid column and nothing
+     * ever passes beneath it, so painting it meant painting a flat panel over
+     * the body's fixed gradient — a rectangle very slightly the wrong colour,
+     * which is exactly the thing this page is least able to afford.
+     */
+    max-height: calc(100dvh - clamp(6rem, 14vh, 8rem));
+  }
+
+  .scroller {
+    /*
+     * The Terms list runs to twenty-nine clauses, comfortably past a laptop
+     * viewport, and a sticky element taller than the screen simply loses its
+     * foot — the last clauses would be permanently unreachable from the
+     * contents, which is precisely the ones a reader is most likely to be
+     * hunting for. So it scrolls, inside itself.
+     */
+    max-height: calc(100dvh - clamp(6rem, 14vh, 8rem));
+    overflow-y: auto;
+    /*
+     * The wheel moves the contents while the pointer is over them, and reaching
+     * either end stops there rather than handing the gesture on to the document.
+     * A list that silently starts scrolling the page underneath it is a list you
+     * cannot reach the bottom of.
+     */
+    overscroll-behavior: contain;
+    /* Clear of the indicator drawn down the right edge. */
+    padding-right: var(--space-4);
+    /*
+     * The platform's own bar is declined in favour of the one drawn below. It is
+     * an overlay on most desktops — zero width, visible only mid-gesture, and
+     * styled differently on every OS — which is three reasons it cannot be the
+     * instrument on a page this quiet.
+     */
+    scrollbar-width: none;
+  }
+
+  .scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  /*
+   * The same instrument as the page's own scroll rail, at the same weights: a
+   * hairline track at sixteen per cent of the paper colour and a travelling mark
+   * at sixty-two. See `layout/ScrollTracker.module.css`, which is where both
+   * numbers come from — this is that reading taken in a smaller place, and it
+   * should not look like a second, louder idea.
+   *
+   * Drawn only when there is something to report. On the Privacy Policy, whose
+   * ten clauses fit without scrolling, there is no bar at all rather than a
+   * full-height one saying so.
+   */
+  .nav[data-scrollable="true"] {
+    position: sticky;
+  }
+
+  .nav[data-scrollable="true"]::before,
+  .nav[data-scrollable="true"]::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 1px;
+    pointer-events: none;
+  }
+
+  .nav[data-scrollable="true"]::before {
+    top: 0;
+    bottom: 0;
+    background: color-mix(in srgb, var(--color-paper) 16%, transparent);
+  }
+
+  .nav[data-scrollable="true"]::after {
+    /*
+     * As tall a fraction of the track as the visible list is of the whole, and
+     * that far down it. Both numbers are written to the element by
+     * `useRailIndicator`; the arithmetic stays here so the shape of the thing is
+     * described where the rest of its appearance is.
+     */
+    height: var(--rail-extent, 100%);
+    top: calc(var(--rail-progress, 0) * (100% - var(--rail-extent, 100%)));
+    background: color-mix(in srgb, var(--color-paper) 62%, transparent);
+  }
+}
+
+.disclosure {
+  /*
+   * A disclosure widget on a phone and a plain heading everywhere else. The
+   * marker is removed in both, because on a wide screen there is nothing to
+   * disclose and an arrow beside an always-open list is a control that lies.
+   */
+  display: block;
+}
+
+.disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+.label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-family: var(--font-sans);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  list-style: none;
+  cursor: default;
+}
+
+/* The clause the reader is in, shown only while the list is shut. */
+.here {
+  font-size: 0.6rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: none;
+  color: var(--color-ink-soft);
+  opacity: 0.75;
+  text-align: right;
+}
+
+.disclosure[open] .here {
+  display: none;
+}
+
+/*
+ * One column now, in every layout.
+ *
+ * The list used to reflow into as many columns as the page width allowed,
+ * because it spanned the page and twenty-nine clauses in a single column would
+ * have been a wall. As a rail it is a single narrow column by definition, and a
+ * vertical list is also the shape that lets the current clause be found at a
+ * glance — the eye travels one line at a time rather than hunting a grid.
+ */
+.list {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.entry {
+  display: block;
+  padding-block: 0.15rem;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: var(--color-ink-soft);
+  transition: color var(--duration-fast) var(--ease-house);
+}
+
+.entry:hover,
+.entry:focus-visible,
+.entry[data-touch-hover] {
+  color: var(--color-paper);
+}
+
+/*
+ * Where the reader is, marked by weight rather than by a highlight or a rule.
+ * The page has one accent gesture and it is not this; a contents list that
+ * announced itself in colour would be the brightest thing on the plainest page
+ * on the site.
+ */
+.entry[data-current="true"] {
+  color: var(--color-paper);
+}
+
+/*
+ * The other document, given the weight of a destination rather than of one more
+ * line in the list — it leaves the page, and the list does not.
+ */
+.sibling {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: clamp(2rem, 4vh, 2.75rem);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.siblingLabel {
+  font-family: var(--font-sans);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  transition: color var(--duration-fast) var(--ease-house);
+}
+
+.siblingDescription {
+  max-width: 42ch;
+  font-size: var(--step-0);
+  line-height: 1.5;
+}
+
+.sibling:hover .siblingLabel,
+.sibling:focus-visible .siblingLabel,
+.sibling[data-touch-hover] .siblingLabel {
+  color: var(--color-paper);
+}
+
+/*
+ * Below the rail width the list is a disclosure the reader opens, so its heading
+ * is a real control and is set as one. The same 64rem appears in the component,
+ * which decides whether the list starts open — layout and behaviour have to
+ * change at the same width or the list is collapsible exactly where it should be
+ * a rail.
+ */
+@media (max-width: 63.99rem) {
+  .label {
+    cursor: pointer;
+    padding-block: var(--space-2);
+  }
+}

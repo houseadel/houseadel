@@ -1,0 +1,236 @@
+/*
+ * One project, told in changing compositional modes.
+ *
+ * Each section below is a different shape on purpose. The vertical rhythm is
+ * also deliberately uneven: an opening gets a screen, a statement gets air
+ * around it, and the metadata gets almost none, because how much room something
+ * is given is the clearest thing a layout can say about how important it is.
+ */
+.page {
+  padding-bottom: clamp(4rem, 9vh, 7rem);
+  overflow-x: clip;
+}
+
+/* ---- Mode one: the opening ---- */
+
+.opening {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--space-4);
+  /* Holds the screen, but not more than it. */
+  min-height: 78svh;
+  padding-top: clamp(6rem, 14vh, 9rem);
+}
+
+.eyebrow {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/*
+ * Set in the reading face, like every other title on this site.
+ *
+ * It was the one heading anywhere in House Adel set in the sans — a hairline
+ * grotesque at nine rems, tracked tight — which made the project page look like
+ * it belonged to a different studio than the page that links to it. The name is
+ * still the largest thing on the screen; it is simply the same voice now.
+ */
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 11vw, 9rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 0.96;
+}
+
+.sentence {
+  max-width: 26ch;
+  margin-top: var(--space-3);
+  color: var(--color-ink-soft);
+  font-size: var(--step-1);
+  line-height: 1.4;
+}
+
+/* ---- Mode two: edge to edge ---- */
+
+.bleed {
+  margin-block: clamp(2rem, 6vh, 4rem);
+  /* No gutters at all. This is the one place on the page where the work is
+     allowed to touch both edges of the screen. */
+  width: 100%;
+  overflow: clip;
+}
+
+.shot {
+  display: block;
+  overflow: clip;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /*
+   * Held a little behind the page.
+   *
+   * The offset comes from scroll velocity and keeps easing after the scroll
+   * stops, so the image settles a beat later than the type around it. The scale
+   * is what stops the drift from exposing an edge.
+   */
+  transform: translate3d(0, var(--depth-shift, 0), 0) scale(var(--depth-scale, 1));
+  will-change: transform;
+}
+
+/* ---- Mode three: the statement ---- */
+
+.statement {
+  display: grid;
+  justify-items: start;
+  padding-block: clamp(5rem, 16vh, 10rem);
+}
+
+.statementText {
+  max-width: 17ch;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 5.6vw, 4.4rem);
+  font-weight: 280;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+/* ---- Mode four: prose held to one side ---- */
+
+.aside {
+  display: grid;
+  grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+  gap: var(--space-4) clamp(2rem, 6vw, 5rem);
+  padding-bottom: clamp(4rem, 12vh, 8rem);
+}
+
+.asideLabel {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.asideBody {
+  display: grid;
+  gap: var(--space-5);
+  /* Deliberately narrow inside a wide band: the emptiness to its right is the
+     composition, not leftover space. */
+  max-width: 46ch;
+  color: var(--color-ink-soft);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+
+/* ---- Mode five: small, with room ---- */
+
+.inset {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: end;
+  gap: var(--space-4);
+  padding-bottom: clamp(5rem, 14vh, 9rem);
+}
+
+.inset .shot {
+  /* Roughly half the column, pushed to one edge. */
+  width: min(100%, 34rem);
+}
+
+.caption {
+  max-width: 34rem;
+  color: var(--color-ink-soft);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+/* ---- Mode six: metadata ---- */
+
+.details {
+  display: grid;
+  gap: clamp(2rem, 5vh, 3rem);
+  padding-top: clamp(2rem, 5vh, 3rem);
+  border-top: 1px solid var(--line);
+}
+
+.table {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-5) clamp(1.5rem, 4vw, 3rem);
+}
+
+.table > div {
+  display: grid;
+  gap: var(--space-1);
+  align-content: start;
+}
+
+.table dt {
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.table dd {
+  font-size: var(--step--1);
+  line-height: 1.45;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.action {
+  font-family: var(--font-sans);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 47.99rem) {
+  .opening {
+    min-height: 62svh;
+    padding-top: clamp(4.5rem, 12vh, 7rem);
+  }
+
+  .statement {
+    padding-block: clamp(3rem, 10vh, 5rem);
+  }
+
+  .aside {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    padding-bottom: clamp(3rem, 9vh, 5rem);
+  }
+
+  .inset {
+    justify-items: stretch;
+    padding-bottom: clamp(3rem, 9vh, 5rem);
+  }
+
+  
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shot img {
+    transform: none;
+    will-change: auto;
+  }
+}

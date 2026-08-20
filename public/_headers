@@ -1,0 +1,83 @@
+# House Adel — production response headers (Cloudflare Pages).
+#
+# Cloudflare Pages reads this file from the build output root and applies it to
+# matching responses. It is deliberately the only place these headers are
+# declared: a header set in the dashboard as well would be invisible from the
+# repository and would drift.
+#
+# The Content-Security-Policy below is built from what this site actually loads,
+# not from a template. It was verified by serving dist/ with these exact headers
+# and driving every route — including a route transition, so the dissolve's clip
+# and shader both ran — while collecting violation reports. Neither 'unsafe-inline'
+# nor 'unsafe-eval' appears in the policy itself, and none of this site's own code
+# needs either. The one report seen (2026-08-19, re-verified against the current
+# build): Zod's own environment probe on /contact and /begin-a-project calls
+# `Function("")` once, inside a try/catch, purely to detect whether the runtime
+# allows it; the policy correctly blocks it and Zod's own catch falls back, so
+# validation on those routes still works exactly as intended. Every allowance
+# below has a reason written next to it; if one stops being true, remove it.
+
+/*
+  # HTTPS only, for a year. Subdomains are included because mail.houseadel.com
+  # and any future subdomain should be no weaker than the site.
+  #
+  # `preload` is deliberately absent. Submitting to the preload list is a
+  # one-way door — removal takes months and ships in a browser release — and it
+  # is not something to opt into on launch day. It can be added later once the
+  # header has been live and correct for a while.
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+  # No sniffing, no framing, no cross-origin referrer leakage.
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # The site asks for none of these. Denying them means a compromised script
+  # cannot ask either, and the browser stops offering them in its UI.
+  Permissions-Policy: accelerometer=(), autoplay=(self), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=(), xr-spatial-tracking=()
+
+  # Content-Security-Policy, clause by clause:
+  #
+  # script-src      'self' plus script.google.com and script.googleusercontent.com.
+  #                 The enquiry form has a JSONP confirmation fallback for browsers
+  #                 that block the opaque POST response, and JSONP is by definition
+  #                 a <script> element pointed at the endpoint. Apps Script serves
+  #                 /exec from script.google.com and redirects to
+  #                 script.googleusercontent.com, so both are required or the
+  #                 fallback silently stops confirming submissions.
+  #                 No 'unsafe-inline' and no 'unsafe-eval': the build emits no
+  #                 inline script, and neither three.js nor GSAP needs eval here.
+  # connect-src     The same two hosts, for the ordinary fetch path.
+  # img-src         data: because one CSS background is an inline SVG noise field
+  #                 (components/motion/ViewportAtmosphere.module.css). blob: for
+  #                 canvas-derived textures.
+  # style-src       'self' only. This was expected to need 'unsafe-inline' —
+  #                 GSAP writes through cssText and the route transition writes
+  #                 clip-path and transform directly onto elements — and it does
+  #                 not. All of that goes through the CSSOM, which CSP does not
+  #                 govern, and the build emits stylesheets as files rather than
+  #                 inline blocks. Measured across every route with the dissolve
+  #                 running: zero violations either way, so the stricter one wins.
+  # worker-src      The relief point cloud is expanded in a module worker; Vite
+  #                 emits it same-origin, and blob: covers the bundler's fallback.
+  # frame-ancestors No one embeds this site.
+  # form-action     The enquiry form posts with fetch, not a form submission, so
+  #                 nothing should ever navigate as a form target.
+  # object-src      No plugins, ever.
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://script.google.com https://script.googleusercontent.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com; img-src 'self' data: blob:; style-src 'self'; font-src 'self'; media-src 'self'; worker-src 'self' blob:; manifest-src 'self'; upgrade-insecure-requests
+
+# Hashed build output is immutable by construction: a change produces a new name.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# The baked point clouds, audio and imagery are not content-hashed, so they are
+# cached for a day and revalidated rather than pinned for a year.
+/assets/house-adel/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# The shell must never be cached hard, or a deploy cannot reach anyone.
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate

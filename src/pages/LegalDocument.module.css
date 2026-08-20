@@ -1,0 +1,191 @@
+/*
+ * A policy, set as a document.
+ *
+ * Deliberately the plainest page on the site: no scene behind it, no display
+ * type doing work, one reading column. Someone here is checking what happens to
+ * what they are about to send, or what they are about to agree to, and every
+ * piece of art direction between them and that answer is an obstacle.
+ *
+ * Shared by the Privacy Policy and the Terms. Both are the same object — a
+ * numbered document read for a specific clause — and giving them two
+ * stylesheets would mean one of them quietly drifting out of step with the
+ * other.
+ */
+.page {
+  position: relative;
+  padding-block: clamp(6rem, 14vh, 9rem) clamp(4rem, 10vh, 7rem);
+}
+
+.heading {
+  max-width: 14em;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 280;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.updated {
+  margin-top: var(--space-4);
+  color: var(--color-ink-soft);
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 650;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.lede {
+  max-width: 44ch;
+  margin-top: var(--space-6);
+  font-size: var(--step-1);
+  line-height: 1.45;
+}
+
+/*
+ * What comes before clause 01.
+ *
+ * A long agreement usually opens by saying which agreement it is and what
+ * outranks it. That is not a clause and should not be numbered like one, but it
+ * is ordinary body copy rather than a lede, so it is set as such.
+ */
+.preamble {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 62ch;
+  margin-top: var(--space-5);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+}
+
+/*
+ * The document proper: contents on the left, clauses on the right.
+ *
+ * A contents list that stays with the reader has to sit *beside* what it points
+ * into, not above it. Stacked, a sticky block covers the very clause it was used
+ * to reach; alongside, it can hold its place for the whole document while the
+ * text scrolls past it — which is the only arrangement in which stickiness is
+ * worth anything.
+ *
+ * Below the breakpoint the rail becomes the first row and stops being sticky,
+ * because a phone has no second column to give it. See `LegalNav.module.css`.
+ */
+.document {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.5rem);
+  max-width: 74rem;
+  margin-top: clamp(3.5rem, 8vh, 6rem);
+}
+
+@media (min-width: 64rem) {
+  .document {
+    grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    /*
+     * Start, not stretch. A sticky child cannot move inside a grid item that has
+     * been stretched to the full height of the row — it is already as tall as the
+     * area it would travel through, so it simply never sticks.
+     */
+    align-items: start;
+  }
+}
+
+.sections {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 3.75rem);
+  min-width: 0;
+}
+
+.section {
+  display: grid;
+  /*
+   * Narrower than it was, and the gap with it. The clause number used to sit in
+   * a fifteen-rem column because it was the only thing on the left of the page;
+   * now the contents rail is, and keeping both wide pushed the reading column
+   * most of the way across the screen with two stretches of empty space in front
+   * of it. Ten and a half is the floor: below it the shorter clause titles start
+   * wrapping, and a two-line "04 — Third-party costs" is worse than the space it
+   * saves.
+   */
+  grid-template-columns: minmax(0, 10.5rem) minmax(0, 1fr);
+  gap: var(--space-4) clamp(1.5rem, 3vw, 2.5rem);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+  /*
+   * The header floats over the page, so a clause jumped to from the contents
+   * would otherwise land underneath it. Enough room for the header at its
+   * tallest, plus the breathing space a heading wants above it anyway.
+   */
+  scroll-margin-top: clamp(5rem, 11vh, 7rem);
+}
+
+/*
+ * The heading carries the id, so the heading is what a contents link scrolls to
+ * and the heading is where the offset has to be. It is the top of its section in
+ * both layouts — the left column on a wide screen, the first row on a narrow one
+ * — so landing on it lands on the clause.
+ */
+.section h2 {
+  scroll-margin-top: clamp(5rem, 11vh, 7rem);
+  font-family: var(--font-sans);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  /* A clause number is a reference, not a place to wrap. */
+  text-wrap: balance;
+}
+
+.body {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 62ch;
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+
+.body ul {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: 1.1rem;
+}
+
+.body li {
+  padding-left: 0.2rem;
+}
+
+.body a {
+  border-bottom: 1px solid var(--line-strong);
+  transition: border-color var(--duration-fast) var(--ease-house);
+}
+
+.body a:hover,
+.body a:focus-visible,
+.body a[data-touch-hover] {
+  border-bottom-color: var(--color-paper);
+}
+
+.term {
+  color: var(--color-ink-soft);
+}
+
+/* The contact block at the end of the Terms: an address, so set as lines. */
+.address {
+  display: grid;
+  gap: var(--space-1);
+  font-style: normal;
+}
+
+@media (max-width: 47.99rem) {
+  .section {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .lede {
+    font-size: var(--step-0);
+  }
+}
