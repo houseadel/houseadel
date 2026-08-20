@@ -789,7 +789,7 @@ function ReliefParticles({ field, count, pointer, disperseRef, brushTargetRef, f
           // read as passing through the cloud: particles beside the shaft stay dark.
           vec2 ndc = clip.xy / max(clip.w, 0.0001);
           if (uEdgeOnly > 0.5) {
-            // Every point is sampled from love.stl. Recompose those samples along
+            // Every point is sampled from the source model. Recompose those samples along
             // the visitor's rectangular frame rather than revealing a duplicate
             // particle silhouette around the solid sculpture. Coordinates from
             // the source model still order the fragments along each side.

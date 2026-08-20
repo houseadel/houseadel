@@ -1,0 +1,190 @@
+/*
+ * The loader matches the site it opens: dark ground, the mark alone, and plain
+ * type for every control. No wordmark, no framed panels, no bordered buttons.
+ */
+.loaderOverlay {
+  position: fixed;
+  z-index: 500;
+  inset: 0;
+  overflow: hidden;
+  clip-path: inset(0);
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/*
+ * The particle opening paints its own ground, on a layer that clears before the
+ * cloud has finished travelling. The overlay keeps its stacking and its clip and
+ * gives up its fill.
+ */
+.loaderOverlay[data-opening="particles"] {
+  background: transparent;
+}
+
+.loaderSeal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(34vw, 24rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+}
+
+/*
+ * Present, laid out, and to all intents invisible.
+ *
+ * The mark has to be a real, rendered image for the readiness task waiting on it
+ * to mean anything — `display: none` or `visibility: hidden` on an <img> is how
+ * you get a loader that resolves without having loaded the thing it claims to
+ * have waited for. So it stays in flow at one pixel, fully transparent, while
+ * the canvas draws the version that is actually seen.
+ */
+.loaderSeal[data-sampled] {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+/*
+ * The readiness figure.
+ *
+ * Bottom left, at the gutter, in the size this site sets every administrative
+ * number at. It is not the subject — the mark filling up is — so it is placed
+ * where a page number goes rather than under the form where it would read as a
+ * caption to it.
+ */
+.loaderLevel {
+  position: absolute;
+  z-index: 2;
+  bottom: clamp(1.6rem, 4vh, 2.6rem);
+  left: var(--page-gutter);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.16em;
+  opacity: 0.55;
+}
+
+.loaderLevel span {
+  margin-left: 0.15em;
+  opacity: 0.6;
+}
+
+.loaderOrbit {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.loaderOrbit circle {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.loaderMarkFrame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: clamp(4.3rem, 7vw, 6.2rem);
+  aspect-ratio: 1;
+  place-items: center;
+  transform: translate(-50%, -50%);
+}
+
+.loaderMarkFrame img {
+  width: 46%;
+  height: 46%;
+  filter: invert(1);
+}
+
+.loaderRule {
+  position: absolute;
+  right: var(--page-gutter);
+  bottom: clamp(5.4rem, 11vh, 7.5rem);
+  left: var(--page-gutter);
+  height: 1px;
+  transform-origin: left;
+  background: var(--line);
+}
+
+.loaderChoice {
+  position: absolute;
+  bottom: clamp(1.35rem, 3vw, 2.5rem);
+  left: var(--page-gutter);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+.loaderChoicePrimary,
+.loaderChoiceSecondary,
+.loaderSkip {
+  /* Kept as a tap target without becoming a box: height comes from padding, and
+     the only affordance is the rule the .action class draws under the words. */
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+}
+
+.loaderChoicePrimary {
+  color: var(--color-paper);
+}
+
+.loaderChoiceSecondary,
+.loaderSkip {
+  color: var(--color-ink-soft);
+}
+
+.loaderSkip {
+  position: absolute;
+  right: var(--page-gutter);
+  bottom: clamp(1.35rem, 3vw, 2.5rem);
+}
+
+@media (max-width: 47.99rem) {
+  .loaderSeal {
+    width: min(82vw, 21rem);
+  }
+
+  .loaderRule {
+    bottom: 7.2rem;
+  }
+
+  .loaderChoice {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    right: var(--page-gutter);
+    bottom: 4.6rem;
+  }
+
+  .loaderSkip {
+    right: auto;
+    bottom: 1.2rem;
+    left: var(--page-gutter);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loaderOverlay[data-motion="reduced"] .loaderSeal,
+  .loaderOverlay[data-motion="reduced"] .loaderRule {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .loaderOverlay {
+    background: Canvas;
+    color: CanvasText;
+  }
+}

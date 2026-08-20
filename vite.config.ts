@@ -8,7 +8,13 @@ export default defineConfig(({ mode }) => {
   const environment = { ...process.env, ...loadedEnvironment };
 
   return {
-    base: "./",
+    // Absolute, because the production target is a root-domain deployment
+    // (houseadel.com via Cloudflare Pages), not a project subdirectory. This
+    // also removes the "every route must stay flat, one segment deep" constraint
+    // a relative base required — see src/lib/basePath.ts, whose suffix-matching
+    // already resolves an absolute base to the root path for every real route
+    // without any change needed there.
+    base: "/",
     // Pre-declare every dependency the app and the labs import. Vite's dependency
     // optimizer otherwise discovers `three`, `gsap/*` and the lab-only entry points
     // lazily, re-runs mid-session and issues a fresh `?v=` browser hash. A page that

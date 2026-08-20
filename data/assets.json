@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-13",
+  "updatedAt": "2026-08-19T05:29:02.659Z",
   "policy": {
     "eligibleRights": [
       "Public Domain Mark 1.0",
@@ -152,9 +152,9 @@
         "canonicalUrl": "3d relief.stl"
       },
       "rights": {
-        "status": "pending-verification",
-        "statement": "Supplied by the House Adel project owner as a 148 MB / 2,966,746-triangle binary STL, replacing an earlier scan of the same name on 2026-08-08. The originating scan, sculpture, photographer and licence have NOT been verified by this repository. Rights must be confirmed by the project owner before public launch.",
-        "commercialUse": false,
+        "status": "owner-confirmed-commercial",
+        "statement": "Supplied by the House Adel project owner as a 148 MB / 2,966,746-triangle binary STL, replacing an earlier scan of the same name on 2026-08-08. The project owner confirms this model is licensed for commercial use. The originating scan, sculpture, photographer and licence URL are still to be recorded here before launch.",
+        "commercialUse": true,
         "verifiedAt": null
       },
       "retrievalDate": "2026-08-08",
@@ -166,14 +166,6 @@
           "notes": "Binary STL, 2,966,746 triangles. Not shipped; kept outside the build. Re-bake with scripts/bake-relief-depth.mjs."
         },
         "derivatives": [
-          {
-            "path": "public/assets/house-adel/relief-depth-2048.png",
-            "format": "png",
-            "width": 2048,
-            "height": 1619,
-            "bytes": 1135859,
-            "transformation": "Height baked from the STL onto a 2048x1619 grid by scripts/bake-relief-depth.mjs: carved axis and depth polarity detected from the geometry, cropped to where the surface samples densely, holes closed by neighbour dilation, despeckled with a 3px median. Encodes height only; no colour from the source exists."
-          },
           {
             "path": "public/assets/house-adel/relief-depth-1024.png",
             "format": "png",
@@ -193,12 +185,12 @@
         "/"
       ],
       "approval": {
-        "status": "pending-verification",
-        "approvedBy": null,
+        "status": "owner-confirmed-commercial",
+        "approvedBy": "project-owner",
         "approvedAt": null
       },
-      "creditLine": "Credit line pending; originating sculpture and scan unconfirmed.",
-      "notes": "Rights must be confirmed before public launch. The relief is the homepage centrepiece, so this is a launch blocker rather than a lab-only caveat."
+      "creditLine": "Credit line pending; originating sculpture, scan creator and licence URL still to be recorded.",
+      "notes": "Commercial use confirmed by the project owner. Recording the originating sculpture, scan creator and a licence URL remains outstanding paperwork, not a launch blocker."
     },
     {
       "id": "house-adel-home-cloud",
@@ -277,60 +269,6 @@
         "The page renders the 1.29 MB surface-sampled point cloud rather than downloading the source STL.",
         "No generative geometry: every point lies on the supplied mesh surface."
       ]
-    },
-    {
-      "id": "house-adel-work-sculpture",
-      "assetType": "derived-3d-model-set",
-      "intendedUse": "Global House Adel footer sculpture, rendered as a responsive particle surface behind the canonical footer information.",
-      "source": {
-        "institution": "House Adel",
-        "provider": "project-owner",
-        "objectId": "3d work.stl",
-        "title": "Work sculpture scan",
-        "canonicalUrl": "assets/originals/open-access/3d work.stl"
-      },
-      "rights": {
-        "status": "pending-verification",
-        "statement": "Supplied in the House Adel project workspace. The originating sculpture, scan creator and licence have not been independently verified.",
-        "commercialUse": false,
-        "verifiedAt": null
-      },
-      "retrievalDate": "2026-08-14",
-      "files": {
-        "original": {
-          "path": "assets/originals/open-access/3d work.stl",
-          "mimeType": "model/stl",
-          "bytes": 28392084,
-          "notes": "Binary source mesh retained outside the public build."
-        },
-        "derivatives": [
-          {
-            "path": "public/assets/house-adel/work-cloud.bin",
-            "format": "house-adel-point-cloud",
-            "bytes": 1440024,
-            "transformation": "Area-weighted sampling of 160,000 points from the source STL surface, with positions quantized to 16-bit values and normals packed to signed 8-bit values."
-          }
-        ]
-      },
-      "transformations": [
-        "The footer renders the 1.37 MB surface-sampled derivative instead of downloading the 27.08 MB STL.",
-        "The Z-up source is rotated into a standing Y-up presentation at runtime. No generative geometry, texture replacement or content addition."
-      ],
-      "pages": [
-        "/",
-        "/work",
-        "/contact",
-        "/begin-a-project",
-        "/privacy",
-        "/marvell-20"
-      ],
-      "approval": {
-        "status": "pending-verification",
-        "approvedBy": null,
-        "approvedAt": null
-      },
-      "creditLine": "Credit line pending; originating sculpture and scan unconfirmed.",
-      "notes": "Rights confirmation remains a launch requirement."
     },
     {
       "id": "house-adel-mark",
@@ -1123,6 +1061,50 @@
       },
       "creditLine": "MARVELL 20 for Marvell Florist, by House Adel.",
       "notes": "Captured from the live site at the canonical URL. Re-capture rather than edit if the site changes."
+    },
+    {
+      "id": "house-adel-preview-card",
+      "assetType": "composed-screenshot",
+      "intendedUse": "The 1200x630 Open Graph / Twitter social share card, wired to og:image and twitter:image in index.html.",
+      "source": {
+        "institution": "House Adel",
+        "provider": "project-owner",
+        "objectId": "public/preview.png",
+        "title": "House Adel share card, composed from the homepage Work chapter",
+        "canonicalUrl": "public/preview.png"
+      },
+      "rights": {
+        "status": "verified",
+        "statement": "Composed entirely from this project's own rendered homepage (typography, relief and forest scenes already covered by their own manifest entries); no third-party or licensed source material.",
+        "commercialUse": true,
+        "verifiedAt": "2026-08-19"
+      },
+      "retrievalDate": "2026-08-19",
+      "files": {
+        "derivatives": [
+          {
+            "path": "public/preview.png",
+            "format": "png",
+            "width": 1200,
+            "height": 630,
+            "bytes": 643348,
+            "transformation": "Composed at 1200x630 from the studio's own Work-chapter render. No external material."
+          }
+        ]
+      },
+      "transformations": [
+        "Composed at 1200x630 for the fixed social-card crop every major crawler uses."
+      ],
+      "pages": [
+        "/"
+      ],
+      "approval": {
+        "status": "approved",
+        "approvedBy": "project-owner",
+        "approvedAt": "2026-08-19"
+      },
+      "creditLine": "House Adel.",
+      "notes": "Referenced from docs/ASSET_PROVENANCE.md; this manifest entry was missing even though the doc already described it, which is what npm run audit:provenance was catching."
     }
   ]
 }

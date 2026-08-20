@@ -19,7 +19,13 @@ import { resolve } from "node:path";
 import process from "node:process";
 import sharp from "sharp";
 
-const SIZES = [2048, 1024];
+// The runtime only ever requests the 1024 file (see relief-depth-1024.png's
+// two importers). Baking still happens at 2048 first and is downsampled from
+// there — that supersampling is what keeps the shipped 1024 clean — but a
+// 2048 file is no longer written to disk, since the one that used to be
+// written here had no consumer and just sat in public/ unfetched.
+const BAKE_RESOLUTION = 2048;
+const SIZES = [1024];
 const OUT_DIR = "public/assets/house-adel";
 
 function readBinarySTL(buffer) {
@@ -256,9 +262,9 @@ async function main() {
   );
   console.log(`aspect: ${aspect.toFixed(4)}`);
 
-  // Baked once at full size and resized down, so both files are guaranteed to
-  // describe exactly the same surface at the same aspect.
-  const base = Math.max(...SIZES);
+  // Baked once at full size and resized down, so every written size is
+  // guaranteed to describe exactly the same surface at the same aspect.
+  const base = BAKE_RESOLUTION;
   const sampled = splat(positions, axes, base, Math.max(1, Math.round(base / aspect)));
   const cropped = trim(sampled, base, Math.max(1, Math.round(base / aspect)));
   const oriented = orientDepth(cropped.grid);

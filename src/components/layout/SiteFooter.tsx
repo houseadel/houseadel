@@ -61,7 +61,7 @@ export function SiteFooter() {
                 key={contact.label}
                 href={contact.href}
                 target={external ? "_blank" : undefined}
-                rel={external ? "noreferrer" : undefined}
+                rel={external ? "noreferrer noopener" : undefined}
                 aria-label={`${contact.label} ${contact.value}`}
                 title={contact.value}
                 data-sonic

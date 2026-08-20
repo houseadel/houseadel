@@ -105,7 +105,7 @@ export function ContactPage() {
                     className={`${styles.directValue} action`}
                     href={contact.href}
                     target={contact.href.startsWith("https:") ? "_blank" : undefined}
-                    rel={contact.href.startsWith("https:") ? "noreferrer" : undefined}
+                    rel={contact.href.startsWith("https:") ? "noreferrer noopener" : undefined}
                     aria-label={`${contact.label} ${contact.value}`}
                     data-sonic
                   >

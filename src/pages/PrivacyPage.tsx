@@ -20,13 +20,11 @@ import styles from "./LegalDocument.module.css";
  * actually sends. It claims no analytics because there are none, no cookies
  * because none are set, and no sale of anything because nothing is sold.
  *
- * **Where it stops short of naming names.** The enquiry record is described by
- * what it is and what is done with it rather than by which vendor holds it. A
- * reader is owed the substance — that a processor exists, that it acts only on
- * the studio's instructions, that it may not use their enquiry for its own ends
- * — and naming the product adds nothing to that while publishing the shape of
- * the studio's own back office. Anyone who wants the name is invited to ask for
- * it, which is the part that keeps this honest rather than merely quiet.
+ * **Names the categories that actually touch an enquiry — Google, Cloudflare,
+ * Brevo — without narrating the pipeline between them.** A reader is owed which
+ * kinds of provider hold their words and that each acts only on the studio's
+ * instructions; the exact internal path an enquiry takes to get there is the
+ * studio's back office, not something a privacy notice needs to diagram.
  *
  * What it deliberately does not do is take permission to publish anyone's
  * project. An enquiry is not a licence. It does not go on to *grant* one

@@ -11,10 +11,13 @@ function normalizeBasePath(baseUrl: string) {
 }
 
 const knownRouteSuffixes = [
-  // Flat, deliberately. The build uses base "./", so a route nested more than
-  // one level deep resolves its own asset URLs against its directory and 404s on
-  // a static host. Keeping every route at depth one is what makes that base work.
-  "/labs-loader",
+  // Flat, deliberately. A subdirectory preview build still uses a relative base,
+  // where a route nested more than one level deep would resolve its own asset
+  // URLs against its own directory and 404 on a static host — keeping every
+  // route at depth one is what makes that base work. The production build now
+  // uses an absolute base and does not have this constraint, but this list is
+  // still what lets getAppRootPath below recognise a real route and tell it
+  // apart from an actual 404 either way.
   "/enquiry-received",
   "/begin-a-project",
   "/marvell-20",
@@ -79,4 +82,20 @@ export function resolveAppUrl(to: string) {
   }
 
   return to === "/" ? appBaseUrl : `${appBaseUrl.replace(/\/$/, "")}${to}`;
+}
+
+/**
+ * Keeps `<link rel="canonical">` pointed at the page actually being read.
+ *
+ * `index.html` ships with it fixed to the root, which is only ever right for
+ * "/": every other route was silently telling crawlers that its content's
+ * canonical home was the homepage, which is the kind of signal that gets a
+ * page left out of search results entirely rather than merely ranked lower.
+ * Called from the same route-change effects that already own the document
+ * title, so the two stay in step.
+ */
+export function updateCanonicalLink(pathname: string) {
+  const link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!link) return;
+  link.href = pathname === "/" ? "https://houseadel.com/" : `https://houseadel.com${pathname}`;
 }

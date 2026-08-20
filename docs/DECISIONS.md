@@ -22,11 +22,11 @@ The morphing-relief stage, its displaced surface, its depth map and the metaball
 
 ### Use Google Apps Script as the only inquiry server layer
 
-The public site remains a static Vite build for GitHub Pages. The visitor-facing enquiry is a custom React form and does not embed or imitate Google Forms. It sends a CORS-safelisted `text/plain` request containing JSON to one Apps Script Web App. ContentService returns the acceptance JSON. If a browser cannot read the cross-origin POST after Apps Script's redirect, the client repeats the same duplicate-safe submission as an opaque request and verifies its exact inquiry ID through a narrowly scoped JSONP status response. The browser never treats the opaque delivery alone as success.
+The public site remains a static Vite build, deployed on Cloudflare Pages. The visitor-facing enquiry is a custom React form and does not embed or imitate Google Forms. It sends a CORS-safelisted `text/plain` request containing JSON to one Apps Script Web App. ContentService returns the acceptance JSON. If a browser cannot read the cross-origin POST after Apps Script's redirect, the client repeats the same duplicate-safe submission as an opaque request and verifies its exact inquiry ID through a narrowly scoped JSONP status response. The browser never treats the opaque delivery alone as success.
 
 `google-apps-script/Code.gs` creates the private 13-field Google Form and its linked response Sheet, stores their IDs in Script Properties, and reuses them when setup runs again. `doPost` validates and normalizes the public payload, checks a honeypot and minimum completion time, serializes writes with a script lock, suppresses recently repeated inquiry IDs, creates a FormResponse, and submits it. Google owns all credentials. The frontend contains only the public `/exec` routing URL and non-secret source/version labels in `src/config/commissionBackend.ts`.
 
-The former Vite Connect `/api/applications` middleware, server providers, service-account Sheets integration, email webhook, and Turnstile client were removed. They could not run on GitHub Pages and introduced a server architecture the selected deployment does not have.
+The former Vite Connect `/api/applications` middleware, server providers, service-account Sheets integration, email webhook, and Turnstile client were removed. They could not run on a static host and introduced a server architecture the selected deployment does not have — true of GitHub Pages, evaluated at the time, and equally true of Cloudflare Pages' plain static deployment, since neither runs server code for a project that does not opt into one.
 
 **Contact** is now the single public inquiry entry point. `/begin-a-project` remains a compatibility alias rendering the same Contact component, and every internal inquiry link points to `/contact`. "Commission Inquiry" is used only for the private Form, Sheet, script, and technical documentation.
 
@@ -91,7 +91,7 @@ Vite is no longer treated as a disposable review-only choice. It is accepted for
 
 The existing router already handles semantic links, `pushState`, `popstate`, Back/Forward navigation, document titles, scroll restoration, and route-heading focus. It will be refactored into a production route table for the required routes rather than adding a second routing library. Direct-load behavior remains an acceptance test.
 
-GitHub Pages deploys the static `dist` artifact through `.github/workflows/deploy-pages.yml`. The build copies `index.html` to `404.html` so direct one-segment application routes enter the History API app while real assets continue to resolve. Inquiry submission posts to the configured Apps Script Web App; the browser receives no Google credentials.
+Cloudflare Pages builds and deploys the static `dist` artifact directly from this repository; the former GitHub Actions workflow that deployed to GitHub Pages has been removed. `public/_redirects` sends every route to `index.html` with a 200 (not a 404-copy trick) so direct application routes enter the History API app at the address the visitor actually requested, while real assets continue to resolve first. Inquiry submission posts to the configured Apps Script Web App; the browser receives no Google credentials.
 
 ### Preserve progressive enhancement
 

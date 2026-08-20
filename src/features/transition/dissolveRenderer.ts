@@ -59,10 +59,12 @@ function compact() {
  *
  * Two is where the returns stop for a soft-edged rim on a desktop display.
  * Phones are capped lower: their pixel ratios run to three and four, the effect
- * is full-screen, and nothing about a grain boundary rewards that.
+ * is full-screen, and nothing about a grain boundary rewards that. 1.25, not
+ * 1.5 — the site-wide mobile canvas budget — costs this specific effect nothing
+ * visible: it is the same soft, full-screen grain either way.
  */
 function pixelRatioCap() {
-  return compact() ? 1.5 : 2;
+  return compact() ? 1.25 : 2;
 }
 
 let handle: DissolveHandle | null = null;

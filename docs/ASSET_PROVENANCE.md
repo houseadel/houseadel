@@ -19,14 +19,11 @@ House Adel version one ships no generative-AI image, generative-AI video, AI-cre
 | `public/licenses/manrope-OFL-1.1.txt` | The Manrope Project Authors | SIL Open Font License 1.1 | Distributed licence notice for Manrope | None |
 | `public/licenses/newsreader-OFL-1.1.txt` | The Newsreader Project Authors | SIL Open Font License 1.1 | Distributed licence notice for Newsreader | None |
 | `public/assets/house-adel/sound/*.m4a` | House Adel project owner, “HOUSE ADEL — Sonic Identity v4” | **Pending verification.** Composer, licence and any third-party sample content unconfirmed. Launch blocker. | Press, route transition, loader bed and resolve, type resolving and receding, background score | Transcoded from supplied WAV/MP3 to AAC: cues mono 96 kbps, score stereo 72 kbps |
-| `public/assets/house-adel/relief-depth-2048.png` and `-1024.png` | House Adel project owner, supplied `3d relief.stl` | **Pending verification.** Originating scan, sculpture, photographer and licence unconfirmed. Launch blocker. | The home page relief, rendered as a particle surface | Height baked by `scripts/bake-relief-depth.mjs`; carved axis and depth polarity detected, cropped to the slab, dilated and median-despeckled |
+| `public/assets/house-adel/relief-depth-1024.png` | House Adel project owner, supplied `3d relief.stl` | **Owner-confirmed for commercial use.** Originating scan, sculpture, photographer and licence URL still to be recorded here. | The home page relief, rendered as a particle surface | Height baked by `scripts/bake-relief-depth.mjs`; carved axis and depth polarity detected, cropped to the slab, dilated and median-despeckled |
 | `public/assets/house-adel/home-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/home.stl` | **Owner-confirmed for commercial use.** Originating sculpture, scan creator and licence URL still to be recorded here. | Depth-shaded particle homepage sculpture | Area-sampled to 150,000 points with quantized positions and packed normals |
 | `public/assets/house-adel/cupid-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/cupid.stl` | **Owner-confirmed for commercial use.** Originating sculpture, scan creator and licence URL still to be recorded here. | Depth-shaded particle sculpture beside the Contact enquiry | Area-sampled to 150,000 points with quantized positions and packed normals |
-| `public/assets/house-adel/work-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d work.stl` | **Pending verification.** Originating sculpture, scan creator and licence unconfirmed. Launch blocker. | Global footer particle sculpture | Surface area-sampled to 160,000 points with quantized positions and packed normals; the Z-up source is oriented upright at runtime |
-| `public/assets/house-adel/tree-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/island_tree_02_4k.glb` | **Pending verification. Launch blocker.** The `*_4k.glb` naming and the accompanying `.blend.zip` are the distribution convention of a well-known CC0 3D library, but a naming convention is not a licence. Source URL and licence to be recorded before launch. | The Work chapter's forest canopy | Area-sampled to a 39,000-point cloud with quantized positions and packed normals |
-| `public/assets/house-adel/fern-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/fern_02_4k.glb` | **Pending verification. Launch blocker.** As above: source URL and licence to be recorded before launch. | The Work chapter's undergrowth | Area-sampled to a 30,000-point cloud with quantized positions and packed normals |
-| `public/assets/house-adel/dove-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/dove.glb` | **Pending verification.** Not currently referenced by any runtime code; shipped but unused. | None at present | Area-sampled point cloud |
-| `public/assets/house-adel/periwinkle-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/periwinkle_plant_4k.glb` | **Pending verification.** Not currently referenced by any runtime code; shipped but unused. | None at present | Area-sampled point cloud |
+| `public/assets/house-adel/tree-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/island_tree_02_4k.glb` | **Owner-confirmed for commercial use.** Source URL and licence name still to be recorded here. | The Work chapter's forest canopy | Area-sampled to a 39,000-point cloud with quantized positions and packed normals |
+| `public/assets/house-adel/fern-cloud.bin` | House Adel project owner, supplied `assets/originals/open-access/3d/fern_02_4k.glb` | **Owner-confirmed for commercial use.** Source URL and licence name still to be recorded here. | The Work chapter's undergrowth | Area-sampled to a 30,000-point cloud with quantized positions and packed normals |
 | `public/assets/marvell-20/marvell-20-*.avif` and `.webp` | House Adel, commissioned work for Marvell Florist | Studio's own delivered work, shown as portfolio under clause 12 of the Terms | The MARVELL 20 project page and the Work index | Responsive AVIF and WebP encoding of screen captures |
 | `public/preview.png` | House Adel | Project-owned; composed from the studio's own Work-chapter render | Open Graph and Twitter social card | Composed at 1200×630 |
 | `public/adel-mark.svg` | House Adel project owner, supplied `adel mark.svg` | Project-owned | Persistent navigation mark | Byte-for-byte copy; no redraw |
@@ -105,26 +102,26 @@ not derivable from the repository.
 1. `public/assets/house-adel/sound/*.m4a` — the whole sonic identity. Composer,
    licence, and whether any third-party sample content is present, all
    unconfirmed. This is sixteen files including a five-and-a-half-megabyte score.
-2. `public/assets/house-adel/relief-depth-2048.png` / `-1024.png` — baked from
-   `3d relief.stl`. Originating sculpture, scan creator and licence unconfirmed.
-3. `public/assets/house-adel/work-cloud.bin` — baked from `3d work.stl`. Same
-   question, unanswered.
-4. `public/assets/house-adel/tree-cloud.bin` and `fern-cloud.bin` — the entire
-   Work chapter. The file naming points at a CC0 library, and pointing is not
-   proof.
 
-**Blocking, and specifically about scans:** a sculpture being centuries old does
-not put a modern 3D scan of it in the public domain. The scan is a separate work
-with its own author and its own licence, and several 3D libraries distribute
-scans of public-domain sculpture under terms that restrict commercial use or
-require attribution. `home-cloud.bin` and `cupid-cloud.bin` are recorded above as
-owner-confirmed for commercial use; that confirmation still needs a source URL
-and a licence name written down beside it, because "confirmed" with nothing to
-point at is not something that can be relied on later.
+**Owner-confirmed for commercial use, 2026-08-20 — paperwork outstanding, not blocking:**
 
-**Not blocking:**
+`home-cloud.bin`, `cupid-cloud.bin`, `relief-depth-1024.png`, `tree-cloud.bin`
+and `fern-cloud.bin` — every 3D asset actually rendered on the site — are
+recorded above as owner-confirmed for commercial use. That confirmation still
+needs a source URL and a licence name written down beside each one, because
+"confirmed" with nothing to point at is not something that can be relied on
+later. Worth keeping in mind specifically for the scans (`home-cloud.bin`,
+`cupid-cloud.bin`, `relief-depth-1024.png`): a sculpture being centuries old
+does not put a modern 3D scan of it in the public domain. The scan is a
+separate work with its own author and its own licence, which is exactly what
+the outstanding paperwork above is for.
 
-- `dove-cloud.bin` and `periwinkle-cloud.bin` are shipped but unreferenced. They
-  are 639 KB of payload nobody downloads, since nothing requests them. Left in
-  place rather than deleted, per the rule that an asset is not removed merely
-  because no import is currently obvious.
+**Removed rather than answered, 2026-08-20:** every 3D asset that was not
+actually rendered anywhere on the site carried this same open licence question
+and has been deleted instead — both the shipped derivative and its source file.
+`work-cloud.bin` (a former footer sculpture `SiteFooter.tsx` no longer renders),
+`dove-cloud.bin` and `periwinkle-cloud.bin` (never wired into the forest
+planting), and the source STLs/GLBs/archives behind all three, are gone from
+`public/` and from `assets/originals/`. `data/assets.json` no longer lists any
+of them. If one of these is reintroduced later, its licence question returns
+with it.

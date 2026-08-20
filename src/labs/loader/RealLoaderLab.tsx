@@ -6,7 +6,7 @@ import { resolveAppUrl } from "../../lib/basePath";
 import { loadPointCloud } from "../../features/gallery/pointCloud";
 import { OpeningParticles } from "./OpeningParticles";
 import { openingHasRun, rememberOpeningRun } from "./visitRecord";
-import styles from "./LoaderLabPage.module.css";
+import styles from "./RealLoaderLab.module.css";
 
 const READINESS_TIMEOUT = 3_500;
 /*

@@ -23,8 +23,8 @@
  * the model and turns every surface normal inward, which would leave the runtime
  * lighting the inside of the sculpture.
  *
- * Usage: node scripts/bake-point-cloud.mjs "assets/originals/open-access/3d work.stl" work 160000
- *        node scripts/bake-point-cloud.mjs "assets/originals/open-access/3d/davidd.stl" david 150000
+ * Usage: node scripts/bake-point-cloud.mjs "assets/originals/open-access/3d/home.stl" home 150000
+ *        node scripts/bake-point-cloud.mjs "assets/originals/open-access/3d/cupid.stl" cupid 150000
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -95,7 +95,7 @@ function triangleArea(p, i) {
 }
 
 async function main() {
-  const source = process.argv[2] ?? "assets/originals/open-access/3d work.stl";
+  const source = process.argv[2] ?? "assets/originals/open-access/3d/home.stl";
   const name = process.argv[3];
   const target = Number(process.argv[4] ?? 160_000);
   const yaw = Number(process.argv[5] ?? 0);

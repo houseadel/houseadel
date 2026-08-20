@@ -7,7 +7,7 @@ import {
   useRef,
   useSyncExternalStore,
 } from "react";
-import { resolveAppUrl, stripAppBasePath } from "./basePath";
+import { resolveAppUrl, stripAppBasePath, updateCanonicalLink } from "./basePath";
 import { chapterForPath } from "./chapters";
 import { transitionIsRunning } from "../features/transition/transitionClock";
 
@@ -253,6 +253,7 @@ export function useRouteEffects(location: string, title: string) {
 
   useEffect(() => {
     document.title = title;
+    updateCanonicalLink(stripAppBasePath(window.location.pathname.replace(/\/+$/, "")) || "/");
     const shouldFocusHeading = !isInitialDocument.current;
     isInitialDocument.current = false;
     let frame = 0;

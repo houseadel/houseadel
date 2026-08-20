@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { chapters, type Chapter } from "./chapters";
-import { resolveAppUrl } from "./basePath";
+import { resolveAppUrl, updateCanonicalLink } from "./basePath";
 import { transitionIsRunning } from "../features/transition/transitionClock";
 
 export const CHAPTER_EVENT = "house-adel:chapter";
@@ -70,6 +70,7 @@ export function useChapters(onTransition?: (progress: number) => void) {
           window.history.replaceState(window.history.state, "", target);
         }
         document.title = active.title;
+        updateCanonicalLink(active.path);
         // Announced on its own channel rather than through the router. Waking the
         // router would re-run its route effects, and one of those scrolls the
         // document to the top — which would fight the scroll that got us here.

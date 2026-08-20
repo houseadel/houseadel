@@ -211,6 +211,14 @@
   margin-bottom: calc(-1 * var(--footer-row));
   place-items: center;
   text-align: center;
+  /*
+   * The overlap above is deliberate — see the margin comment — but this box's
+   * own hit-testable area is still the full screen it is laid out at, and its
+   * z-index put that whole empty grid area above the footer wherever the two
+   * overlap. The address row sitting under the ask was silently unclickable.
+   * Only `.begin` is interactive here, so only `.begin` needs to take clicks.
+   */
+  pointer-events: none;
 }
 
 /*
@@ -224,6 +232,8 @@
 .begin {
   display: inline-flex;
   align-items: baseline;
+  /* The one interactive thing inside a container that no longer takes clicks. */
+  pointer-events: auto;
   color: var(--color-paper);
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 7.5vw, 6rem);

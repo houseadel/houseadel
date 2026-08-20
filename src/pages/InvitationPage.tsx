@@ -182,13 +182,13 @@ function Opening() {
             <h2>{ceremony.venue}</h2>
             <p>{ceremony.time[language]}<br />{ceremony.address[language]}</p>
             <p className={styles.quiet}>{ceremony.note[language]}</p>
-            <a href={map(ceremony.address.en)} target="_blank" rel="noreferrer">{language === "en" ? "Open map" : "Buka peta"} ↗</a>
+            <a href={map(ceremony.address.en)} target="_blank" rel="noreferrer noopener">{language === "en" ? "Open map" : "Buka peta"} ↗</a>
           </div>
           <div className={styles.receptionWords}>
             <Kicker number="02 / II">{reception.name[language]}</Kicker>
             <h3>{reception.venue}</h3>
             <p>{reception.time[language]}<br />{reception.address[language]}</p>
-            <a href={map(reception.address.en)} target="_blank" rel="noreferrer">{language === "en" ? "Open map" : "Buka peta"} ↗</a>
+            <a href={map(reception.address.en)} target="_blank" rel="noreferrer noopener">{language === "en" ? "Open map" : "Buka peta"} ↗</a>
           </div>
         </div>
       </div>

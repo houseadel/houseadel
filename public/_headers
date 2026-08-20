@@ -8,9 +8,14 @@
 # The Content-Security-Policy below is built from what this site actually loads,
 # not from a template. It was verified by serving dist/ with these exact headers
 # and driving every route — including a route transition, so the dissolve's clip
-# and shader both ran — while collecting violation reports: zero, with neither
-# 'unsafe-inline' nor 'unsafe-eval' anywhere in it. Every allowance below has a
-# reason written next to it; if one stops being true, remove it.
+# and shader both ran — while collecting violation reports. Neither 'unsafe-inline'
+# nor 'unsafe-eval' appears in the policy itself, and none of this site's own code
+# needs either. The one report seen (2026-08-19, re-verified against the current
+# build): Zod's own environment probe on /contact and /begin-a-project calls
+# `Function("")` once, inside a try/catch, purely to detect whether the runtime
+# allows it; the policy correctly blocks it and Zod's own catch falls back, so
+# validation on those routes still works exactly as intended. Every allowance
+# below has a reason written next to it; if one stops being true, remove it.
 
 /*
   # HTTPS only, for a year. Subdomains are included because mail.houseadel.com

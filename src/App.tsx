@@ -28,9 +28,6 @@ const TermsPage = lazy(() =>
 const NotFoundPage = lazy(() =>
   import("./pages/NotFoundPage").then((module) => ({ default: module.NotFoundPage })),
 );
-const LoaderLabPage = lazy(() =>
-  import("./labs/loader/LoaderLabPage").then((module) => ({ default: module.LoaderLabPage })),
-);
 
 type RouteMatch = {
   title: string;
@@ -73,10 +70,6 @@ function matchRoute(pathname: string, search: string): RouteMatch {
 
   if (pathname === "/terms") {
     return { title: "Terms — House Adel", element: <TermsPage /> };
-  }
-
-  if (pathname === "/labs-loader") {
-    return { title: "Loader Lab — House Adel", element: <LoaderLabPage /> };
   }
 
 

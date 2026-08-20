@@ -26,7 +26,6 @@ Sound is off by default. WebGL and motion are progressive enhancements. Language
 | `/application-received` | Shows either a confirmed EN/ID receipt or an explicit unconfirmed state. |
 | `/privacy` | Privacy and retention information. |
 | `/terms` | Terms information. |
-| `/labs/loader` | Isolated loader review route retained for regression and fallback testing. |
 
 Unknown routes render an honest not-found state. Production hosting must rewrite document requests to `index.html` while continuing to serve real static assets directly.
 

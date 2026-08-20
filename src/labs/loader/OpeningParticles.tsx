@@ -152,7 +152,14 @@ export function OpeningParticles({
     const unitFor = (w: number, h: number) => Math.min(w * 0.62, h * 0.58);
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      /*
+       * Capped at 1.25 on a narrow viewport, the same ceiling every other canvas
+       * on the site holds to — this one had been left at the flat desktop figure
+       * of 2, which on an actual phone (commonly 2-3 already) drew the opening at
+       * its native resolution instead of the site's mobile budget. A drifting
+       * dust field carries no fine detail for the extra density to serve.
+       */
+      const dpr = Math.min(window.devicePixelRatio || 1, compact ? 1.25 : 2);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.round(width * dpr);

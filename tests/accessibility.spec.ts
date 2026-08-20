@@ -45,9 +45,22 @@ test("skip navigation reaches the main landmark", async ({ page }, testInfo) => 
   await page.goto("/");
   await waitForLoader(page);
   const skipLink = page.getByRole("link", { name: "Skip to main content" });
-  if (testInfo.project.name.includes("webkit")) await skipLink.focus();
-  else await page.keyboard.press("Tab");
-  await expect(skipLink).toBeFocused();
+  if (testInfo.project.name.includes("webkit")) {
+    /*
+     * `.focus()` on an element still `inert` while the opening finishes is a
+     * silent no-op with nothing to retry it, unlike `Tab` below, which gets a
+     * fresh attempt on every one of `toBeFocused`'s polls for free. Retrying
+     * the call ourselves gives WebKit the same tolerance for a loader that is
+     * still legitimately running.
+     */
+    await expect(async () => {
+      await skipLink.focus();
+      await expect(skipLink).toBeFocused();
+    }).toPass({ timeout: 20_000 });
+  } else {
+    await page.keyboard.press("Tab");
+    await expect(skipLink).toBeFocused();
+  }
   await skipLink.press("Enter");
   await expect(page.locator("#main-content")).toBeFocused();
 });
