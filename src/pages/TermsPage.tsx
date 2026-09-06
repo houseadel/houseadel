@@ -69,9 +69,10 @@ export function TermsPage() {
             <>
               <p>
                 House Adel provides creative and digital services that may include creative
-                direction, web design, interface design, interactive web experiences, front-end
-                development, digital invitations, wedding and private-event websites, portfolio
-                websites, artist and musician websites, editorial websites, brand and campaign
+                direction, art direction, web design, interface design, front-end development,
+                interactive web experiences, websites for professional practices and service
+                businesses, portfolio websites, artist and musician websites, editorial websites,
+                brand and campaign websites, digital invitations, wedding and private-event
                 websites, selected e-commerce integrations, and other digital work agreed with a
                 client.
               </p>
@@ -81,8 +82,10 @@ export function TermsPage() {
               </p>
               <p>
                 Unless specifically agreed, House Adel does not provide custom backend
-                infrastructure, photography, ongoing content management, indefinite maintenance, or
-                custom 3D modelling.
+                infrastructure, photography, ongoing content management, indefinite maintenance,
+                custom 3D modelling or original 3D production pipelines, custom hardware or
+                physical installations, virtual-reality or headset applications, real-time
+                multiplayer systems, or native mobile applications.
               </p>
               <p>
                 Additional services, including copywriting, 3D production, advanced integrations,
@@ -930,10 +933,11 @@ export function TermsPage() {
             <>
               <p>
                 House Adel menyediakan layanan kreatif dan digital yang dapat mencakup arahan
-                kreatif, desain web, desain antarmuka, pengalaman web interaktif, pengembangan
-                front-end, undangan digital, situs pernikahan dan acara privat, situs portofolio,
-                situs seniman dan musisi, situs editorial, situs merek dan kampanye, integrasi
-                e-commerce tertentu, serta pekerjaan digital lain yang disepakati dengan klien.
+                kreatif, arahan seni, desain web, desain antarmuka, pengembangan front-end,
+                pengalaman web interaktif, situs untuk firma profesional dan usaha jasa, situs
+                portofolio, situs seniman dan musisi, situs editorial, situs merek dan kampanye,
+                undangan digital, situs pernikahan dan acara privat, integrasi e-commerce tertentu,
+                serta pekerjaan digital lain yang disepakati dengan klien.
               </p>
               <p>
                 Lingkup, hasil kerja, harga dan perkiraan jadwal yang tepat untuk setiap komisi akan
@@ -942,7 +946,9 @@ export function TermsPage() {
               <p>
                 Kecuali disepakati secara khusus, House Adel tidak menyediakan infrastruktur backend
                 khusus, fotografi, pengelolaan konten berkelanjutan, pemeliharaan tanpa batas waktu,
-                atau pemodelan 3D khusus.
+                pemodelan 3D khusus atau alur produksi 3D orisinal, perangkat keras khusus atau
+                instalasi fisik, aplikasi realitas virtual atau headset, sistem multipemain waktu
+                nyata, maupun aplikasi seluler native.
               </p>
               <p>
                 Layanan tambahan, termasuk penulisan naskah, produksi 3D, integrasi lanjutan,

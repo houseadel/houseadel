@@ -21,7 +21,7 @@ async function settle(page: Page) {
 }
 
 const routes = [
-  ["/", "Interactive websites for singular occasions."],
+  ["/", "Art-directed websites for practices, studios and brands, and for singular occasions."],
   ["/marvell-20", "MARVELL 20"],
   ["/studies", "Work made without a brief, to find out how something behaves."],
   ["/contact", "Tell us what is taking shape."],

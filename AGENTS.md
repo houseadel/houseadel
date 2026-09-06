@@ -2,7 +2,9 @@
 
 ## Product
 
-House Adel is an independent web studio working across art direction, interaction design and frontend development for weddings, birthdays, dinners, launches and private events. No individual is named anywhere on the site or in copy: the studio speaks as the studio. The permanent creative direction is **Ceremonial Spatial Editorialism**: formal architectural composition softened by intimate, human material.
+House Adel is an independent web studio working across art direction, interaction design and frontend development. It makes art-directed websites for professional practices, design studios and service brands, and for singular occasions, in that order of emphasis. No individual is named anywhere on the site or in copy: the studio speaks as the studio. The permanent creative direction is **Ceremonial Spatial Editorialism**: formal architectural composition softened by intimate, human material.
+
+The studio's strength is composition: layout, typography, motion, interaction, image treatment, sequencing, scroll behaviour, transitions and creative direction. It does **not** claim original 3D pipelines, in-house 3D production, custom physical or hardware installations, virtual-reality systems, real-time multiplayer experiences, or campaign-scale engineering, and nothing written for this repository may imply otherwise. Supplied 3D assets, a single WebGL object and browser-based on-site tools are all within scope and are described as exactly what they are. `docs/POSITIONING.md` holds the client picture, the three internal service levels and the full capability envelope; the service levels and their prices are internal and never appear publicly.
 
 House Adel's one published project is MARVELL 20, a digital experience created for Marvell Florist's twentieth anniversary. **MARVELL FLORIST is not House Adel work** — never present Marvell Florist's general website, branding or campaigns as House Adel work; only the MARVELL 20 project is shown. Both names use two Ls: MARVELL FLORIST, MARVELL 20.
 

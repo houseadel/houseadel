@@ -169,8 +169,8 @@ export function HomePage() {
         >
           <InkText as="h1" id="home-title" className={styles.headline}>
             {isEnglish
-              ? "Interactive websites for singular occasions."
-              : "Situs interaktif untuk acara yang tak terulang."}
+              ? "Art-directed websites for practices, studios and brands, and for singular occasions."
+              : "Situs dengan arahan seni untuk firma, studio dan merek, dan untuk acara yang tak terulang."}
           </InkText>
           <p className={styles.cue}>{isEnglish ? "Scroll" : "Gulir"}</p>
         </section>

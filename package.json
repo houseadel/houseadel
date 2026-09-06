@@ -2,7 +2,7 @@
   "name": "house-adel",
   "version": "1.0.0",
   "private": true,
-  "description": "House Adel, an independent studio for singular digital occasions.",
+  "description": "House Adel, an independent web studio making art-directed websites.",
   "type": "module",
   "engines": {
     "node": ">=22"

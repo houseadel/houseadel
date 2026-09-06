@@ -15,7 +15,7 @@ describe("site architecture", () => {
     render(<App />);
 
     expect(
-      screen.getByRole("heading", { name: "Interactive websites for singular occasions." }),
+      screen.getByRole("heading", { name: "Art-directed websites for practices, studios and brands, and for singular occasions." }),
     ).toBeInTheDocument();
 
     const navigation = screen.getByRole("navigation", { name: "Primary navigation" });

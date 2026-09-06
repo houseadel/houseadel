@@ -2,15 +2,15 @@
 
 ## Ceremonial Spatial Editorialism
 
-House Adel is an independent web studio working across art direction, interaction design and frontend development for weddings, birthdays, dinners, launches and private events. Its identity joins ceremonial editorial clarity, architectural precision, physical materiality, and restrained creative technology.
+House Adel is an independent web studio working across art direction, interaction design and frontend development, making art-directed websites for professional practices, design studios and service brands, and for singular occasions. Its identity joins ceremonial editorial clarity, architectural precision, physical materiality, and restrained creative technology.
 
 The governing tension is **formal architectural composition softened by intimate, human material**. The site must feel precise without becoming cold, expressive without spectacle, and technologically accomplished without presenting technology as the subject.
 
 ## Position
 
-**Opening:** An occasion, given its own place.
+**Opening:** Art-directed websites for practices, studios and brands, and for singular occasions.
 
-**Support:** House Adel creates interactive websites for weddings, birthdays, dinners, launches and private events — art direction, interaction design and frontend development as one discipline, not handed off in sequence.
+**Support:** House Adel creates art-directed websites for practices, studios and brands, and for singular occasions — art direction, interaction design and frontend development as one discipline, not handed off in sequence. The impact comes from layout, typography, motion, interaction, image treatment, sequencing and transitions, which is a narrower claim than an immersive studio's and a more defensible one. See `docs/POSITIONING.md`.
 
 **Published work:** MARVELL 20, a digital experience created for Marvell Florist's twentieth anniversary. Marvell Florist's general branding is never presented as House Adel work; only the MARVELL 20 project is shown, and only until another genuine House Adel project exists to join it.
 

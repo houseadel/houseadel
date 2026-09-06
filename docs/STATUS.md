@@ -1,6 +1,6 @@
 # Production status
 
-Last updated: 2026-08-19
+Last updated: 2026-09-04
 
 ## Commission inquiry system
 
@@ -37,6 +37,22 @@ Particle-sculpture pointer hits use an exact cursor ray intersection, and first 
 ## Invitation media status
 
 The rebuilt Amara and Daniel invitation now uses a coherent five-image, responsive AVIF/WebP editorial sequence under the Unsplash License: hands, chapel atmosphere, a wide landscape, a dinner detail, and a dusk closing. It contains no procedural photo substitutes or unrelated public-domain paintings. Neutral alternative text does not identify stock subjects as Amara and Daniel, and the chapel photograph is recorded as atmosphere rather than documentary evidence of the named venue. `docs/INVITATION_MEDIA.md` records the sources and the five couple-owned replacements required before adapting the experience for a real wedding. The story note remains explicitly provisional. Optional music remains disabled until a cleared track is supplied.
+
+## Development environment, 2026-09-04
+
+`npm run dev` served the site completely unstyled and had been doing so independently of any copy work. The page's own Content-Security-Policy sets `style-src 'self'`, which a production build satisfies with a linked stylesheet but the dev server cannot, because it injects CSS as inline `<style>` elements. A serve-only Vite plugin now adds `'unsafe-inline'` to that one directive in development; the built policy is unchanged and verified byte-identical. Reasoning in `docs/DECISIONS.md`.
+
+Worth knowing for the next person: nothing in the verification suite loads the dev server. `scripts/serve-tests.mjs` builds and previews, so lint, unit, Playwright, accessibility and visual checks all pass against production output while dev is broken. A dev-only regression will not be caught by `npm run test:e2e`.
+
+## Positioning, 2026-09-04
+
+The studio's public description changed and the site's structure did not. House Adel led with "interactive websites for weddings, birthdays, dinners, launches and private events," which read as an invitation supplier; it now leads with art-directed websites for practices, studios and brands, and names singular occasions in a trailing clause of the same sentence. The home statement, the meta description, the Open Graph and Twitter cards, the package description and the Terms service list all carry the new order. Events remain real work and MARVELL 20 remains the one published project, which is why they stayed on the site rather than being dropped.
+
+Three service levels now exist for quoting and scope control, recorded in the new `docs/POSITIONING.md`. They are internal: no tier names and no prices appear on the site, and no budget question was added to the enquiry form, so the standing ban on price and budget copy in `docs/VOICE.md` is intact.
+
+The same document records a capability envelope, carried as a hard rule in `docs/VOICE.md` and a product constraint in `AGENTS.md`: the studio does not claim original 3D pipelines, in-house 3D production, custom physical or hardware installations, virtual-reality systems, real-time multiplayer experiences, or campaign-scale engineering. `src/pages/TermsPage.tsx` excludes the same list contractually in both languages, so the positioning and the contract agree. The decision and its reasoning are in `docs/DECISIONS.md`.
+
+Nothing here is outstanding launch work. `README.md` and `docs/INFORMATION_ARCHITECTURE.md` were also corrected in this pass: both still described the superseded Editions/Commissions routes that no longer exist.
 
 ## Current review milestone
 

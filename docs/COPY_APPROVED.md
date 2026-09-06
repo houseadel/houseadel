@@ -1,8 +1,10 @@
 # House Adel — Approved Copy
 
-Last updated: 2026-08-06
+Last updated: 2026-09-04
 
-This is the canonical English copy source of truth, recorded verbatim from the approved copy-replacement brief. It supersedes all earlier "wedding invitation Editions / Private Commissions" copy across the site. When editing any page's English strings, check the relevant section here first — the rule is no paraphrase, no added headings, no added sections, no invented services/process/pricing copy. `docs/VOICE.md` states the operating rules for anything not already fixed here (Indonesian translation, new copy this brief doesn't cover). See `docs/DECISIONS.md` for the recorded pivot this brief produced.
+This is the canonical English copy source of truth, recorded verbatim from the approved copy-replacement brief. It supersedes all earlier "wedding invitation Editions / Private Commissions" copy across the site. When editing any page's English strings, check the relevant section here first — the rule is no paraphrase, no added headings, no added sections, no invented services/process/pricing copy. `docs/VOICE.md` states the operating rules for anything not already fixed here (Indonesian translation, new copy this brief doesn't cover). See `docs/DECISIONS.md` for the recorded pivots this brief and its 2026-09-04 successor produced.
+
+A second brief, on 2026-09-04, changed who the studio addresses without changing how it speaks. House Adel now leads with art-directed websites for professional practices, design studios and service brands, and names singular occasions second rather than first. `docs/POSITIONING.md` holds the client picture, the three internal service levels and the capability envelope that decides what may and may not be claimed; the sections below are the copy that positioning produced. The service levels and their prices are internal and do not appear on the site.
 
 ## Facts
 
@@ -17,7 +19,7 @@ This is the canonical English copy source of truth, recorded verbatim from the a
 
 ## Removed from the site
 
-All copy containing or referring to: wedding websites composed as private worlds; private worlds; begin a commission; private commissions; commission/commissions; application/applicant/applying; investment/minimum investment/budget/budget ranges; what the House accepts; practical boundaries; the complete form; the process/our process; services/our services; future record(s); reserved; Study 01; House Adel Study; self-initiated study; created once/never repeated; the beginning may be yours; begin with your world; personal fragments; made legible; the request/the response/the glimpse; the story; every love story; timeless; bespoke; atelier; maison; exclusive; elevated; curated; "a wedding is taking shape"; "wedding websites and digital invitations" as the primary homepage headline. Also removed: all fictional projects, empty project placeholders, fake availability/pricing claims, budget questions, public process explanations, capability cards, sections separating RSVP/schedules/languages/guest information into separate products, any presentation of Marvell Florist as House Adel work, the separate Commissions/Services/Process/The House routes, the large multi-step application, and any location in the header or footer (no Jakarta; no Batam unless deliberately added later — Batam appears only in the MARVELL 20 project copy below, which is a project fact, not studio location branding).
+All copy containing or referring to: wedding websites composed as private worlds; private worlds; begin a commission; private commissions; commission/commissions; application/applicant/applying; investment/minimum investment/budget/budget ranges; what the House accepts; practical boundaries; the complete form; the process/our process; services/our services; future record(s); reserved; Study 01; House Adel Study; self-initiated study; created once/never repeated; the beginning may be yours; begin with your world; personal fragments; made legible; the request/the response/the glimpse; the story; every love story; timeless; bespoke; atelier; maison; exclusive; elevated; curated; "a wedding is taking shape"; "wedding websites and digital invitations" as the primary homepage headline; "interactive websites for singular occasions" and any other headline that makes events the studio's primary market; "an occasion, given its own place"; "weddings, birthdays, dinners, launches and private events" as the studio's description of itself. Also removed: all fictional projects, empty project placeholders, fake availability/pricing claims, budget questions, public process explanations, capability cards, sections separating RSVP/schedules/languages/guest information into separate products, any presentation of Marvell Florist as House Adel work, the separate Commissions/Services/Process/The House routes, the large multi-step application, and any location in the header or footer (no Jakarta; no Batam unless deliberately added later — Batam appears only in the MARVELL 20 project copy below, which is a project fact, not studio location branding).
 
 ## Public website structure
 
@@ -50,11 +52,10 @@ No fake loading percentage. No descriptive copy on the loader.
 **Opening**
 ```
 HOUSE ADEL
-An occasion, given its own place.
-House Adel creates interactive websites for weddings, birthdays, dinners, launches and private events.
-View Work
-Begin a Project
+Art-directed websites for practices, studios and brands, and for singular occasions.
+Art direction, interaction design and frontend development, built as one.
 ```
+Two statements, in that order: who the work is for, then what the work is. The first names practices, studios and brands ahead of occasions, and the trailing clause is the whole of the events claim. No third statement, and no capability list.
 
 **Work section**
 ```
@@ -78,7 +79,7 @@ The studio works across art direction, interaction design and frontend developme
 ```
 CONTACT
 Tell us what is taking shape.
-Share the occasion, the date if known and what the website should help people do.
+Share what you are planning, the date if known and what the website should help people do.
 Begin a Project
 hello@houseadel.com
 Instagram @thehouseadel
@@ -176,10 +177,10 @@ How can we reach you? Choose WhatsApp, Instagram, or Email first.
 WhatsApp: Choose a country calling code, then enter a valid phone number.
 Instagram: Enter @username or a complete Instagram profile link.
 Email: Enter a valid email address.
-What are you planning? Describe the occasion in your own words. (do not force a category selection)
-When is it for? Optional. An approximate date is enough.
-What should the website help people do? May include receiving an invitation, confirming attendance, viewing information, following a schedule or accessing private details. (presented as one question, not separate products)
-Tell us something that belongs to this project: It could be a place, a memory, an object, a photograph, a piece of music, a tradition, or something completely different.
+What are you planning? Describe it in your own words. (do not force a category selection)
+When does this need to be ready? Optional. An approximate date is enough.
+What should the website help people do? May include understanding the work, making contact, viewing information, following a schedule, receiving an invitation or confirming attendance. (presented as one question, not separate products)
+Tell us something that belongs to this project: It could be a place, a material, an object, a photograph, a piece of music, a way of working, or something completely different.
 Anything you would like us to see? Google Drive, Pinterest, Instagram, Figma, Are.na, Dropbox, a website, a film, anything useful. Links only.
 Anything else we should know? Optional
 ```

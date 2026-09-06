@@ -1,6 +1,6 @@
 # Production decisions
 
-Last updated: 2026-08-17
+Last updated: 2026-09-04
 
 ## Accepted
 
@@ -162,6 +162,8 @@ GSAP's former Club GreenSock plugins, including `SplitText` and `ScrollSmoother`
 `ScrollSmoother` was evaluated and not adopted. Its required `#smooth-wrapper > #smooth-content` structure would need to wrap the router outlet permanently; `src/components/layout/SiteLayout.tsx` re-keys its content root by `pathname` per route, and `src/components/motion/PageTransition.tsx` drives a fixed-position cover/reveal overlay against normal document scroll. Wrapping both in a transformed smooth-scroll container is a structural change disproportionate to a cosmetic smoothness gain, and conflicts with the standing "no Lenis, native scrolling required" position recorded above. Native scrolling plus `ScrollTrigger`-driven parallax/reveal remains the architecture.
 
 ### Replace the wedding-Edition product framing with the real MARVELL 20 project
+
+The audience half of this entry is superseded by the 2026-09-04 entry below: the studio no longer describes itself by its events list. Everything else here still holds.
 
 A 2026-08-06 verbatim copy-and-structure brief superseded the "wedding invitation Editions / Private Commissions" product framing and its self-initiated "House Adel Study" placeholder system entirely. House Adel is now presented plainly as an independent web studio led by Marshall Phan, working across weddings, birthdays, dinners, launches and private events, with one real published project: MARVELL 20, a digital experience created for Marvell Florist's twentieth anniversary. Marvell Florist's general branding is explicitly excluded from ever being presented as House Adel work — only the MARVELL 20 project is shown. `docs/COPY_APPROVED.md` records the brief's copy verbatim as the new canonical source; `docs/VOICE.md` was rewritten to the brief's literal writing rules (no em dashes, no fashion-luxury vocabulary, no "commission"/"investment," no budget or price mentions anywhere on the site).
 
@@ -367,6 +369,34 @@ Six changes, and three of them supersede copy this repository had previously fix
 **The ending exhales instead of announcing itself.** The footer was a second hero: a ticker in a pill, the name at nineteen viewport widths bleeding off both edges, a particle sculpture cutting through it, an action, a navigation, a social row and a copyright bar, arriving against the dark site along a hard tonal edge. It is one invitation now, in the studio's own approved words, with everything else set as the administrative matter it is — and on the contact routes even the invitation is dropped, because asking someone to get in touch while they are filling in the contact form is the footer talking over the page. The tonal change is a ramp over more than a screen of travel rather than a flip, so there is no line anywhere at which one ground becomes the other. Immersive Garden was reviewed as behavioural reference only: what was taken is the principle that an ending should get quieter as it resolves, not any part of its appearance.
 
 **Two smaller ones.** Active Theory was consulted for exactly one thing and one thing was taken: a dark viewport should have tonal structure rather than being a flat black rectangle. `ViewportAtmosphere` is two off-axis vignette ellipses, a trace of cool grey at the extreme edges under `screen` blending, and a little fixed noise to keep very shallow gradients from banding — no colour, no glow, no implied light source, and it should only be obvious next to a before. And the mobile forest is now its own arrangement rather than the desktop one with plants removed: a single legible tree standing on the ground left of centre, a much dimmer one far behind it for separation, and undergrowth scattered across four depths with a deliberate gap in the middle distance, because what was there read as a row of landscaping.
+
+### 2026-09-04 — The dev server gets its own CSP, because the real one makes it unstyled
+
+**The symptom.** `npm run dev` served the site with no styling at all: the mark at full page width, a default-blue skip link, Times on a transparent ground. Production was never affected and neither was `vite preview`.
+
+**The cause.** `index.html` carries a real Content-Security-Policy for the hosts that never see `public/_headers`, and its `style-src` is `'self'` with no `'unsafe-inline'`. That is correct for every host that tag was written for, because a production build emits CSS as a linked stylesheet from this origin. The dev server does not: it delivers every CSS module as an inline `<style>` element. Measured on Home, dev had seventeen `<style>` tags carrying text, `document.styleSheets.length` of zero and zero applied rules; the same page under `vite preview` had one linked stylesheet and 173 applied rules. Every stylesheet was being refused.
+
+**Why nothing caught it.** `scripts/serve-tests.mjs` runs `npm run build` and then `vite preview`, so Playwright, the accessibility scan and the visual baselines all exercise the production path. No check in the repository ever loads the dev server, which is exactly the one environment the policy is wrong for. The suite was green throughout.
+
+**The fix is a serve-only plugin, not a weaker policy.** `house-adel:dev-csp-inline-styles` in `vite.config.ts` rewrites `style-src 'self'` to add `'unsafe-inline'`, under `apply: "serve"` so it does not exist during a build. The built `index.html` is byte-identical to the source policy, verified: `style-src 'self'`, no `'unsafe-inline'` anywhere in the output.
+
+Only that one directive is relaxed, and only in dev. The rest of the policy stays live while developing on purpose, so a `script-src` or `connect-src` mistake still surfaces in the console at the time it is written rather than at preview time. The plugin throws if it cannot find `style-src 'self'` in the HTML, because the failure it replaces was silent and a silent re-break is worse than a loud one.
+
+### 2026-09-04 — The studio leads with practices and brands, and stops selling events first
+
+**What changed and what did not.** The site's register, structure, navigation and creative direction are untouched. What changed is who the copy addresses. The studio described itself as making "interactive websites for weddings, birthdays, dinners, launches and private events," which read as an invitation supplier and gave a law firm, an architecture studio or a boutique hotel nothing to recognise themselves in. It now leads with art-directed websites for professional practices, design studios and service brands, and names singular occasions second, in a trailing clause of the same sentence. Events remain real, welcome work. They are no longer the headline.
+
+**The home statement is one sentence longer and says who before what.** "Art-directed websites for practices, studios and brands, and for singular occasions." replaces "Interactive websites for singular occasions." The second screen is unchanged: "Art direction, interaction design and frontend development, built as one." The order is deliberate — the first statement is the audience, the second is the discipline — and both were already the two statements Home carries, so nothing was added to the page.
+
+**MARVELL 20 still fits, which is why events stayed.** The one published project is an anniversary event for a florist. Dropping events entirely would have left the single piece of evidence sitting slightly outside the pitch; keeping them as a secondary clause means the project reads naturally under both halves of the sentence. Its own copy is a statement of fact about a delivered project and was not touched.
+
+**The three service levels are internal and stay internal.** Art-Directed Website (US$3,000 to 6,000), Interactive Website (US$5,000 to 10,000) and Experimental Front End (US$8,000 and up) are recorded in `docs/POSITIONING.md`. They shape scope and quoting; they do not appear on the site, in the enquiry form, or in any public writing. `docs/VOICE.md`'s standing ban on price, budget and investment copy is unchanged and was explicitly not lifted, and no budget question was added to the enquiry form. Publishing the bands would filter enquiries harder, and that trade was considered and declined: the site's whole argument is made by how it behaves, and a price list is the one element that gets read before the argument does.
+
+**A capability envelope is now written down.** The studio borrows taste and interaction philosophy from studios working several tiers above it in engineering depth, and the risk of that is claiming their capabilities alongside their judgement. `docs/POSITIONING.md` records what may never be claimed: original 3D pipelines, in-house 3D production, custom physical or hardware installations, virtual-reality systems, real-time multiplayer experiences, campaign-scale engineering. `docs/VOICE.md` carries it as a hard rule and `AGENTS.md` as a product constraint, so it binds copy and code review rather than living in one document nobody opens. `src/pages/TermsPage.tsx` already excluded custom backend infrastructure and custom 3D modelling; the same clause now excludes the rest, in both languages, so the contract and the positioning say the same thing.
+
+The line drawn is between using a technique and claiming a pipeline. A supplied 3D model is fine. One interactive WebGL object is fine. A browser-based tool run on site, which is what MARVELL 20 actually shipped, is fine and is described as exactly that.
+
+**The enquiry form was neutralised, not rewritten.** Its structure and its one unusual question are unchanged. Three strings were event-specific and are not any more: the Indonesian date field asked "Kapan acaranya?" ("When is the event?"), the English asked "When is it for?", and the prompt for something belonging to the project offered "a memory, a photograph, a tradition." They now ask when the work needs to be ready and offer "a material, a way of working." A law firm and a wedding can both answer the form without either feeling it was written for the other.
 
 ### 2026-08-17 — A third chapter, and the invitation leaves the work index
 
